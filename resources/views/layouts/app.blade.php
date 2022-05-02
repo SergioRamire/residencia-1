@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,34 +12,57 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
         @livewireStyles
+        @stack('styles')
+        <style>[x-cloak]{display: none}</style>
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        @stack('scripts')
     </head>
     <body class="font-sans antialiased">
-        <x-jet-banner />
+        <div x-data="{ sidebarOpen: false } " @keydown.escape.window="sidebarOpen = false">
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+            <!-- Parte izquierda -->
+            <x-sidebar/>
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+            <!-- Parte derecha -->
+            <div class="md:pl-64 flex flex-col flex-1 min-h-screen">
+                <x-nav/>
+
+                <main class="flex-1">
+                    <div class="pt-6">
+
+                        <!-- Cabecera -->
+                        @if(isset($header))
+                            <header class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                                {{ $header }}
+                            </header>
+                        @endif
+
+                        <!-- Contenido -->
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                            {{ $slot }}
+                        </div>
                     </div>
-                </header>
-            @endif
+                </main>
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <x-footer/>
+            </div>
         </div>
 
         @stack('modals')
+
+        <!-- Notificaciones -->
+        <div aria-live="assertive" class="fixed top-16 bottom-0 left-0 right-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start">
+            <div class="w-full flex flex-col items-center space-y-4 sm:items-end">
+
+                <x-notification/>
+
+            </div>
+        </div>
+
+        <x-back-top/>
 
         @livewireScripts
     </body>
