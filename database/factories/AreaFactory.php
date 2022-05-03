@@ -20,7 +20,7 @@ class AreaFactory extends Factory
             'clave' => $this->faker->unique()->randomNumber('4', true),
             'nombre' => $this->faker->unique()->randomElement([
                 'Depto. de Ciencias Básicas',
-                'Depto. de Mecánica',
+                'Depto. de Metal Mecánica',
                 'Depto. de Sistemas y Computación',
                 'Depto. de Ciencias de la Tierra',
                 'Depto. de Ingeniería Química',
