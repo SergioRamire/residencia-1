@@ -26,14 +26,14 @@ return new class extends Migration
             $table->string('sexo')->nullable();
             $table->string('carrera')->nullable();
             $table->string('tipo')->nullable();
-            $table->string('cuenta_moodle')->nullable();
+            $table->boolean('cuenta_moodle')->nullable();
             $table->string('organizacion_origen')->nullable();
             $table->string('clave_presupuestal')->nullable();
             $table->string('estudio_maximo')->nullable();
             $table->string('correo_tecnm')->nullable();
             $table->string('puesto')->nullable();
-            $table->string('hora_entrada')->nullable();
-            $table->string('hora_salida')->nullable();
+            $table->time('hora_entrada')->nullable();
+            $table->time('hora_salida')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
