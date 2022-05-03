@@ -24,7 +24,6 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-
         $nombre = $this->faker->firstName();
         $apellido_paterno = $this->faker->lastName();
         $correo_id = $nombre.'.'.$apellido_paterno;
@@ -51,7 +50,8 @@ class UserFactory extends Factory
                 'Ingeniería Eléctrica',
                 'Ingeniería en Gestión Empresarial',
                 'Ingeniería en Sistemas Computacionales',
-                'Ingeniería en Administración',]),
+                'Ingeniería en Administración',
+            ]),
             'clave_presupuestal' => $this->faker->regexify('[0-9A-Z]{30}'),
             'organizacion_origen' => $this->faker->sentence(1),
             'estudio_maximo' => $this->faker->sentence(),
