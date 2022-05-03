@@ -27,6 +27,22 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'apellido_materno',
+        'apellido_paterno',
+        'rfc',
+        'curp',
+        'tipo',
+        'sexo',
+        'carrera',
+        'clave_presupuestal',
+        'organizacion_origen',
+        'estudio_maximo',
+        'cuenta_moodle',
+        'puesto',
+        'hora_entrada',
+        'hora_salida',
+        'correo_tecnm',
+        'area_id',
     ];
 
     /**
@@ -58,4 +74,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
+
+    public function inscriptions()
+    {
+        return $this->hasMany(Inscription::class);
+    }
 }
