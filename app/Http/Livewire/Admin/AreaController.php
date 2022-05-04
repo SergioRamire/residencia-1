@@ -44,11 +44,11 @@ class AreaController extends Component
     private function validateInputs()
     {
         $this->validate([
-            'nombre' => ['required', 'regex:/^[a-zA-Z .\sñáéíóúÁÉÍÓÚ]+$/'],
-            'jefe' => ['required', 'regex:/^[a-zA-Z\sñáéíóúÁÉÍÓÚ]+$/'],
-            'extension' => ['required', 'regex:/^[0-9]+$/'],
-            'clave' => ['required', 'regex:/^[a-zA-Z0-9]+$/'],
-            'telefono' => ['required', 'regex:/^[0-9]+$/'],
+            'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'jefe' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'extension' => ['required', 'numeric'],
+            'clave' => ['required', 'alpha_num'],
+            'telefono' => ['required', 'numeric'],
 
         ]);
     }

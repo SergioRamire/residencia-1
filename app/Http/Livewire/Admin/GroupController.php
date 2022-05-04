@@ -36,8 +36,8 @@ class GroupController extends Component
     private function validateInputs()
     {
         $this->validate([
-            'capacidad' => ['required', 'regex:/^[0-9]+$/'],
-            'nombre' => ['required', 'regex:/^[a-zA-Z\sñáéíóúÁÉÍÓÚ]+$/'],
+            'capacidad' => ['required', 'numeric'],
+            'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
 
         ]);
     }

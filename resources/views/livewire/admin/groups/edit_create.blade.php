@@ -8,13 +8,13 @@
 
                 <!-- Grupo -->
                 <div class="mt-4">
-                    <x-jet-label for="Nombre" value="{{ __('Nombre') }}" />
+                    <x-jet-label for="Nombre" value="Nombre" />
                     <x-input.error wire:model.defer="nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="nombre" required/>
                 </div>
 
                 <!-- Capacidad -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="cap" value="{{ __('Capacidad') }}" />
+                    <x-jet-label for="cap" value="Capacidad" />
                     <x-input.error wire:model.defer="capacidad" class="block mt-1 w-full" type="number" id="capacidad" name="capacidad" for="capacidad" maxlength="2" required/>
                 </div>
 
