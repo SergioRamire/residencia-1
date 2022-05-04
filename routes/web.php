@@ -25,4 +25,6 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    
+    Route::get('datos/personales', \App\Http\Livewire\Admin\Datos\Personales::class)->name('datos.personales');
 });
