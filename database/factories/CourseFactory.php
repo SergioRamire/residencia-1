@@ -36,7 +36,7 @@ class CourseFactory extends Factory
             'duracion' => $this->faker->numberBetween(1, 5),
             'observaciones' => $this->faker->paragraph(),
             'dirigido' => implode(', ', $dirigido),
-            'perfil' => $this->faker->randomElement(['Formación docente', 'Actualización docente']),
+            'perfil' => $this->faker->randomElement(['Formación docente', 'Actualización profesional']),
         ];
     }
 }
