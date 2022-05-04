@@ -25,8 +25,4 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-    Route::get('calificaciones', \App\Http\Livewire\Admin\GradeController::class)->name('grades');
-    Route::get('areas', \App\Http\Livewire\Admin\AreaController::class)->name('area');
-    Route::get('grupos', \App\Http\Livewire\Admin\GroupController::class)->name('group');
-    Route::get('inscripciones', \App\Http\Livewire\Admin\InscriptionController::class)->name('inscriptions');
 });
