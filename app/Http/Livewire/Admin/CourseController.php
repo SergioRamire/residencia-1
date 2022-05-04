@@ -173,7 +173,7 @@ class CourseController extends Component
             'courses' => Course::query()
                 ->when($this->filters['modalidad'], fn ($query, $modalidad) => $query->where('modalidad', $modalidad))
                 ->when($this->filters['perfil'], fn ($query, $perfil) => $query->where('perfil', $perfil))
-                ->when($this->search, fn($query, $search) => $query->where('nombre', 'like', "%$this->search%"))
+                ->when($this->search, fn ($query, $search) => $query->where('nombre', 'like', "%$this->search%"))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
         ]);
