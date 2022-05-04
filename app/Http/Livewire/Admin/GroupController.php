@@ -135,7 +135,6 @@ class GroupController extends Component
 
     public function render()
     {
-
         return view('livewire.admin.groups.index', [
             'groups' => Group::where('nombre', 'like', '%'.$this->search.'%')
                      ->orWhere('capacidad', 'like', '%'.$this->search.'%')

@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Coursesdetail;
+use App\Models\Group;
 use App\Models\Groupassignment;
 use App\Models\Inscription;
-use App\Models\Group;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
