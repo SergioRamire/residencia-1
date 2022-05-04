@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Course;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -32,16 +33,19 @@ class CourseController extends Component
         'sortDirection',
     ];
 
-    protected $rules = [
-        'course.clave' => 'required|alpha_dash|max:10|unique:courses,clave',
-        'course.nombre' => 'required|string|max:255',
-        'course.objetivo' => 'required|string|max:255',
-        'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
-        'course.duracion' => 'required|integer|max:50',
-        'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
-        'course.dirigido' => 'required|max:255',
-        'course.observaciones' => 'present|max:255',
-    ];
+    public function rules()
+    {
+        return [
+            'course.clave' => ['required', 'alpha_dash', 'max:10', Rule::unique('courses', 'clave')->ignore($this->course)],
+            'course.nombre' => 'required|string|max:255',
+            'course.objetivo' => 'required|string|max:255',
+            'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
+            'course.duracion' => 'required|integer|max:50',
+            'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
+            'course.dirigido' => 'required|max:255',
+            'course.observaciones' => 'present|max:255',
+        ];
+    }
 
     public function mount()
     {
