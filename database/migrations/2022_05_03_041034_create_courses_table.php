@@ -22,7 +22,7 @@ return new class extends Migration
             $table->tinyInteger('duracion');
             $table->string('modalidad', 20);
             $table->string('dirigido');
-            $table->text('observaciones');
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }
