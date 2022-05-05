@@ -21,8 +21,7 @@ class ConstanciasController extends Component
         'filtro_curso' => '',
         'filtro_calificacion'=>'',
     ];
-    public $par='Instructor';
-
+    public $par = 'Instructor';
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -40,7 +39,7 @@ class ConstanciasController extends Component
             ->join('courses', 'courses.id', '=', 'coursesdetails.course_id')
             // ->join('groupassignments', 'groupassignments.coursesdetail_id', '=', 'coursesdetails.id')
             // ->join('groups', 'groups.id', '=', 'groupassignments.group_id')
-            ->select('users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.calificacion', 'inscriptions.estatus', 'users.id as i','coursesdetails.id')
+            ->select('users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.calificacion', 'inscriptions.estatus', 'users.id as i', 'coursesdetails.id')
             ->where('inscriptions.estatus', '=', 'Participante')
             ->when($this->search, function ($query, $b) {
                 return $query->where(function ($q) {
@@ -48,7 +47,6 @@ class ConstanciasController extends Component
                       ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%')
                       ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
                       ->orWhere('inscriptions.calificacion', 'like', '%'.$this->search.'%');
-
                 });
             })
             ->when($this->filters['filtro_curso'], function ($query, $b) {
@@ -58,10 +56,11 @@ class ConstanciasController extends Component
             })
             ->when($this->filters['filtro_calificacion'], function ($query, $b) {
                 return $query->where(function ($q) {
-                    if($this->filters['filtro_calificacion'] == 69)
-                        $q->where('inscriptions.calificacion','>',69);
-                    elseif($this->filters['filtro_calificacion'] == 70)
-                       $q->where('inscriptions.calificacion','<',70);
+                    if ($this->filters['filtro_calificacion'] == 69) {
+                        $q->where('inscriptions.calificacion', '>', 69);
+                    } elseif ($this->filters['filtro_calificacion'] == 70) {
+                        $q->where('inscriptions.calificacion', '<', 70);
+                    }
                 });
             })
             ->orderBy('users.name', 'asc')
@@ -86,7 +85,7 @@ class ConstanciasController extends Component
 
     public function resetFilters2()
     {
-         $this->reset('filters');
+        $this->reset('filters');
     }
 
     public function obtenerCursos()

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 // use App\Http\Livewire\UserController;
 
 // use App\Http\Livewire\Admin\UserController;

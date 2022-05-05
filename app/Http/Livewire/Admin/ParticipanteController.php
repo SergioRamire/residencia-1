@@ -1,14 +1,14 @@
 <?php
 
 // namespace App\Http\Livewire;
+
 namespace App\Http\Livewire\Admin;
 
-use App\Models\User;
 use App\Models\Area;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-
 
 class ParticipanteController extends Component
 {
@@ -65,13 +65,10 @@ class ParticipanteController extends Component
     public $tieneCM = 'Tiene cuenta Moodle';
     public $notieneCM = 'No tiene cuenta Moodle';
 
-
     protected $queryString = [
         'search' => ['except' => ''],
         'perPage',
     ];
-
-
 
     public function render()
     {
@@ -79,7 +76,7 @@ class ParticipanteController extends Component
 
         return view('livewire.admin.participante.index', [
             'view' => User::join('areas', 'areas.id', '=', 'users.area_id')
-                ->select('users.id', 'users.rfc', 'users.name as name', 'users.apellido_paterno', 'users.apellido_materno', 'users.clave_presupuestal', 'users.cuenta_moodle','areas.nombre as area')
+                ->select('users.id', 'users.rfc', 'users.name as name', 'users.apellido_paterno', 'users.apellido_materno', 'users.clave_presupuestal', 'users.cuenta_moodle', 'areas.nombre as area')
                 ->when($this->search, function ($query, $b) {
                     return $query->where(function ($q2) {
                         $q2->where('rfc', 'like', '%'.$this->search.'%')
@@ -150,17 +147,16 @@ class ParticipanteController extends Component
         $this->resetPage();
     }
 
-
     // Resetea la busqueda
     public function resetFilters()
     {
         $this->reset('search');
     }
 
-     // Resetea los filtros
+    // Resetea los filtros
     public function resetFilters2()
     {
-         $this->reset('filters');
+        $this->reset('filters');
     }
 
     public function openModal()
@@ -257,7 +253,7 @@ class ParticipanteController extends Component
         $this->puesto = $participante->puesto;
         $this->hora_entrada = $participante->hora_entrada;
         $this->hora_salida = $participante->hora_salida;
-        $this->cuenta_moodle= $participante->cuenta_moodle;
+        $this->cuenta_moodle = $participante->cuenta_moodle;
         $this->organizacion_origen = $participante->organizacion_origen;
         $this->area_id = $participante->area_id;
         $this->sexo_f;
@@ -291,7 +287,7 @@ class ParticipanteController extends Component
         $this->hora_salida = $participante->hora_salida;
         $this->area_id = $participante->area_id;
         $this->organizacion_origen = $participante->organizacion_origen;
-        $this->cuenta_moodle= $participante->cuenta_moodle;
+        $this->cuenta_moodle = $participante->cuenta_moodle;
         // manda habrir el modal para poder editar los campos
         $this->edit = true;
         $this->create = false;
@@ -299,6 +295,4 @@ class ParticipanteController extends Component
         // valida los campos para limpiar el modal y elimine si hay errores anteriores
         $this->validateInputs();
     }
-
-
 }
