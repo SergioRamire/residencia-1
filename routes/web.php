@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+// use App\Http\Livewire\UserController;
+
+// use App\Http\Livewire\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +20,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:web',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+// Route::middleware([
+//     'auth:web',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/dashboard', function () {
+//         return view('dashboard');
+//     })->name('dashboard');
+// });
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('participantes', \App\Http\Livewire\Admin\ParticipanteController::class);
+    Route::get('cons', \App\Http\Livewire\Admin\ConstanciasController::class);
+    // Route::resource('users', \App\Http\Livewire\Admin\UserController::class);
+    // Route::resource('roles', RolController::class)->names('admin.roles');
 });
