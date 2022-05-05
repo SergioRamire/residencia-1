@@ -15,12 +15,12 @@ class GradeController extends Component
 {
     use WithPagination;
 
-    public Grade $grade;
+    public Inscription $grade;
     public $perPage = '5';
     public $search = '';
     public $calificacion;
     public $participante;
-    public $curso = 'Atque pariatur eveniet.';
+    public $curso = 'Quis qui quos quo.';
     public $grupo = 24;
     public $isOpen = false;
     public $grade_id;
@@ -44,7 +44,7 @@ class GradeController extends Component
     private function validateInputs()
     {
         $this->validate([
-            'calificacion' => ['required', 'regex:/^[0-9]+$/'],
+            'calificacion' => ['required', 'numeric'],
 
         ]);
     }
@@ -59,41 +59,38 @@ class GradeController extends Component
         $this->isOpen = false;
     }
 
-    // public function store()
-    // {
-    //     $this->validateInputs();
-    //     Grade::updateOrCreate(['id' => $this->grade_id], [
-    //         'calificacion' => $this->calificacion,
-    //     ]);
-    //     $this->confirmingSaveArea = false;
+    public function store()
+    {
+        $this->validateInputs();
+        Inscription::updateOrCreate(['id' => $this->grade_id], [
+            'calificacion' => $this->calificacion,
+        ]);
+        $this->confirmingSaveArea = false;
 
-    //     $this->dispatchBrowserEvent('notify', [
-    //         'icon' => 'pencil',
-    //         'message' => 'Calificación actualizada exitosamente',
-    //     ]);
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'pencil',
+            'message' => 'Calificación actualizada exitosamente',
+        ]);
 
-    //     $this->confirmingSaveGrade = false;
-    //     $this->closeModal();
-    // }
+        $this->confirmingSaveGrade = false;
+        $this->closeModal();
+    }
 
-    // public function edit($id)
-    // {
-    //     $grade = Inscription::join('groups', 'grades.group_id', '=', 'groups.id')
-    //             ->join('courses', 'groups.course_id', '=', 'courses.id')
-    //             ->join('participants', 'grades.participant_id', '=', 'participants.id')
-    //             ->where('grades.id', '=', $id)
-    //             ->select('grades.id', DB::raw("concat(participants.nombre,' ',participants.apellido_paterno,' ', participants.apellido_materno)as nombre"), 'courses.nombre as curso', 'grades.group_id', 'grades.calificacion')
-
-    //             ->first();
-    //     // ->select('grades.id','participants.nombre as nombre','courses.nombre as curso','grades.group_id','grades.calificacion');
-    //     $this->grade_id = $id;
-    //     $this->participante = $grade->nombre;
-    //     $this->curso = $grade->curso;
-    //     $this->grupo = $grade->group_id;
-    //     $this->calificacion = $grade->calificacion;
-    //     $this->validateInputs();
-    //     $this->openModal();
-    // }
+    public function edit($id)
+    {
+        $grade = Inscription::join('users', 'users.id', '=', 'user_id')
+                ->join('coursesdetails', 'coursesdetails.id', '=', 'inscriptions.coursesdetail_id')
+                ->join('courses', 'courses.id', '=', 'coursesdetails.course_id')
+                ->where('inscriptions.id', '=', $id)
+                ->select('inscriptions.id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'inscriptions.calificacion')
+                ->first();
+        $this->grade_id = $id;
+        $this->participante = $grade->nombre;
+        $this->curso = $grade->curso;
+        $this->calificacion = $grade->calificacion;
+        $this->validateInputs();
+        $this->openModal();
+    }
 
     public function obtenerCurso()
     {
@@ -115,8 +112,8 @@ class GradeController extends Component
                      ->join('groupassignments', 'groupassignments.coursesdetail_id', '=', 'coursesdetails.id')
                      ->join('groups', 'groups.id', '=', 'groupassignments.group_id')
                      ->where('groupassignments.coursesdetail_id', '=', 6)
-                     ->where('groups.id', '=', 2)
-                     ->select('inscriptions.user_id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.calificacion')
+                     ->where('groups.id', '=', 3)
+                     ->select('inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.calificacion')
                      ->when($this->search, function ($query, $b) {
                          return $query->where(function ($q) {
                              $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
