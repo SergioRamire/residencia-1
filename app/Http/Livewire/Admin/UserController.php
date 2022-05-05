@@ -45,7 +45,7 @@ class UserController extends Component
                 'user.apellido_materno' => ['present', 'max:255'],
                 'user.email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
                 'password' => array_replace($this->passwordRules(), [0 => 'present']),
-                'password_confirmation' => 'present',
+                'password_confirmation' => ['present'],
             ];
         } else {
             return [
@@ -54,7 +54,7 @@ class UserController extends Component
                 'user.apellido_materno' => ['present', 'max:255'],
                 'user.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
                 'password' => $this->passwordRules(),
-                'password_confirmation' => 'required',
+                'password_confirmation' => ['required'],
             ];
         }
     }
