@@ -1,8 +1,8 @@
-{{--@php--}}
-{{--    /* Devuelve el primer (y único) rol del usuario autenticado */--}}
-{{--    $role = auth()->user()->getRoleNames()->first();--}}
-{{--    $route = $role === 'super-admin' ? '' : "{$role}." ;--}}
-{{--@endphp--}}
+@php
+    /* Devuelve el primer (y único) rol del usuario autenticado */
+    $role = auth()->user()->getRoleNames()->first();
+    $route = $role === 'super-admin' ? '' : "$role." ;
+@endphp
 
 <!-- Barra lateral para móviles -->
 <div x-cloak x-show="sidebarOpen" class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
@@ -51,7 +51,7 @@
         <!-- Enlaces de navegación -->
         <div class="mt-5 flex-1 h-0 overflow-y-auto">
             <nav class="px-2 space-y-1">
-                <x-sidebar.link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                <x-sidebar.link :href='route("{$route}dashboard")' :active='request()->routeIs("{$route}dashboard")'>
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></x-slot>
                     Dashboard
                 </x-sidebar.link>
@@ -123,7 +123,7 @@
         <!-- Enlaces de navegación -->
         <div class="mt-5 flex-1 h-0 overflow-y-auto">
             <nav class="px-2 space-y-1">
-                <x-sidebar.link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                <x-sidebar.link :href='route("{$route}dashboard")' :active='request()->routeIs("{$route}dashboard")'>
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></x-slot>
                     Dashboard
                 </x-sidebar.link>
