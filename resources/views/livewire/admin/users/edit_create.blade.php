@@ -4,10 +4,22 @@
     </x-slot>
     <x-slot name="content">
         <form wire:submit.prevent="confirmSave()" id="userForm">
-            <!-- Nombre -->
-            <div>
-                <x-jet-label for="nombre" value="Nombre" />
-                <x-input.error wire:model.defer="user.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="user.name" required/>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                <div class="sm:flex-1">
+                    <!-- Nombre -->
+                    <x-jet-label for="nombre" value="Nombre"/>
+                    <x-input.error wire:model.defer="user.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="user.name" required/>
+                </div>
+                <div class="sm:flex-1">
+                    <!-- Apellido paterno -->
+                    <x-jet-label for="apellido_paterno" value="Apellido paterno"/>
+                    <x-input.error wire:model.defer="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno"/>
+                </div>
+                <div class="sm:flex-1">
+                    <!-- Apellido materno -->
+                    <x-jet-label for="apellido_materno" value="Apellido materno"/>
+                    <x-input.error wire:model.defer="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno"/>
+                </div>
             </div>
 
             <!-- Correo -->

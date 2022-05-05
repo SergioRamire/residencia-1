@@ -41,6 +41,8 @@ class UserController extends Component
         if ($this->edit) {
             return [
                 'user.name' => ['required', 'string', 'max:255'],
+                'user.apellido_paterno' => ['present', 'string', 'max:255'],
+                'user.apellido_materno' => ['present', 'string', 'max:255'],
                 'user.email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
                 'password' => array_replace($this->passwordRules(), [0 => 'present']),
                 'password_confirmation' => 'present',
@@ -48,6 +50,8 @@ class UserController extends Component
         } else {
             return [
                 'user.name' => ['required', 'string', 'max:255'],
+                'user.apellido_paterno' => ['present', 'string', 'max:255'],
+                'user.apellido_materno' => ['present', 'string', 'max:255'],
                 'user.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
                 'password' => $this->passwordRules(),
                 'password_confirmation' => 'required',
