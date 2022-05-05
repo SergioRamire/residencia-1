@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -170,7 +171,7 @@ class UserController extends Component
         return view('livewire.admin.users.index', [
             'users' => User::query()
                 ->when($this->search, function ($query, $search) {
-                    $query->where('name', 'like', "%$search%")
+                    $query->where(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 })
                 ->orderBy($this->sortField, $this->sortDirection)

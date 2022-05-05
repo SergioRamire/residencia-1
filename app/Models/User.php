@@ -75,6 +75,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function getNombreCompletoAttribute()
+    {
+        return "$this->name $this->apellido_paterno $this->apellido_materno";
+    }
+
     public function area()
     {
         return $this->belongsTo(Area::class);
