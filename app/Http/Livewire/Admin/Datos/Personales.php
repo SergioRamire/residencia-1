@@ -17,6 +17,7 @@ class Personales extends Component
         $this->user = auth()->user();
         $this->area = Area::find(auth()->user()->area_id);
     }
+
     public function rules()
     {
         return [
