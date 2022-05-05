@@ -40,19 +40,19 @@ class UserController extends Component
     {
         if ($this->edit) {
             return [
-                'user.name' => ['required', 'string', 'max:255'],
-                'user.apellido_paterno' => ['present', 'max:255'],
-                'user.apellido_materno' => ['present', 'max:255'],
-                'user.email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
+                'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_paterno' => ['present', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_materno' => ['present', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
                 'password' => array_replace($this->passwordRules(), [0 => 'present']),
                 'password_confirmation' => ['present'],
             ];
         } else {
             return [
-                'user.name' => ['required', 'string', 'max:255'],
-                'user.apellido_paterno' => ['present', 'max:255'],
-                'user.apellido_materno' => ['present', 'max:255'],
-                'user.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+                'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_paterno' => ['present', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_materno' => ['present', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
                 'password' => $this->passwordRules(),
                 'password_confirmation' => ['required'],
             ];
