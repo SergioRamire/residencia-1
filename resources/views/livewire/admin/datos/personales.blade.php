@@ -1,27 +1,59 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Perfil de Usuario
-        </h2>
-    </x-slot>
+
+        <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex flex-col items-center">
+    
+                {{-- IMAGNE DE PERFIL --}}
+                {{-- <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="/docs/images/people/profile-picture-3.jpg" alt="Bonnie image" /> --}}
+          
+                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" > 
+                    {{ auth()->user()->name }}
+                    {{ auth()->user()->apellido_paterno }}
+                    {{ auth()->user()->apellido_materno }}
+                </h5>
+                <span class="text-sm text-gray-500 dark:text-gray-400">{{ auth()->user()->email }}</span>
+    
+
+            </div>
+{{-- 
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6">
+                  <h3 class="text-lg leading-6 font-medium text-gray-900">Cor</h3>
+                  <p class="mt-1 max-w-2xl text-sm text-gray-500">{{ auth()->user()->email }}</p>
+                </div>
+                <div class="border-t border-gray-200">
+                  <dl>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Full name</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Margot Foster</dd>
+                    </div>
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Application for</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Backend Developer</dd>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Email address</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">margotfoster@example.com</dd>
+                    </div>
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                      <dt class="text-sm font-medium text-gray-500">Salary expectation</dt>
+                      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">$120,000</dd>
+                    </div>
+                    
+                  </dl>
+                </div>
+            </div> --}}
 
 
-    <div
-        class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-        <div class="flex flex-col items-center">
 
-            {{-- IMAGNE DE PERFIL --}}
-            {{-- <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="/docs/images/people/profile-picture-3.jpg" alt="Bonnie image" /> --}}
-      
-             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" > 
-                {{ auth()->user()->name }}
-                {{ auth()->user()->apellido_paterno }}
-                {{ auth()->user()->apellido_materno }}
-            </h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400">{{ auth()->user()->email }}</span>
 
         </div>
-    </div>
+
+        
+    </x-slot>
+
+    
 
     <div class="max-w-7xl mx-auto pt-5 pb-5">
         <div class="space-y-2">
