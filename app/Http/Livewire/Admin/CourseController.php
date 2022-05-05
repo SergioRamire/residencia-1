@@ -12,20 +12,20 @@ class CourseController extends Component
     use WithPagination;
 
     public Course $course;
-    public $perPage = 5;
-    public $search = '';
-    public $sortField = 'id';
-    public $sortDirection = 'asc';
-    public $filters = [
+    public int $perPage = 5;
+    public string $search = '';
+    public string $sortField = 'id';
+    public string $sortDirection = 'asc';
+    public array $filters = [
         'modalidad' => '',
         'perfil' => '',
     ];
 
-    public $showEditCreateModal = false;
-    public $showViewModal = false;
-    public $showConfirmationModal = false;
-    public $edit;
-    public $delete;
+    public bool $showEditCreateModal = false;
+    public bool $showViewModal = false;
+    public bool $showConfirmationModal = false;
+    public bool $edit;
+    public bool $delete;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -33,7 +33,7 @@ class CourseController extends Component
         'sortDirection',
     ];
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'course.clave' => ['required', 'alpha_dash', 'max:10', Rule::unique('courses', 'clave')->ignore($this->course)],
@@ -67,7 +67,7 @@ class CourseController extends Component
         $this->reset('filters');
     }
 
-    public function sortBy($field)
+    public function sortBy(string $field)
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
