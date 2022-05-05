@@ -43,11 +43,11 @@
                     </div>
                     <!-- Filtro Calificacion -->
                     <div class="block px-4 py-2 space-y-1">
-                        <label class="text-center">Filtro por Tipo</label>
+                        <label class="text-center">Filtro por Aprobación</label>
                         <x-input.select wire:model="filters.filtro_calificacion" class="mt-1" name="filtro_tipo" required >
                         <option value="">Todos los Tipos</option>
-                        <option value=69>mayor 70</option>
-                        <option value=70>menor 70</option>
+                        <option value=69>Aprobado</option>
+                        <option value=70>No aprobado</option>
                         </x-input.select>
                     </div>
 
@@ -79,7 +79,6 @@
             <x-table>
                 <x-slot name="head">
                     <x-table.header class="text-center" >Participante</x-table.header>
-                    {{-- <x-table.header class="text-center">grupo</x-table.header> --}}
                     <x-table.header class="text-center">curso</x-table.header>
                     <x-table.header class="text-center">Calificación</x-table.header>
                     <x-table.header class="text-center">Opcion</x-table.header>

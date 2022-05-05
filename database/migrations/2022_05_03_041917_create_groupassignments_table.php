@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('groupassignments', function (Blueprint $table) {
+            $table->id();
             $table->time('hora_inicio');
             $table->time('hora_fin');
             $table->foreignId('group_id')

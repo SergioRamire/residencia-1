@@ -34,7 +34,7 @@ class ConstanciasController extends Component
         $query = '%'.$this->search.'%';
 
         return view('livewire.admin.constancias.index', [
-            'calificaciones' =>  Inscription::join('users', 'users.id', '=', 'user_id')
+            'calificaciones' =>  Inscription::join('users', 'users.id', '=', 'inscriptions.id')
             ->join('coursesdetails', 'coursesdetails.id', '=', 'inscriptions.coursesdetail_id')
             ->join('courses', 'courses.id', '=', 'coursesdetails.course_id')
             // ->join('groupassignments', 'groupassignments.coursesdetail_id', '=', 'coursesdetails.id')
