@@ -178,7 +178,11 @@ class UserController extends Component
                     $query->where(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 })
-                ->orderBy($this->sortField, $this->sortDirection)
+                ->when($this->sortField === 'nombre_completo', function ($query) {
+                    $query->orderByRaw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ') $this->sortDirection");
+                }, function ($query) {
+                    $query->orderBy($this->sortField, $this->sortDirection);
+                })
                 ->paginate($this->perPage),
         ]);
     }

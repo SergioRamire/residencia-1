@@ -43,8 +43,8 @@
             <div class="flex flex-col space-y-2">
                 <x-table>
                     <x-slot name="head">
-                         <x-table.header wire:click="sortBy('name')" sortable :direction="$sortField === 'name' ? $sortDirection : null">
-                             nombre
+                         <x-table.header wire:click="sortBy('nombre_completo')" sortable :direction="$sortField === 'nombre_completo' ? $sortDirection : null">
+                             nombre completo
                          </x-table.header>
                         <x-table.header wire:click="sortBy('email')" sortable :direction="$sortField === 'email' ? $sortDirection : null">
                             correo
