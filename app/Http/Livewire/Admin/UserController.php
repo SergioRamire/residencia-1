@@ -19,16 +19,16 @@ class UserController extends Component
     public $password;
     public $password_confirmation;
 
-    public $perPage = 5;
-    public $search = '';
-    public $sortField = 'id';
-    public $sortDirection = 'asc';
+    public int $perPage = 5;
+    public string $search = '';
+    public string $sortField = 'id';
+    public string $sortDirection = 'asc';
 
-    public $showEditCreateModal = false;
-    public $showViewModal = false;
-    public $showConfirmationModal = false;
-    public $edit;
-    public $delete;
+    public bool $showEditCreateModal = false;
+    public bool $showViewModal = false;
+    public bool $showConfirmationModal = false;
+    public bool $edit = false;
+    public bool $delete;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -36,7 +36,7 @@ class UserController extends Component
         'sortDirection',
     ];
 
-    public function rules()
+    public function rules(): array
     {
         if ($this->edit) {
             return [
@@ -69,7 +69,7 @@ class UserController extends Component
         $this->resetPage();
     }
 
-    public function sortBy($field)
+    public function sortBy(string $field)
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -106,8 +106,8 @@ class UserController extends Component
         $this->resetValidation();
 
         $this->user = $user;
-        $this->password = '';
-        $this->password_confirmation = '';
+        $this->password = null;
+        $this->password_confirmation = null;
 
         $this->edit = true;
         $this->delete = false;
