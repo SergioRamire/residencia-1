@@ -12,11 +12,11 @@
 
             {{-- IMAGNE DE PERFIL --}}
             {{-- <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="/docs/images/people/profile-picture-3.jpg" alt="Bonnie image" /> --}}
-
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+      
+             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" > 
                 {{ auth()->user()->name }}
-                {{ auth()->user()->apellido_materno }}
                 {{ auth()->user()->apellido_paterno }}
+                {{ auth()->user()->apellido_materno }}
             </h5>
             <span class="text-sm text-gray-500 dark:text-gray-400">{{ auth()->user()->email }}</span>
 
@@ -28,48 +28,40 @@
             <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                 <h5 class="text-xl font-medium text-gray-800 ">Datos Personales</h5>
 
-                <form wire:submit.prevent="confirmSave()" id="courseForm">
+                <form id="courseForm">
                     
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         {{-- Nombre --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="nombre" value="Nombre" />
-                            <x-input.error wire:model.defer="user.name" class="block mt-1 w-full" type="text"
-                                id="nombre" name="nombre" for="nombre" required />
+                            <x-input.error wire:model.defer="user.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="user.name" required />
                         </div>
                         <!-- paterno -->
                         <div class="mt-4 flex-1">
                             <x-jet-label for="apellido_paterno" value="Apellido Paterno" />
-                            <x-input.error wire:model.defer="user.apellido_paterno" class="block mt-1 w-full"
-                                type="text" id="apellido_paterno" name="apellido_paterno" for="apellido_paterno"
-                                required />
+                            <x-input.error wire:model.defer="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno" required />
                         </div>
                         {{-- materno --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="apellido_materno" value="Apellido Materno" />
-                            <x-input.error wire:model.defer="user.apellido_materno" class="block mt-1 w-full"
-                                type="text" id="apellido_materno" name="apellido_materno" for="apellido_materno"
-                                required />
+                            <x-input.error wire:model.defer="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno" required />
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         <!-- rfc -->
                         <div class="mt-4 flex-1">
                             <x-jet-label for="rfc" value="RFC" />
-                            <x-input.error wire:model.defer="user.rfc" class="block mt-1 w-full" type="text" id="rfc"
-                                name="rfc" for="rfc" required />
+                            <x-input.error wire:model.defer="user.rfc" class="block mt-1 w-full" type="text" id="rfc" name="rfc" for="user.rfc" required />
                         </div>
                         {{-- Curp --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="curp" value="CURP" />
-                            <x-input.error wire:model.defer="user.curp" class="block mt-1 w-full" type="text" id="curp"
-                                name="curp" for="curp" required />
+                            <x-input.error wire:model.defer="user.curp" class="block mt-1 w-full" type="text" id="curp" name="curp" for="user.curp" required />
                         </div>
                         {{-- sexo --}}
                         <div>
                             <x-jet-label for="sexo" value="Sexo" />
-                            <x-input.select wire:model.defer="user.sexo" id="sexo" class="mt-1 w-full" name="sexo"
-                                required>
+                            <x-input.select wire:model.defer="user.sexo" id="sexo" class="mt-1 w-full" name="sexo" for="user.sexo" required>
                                 <option value="" disabled>Selecciona Sexo...</option>
                                 <option value="M">Masculino</option>
                                 <option value="F">Femenino</option>
@@ -80,34 +72,30 @@
                         {{-- ito --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="email" value="Correo @itoaxaca.edu.mx" />
-                            <x-input.error wire:model.defer="user.email" class="block mt-1 w-full" type="email"
-                                id="email" name="email" for="email" required />
+                            <x-input.error wire:model.defer="user.email" class="block mt-1 w-full" type="email" id="email" name="email" for="user.email" required />
                         </div>
                         {{-- tecnm --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="correo_tecnm" value="Correo @oaxaca.tecnm.mx" />
-                            <x-input.error wire:model.defer="user.correo_tecnm" class="block mt-1 w-full" type="email"
-                                id="correo_tecnm" name="correo_tecnm" for="correo_tecnm" required />
+                            <x-input.error wire:model.defer="user.correo_tecnm" class="block mt-1 w-full" type="email" id="correo_tecnm" name="correo_tecnm" for="user.correo_tecnm" required />
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         {{-- estudios maximos --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="estudio_maximo" value="Estudios Maximos" />
-                            <x-input.error wire:model.defer="user.estudio_maximo" class="block mt-1 w-full" type="text"
-                                id="estudio_maximo" name="estudio_maximo" for="estudio_maximo" required />
+                            <x-input.error wire:model.defer="user.estudio_maximo" class="block mt-1 w-full" type="text" id="estudio_maximo" name="estudio_maximo" for="user.estudio_maximo" required />
                         </div>
-
                         {{-- carrera --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="carrera" value="Carrera" />
-                            <x-input.error wire:model.defer="user.carrera" class="block mt-1 w-full" type="text"
-                                id="carrera" name="carrera" for="carrera" required />
+                            <x-input.error wire:model.defer="user.carrera" class="block mt-1 w-full" type="text" id="carrera" name="carrera" for="user.carrera" required />
                         </div>
                     </div>
+
                     <div class="flex flex-row-reverse">
                         <div class="mt-4 flex-1">
-                            <x-jet-button class="ml-3" wire:click="save()" type="button">
+                            <x-jet-button class="ml-3" wire:click="confirmSave()" type="button">
                                 Guardar Cambios
                             </x-jet-button>
                         </div>
@@ -124,64 +112,57 @@
             <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                 <h5 class="text-xl font-medium text-gray-800 ">Datos Laborales</h5>
 
-                <form wire:submit.prevent="confirmSave()" id="courseForm">
+                <form id="courseForm">
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         {{-- Nombre de area --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="areanombre" value="Nombre de Area" />
-                            
-                                <x-input.select wire:model.defer="user.area_id" id="areanombre" class="mt-1 w-full" name="areanombre" required>
+                                <x-input.select wire:model.defer="user.area_id" id="areanombre" class="mt-1 w-full" name="areanombre" for="user.area_id" required>
                                     @foreach(App\Models\Area::all() as $area)
-                                        <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                        <option value="{{ $area->id }}"> {{ $area->nombre }} </option>
                                     @endforeach
                                 </x-input.select>
                         </div>
-                        {{-- clave presupuestal --}}
+                        {{-- clave_presupuestal --}}
                         <div class="mt-4 flex-1">
-                            <x-jet-label for="puesto" value="Clave Presupuestal" />
-                            <x-input.error wire:model.defer="user.clave_presupuestal" class="block mt-1 w-full"
-                                type="text" id="puesto" name="puesto" for="puesto" required />
+                            <x-jet-label for="clave_presupuestal" value="Clave Presupuestal" />
+                            <x-input.error wire:model.defer="user.clave_presupuestal" class="block mt-1 w-full" type="text" id="clave_presupuestal" name="clave_presupuestal" for="user.clave_presupuestal" required />
+                        </div>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> 
+                        {{-- jefe --}}
+                        <div class="mt-4 flex-1">
+                            <x-jet-label for="jefe" value="Nombre del Jefe inmediato" />
+                            <x-input.error wire:model.defer="area.jefe" class="block mt-1 w-full" type="text" id="jefe" name="jefe" for="area.jefe" readonly />
+                        </div>
+                        {{-- telefono --}}
+                        <div class="mt-4 flex-1">
+                            <x-jet-label for="telefono" value="Telefono" />
+                            <x-input.error wire:model.defer="area.telefono" class="block mt-1 w-full" type="number" id="telefono" name="telefono" for="area.telefono" readonly />
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         <!-- puesto -->
                         <div class="mt-4 flex-1">
                             <x-jet-label for="puesto" value="Puesto" />
-                            <x-input.error wire:model.defer="user.puesto" class="block mt-1 w-full" type="text"
-                                id="puesto" name="puesto" for="puesto" required />
-                        </div>
-                        {{-- jefe --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="jefe" value="Nombre del Jefe inmediato" />
-                            <x-input.error wire:model.defer="area.jefe" class="block mt-1 w-full" type="text" id="jefe" name="jefe" for="jefe" readonly />
-                        </div>
-                    </div>
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-
-                        {{-- telefono --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="telefono" value="Telefono" />
-                            <x-input.error wire:model.defer="area.telefono" class="block mt-1 w-full" type="number" id="telefono" name="telefono" for="telefono" readonly />
-                        </div>
+                            <x-input.error wire:model.defer="user.puesto" class="block mt-1 w-full" type="text" id="puesto" name="puesto" for="user.puesto" required />
+                        </div>       
                         {{-- hora_entrada --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="hora_entrada" value="Hora de Entrada" />
-                            <x-input.error wire:model.defer="user.hora_entrada" class="block mt-1 w-full" type="time" 
-                                id="hora_entrada" name="hora_entrada" for="hora_entrada" required />
+                            <x-input.error wire:model.defer="user.hora_entrada" class="block mt-1 w-full" type="time" id="hora_entrada" name="hora_entrada" for="user.hora_entrada" required />
                         </div>
                         {{-- hora_salida --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="hora_salida" value="Hora de Salida" />
-                            <x-input.error wire:model.defer="user.hora_salida" class="block mt-1 w-full" type="time" 
-                                id="hora_salida" name="hora_salida" for="hora_salida" required />
+                            <x-input.error wire:model.defer="user.hora_salida" class="block mt-1 w-full" type="time" id="hora_salida" name="hora_salida" for="user.hora_salida" required />
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         {{-- tipo --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="tipo" value="Tipo" />
-                            <x-input.select wire:model.defer="user.tipo" id="sexo" class="mt-1 w-full" name="sexo"
-                                required>
+                            <x-input.select wire:model.defer="user.tipo" id="sexo" class="mt-1 w-full" name="sexo" for="user.tipo" required>
                                 <option value="" disabled>Selecciona Tipo...</option>
                                 <option value="Base">Base</option>
                                 <option value="Interinato">Interinato</option>
@@ -191,15 +172,12 @@
                         {{-- organizacion_origen --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="organizacion_origen" value="Organizacion de Origen" />
-                            <x-input.error wire:model.defer="user.organizacion_origen" class="block mt-1 w-full"
-                                type="text" id="organizacion_origen" name="organizacion_origen"
-                                for="organizacion_origen" required />
+                            <x-input.error wire:model.defer="user.organizacion_origen" class="block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" for="user.organizacion_origen" required />
                         </div>
                         {{-- cuenta_moodle --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="cuenta_moodle" value="Cuenta Moodle" />
-                            <x-input.select wire:model.defer="user.cuenta_moodle" id="cuenta_moodle"
-                                class="mt-1 w-full" name="cuenta_moodle" required>
+                            <x-input.select wire:model.defer="user.cuenta_moodle" id="cuenta_moodle" class="mt-1 w-full" name="cuenta_moodle" for="user.cuenta_moodle" required>
                                 <option value="" disabled>Selecciona si Tiene Cuenta...</option>
                                 <option value="0">No Tiene</option>
                                 <option value="1">Si Tiene</option>
@@ -209,7 +187,7 @@
                     
                     <div class="flex flex-row-reverse">
                         <div class="mt-4 flex-1">
-                            <x-jet-button class="ml-3" wire:click="save()" type="button">
+                            <x-jet-button class="ml-3" wire:click="confirmSave()" type="button">
                                 Guardar Cambios
                             </x-jet-button>
                         </div>
@@ -221,5 +199,5 @@
     <!-- Modales -->
     {{-- @include('livewire.admin.instructor.edit_create') --}}
     {{-- @include('livewire.admin.instructor.show') --}}
-    {{-- @include('livewire.admin.instructor.confirmation') --}}
+    @include('livewire.admin.datos.confirmation')
 </div>
