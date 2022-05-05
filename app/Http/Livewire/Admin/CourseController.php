@@ -37,8 +37,8 @@ class CourseController extends Component
     {
         return [
             'course.clave' => ['required', 'alpha_dash', 'max:10', Rule::unique('courses', 'clave')->ignore($this->course)],
-            'course.nombre' => ['required', 'string', 'max:255'],
-            'course.objetivo' => ['required', 'string', 'max:255'],
+            'course.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'course.objetivo' => ['required', 'max:255'],
             'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
             'course.duracion' => ['required', 'integer', 'max:50'],
             'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
