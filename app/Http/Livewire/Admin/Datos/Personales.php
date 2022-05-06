@@ -35,7 +35,7 @@ class Personales extends Component
             'user.area_id' => 'required',
             'user.clave_presupuestal'  => 'required',
             'user.puesto'  => 'required',
-            'area.telefono' => 'required|numeric',
+            'area.telefono' => 'required',
             'area.jefe'  => 'required',
             'user.hora_entrada' => 'required',
             'user.hora_salida' => 'required',

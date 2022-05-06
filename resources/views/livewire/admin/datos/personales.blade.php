@@ -25,7 +25,6 @@
                 <h5 class="text-xl font-medium text-gray-800 ">Datos Personales</h5>
 
                 <form id="courseForm">
-                    
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         {{-- Nombre --}}
                         <div class="mt-4 flex-1">
@@ -114,72 +113,59 @@
                         {{-- Nombre de area --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="areanombre" value="Nombre de Area" />
-                                <x-input.select wire:model.defer="user.area_id" id="areanombre" class="mt-1 w-full" name="areanombre" for="user.area_id" readonly>
-                                    @foreach(App\Models\Area::all() as $area)
-                                        <option value="{{ $area->id }}"> {{ $area->nombre }} </option>
-                                    @endforeach
-                                </x-input.select>
+                                <x-jet-input :value="$user->area->nombre ?? ''" class="mt-1 w-full" type="text" disabled/>
                         </div>
                         {{-- clave_presupuestal --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="clave_presupuestal" value="Clave Presupuestal" />
-                            <x-input.error wire:model.defer="user.clave_presupuestal" class="block mt-1 w-full" type="text" id="clave_presupuestal" name="clave_presupuestal" for="user.clave_presupuestal" readonly />
+                            <x-jet-input wire:model="user.clave_presupuestal" class="block mt-1 w-full" type="text" disabled/>
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> 
                         {{-- jefe --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="jefe" value="Nombre del Jefe inmediato" />
-                            <x-input.error wire:model.defer="area.jefe" class="block mt-1 w-full" type="text" id="jefe" name="jefe" for="area.jefe" readonly />
+                            <x-jet-input wire:model="area.jefe" class="block mt-1 w-full" type="text" disabled/>
                         </div>
                         {{-- telefono --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="telefono" value="Telefono" />
-                            <x-input.error wire:model.defer="area.telefono" class="block mt-1 w-full" type="number" id="telefono" name="telefono" for="area.telefono" readonly />
+                            <x-jet-input wire:model="area.telefono" class="block mt-1 w-full" type="number" disabled/>
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         <!-- puesto -->
                         <div class="mt-4 flex-1">
                             <x-jet-label for="puesto" value="Puesto" />
-                            <x-input.error wire:model.defer="user.puesto" class="block mt-1 w-full" type="text" id="puesto" name="puesto" for="user.puesto" readonly />
+                            <x-jet-input wire:model="user.puesto" class="block mt-1 w-full" type="text" disabled/>
                         </div>       
                         {{-- hora_entrada --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="hora_entrada" value="Hora de Entrada" />
-                            <x-input.error wire:model.defer="user.hora_entrada" class="block mt-1 w-full" type="time" id="hora_entrada" name="hora_entrada" for="user.hora_entrada" readonly />
+                            <x-jet-input wire:model="user.hora_entrada" class="block mt-1 w-full" type="time" disabled/>
                         </div>
                         {{-- hora_salida --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="hora_salida" value="Hora de Salida" />
-                            <x-input.error wire:model.defer="user.hora_salida" class="block mt-1 w-full" type="time" id="hora_salida" name="hora_salida" for="user.hora_salida" readonly />
+                            <x-jet-input wire:model="user.hora_entrada" class="block mt-1 w-full" type="time" disabled/>
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                         {{-- tipo --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="tipo" value="Tipo" />
-                            <x-input.select wire:model.defer="user.tipo" id="sexo" class="mt-1 w-full" name="sexo" for="user.tipo" readonly>
-                                <option value="Base">Base</option>
-                                <option value="Interinato">Interinato</option>
-                                <option value="Contrato">Contrato</option>
-                            </x-input.select>
+                            <x-jet-input :value="$user->tipo ?? ''" class="mt-1 w-full" type="text" disabled/>
+
                         </div>
                         {{-- organizacion_origen --}}
                         <div class="mt-4 flex-1">
                             <x-jet-label for="organizacion_origen" value="Organizacion de Origen" />
-                            <x-input.error wire:model.defer="user.organizacion_origen" class="block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" for="user.organizacion_origen" readonly />
+                            <x-jet-input wire:model="user.organizacion_origen" class="block mt-1 w-full" type="text" disabled/>
                         </div>
                         {{-- cuenta_moodle --}}
-
-
                         <div class="mt-4 flex-1">
                             <x-jet-label for="cuenta_moodle" value="Cuenta Moodle" />
-
-                            <x-input.error wire:model.defer="user.cuenta_moodle" class="block mt-1 w-full" type="text" id="cuenta_moodle" name="cuenta_moodle" for="user.cuenta_moodle" readonly />
-
-
-
+                            <x-jet-input :value="$user->cuenta_moodle ? 'Tiene' : 'No Tiene'" class="mt-1 w-full" type="text" disabled/>
                         </div>
                     </div>
                 </form>
@@ -187,8 +173,5 @@
         </div>
     </div>
     
-    <!-- Modales -->
-    {{-- @include('livewire.admin.instructor.edit_create') --}}
-    {{-- @include('livewire.admin.instructor.show') --}}
     @include('livewire.admin.datos.confirmation')
 </div>
