@@ -136,6 +136,8 @@ class ParticipantController extends Component
     {
         return view('livewire.admin.participants.index', [
             'users' => User::query()
+                ->leftJoin('areas', 'areas.id', '=', 'users.area_id')
+                ->select('users.id', 'users.rfc', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', 'users.cuenta_moodle', 'users.area_id', 'areas.nombre as area_nombre')
                 ->when($this->filters['area'], fn ($query, $area) => $query->where('area_id', $area))
                 ->when($this->filters['tipo'], fn ($query, $tipo) => $query->where('tipo', $tipo))
                 ->when($this->filters['sexo'], fn ($query, $sexo) => $query->where('sexo', $sexo))

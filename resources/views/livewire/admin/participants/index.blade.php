@@ -116,10 +116,10 @@
                         <x-table.header wire:click="sortBy('rfc')" sortable :direction="$sortField === 'rfc' ? $sortDirection : null">
                             rfc
                         </x-table.header>
-                        <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">
+                        <x-table.header wire:click="sortBy('name')" sortable :direction="$sortField === 'name' ? $sortDirection : null">
                             nombre
                         </x-table.header>
-                        <x-table.header wire:click="sortBy('area')" sortable :direction="$sortField === 'area' ? $sortDirection : null">
+                        <x-table.header wire:click="sortBy('area_nombre')" sortable :direction="$sortField === 'area_nombre' ? $sortDirection : null">
                             area
                         </x-table.header>
                         <x-table.header wire:click="sortBy('cuenta_moodle')" sortable :direction="$sortField === 'cuenta_moodle' ? $sortDirection : null">
