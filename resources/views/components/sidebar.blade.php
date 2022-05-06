@@ -59,7 +59,7 @@
                 
                 <x-sidebar.link :href='route("datos.personales")' :active='request()->route("datos.personales")'>
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
-                    Perfil
+                    Mis Datos
                 </x-sidebar.link>
 
                 <x-sidebar.dropdown title="E-commerce 1" dp-id="1">
@@ -135,7 +135,7 @@
                 </x-sidebar.link>
                 <x-sidebar.link :href='route("datos.personales")' :active='request()->route("datos.personales")'>
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
-                    Perfil
+                    Mis Datos
                 </x-sidebar.link>
                 <x-sidebar.dropdown title="E-commerce 1" dp-id="1">
                     <x-slot name="icon" stroke-width="2">
