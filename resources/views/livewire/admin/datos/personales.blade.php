@@ -4,10 +4,8 @@
         <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div class="flex flex-col items-center">
     
-                {{-- IMAGNE DE PERFIL --}}
-                {{-- <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="/docs/images/people/profile-picture-3.jpg" alt="Bonnie image" /> --}}
-          
-                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" > 
+                <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="{{ Auth::user()->profile_photo_url }} " alt="Bonnie image" />
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" > 
                     {{ auth()->user()->name }}
                     {{ auth()->user()->apellido_paterno }}
                     {{ auth()->user()->apellido_materno }}
