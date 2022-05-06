@@ -149,8 +149,11 @@ class ParticipantController extends Component
                     $query->where('rfc', 'like', "%$search%")
                         ->orWhere(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%");
                 })
-                // TO-DO: Ordenar por nombre completo
-                ->orderBy($this->sortField, $this->sortDirection)
+                ->when($this->sortField === 'nombre_completo', function ($query) {
+                    $query->orderByRaw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ') $this->sortDirection");
+                }, function ($query) {
+                    $query->orderBy($this->sortField, $this->sortDirection);
+                })
                 ->paginate($this->perPage),
         ]);
     }

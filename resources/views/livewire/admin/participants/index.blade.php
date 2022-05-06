@@ -116,8 +116,8 @@
                         <x-table.header wire:click="sortBy('rfc')" sortable :direction="$sortField === 'rfc' ? $sortDirection : null">
                             rfc
                         </x-table.header>
-                        <x-table.header wire:click="sortBy('name')" sortable :direction="$sortField === 'name' ? $sortDirection : null">
-                            nombre
+                        <x-table.header wire:click="sortBy('nombre_completo')" sortable :direction="$sortField === 'nombre_completo' ? $sortDirection : null">
+                            nombre completo
                         </x-table.header>
                         <x-table.header wire:click="sortBy('area_nombre')" sortable :direction="$sortField === 'area_nombre' ? $sortDirection : null">
                             area
@@ -131,8 +131,7 @@
                     @forelse($users as $u)
                         <tr wire:key="user-{{ $u->id }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell>{{ $u->rfc }}</x-table.cell>
-                            {{-- TO-DO: Cambiar a $u->nombre_completo --}}
-                            <x-table.cell>{{ $u->name }}</x-table.cell>
+                            <x-table.cell>{{ $u->nombre_completo }}</x-table.cell>
                             <x-table.cell>{{ $u->area->nombre ?? '' }}</x-table.cell>
                             <x-table.cell>
                                 @if($u->cuenta_moodle === 1)
