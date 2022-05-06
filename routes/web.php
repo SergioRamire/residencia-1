@@ -29,26 +29,26 @@ Route::middleware([
 
 Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::middleware('role:super-admin')->group(function () {
-        Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+        Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
         Route::get('/usuarios', \App\Http\Livewire\Admin\UserController::class)->name('usuarios');
     });
 
     Route::middleware('role:admin')->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
-            Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+            Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
             Route::get('/usuarios', \App\Http\Livewire\Admin\UserController::class)->name('usuarios');
         });
     });
 
     Route::middleware('role:instructor')->group(function () {
         Route::prefix('instructor')->name('instructor.')->group(function () {
-            Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+            Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
         });
     });
 
     Route::middleware('role:participant')->group(function () {
         Route::prefix('participante')->name('participant.')->group(function () {
-            Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+            Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
         });
     });
 });
