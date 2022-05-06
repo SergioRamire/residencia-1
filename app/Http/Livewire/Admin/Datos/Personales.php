@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Admin\Datos;
 
-use App\Models\User;
 use App\Models\Area;
+use App\Models\User;
 use Livewire\Component;
 
 class Personales extends Component
