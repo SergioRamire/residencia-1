@@ -27,7 +27,7 @@ class UserFactory extends Factory
         $nombre = $this->faker->firstName();
         $apellido_paterno = $this->faker->lastName();
         $correo_id = $nombre.'.'.$apellido_paterno;
-        $hora_entrada = $this->faker->time();
+        $hora_entrada = $this->faker->time('H:i');
 
         return [
             'name' => $this->faker->name(),
@@ -58,7 +58,7 @@ class UserFactory extends Factory
             'cuenta_moodle' => $this->faker->numberBetween(0, 1),
             'puesto' => $this->faker->jobTitle(),
             'hora_entrada' => $hora_entrada,
-            'hora_salida' => date('H:i:s', strtotime($hora_entrada.'+5 hour')),
+            'hora_salida' => date('H:i', strtotime($hora_entrada.'+5 hour')),
             'correo_tecnm' => $correo_id.'@oaxaca.tecnm.mx',
             'area_id' => $this->faker->numberBetween(1, 8),
         ];
