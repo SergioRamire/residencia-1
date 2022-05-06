@@ -26,7 +26,7 @@ class CoursesdetailFactory extends Factory
         return [
             'fecha_inicio' => $fechaInicio,
             'fecha_fin' => date('Y-m-d', strtotime($fechaInicio."+${fechaMasDias} day")),
-            'lugar' => $this->faker->sentence(2),
+            'lugar' => rtrim($this->faker->sentence(2), '.'),
             'course_id' => $this->faker->numberBetween(1, 10),
         ];
     }

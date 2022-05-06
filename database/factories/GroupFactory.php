@@ -17,7 +17,7 @@ class GroupFactory extends Factory
     public function definition()
     {
         return [
-            'nombre'    => $this->faker->sentence(1),
+            'nombre'    => rtrim($this->faker->sentence(1), '.'),
             'capacidad' => $this->faker->numberBetween(10, 30),
         ];
     }
