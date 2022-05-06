@@ -112,7 +112,6 @@
                     <x-jet-label for="hora_entrada" value="Hora entrada"/>
                     <x-jet-input wire:model="user.hora_entrada" class="block mt-1 w-full" type="time" id="hora_entrada" name="hora_entrada"/>
                     <x-jet-input-error for="user.hora_entrada"/>
-                    {{ $user->hora_entrada }}
                 </div>
 
                 <!-- Hora salida -->
@@ -120,7 +119,6 @@
                     <x-jet-label for="hora_salida" value="Hora salida"/>
                     <x-jet-input wire:model="user.hora_salida" class="block mt-1 w-full" type="time" id="hora_salida" name="hora_salida"/>
                     <x-jet-input-error for="user.hora_salida"/>
-                    {{ $user->hora_salida }}
                 </div>
             </div>
 
