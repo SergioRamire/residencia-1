@@ -88,12 +88,10 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-row-reverse">
-                        <div class="mt-4 flex-1">
-                            <x-jet-button class="ml-3" wire:click="confirmSave()" type="button">
-                                Guardar Cambios
-                            </x-jet-button>
-                        </div>
+                    <div class="mt-4 flex justify-end">
+                        <x-jet-button wire:click="confirmSave()" type="button">
+                            Guardar Cambios
+                        </x-jet-button>
                     </div>
                 </form>
 
