@@ -29,8 +29,19 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Correo -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="email" value="Correo" />
+                    <x-jet-label for="email" value="Correo"/>
                     <x-input.error wire:model.defer="user.email" class="block mt-1 w-full" type="email" id="email" name="email" for="user.email" required/>
+                </div>
+
+                <!-- Rol -->
+                <div class="mt-4 sm:flex-1">
+                    <x-jet-label for="rol" value="Correo"/>
+                    <x-input.select wire:model.defer="role" id="rol" class="mt-1 w-full" name="rol">
+                        <option value="" disabled>Selecciona rol...</option>
+                        @foreach(\Spatie\Permission\Models\Role::all() as $role)
+                            <option value="{{ $role->name }}">{{ ucwords($role->name) }}</option>
+                        @endforeach
+                    </x-input.select>
                 </div>
             </div>
 
@@ -38,13 +49,13 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Contraseña -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="contraseña" :value="$edit ? 'Contraseña nueva' : 'Contraseña'" />
+                    <x-jet-label for="contraseña" :value="$edit ? 'Contraseña nueva' : 'Contraseña'"/>
                     <x-input.error wire:model.defer="password" class="block mt-1 w-full" type="password" id="contraseña" name="contraseña" for="password"/>
                 </div>
 
                 <!-- Confirmación de contraseña -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="contraseña_confirmation" value="Confirmación de contraseña" />
+                    <x-jet-label for="contraseña_confirmation" value="Confirmación de contraseña"/>
                     <x-input.error wire:model.defer="password_confirmation" class="block mt-1 w-full" type="password" id="contraseña_confirmation" name="contraseña_confirmation" for="password_confirmation"/>
                 </div>
             </div>
