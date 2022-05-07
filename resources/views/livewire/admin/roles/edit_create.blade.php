@@ -17,7 +17,7 @@
                     {{-- <div class="border-t border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-indigo-500"> --}}
                     {{--     <p>Usuario</p> --}}
                     {{-- </div> --}}
-                    <div class="py-4 grid grid-cols-3 gap-2">
+                    <div class="mt-1 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-4">
                         @foreach(\Spatie\Permission\Models\Permission::all() as $permission)
                             <x-checkbox wire:model.defer="permissions" :value="$permission->id" :for="$permission->name" :label="$permission->human_name"/>
                         @endforeach
