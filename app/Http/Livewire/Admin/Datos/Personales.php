@@ -21,14 +21,14 @@ class Personales extends Component
     public function rules()
     {
         return [
-            'user.rfc' => ['required', 'regex:/^[a-zA-zÑñ]{3,4}[0-9]{6}[a-zA-ZÑñ]{3}$/u', 'max:254'],
-            'user.curp' => ['required', 'regex:/^[a-zA-ZñÑ]{1}[AEIOUaeiou]{1}[a-zA-ZñÑ]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[H|M|h|m](AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$/u', 'max:254'],
+            'user.rfc' => ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
+            'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.apellido_materno' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.apellido_paterno' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.sexo' => ['required', 'regex:/^[F|M]$/u', 'max:1'],
-            'user.email' => ['required', 'email', 'max:254'],
-            'user.correo_tecnm' => ['required', 'email', 'max:254'],
+            'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
+            'user.correo_tecnm' => ['required', 'email', 'ends_with:@oaxaca.tecnm.mx', Rule::unique('users', 'correo_tecnm')->ignore($this->user)],
             'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
 
