@@ -128,7 +128,7 @@ class RoleController extends Component
 
     private function getPermissionsIds(): array
     {
-        return array_map(fn ($permission) => $permission->id, $this->role->getAllPermissions()->all());
+        return $this->role->getAllPermissions()->pluck('id')->toArray();
     }
 
     public function render()

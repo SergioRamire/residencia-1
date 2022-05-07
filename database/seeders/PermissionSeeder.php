@@ -20,7 +20,11 @@ class PermissionSeeder extends Seeder
         // Restablece los roles y permisos en caché
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        /* Crea todos los permisos */
+        /*
+        |--------------------------------------------------------------------------
+        | Creación de permisos
+        |--------------------------------------------------------------------------
+        */
         $permissions = [
             'user.show' => 'Visualizar usuarios',
             'user.create' => 'Crear usuarios',
@@ -32,7 +36,11 @@ class PermissionSeeder extends Seeder
             Permission::create(['name' => $name, 'human_name' => $human_name]);
         }
 
-        /* Crea roles */
+        /*
+        |--------------------------------------------------------------------------
+        | Creación de roles
+        |--------------------------------------------------------------------------
+        */
 
         // Rol super-admin obtiene todos los permisos por medio de Gate:before -> AuthServiceProvider
         $superAdminRole = Role::create(['name' => 'super-admin']);
@@ -41,7 +49,11 @@ class PermissionSeeder extends Seeder
         $instructorRole = Role::create(['name' => 'instructor']);
         $participantRole = Role::create(['name' => 'participant']);
 
-        /* Asignación de permisos a roles */
+        /*
+        |--------------------------------------------------------------------------
+        | Asignación de permisos a roles
+        |--------------------------------------------------------------------------
+        */
         $adminPermissions = [
             'user.show',
             'user.create',
@@ -50,7 +62,11 @@ class PermissionSeeder extends Seeder
         ];
         $adminRole->givePermissionTo($adminPermissions);
 
-        /* Asignación de roles a 9 usuarios */
+        /*
+        |--------------------------------------------------------------------------
+        | Asignación de roles a usuarios (Primeros 9)
+        |--------------------------------------------------------------------------
+        */
         $users = User::all();
         $users->get(0)->assignRole($superAdminRole);
         $users->get(1)->assignRole($adminRole);
