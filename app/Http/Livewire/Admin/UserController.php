@@ -16,6 +16,7 @@ class UserController extends Component
     use PasswordValidationRules;
 
     public User $user;
+    public $role;
     public $password;
     public $password_confirmation;
 
@@ -91,6 +92,7 @@ class UserController extends Component
         $this->resetValidation();
 
         $this->blankUser();
+        $this->role = '';
         $this->password = $this->user->password;
         $this->password_confirmation = $this->user->password;
 
@@ -106,8 +108,9 @@ class UserController extends Component
         $this->resetValidation();
 
         $this->user = $user;
-        $this->password = null;
-        $this->password_confirmation = null;
+        $this->password = '';
+        $this->password_confirmation = '';
+        $this->role = $user->getRoleNames()->first() ?? '';
 
         $this->edit = true;
         $this->delete = false;
@@ -145,8 +148,10 @@ class UserController extends Component
                 'name' => $this->user->name,
                 'email' => $this->user->email,
             ]);
+            $this->user->syncRoles($this->role);
         } else {
             $this->user->password = Hash::make($this->password);
+            $this->user->syncRoles($this->role);
             $this->user->save();
         }
 
