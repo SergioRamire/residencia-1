@@ -31,12 +31,14 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('role:super-admin')->group(function () {
         Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
         Route::get('/usuarios', \App\Http\Livewire\Admin\UserController::class)->name('usuarios');
+        Route::get('/roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
     });
 
     Route::middleware('role:admin')->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
             Route::get('/usuarios', \App\Http\Livewire\Admin\UserController::class)->name('usuarios');
+            Route::get('/roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
         });
     });
 

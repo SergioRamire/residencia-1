@@ -11,6 +11,7 @@ class RoleController extends Component
     use WithPagination;
 
     public Role $role;
+    public array $permissions = [];
     public int $perPage = 5;
     public string $search = '';
     public string $sortField = 'id';
@@ -64,6 +65,7 @@ class RoleController extends Component
         $this->resetValidation();
 
         $this->blankRole();
+        $this->permissions = [];
 
         $this->edit = false;
         $this->delete = false;
@@ -77,6 +79,7 @@ class RoleController extends Component
         $this->resetValidation();
 
         $this->role = $role;
+        $this->permissions = $this->getPermissionsIds();
 
         $this->edit = true;
         $this->delete = false;
@@ -100,6 +103,7 @@ class RoleController extends Component
 
     public function save()
     {
+        $this->role->syncPermissions($this->permissions);
         $this->role->save();
 
         $this->showConfirmationModal = false;
@@ -120,6 +124,11 @@ class RoleController extends Component
             'icon' => 'trash',
             'message' => 'Rol eliminado exitosamente',
         ]);
+    }
+
+    private function getPermissionsIds(): array
+    {
+        return array_map(fn ($permission) => $permission->id, $this->role->getAllPermissions()->all());
     }
 
     public function render()
