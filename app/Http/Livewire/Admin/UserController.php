@@ -117,15 +117,6 @@ class UserController extends Component
         $this->showEditCreateModal = true;
     }
 
-    public function view(User $user)
-    {
-        $this->user = $user;
-
-        $this->edit = false;
-        $this->delete = false;
-        $this->showViewModal = true;
-    }
-
     public function delete(User $user)
     {
         $this->user = $user;
