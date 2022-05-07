@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin\Datos;
 use App\Models\Area;
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Validation\Rule;
 
 class Personales extends Component
 {
