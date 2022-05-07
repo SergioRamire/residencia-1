@@ -66,5 +66,6 @@ class Personales extends Component
             'icon' => 'success',
             'message' => 'Datos actualizado exitosamente. Nota: Es necesario recargar para actualizar Datos de la barra',
         ]);
+        return redirect()->route('datos.personales');
     }
 }
