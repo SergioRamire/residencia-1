@@ -22,22 +22,6 @@ class PermissionSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | Creación de permisos
-        |--------------------------------------------------------------------------
-        */
-        $permissions = [
-            'user.show' => 'Visualizar usuarios',
-            'user.create' => 'Crear usuarios',
-            'user.edit' => 'Editar usuarios',
-            'user.delete' => 'Eliminar usuarios',
-        ];
-
-        foreach ($permissions as $name => $human_name) {
-            Permission::create(['name' => $name, 'human_name' => $human_name]);
-        }
-
-        /*
-        |--------------------------------------------------------------------------
         | Creación de roles
         |--------------------------------------------------------------------------
         */
@@ -51,16 +35,23 @@ class PermissionSeeder extends Seeder
 
         /*
         |--------------------------------------------------------------------------
-        | Asignación de permisos a roles
+        | Creación de permisos
         |--------------------------------------------------------------------------
         */
-        $adminPermissions = [
-            'user.show',
-            'user.create',
-            'user.edit',
-            'user.delete',
-        ];
-        $adminRole->givePermissionTo($adminPermissions);
+        Permission::create(['name' => 'rol.show', 'human_name' => 'Visualizar roles'])->assignRole(['admin']);
+        Permission::create(['name' => 'rol.create', 'human_name' => 'Crear roles'])->assignRole(['admin']);
+        Permission::create(['name' => 'rol.edit', 'human_name' => 'Editar roles'])->assignRole(['admin']);
+        Permission::create(['name' => 'rol.delete', 'human_name' => 'Eliminar roles'])->assignRole(['admin']);
+
+        Permission::create(['name' => 'user.show', 'human_name' => 'Visualizar usuarios'])->assignRole(['admin']);
+        Permission::create(['name' => 'user.create', 'human_name' => 'Crear usuarios'])->assignRole(['admin']);
+        Permission::create(['name' => 'user.edit', 'human_name' => 'Editar usuarios'])->assignRole(['admin']);
+        Permission::create(['name' => 'user.delete', 'human_name' => 'Eliminar usuarios'])->assignRole(['admin']);
+
+        // Permission::create(['name' => 'course.show', 'human_name' => 'Visualizar cursos'])->assignRole(['admin', 'instructor']);
+        // Permission::create(['name' => 'course.create', 'human_name' => 'Crear cursos'])->assignRole(['admin', 'instructor']);
+        // Permission::create(['name' => 'course.edit', 'human_name' => 'Editar cursos'])->assignRole(['admin']);
+        // Permission::create(['name' => 'course.delete', 'human_name' => 'Eliminar cursos'])->assignRole(['admin']);
 
         /*
         |--------------------------------------------------------------------------
