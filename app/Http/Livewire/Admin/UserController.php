@@ -42,8 +42,8 @@ class UserController extends Component
         if ($this->edit) {
             return [
                 'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.apellido_paterno' => ['present', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.apellido_materno' => ['present', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
                 'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
                 'password' => array_replace($this->passwordRules(), [0 => 'present']),
                 'password_confirmation' => ['present'],
@@ -51,8 +51,8 @@ class UserController extends Component
         } else {
             return [
                 'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.apellido_paterno' => ['present', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.apellido_materno' => ['present', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
                 'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
                 'password' => $this->passwordRules(),
                 'password_confirmation' => ['required'],
@@ -83,6 +83,9 @@ class UserController extends Component
     public function blankUser()
     {
         $this->user = User::make();
+        $this->role = '';
+        $this->password = $this->user->password;
+        $this->password_confirmation = $this->user->password;
     }
 
     public function create()
@@ -92,9 +95,6 @@ class UserController extends Component
         $this->resetValidation();
 
         $this->blankUser();
-        $this->role = '';
-        $this->password = $this->user->password;
-        $this->password_confirmation = $this->user->password;
 
         $this->edit = false;
         $this->delete = false;
