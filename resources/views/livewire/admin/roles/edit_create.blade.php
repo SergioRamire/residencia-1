@@ -19,7 +19,7 @@
                     {{-- </div> --}}
                     <div class="py-4 grid grid-cols-3 gap-2">
                         @foreach(\Spatie\Permission\Models\Permission::all() as $permission)
-                            <x-checkbox wire:model.defer="permissions" :value="$permission->id" :for="$permission->name" :label="$permission->name"/>
+                            <x-checkbox wire:model.defer="permissions" :value="$permission->id" :for="$permission->name" :label="$permission->human_name"/>
                         @endforeach
                     </div>
                 </div>
