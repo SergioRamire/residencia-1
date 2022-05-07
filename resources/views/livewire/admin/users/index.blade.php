@@ -49,14 +49,15 @@
                         <x-table.header wire:click="sortBy('email')" sortable :direction="$sortField === 'email' ? $sortDirection : null">
                             correo
                         </x-table.header>
+                        <x-table.header>rol</x-table.header>
                         <x-table.header>acciones</x-table.header>
                     </x-slot>
 
                     @forelse($users as $u)
                         <tr wire:key="user-{{ $u->id }}" wire:loading.class.delay="opacity-50">
-                            {{-- Cambia y repite 'field' segun el atributo que corresponda --}}
                             <x-table.cell>{{ $u->nombre_completo }}</x-table.cell>
                             <x-table.cell>{{ $u->email }}</x-table.cell>
+                            <x-table.cell>{{ ucwords($u->getRoleNames()->first()) }}</x-table.cell>
                             <x-table.cell>
                                 <button wire:click="edit({{ $u->id }})" type="button" class="text-amber-600 hover:text-amber-900">
                                     <x-icon.pencil alt class="h-6 w-6"/>
