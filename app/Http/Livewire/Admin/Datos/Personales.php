@@ -4,8 +4,8 @@ namespace App\Http\Livewire\Admin\Datos;
 
 use App\Models\Area;
 use App\Models\User;
-use Livewire\Component;
 use Illuminate\Validation\Rule;
+use Livewire\Component;
 
 class Personales extends Component
 {
@@ -67,6 +67,7 @@ class Personales extends Component
             'icon' => 'success',
             'message' => 'Datos actualizado exitosamente. Nota: Es necesario recargar para actualizar Datos de la barra',
         ]);
+
         return redirect()->route('datos.personales');
     }
 }
