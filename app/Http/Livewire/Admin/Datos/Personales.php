@@ -34,15 +34,15 @@ class Personales extends Component
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
 
             'user.area_id' => 'required',
-            'user.clave_presupuestal'  => 'required',
-            'user.puesto'  => 'required',
+            'user.clave_presupuestal' => 'required',
+            'user.puesto' => 'required',
             'area.telefono' => 'required',
-            'area.jefe'  => 'required',
+            'area.jefe' => 'required',
             'user.hora_entrada' => 'required',
             'user.hora_salida' => 'required',
-            'user.tipo'  => 'required',
-            'user.organizacion_origen'  => 'required',
-            'user.cuenta_moodle'  => 'required',
+            'user.tipo' => 'required',
+            'user.organizacion_origen' => 'required',
+            'user.cuenta_moodle' => 'required',
         ];
     }
 
