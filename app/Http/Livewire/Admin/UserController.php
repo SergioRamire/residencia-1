@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -12,8 +13,9 @@ use Livewire\WithPagination;
 
 class UserController extends Component
 {
-    use WithPagination;
+    use AuthorizesRequests;
     use PasswordValidationRules;
+    use WithPagination;
 
     public User $user;
     public $role;
@@ -90,6 +92,8 @@ class UserController extends Component
 
     public function create()
     {
+        $this->authorize('user.create');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -103,6 +107,8 @@ class UserController extends Component
 
     public function edit(User $user)
     {
+        $this->authorize('user.edit');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -119,6 +125,8 @@ class UserController extends Component
 
     public function delete(User $user)
     {
+        $this->authorize('user.delete');
+
         $this->user = $user;
 
         $this->edit = false;
