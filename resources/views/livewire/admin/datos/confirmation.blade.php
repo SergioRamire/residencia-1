@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea guardar los cambios <strong>{{ $user->name }} </strong>?
+        ¿Seguro que desea guardar los cambios?
     </x-slot>
 
     <x-slot name="footer">
