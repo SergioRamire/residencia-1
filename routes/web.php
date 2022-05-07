@@ -17,40 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:web',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
 Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->group(function () {
-    Route::middleware('role:super-admin')->group(function () {
-        Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
-        Route::get('/usuarios', \App\Http\Livewire\Admin\UserController::class)->name('usuarios');
-        Route::get('/roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
-    });
+    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
 
-    Route::middleware('role:admin')->group(function () {
+    Route::middleware(['can:user.show', 'can:role.show'])->group(function () {
         Route::prefix('admin')->name('admin.')->group(function () {
-            Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
-            Route::get('/usuarios', \App\Http\Livewire\Admin\UserController::class)->name('usuarios');
-            Route::get('/roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
-        });
-    });
-
-    Route::middleware('role:instructor')->group(function () {
-        Route::prefix('instructor')->name('instructor.')->group(function () {
-            Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
-        });
-    });
-
-    Route::middleware('role:participant')->group(function () {
-        Route::prefix('participante')->name('participant.')->group(function () {
-            Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+            Route::get('usuarios', \App\Http\Livewire\Admin\UserController::class)->name('usuarios');
+            Route::get('roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
         });
     });
 });
