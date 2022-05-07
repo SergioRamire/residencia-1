@@ -22,14 +22,14 @@ class PermissionSeeder extends Seeder
 
         /* Crea todos los permisos */
         $permissions = [
-            'user_show',
-            'user_create',
-            'user_edit',
-            'user_delete',
+            'user.show' => 'Visualizar usuarios',
+            'user.create' => 'Crear usuarios',
+            'user.edit' => 'Editar usuarios',
+            'user.delete' => 'Eliminar usuarios',
         ];
 
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+        foreach ($permissions as $name => $human_name) {
+            Permission::create(['name' => $name, 'human_name' => $human_name]);
         }
 
         /* Crea roles */
@@ -43,10 +43,10 @@ class PermissionSeeder extends Seeder
 
         /* Asignación de permisos a roles */
         $adminPermissions = [
-            'user_show',
-            'user_create',
-            'user_edit',
-            'user_delete',
+            'user.show',
+            'user.create',
+            'user.edit',
+            'user.delete',
         ];
         $adminRole->givePermissionTo($adminPermissions);
 
