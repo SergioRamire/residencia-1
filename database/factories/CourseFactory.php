@@ -23,7 +23,7 @@ class CourseFactory extends Factory
             'Depto. de Sistemas y Computación',
             'Depto. de Ciencias de la Tierra',
             'Depto. de Ingeniería Química',
-            'Depto. de Ingeniería Industria',
+            'Depto. de Ingeniería Industrial',
             'Depto. de Ingeniería Eléctrica',
             'Depto. de Ingeniería Electrónica',
         ], rand(1, 3));
