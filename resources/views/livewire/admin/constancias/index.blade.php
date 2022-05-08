@@ -43,16 +43,17 @@
                     </div>
                     <!-- Filtro Calificacion -->
                     <div class="block px-4 py-2 space-y-1">
-                        <label class="text-center">Filtro por Tipo</label>
+                        <label class="text-center">Filtro por Calificacion</label>
                         <x-input.select wire:model="filters.filtro_calificacion" class="mt-1" name="filtro_tipo" required >
-                        <option value="">Todos los Tipos</option>
+                        <option value="">Todas las calificaciones</option>
                         <option value=69>mayor 70</option>
                         <option value=70>menor 70</option>
                         </x-input.select>
                     </div>
 
+                    <!-- Filtro año -->
                     <div class="block px-4 py-2 space-y-1">
-                        <label class="text-center">Filtro por Tipo</label>
+                        <label class="text-center">Filtro por Año</label>
                         <x-input.select wire:model="filters.filtro_año" class="mt-1" name="filtro_tipo" required >
                         <option value="">Todos los años</option>
                         <option value=2020>2020</option>
