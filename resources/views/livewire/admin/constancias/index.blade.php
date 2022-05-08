@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-6">
-            Generación de Constancias.
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
+            Generación de Constancias
         </h2>
     </x-slot>
 
@@ -33,33 +33,40 @@
 
                 <x-slot name="content">
                     {{-- filtro por cursos --}}
-                    <div>
-                        <x-input.select wire:model="filters.filtro_curso" class="mt-2" name="filtro_curso" required >
-                            <option value="">Todos los cursos</option>
-                                    @foreach($cursos as $i)
-                                        <option value="{{$i->nombre}}">{{$i->nombre}}</option>
-                                    @endforeach
-                        </x-input.select>
+                    <div class="block px-4 py-2 space-y-1">
+                        <div>
+                            <x-jet-label for="filtro_curso" value="Curso"/>
+                            <x-input.select wire:model="filters.filtro_curso" name="filtro_curso" id="filtro_curso" class="text-sm block mt-1 w-full" required>
+                                <option value="" disabled>Selecciona curso...</option>
+                                @foreach(\App\Models\Course::all() as $course)
+                                    <option value="{{$course->nombre}}">{{$course->nombre}}</option>
+                                @endforeach
+                            </x-input.select>
+                        </div>
                     </div>
                     <!-- Filtro Calificacion -->
                     <div class="block px-4 py-2 space-y-1">
-                        <label class="text-center">Filtro por Calificacion</label>
-                        <x-input.select wire:model="filters.filtro_calificacion" class="mt-1" name="filtro_tipo" required >
-                        <option value="">Todas las calificaciones</option>
-                        <option value=69>mayor 70</option>
-                        <option value=70>menor 70</option>
-                        </x-input.select>
+                        <div>
+                            <label class="text-center">Filtro por Calificacion</label>
+                            <x-input.select wire:model="filters.filtro_calificacion" class="mt-1" name="filtro_tipo" required>
+                            <option value="">Todas las calificaciones</option>
+                            <option value=69>mayor a 70</option>
+                            <option value=70>menor a 70</option>
+                            </x-input.select>
+                        </div>
                     </div>
 
                     <!-- Filtro año -->
                     <div class="block px-4 py-2 space-y-1">
-                        <label class="text-center">Filtro por Año</label>
-                        <x-input.select wire:model="filters.filtro_año" class="mt-1" name="filtro_tipo" required >
-                        <option value="">Todos los años</option>
-                        <option value=2020>2020</option>
-                        <option value=2021>2021</option>
-                        <option value=2022>2022</option>
-                        </x-input.select>
+                        <div>
+                            <label class="text-center">Filtro por Año</label>
+                            <x-input.select wire:model="filters.filtro_año" class="mt-1" name="filtro_tipo" required>
+                            <option value="">Todos los años</option>
+                            <option value=2020>2020</option>
+                            <option value=2021>2021</option>
+                            <option value=2022>2022</option>
+                            </x-input.select>
+                        </div>
                     </div>
                     <!-- Reinciar filtros -->
                     <div class="block px-4 py-2 space-y-1">
@@ -89,7 +96,6 @@
             <x-table>
                 <x-slot name="head">
                     <x-table.header class="text-center" >Participante</x-table.header>
-                    {{-- <x-table.header class="text-center">grupo</x-table.header> --}}
                     <x-table.header class="text-center">curso</x-table.header>
                     <x-table.header class="text-center">Calificación</x-table.header>
                     <x-table.header class="text-center">Opcion</x-table.header>
@@ -135,7 +141,6 @@
             <div>
                 {{ $calificaciones->links()}}
             </div>
-
         </div>
     </div>
 </div>
