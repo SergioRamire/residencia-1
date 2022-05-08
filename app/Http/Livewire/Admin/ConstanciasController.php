@@ -38,14 +38,14 @@ class ConstanciasController extends Component
                 ->when($this->search, function ($query, $b) {
                     return $query->where(function ($q) {
                         $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
-                      ' ', users.apellido_materno)"), 'like', '%' . $this->search . '%')
-                            ->orWhere('courses.nombre', 'like', '%' . $this->search . '%')
-                            ->orWhere('inscriptions.calificacion', 'like', '%' . $this->search . '%');
+                      ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%')
+                            ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
+                            ->orWhere('inscriptions.calificacion', 'like', '%'.$this->search.'%');
                     });
                 })
                 ->when($this->filters['filtro_curso'], function ($query, $b) {
                     return $query->where(function ($q) {
-                        $q->where('courses.nombre', 'like', '%' . $this->filters['filtro_curso'] . '%');
+                        $q->where('courses.nombre', 'like', '%'.$this->filters['filtro_curso'].'%');
                     });
                 })
                 ->when($this->filters['filtro_calificacion'], function ($query, $b) {
@@ -59,7 +59,7 @@ class ConstanciasController extends Component
                 })
                 ->when($this->filters['filtro_año'], function ($query, $b) {
                     return $query->where(function ($q) {
-                        $q->whereYear('coursesdetails.fecha_inicio', 'like', '%' . $this->filters['filtro_año'] . '%');
+                        $q->whereYear('coursesdetails.fecha_inicio', 'like', '%'.$this->filters['filtro_año'].'%');
                     });
                 })
                 ->orderBy('users.name', 'asc')
