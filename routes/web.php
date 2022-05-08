@@ -25,4 +25,5 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('cons', \App\Http\Livewire\Admin\ConstanciasController::class);
 });
