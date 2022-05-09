@@ -43,9 +43,9 @@
             <div class="flex flex-col space-y-2">
                 <x-table>
                     <x-slot name="head">
-                         <x-table.header wire:click="sortBy('name')" sortable :direction="$sortField === 'name' ? $sortDirection : null">
-                             nombre
-                         </x-table.header>
+                        <x-table.header wire:click="sortBy('name')" sortable :direction="$sortField === 'name' ? $sortDirection : null">
+                            nombre
+                        </x-table.header>
                         <x-table.header>acciones</x-table.header>
                     </x-slot>
 
@@ -57,9 +57,11 @@
                                     <button wire:click="edit({{ $r->id }})" type="button" class="text-amber-600 hover:text-amber-900">
                                         <x-icon.pencil alt class="h-6 w-6"/>
                                     </button>
-                                    <button wire:click="delete({{ $r->id }})" type="button" class="text-red-600 hover:text-red-900">
-                                        <x-icon.trash class="h-6 w-6"/>
-                                    </button>
+                                    @unless($r->name === 'admin' || $r->name === 'instructor' || $r->name === 'participant')
+                                        <button wire:click="delete({{ $r->id }})" type="button" class="text-red-600 hover:text-red-900">
+                                            <x-icon.trash class="h-6 w-6"/>
+                                        </button>
+                                    @endunless
                                 </x-table.cell>
                             @endunless
                         </tr>
