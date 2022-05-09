@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
 
     public Role $role;
@@ -20,8 +23,8 @@ class RoleController extends Component
     public bool $showEditCreateModal = false;
     public bool $showViewModal = false;
     public bool $showConfirmationModal = false;
-    public $edit;
-    public $delete;
+    public bool $edit = false;
+    public bool $delete = false;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -29,7 +32,7 @@ class RoleController extends Component
         'sortDirection',
     ];
 
-    protected $rules = [
+    protected array $rules = [
         'role.name' => ['required'],
     ];
 
@@ -58,8 +61,13 @@ class RoleController extends Component
         $this->role = Role::make();
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function create()
     {
+        $this->authorize('role.create');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -72,8 +80,13 @@ class RoleController extends Component
         $this->showEditCreateModal = true;
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(Role $role)
     {
+        $this->authorize('role.edit');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -86,8 +99,13 @@ class RoleController extends Component
         $this->showEditCreateModal = true;
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function delete(Role $role)
     {
+        $this->authorize('role.delete');
+
         $this->role = $role;
 
         $this->edit = false;
