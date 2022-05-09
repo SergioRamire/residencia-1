@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
@@ -20,8 +23,8 @@ class RoleController extends Component
     public bool $showEditCreateModal = false;
     public bool $showViewModal = false;
     public bool $showConfirmationModal = false;
-    public $edit;
-    public $delete;
+    public bool $edit = false;
+    public bool $delete = false;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -29,21 +32,21 @@ class RoleController extends Component
         'sortDirection',
     ];
 
-    protected $rules = [
+    protected array $rules = [
         'role.name' => ['required'],
     ];
 
-    public function mount()
+    public function mount(): void
     {
         $this->blankRole();
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function sortBy(string $field)
+    public function sortBy(string $field): void
     {
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -53,12 +56,12 @@ class RoleController extends Component
         }
     }
 
-    public function blankRole()
+    public function blankRole(): void
     {
         $this->role = Role::make();
     }
 
-    public function create()
+    public function create(): void
     {
         /* Reinicia los errores */
         $this->resetErrorBag();
@@ -72,7 +75,7 @@ class RoleController extends Component
         $this->showEditCreateModal = true;
     }
 
-    public function edit(Role $role)
+    public function edit(Role $role): void
     {
         /* Reinicia los errores */
         $this->resetErrorBag();
@@ -86,7 +89,7 @@ class RoleController extends Component
         $this->showEditCreateModal = true;
     }
 
-    public function delete(Role $role)
+    public function delete(Role $role): void
     {
         $this->role = $role;
 
@@ -95,13 +98,13 @@ class RoleController extends Component
         $this->showConfirmationModal = true;
     }
 
-    public function confirmSave()
+    public function confirmSave(): void
     {
         $this->validate();
         $this->showConfirmationModal = true;
     }
 
-    public function save()
+    public function save(): void
     {
         $this->role->syncPermissions($this->permissions);
         $this->role->save();
@@ -115,7 +118,7 @@ class RoleController extends Component
         ]);
     }
 
-    public function destroy()
+    public function destroy(): void
     {
         $this->role->delete();
         $this->showConfirmationModal = false;
@@ -131,7 +134,7 @@ class RoleController extends Component
         return $this->role->getAllPermissions()->pluck('id')->toArray();
     }
 
-    public function render()
+    public function render(): Factory|View|Application
     {
         return view('livewire.admin.roles.index', [
             'roles' => Role::query()
