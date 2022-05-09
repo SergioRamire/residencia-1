@@ -13,6 +13,7 @@ class ParticipantController extends Component
     use WithPagination;
 
     public User $user;
+
     public int $perPage = 5;
     public string $search = '';
     public string $sortField = 'id';
@@ -34,8 +35,7 @@ class ParticipantController extends Component
         'sortDirection',
     ];
 
-    /* Elige la variable o el método para aplicar las reglas */
-    public function rules()
+    public function rules(): array
     {
         return [
             'user.rfc' => ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
@@ -109,7 +109,6 @@ class ParticipantController extends Component
     public function view(User $user)
     {
         $this->user = $user;
-
         $this->showViewModal = true;
     }
 
