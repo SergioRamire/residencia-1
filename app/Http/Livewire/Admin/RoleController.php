@@ -2,15 +2,18 @@
 
 namespace App\Http\Livewire\Admin;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
 
     public Role $role;
@@ -61,8 +64,13 @@ class RoleController extends Component
         $this->role = Role::make();
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function create(): void
     {
+        $this->authorize('role.create');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -75,8 +83,13 @@ class RoleController extends Component
         $this->showEditCreateModal = true;
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(Role $role): void
     {
+        $this->authorize('role.edit');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -89,8 +102,13 @@ class RoleController extends Component
         $this->showEditCreateModal = true;
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function delete(Role $role): void
     {
+        $this->authorize('role.delete');
+
         $this->role = $role;
 
         $this->edit = false;
