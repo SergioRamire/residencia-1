@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Livewire\Admin\RoleController;
+use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +23,8 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
 
     Route::middleware('can:user.show')->prefix('admin')->name('admin.')
-        ->get('usuarios', \App\Http\Livewire\Admin\UserController::class)->name('usuarios');
+        ->get('usuarios', UserController::class)->name('usuarios');
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
-        ->get('roles', \App\Http\Livewire\Admin\RoleController::class)->name('roles');
+        ->get('roles', RoleController::class)->name('roles');
 });
