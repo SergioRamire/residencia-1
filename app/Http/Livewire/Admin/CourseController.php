@@ -12,6 +12,7 @@ class CourseController extends Component
     use WithPagination;
 
     public Course $course;
+
     public int $perPage = 5;
     public string $search = '';
     public string $sortField = 'id';
@@ -24,8 +25,8 @@ class CourseController extends Component
     public bool $showEditCreateModal = false;
     public bool $showViewModal = false;
     public bool $showConfirmationModal = false;
-    public bool $edit;
-    public bool $delete;
+    public bool $edit = false;
+    public bool $delete = false;
 
     protected $queryString = [
         'search' => ['except' => ''],
