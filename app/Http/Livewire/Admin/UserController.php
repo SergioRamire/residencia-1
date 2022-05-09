@@ -18,9 +18,9 @@ class UserController extends Component
     use WithPagination;
 
     public User $user;
-    public $role;
-    public $password;
-    public $password_confirmation;
+    public string $role = '';
+    public string $password = '';
+    public string $password_confirmation = '';
 
     public int $perPage = 5;
     public string $search = '';
@@ -31,7 +31,7 @@ class UserController extends Component
     public bool $showViewModal = false;
     public bool $showConfirmationModal = false;
     public bool $edit = false;
-    public bool $delete;
+    public bool $delete = false;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -50,16 +50,16 @@ class UserController extends Component
                 'password' => array_replace($this->passwordRules(), [0 => 'present']),
                 'password_confirmation' => ['present'],
             ];
-        } else {
-            return [
-                'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
-                'password' => $this->passwordRules(),
-                'password_confirmation' => ['required'],
-            ];
         }
+
+        return [
+            'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => $this->passwordRules(),
+            'password_confirmation' => ['required'],
+        ];
     }
 
     public function mount()
@@ -85,9 +85,7 @@ class UserController extends Component
     public function blankUser()
     {
         $this->user = User::make();
-        $this->role = '';
-        $this->password = $this->user->password;
-        $this->password_confirmation = $this->user->password;
+        $this->reset(['role', 'password', 'password_confirmation']);
     }
 
     public function create()
@@ -114,8 +112,6 @@ class UserController extends Component
         $this->resetValidation();
 
         $this->user = $user;
-        $this->password = '';
-        $this->password_confirmation = '';
         $this->role = $user->getRoleNames()->first() ?? '';
 
         $this->edit = true;
