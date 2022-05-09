@@ -15,6 +15,7 @@ class RoleController extends Component
 
     public Role $role;
     public array $permissions = [];
+
     public int $perPage = 5;
     public string $search = '';
     public string $sortField = 'id';
@@ -59,6 +60,7 @@ class RoleController extends Component
     public function blankRole()
     {
         $this->role = Role::make();
+        $this->reset('permissions');
     }
 
     /**
@@ -73,7 +75,6 @@ class RoleController extends Component
         $this->resetValidation();
 
         $this->blankRole();
-        $this->permissions = [];
 
         $this->edit = false;
         $this->delete = false;
@@ -153,7 +154,7 @@ class RoleController extends Component
     {
         return view('livewire.admin.roles.index', [
             'roles' => Role::query()
-                ->where('name', 'like', "%$this->search%")
+                ->when($this->search, fn ($query, $search) => $query->where('name', 'like', "%$this->search%"))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
         ]);
