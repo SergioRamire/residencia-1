@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -88,6 +89,9 @@ class UserController extends Component
         $this->reset(['role', 'password', 'password_confirmation']);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function create()
     {
         $this->authorize('user.create');
@@ -103,6 +107,9 @@ class UserController extends Component
         $this->showEditCreateModal = true;
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(User $user)
     {
         $this->authorize('user.edit');
@@ -119,6 +126,9 @@ class UserController extends Component
         $this->showEditCreateModal = true;
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function delete(User $user)
     {
         $this->authorize('user.delete');
