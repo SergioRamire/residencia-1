@@ -20,8 +20,6 @@ class DatabaseSeeder extends Seeder
             CourseSeeder::class,
             GroupSeeder::class,
             CourseDetailSeeder::class,
-            InscriptionSeeder::class,
-            GroupAssignmentSeeder::class,
         ]);
     }
 }
