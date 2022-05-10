@@ -20,7 +20,7 @@ class CourseDetail extends Model
     {
         return $this->belongsToMany(User::class, 'inscriptions')
             ->withPivot('calificacion', 'estatus', 'asistencias_minimas')
-            ->as('inscriptions')
+            ->as('inscription')
             ->withTimestamps();
     }
 
@@ -33,7 +33,7 @@ class CourseDetail extends Model
     {
         return $this->belongsToMany(Group::class, 'group_assignments')
             ->withPivot('hora_inicio', 'hora_fin')
-            ->as('group_assignments')
+            ->as('group_assignment')
             ->withTimestamps();
     }
 }

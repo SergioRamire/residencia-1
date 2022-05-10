@@ -84,7 +84,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(CourseDetail::class, 'inscriptions')
             ->withPivot('calificacion', 'estatus', 'asistencias_minimas')
-            ->as('inscriptions')
+            ->as('inscription')
             ->withTimestamps();
     }
 }

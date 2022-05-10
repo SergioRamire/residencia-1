@@ -18,7 +18,7 @@ class Group extends Model
     {
         return $this->belongsToMany(CourseDetail::class, 'group_assignments')
             ->withPivot('hora_inicio', 'hora_fin')
-            ->as('group_assignments')
+            ->as('group_assignment')
             ->withTimestamps();
     }
 }
