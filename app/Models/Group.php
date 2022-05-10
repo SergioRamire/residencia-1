@@ -14,8 +14,11 @@ class Group extends Model
         'capacidad',
     ];
 
-    public function groupassignments()
+    public function courseDetails()
     {
-        return $this->hasMany(Groupassignment::class);
+        return $this->belongsToMany(CourseDetail::class, 'group_assignments')
+            ->withPivot('hora_inicio', 'hora_fin')
+            ->as('group_assignments')
+            ->withTimestamps();
     }
 }

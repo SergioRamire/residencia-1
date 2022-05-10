@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Groupassignment extends Model
+class GroupAssignment extends Model
 {
     use HasFactory;
 
@@ -21,8 +21,8 @@ class Groupassignment extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function coursesdetail()
+    public function courseDetail()
     {
-        return $this->belongsTo(Coursesdetail::class);
+        return $this->belongsTo(CourseDetail::class);
     }
 }

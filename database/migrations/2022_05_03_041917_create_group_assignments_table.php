@@ -13,19 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('groupassignments', function (Blueprint $table) {
-            $table->id();
+        Schema::create('group_assignments', function (Blueprint $table) {
             $table->time('hora_inicio');
             $table->time('hora_fin');
+            $table->timestamps();
             $table->foreignId('group_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
-            $table->foreignId('coursesdetail_id')
+            $table->foreignId('course_detail_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
-            $table->timestamps();
         });
     }
 
@@ -36,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('groupassignments');
+        Schema::dropIfExists('group_assignments');
     }
 };

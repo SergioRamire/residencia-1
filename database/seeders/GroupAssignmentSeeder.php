@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Coursesdetail;
+use App\Models\GroupAssignment;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CoursesdetailSeeder extends Seeder
+class GroupAssignmentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,8 @@ class CoursesdetailSeeder extends Seeder
      */
     public function run()
     {
-        Coursesdetail::factory()
-            ->count(10)
+        GroupAssignment::factory()
+            ->count(5)
             ->create();
     }
 }

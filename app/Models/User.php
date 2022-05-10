@@ -80,8 +80,11 @@ class User extends Authenticatable
         return $this->belongsTo(Area::class);
     }
 
-    public function inscriptions()
+    public function courseDetails()
     {
-        return $this->hasMany(Inscription::class);
+        return $this->belongsToMany(CourseDetail::class, 'inscriptions')
+            ->withPivot('calificacion', 'estatus', 'asistencias_minimas')
+            ->as('inscriptions')
+            ->withTimestamps();
     }
 }

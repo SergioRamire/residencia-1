@@ -22,8 +22,8 @@ class Inscription extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function coursesdetail()
+    public function courseDetail()
     {
-        return $this->belongsTo(Coursesdetail::class);
+        return $this->belongsTo(CourseDetail::class);
     }
 }

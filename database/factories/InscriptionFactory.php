@@ -20,7 +20,7 @@ class InscriptionFactory extends Factory
             'calificacion' => $this->faker->numberBetween(0, 100),
             'estatus' => $this->faker->randomElement(['Participante', 'Instructor']),
             'asistencias_minimas' => $this->faker->numberBetween(0, 1),
-            'coursesdetail_id' => $this->faker->numberBetween(1, 10),
+            'course_detail_id' => $this->faker->numberBetween(1, 10),
             'user_id' => $this->faker->numberBetween(1, 20),
         ];
     }
