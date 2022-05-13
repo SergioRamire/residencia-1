@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\CourseDetail;
 use App\Models\Group;
-use App\Models\User;
 use App\Models\Period;
+use App\Models\User;
 use Faker\Factory;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -38,6 +38,5 @@ class CourseDetailSeeder extends Seeder
             $courseDetails = CourseDetail::inRandomOrder()->take(rand(1, 10))->pluck('id');
             $period->courseDetails()->attach($courseDetails);
         }
-
     }
 }

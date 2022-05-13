@@ -18,7 +18,6 @@ class CourseDetailFactory extends Factory
      */
     public function definition()
     {
-
         $hora_inicio = $this->faker->time();
 
         return [
