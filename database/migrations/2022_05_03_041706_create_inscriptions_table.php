@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('inscriptions', function (Blueprint $table) {
             $table->double('calificacion');
-            $table->string('estatus');
+            $table->string('estatus_participante');
             $table->boolean('asistencias_minimas');
             $table->timestamps();
             $table->foreignId('user_id')

@@ -18,7 +18,6 @@ class GroupFactory extends Factory
     {
         return [
             'nombre' => rtrim($this->faker->sentence(1), '.'),
-            'capacidad' => $this->faker->numberBetween(10, 30),
         ];
     }
 }

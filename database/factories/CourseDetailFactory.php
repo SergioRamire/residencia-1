@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Course;
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,17 +19,15 @@ class CourseDetailFactory extends Factory
     public function definition()
     {
 
-        /* Fecha entre 1 de junio al 30 de junio del 2022 */
-        $fechaInicio = $this->faker->unique()->dateTimeBetween('2022-06-01', '2022-06-30')->format('Y-m-d');
-
-        /* Utilizado en $fecha_fin = $fecha_inicio + (4|5|6|7|8) dias */
-        $fechaMasDias = rand(4, 8);
+        $hora_inicio = $this->faker->time();
 
         return [
-            'fecha_inicio' => $fechaInicio,
-            'fecha_fin' => date('Y-m-d', strtotime($fechaInicio."+${fechaMasDias} day")),
+            'hora_inicio' => $hora_inicio,
+            'hora_fin' => date('H:i:s', strtotime($hora_inicio.'+1 hour')),
             'lugar' => rtrim($this->faker->sentence(2), '.'),
+            'capacidad' => $this->faker->numberBetween(10, 30),
             'course_id' => Course::inRandomOrder()->first()->id,
+            'group_id' => Group::inRandomOrder()->first()->id,
         ];
     }
 }

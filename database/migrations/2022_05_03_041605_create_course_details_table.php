@@ -15,11 +15,16 @@ return new class extends Migration
     {
         Schema::create('course_details', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
+            $table->time('hora_inicio');
+            $table->time('hora_fin');
             $table->string('lugar');
+            $table->tinyInteger('capacidad');
             $table->timestamps();
             $table->foreignId('course_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('set null');
+            $table->foreignId('group_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');

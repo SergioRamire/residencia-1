@@ -10,10 +10,12 @@ class CourseDetail extends Model
     use HasFactory;
 
     protected $fillable = [
-        'fecha_inicio',
-        'fecha_fin',
+        'hora_inicio',
+        'hora_fin',
         'lugar',
+        'capacidad',
         'course_id',
+        'group_id',
     ];
 
     public function users()
@@ -29,11 +31,15 @@ class CourseDetail extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function groups()
+    public function group()
     {
-        return $this->belongsToMany(Group::class, 'group_assignments')
-            ->withPivot('hora_inicio', 'hora_fin')
-            ->as('group_assignment')
+        return $this->belongsTo(Group::class);
+    }
+
+    public function periods()
+    {
+        return $this->belongsToMany(Period::class, 'period_details')
+            ->as('period_detail')
             ->withTimestamps();
     }
 }

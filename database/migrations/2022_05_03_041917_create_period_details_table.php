@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('group_assignments', function (Blueprint $table) {
-            $table->time('hora_inicio');
-            $table->time('hora_fin');
+        Schema::create('period_details', function (Blueprint $table) {
             $table->timestamps();
-            $table->foreignId('group_id')
+            $table->foreignId('period_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_assignments');
+        Schema::dropIfExists('period_details');
     }
 };
