@@ -92,7 +92,7 @@
             <!-- Puesto -->
             <div class="mt-4 sm:flex-1">
                 <x-jet-label value="Puesto"/>
-                <x-jet-input wire:model="user.puesto" class="block mt-1 w-full" type="text" disabled/>
+                <x-jet-input wire:model="user.puesto_en_area" class="block mt-1 w-full" type="text" disabled/>
             </div>
 
             <!-- Hora entrada -->

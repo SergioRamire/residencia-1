@@ -51,11 +51,11 @@ class ParticipantController extends Component
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
             'user.correo_tecnm' => ['email', 'ends_with:@oaxaca.tecnm.mx', Rule::unique('users', 'correo_tecnm')->ignore($this->user)],
-            'user.puesto' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.puesto_en_area' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.hora_entrada' => 'required',
             'user.hora_salida' => 'required',
             'user.cuenta_moodle' => ['required',  'in:0,1'],
-            'user.organizacion_origen' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.organizacion_origen' => ['required', 'max:255'],
             'user.area_id' => ['required',  'exists:areas,id'],
         ];
     }

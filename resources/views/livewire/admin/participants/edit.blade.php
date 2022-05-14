@@ -104,7 +104,7 @@
                 <!-- Puesto -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="puesto" value="Puesto"/>
-                    <x-input.error wire:model="user.puesto" class="block mt-1 w-full" type="text" id="puesto" name="puesto" for="user.puesto" required/>
+                    <x-input.error wire:model="user.puesto_en_area" class="block mt-1 w-full" type="text" id="puesto" name="puesto" for="user.puesto" required/>
                 </div>
 
                 <!-- Hora entrada -->
