@@ -111,8 +111,8 @@
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> 
                         {{-- jefe --}}
                         <div class="mt-4 flex-1">
-                            <x-jet-label for="jefe" value="Nombre del Jefe inmediato" />
-                            <x-jet-input wire:model="area.jefe" class="block mt-1 w-full" type="text" disabled/>
+                            <x-jet-label for="jefe_inmediato" value="Nombre del Jefe inmediato" />
+                            <x-jet-input wire:model="user.jefe_inmediato" class="block mt-1 w-full" type="text" disabled/>
                         </div>
                         {{-- telefono --}}
                         <div class="mt-4 flex-1">
@@ -121,10 +121,10 @@
                         </div>
                     </div>
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                        <!-- puesto -->
+                        <!-- puesto_en_area -->
                         <div class="mt-4 flex-1">
-                            <x-jet-label for="puesto" value="Puesto" />
-                            <x-jet-input wire:model="user.puesto" class="block mt-1 w-full" type="text" disabled/>
+                            <x-jet-label for="puesto_en_area" value="Puesto en Area" />
+                            <x-jet-input wire:model="user.puesto_en_area" class="block mt-1 w-full" type="text" disabled/>
                         </div>       
                         {{-- hora_entrada --}}
                         <div class="mt-4 flex-1">
@@ -158,5 +158,5 @@
             </div>
         </div>
     </div>
-    @include('livewire.admin.datos.confirmation')
+    @include('livewire.admin.perfil.confirmation')
 </div>

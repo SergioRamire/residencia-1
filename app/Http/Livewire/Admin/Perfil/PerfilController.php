@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Datos;
+namespace App\Http\Livewire\Admin\Perfil;
 
 use App\Models\Area;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class Personales extends Component
+class PerfilController extends Component
 {
     public User $user;
     public Area $area;
@@ -18,7 +18,6 @@ class Personales extends Component
         $this->user = auth()->user();
         $this->area = Area::find(auth()->user()->area_id);
     }
-
     public function rules()
     {
         return [
@@ -35,9 +34,10 @@ class Personales extends Component
 
             'user.area_id' => 'required',
             'user.clave_presupuestal' => 'required',
-            'user.puesto' => 'required',
+            'user.puesto_en_area' => 'required',
             'area.telefono' => 'required',
             'area.jefe' => 'required',
+            'user.jefe_inmediato' => 'required',
             'user.hora_entrada' => 'required',
             'user.hora_salida' => 'required',
             'user.tipo' => 'required',
@@ -45,12 +45,11 @@ class Personales extends Component
             'user.cuenta_moodle' => 'required',
         ];
     }
-
     public function render()
     {
-        return view('livewire.admin.datos.personales');
+        return view('livewire.admin.perfil.index');
     }
-
+    
     public function confirmSave()
     {
         $this->validate();
@@ -68,6 +67,6 @@ class Personales extends Component
             'message' => 'Datos actualizado exitosamente. Nota: Es necesario recargar para actualizar Datos de la barra',
         ]);
 
-        return redirect()->route('datos.personales');
+        return redirect()->route('perfil');
     }
 }
