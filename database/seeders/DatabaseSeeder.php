@@ -19,9 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CourseSeeder::class,
             GroupSeeder::class,
-            CoursesdetailSeeder::class,
-            InscriptionSeeder::class,
-            GroupassignmentSeeder::class,
+            PeriodSeeder::class,
+            CourseDetailSeeder::class,
         ]);
     }
 }

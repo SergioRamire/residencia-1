@@ -28,7 +28,7 @@ class AreaFactory extends Factory
                 'Depto. de Ingeniería Eléctrica',
                 'Depto. de Ingeniería Electrónica',
             ]),
-            'jefe' => $this->faker->name(),
+            'jefe_area' => $this->faker->name(),
             'telefono' => $this->faker->regexify('951[0-9]{3}[0-9]{4}'),
             'extension' => $this->faker->randomNumber('3', true),
         ];

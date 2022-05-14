@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Groupassignment;
+use App\Models\Period;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class GroupassignmentSeeder extends Seeder
+class PeriodSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,8 +15,8 @@ class GroupassignmentSeeder extends Seeder
      */
     public function run()
     {
-        Groupassignment::factory()
-            ->count(5)
+        Period::factory()
+            ->count(2)
             ->create();
     }
 }
