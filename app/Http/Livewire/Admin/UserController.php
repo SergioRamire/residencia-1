@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Actions\Fortify\PasswordValidationRules;
+use App\Http\Traits\WithSearching;
+use App\Http\Traits\WithSorting;
+use App\Http\Traits\WithTrimAndNullEmptyStrings;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -15,8 +17,10 @@ use Livewire\WithPagination;
 class UserController extends Component
 {
     use AuthorizesRequests;
-    use PasswordValidationRules;
     use WithPagination;
+    use WithSearching;
+    use WithSorting;
+    use WithTrimAndNullEmptyStrings;
 
     public User $user;
     public string $role = '';
@@ -24,9 +28,6 @@ class UserController extends Component
     public string $password_confirmation = '';
 
     public int $perPage = 5;
-    public string $search = '';
-    public string $sortField = 'id';
-    public string $sortDirection = 'asc';
 
     public bool $showEditCreateModal = false;
     public bool $showViewModal = false;
@@ -35,9 +36,7 @@ class UserController extends Component
     public bool $delete = false;
 
     protected $queryString = [
-        'search' => ['except' => ''],
-        'sortField' => ['except' => 'id'],
-        'sortDirection',
+        'perPage' => ['except' => 5, 'as' => 'p'],
     ];
 
     public function rules(): array
@@ -66,21 +65,6 @@ class UserController extends Component
     public function mount()
     {
         $this->blankUser();
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function sortBy(string $field)
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortField = $field;
-            $this->sortDirection = 'asc';
-        }
     }
 
     public function blankUser()

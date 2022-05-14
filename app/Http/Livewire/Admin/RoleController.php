@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Traits\WithSearching;
+use App\Http\Traits\WithSorting;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -12,14 +14,13 @@ class RoleController extends Component
 {
     use AuthorizesRequests;
     use WithPagination;
+    use WithSearching;
+    use WithSorting;
 
     public Role $role;
     public array $permissions = [];
 
     public int $perPage = 5;
-    public string $search = '';
-    public string $sortField = 'id';
-    public string $sortDirection = 'asc';
 
     public bool $showEditCreateModal = false;
     public bool $showViewModal = false;
@@ -28,9 +29,7 @@ class RoleController extends Component
     public bool $delete = false;
 
     protected $queryString = [
-        'search' => ['except' => ''],
-        'sortField' => ['except' => 'id'],
-        'sortDirection',
+        'perPage' => ['except' => 5, 'as' => 'p'],
     ];
 
     protected array $rules = [
@@ -40,21 +39,6 @@ class RoleController extends Component
     public function mount()
     {
         $this->blankRole();
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function sortBy(string $field)
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortField = $field;
-            $this->sortDirection = 'asc';
-        }
     }
 
     public function blankRole()
