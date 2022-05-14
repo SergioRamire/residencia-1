@@ -48,7 +48,7 @@ class UserController extends Component
                 'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
                 'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
                 'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
-                'password' => array_replace($this->passwordRules(), [0 => 'present']),
+                'password' => ['present', 'string', 'min:8', 'confirmed'],
                 'password_confirmation' => ['present'],
             ];
         }
@@ -58,7 +58,7 @@ class UserController extends Component
             'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => $this->passwordRules(),
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required'],
         ];
     }
@@ -119,6 +119,7 @@ class UserController extends Component
         $this->resetValidation();
 
         $this->user = $user;
+        $this->reset(['password', 'password_confirmation']);
         $this->role = $user->getRoleNames()->first() ?? '';
 
         $this->edit = true;

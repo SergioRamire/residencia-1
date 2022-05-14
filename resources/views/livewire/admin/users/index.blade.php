@@ -57,7 +57,7 @@
                         <tr wire:key="user-{{ $u->id }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell>{{ $u->nombre_completo }}</x-table.cell>
                             <x-table.cell>{{ $u->email }}</x-table.cell>
-                            <x-table.cell>{{ ucwords($u->getRoleNames()->first()) }}</x-table.cell>
+                            <x-table.cell>{{ $u->getRoleNames()->first() }}</x-table.cell>
                             <x-table.cell>
                                 <button wire:click="edit({{ $u->id }})" type="button" class="text-amber-600 hover:text-amber-900">
                                     <x-icon.pencil alt class="h-6 w-6"/>

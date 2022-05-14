@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
 
         /* Concede implícitamente al rol "super-admin" todos los permisos */
         Gate::before(function ($user, $ability) {
-            return $user->hasRole('super-admin') ? true : null;
+            return $user->hasRole('Super admin') ? true : null;
         });
     }
 }
