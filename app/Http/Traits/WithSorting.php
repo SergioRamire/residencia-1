@@ -17,12 +17,14 @@ trait WithSorting
         if ($this->sortField !== $field) {
             $this->sortField = $field;
             $this->sortDirection = 'asc';
+
             return;
         }
 
         if ($this->sortDirection !== 'asc') {
             $this->sortField = 'id';
             $this->sortDirection = 'asc';
+
             return;
         }
 
