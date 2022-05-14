@@ -38,7 +38,8 @@ class User extends Authenticatable
         'organizacion_origen',
         'estudio_maximo',
         'cuenta_moodle',
-        'puesto',
+        'puesto_en_area',
+        'jefe_inmediato',
         'hora_entrada',
         'hora_salida',
         'correo_tecnm',
@@ -80,8 +81,11 @@ class User extends Authenticatable
         return $this->belongsTo(Area::class);
     }
 
-    public function inscriptions()
+    public function courseDetails()
     {
-        return $this->hasMany(Inscription::class);
+        return $this->belongsToMany(CourseDetail::class, 'inscriptions')
+            ->withPivot('calificacion', 'estatus_participante', 'asistencias_minimas')
+            ->as('inscription')
+            ->withTimestamps();
     }
 }
