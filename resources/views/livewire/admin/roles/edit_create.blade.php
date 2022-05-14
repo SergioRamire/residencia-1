@@ -7,16 +7,17 @@
             <!-- Nombre -->
             <div>
                 <x-jet-label for="nombre" value="Nombre"/>
-                <x-input.error wire:model.defer="role.name" class="block mt-1 w-full" type="text" id="clave" name="clave" for="role.name" required/>
+                @unless(in_array($role->name, ['Super admin', 'Administrador', 'Participante', 'Instructor']))
+                    <x-input.error wire:model.defer="role.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="role.name" required/>
+                @else
+                    <x-input.error wire:model.defer="role.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="role.name" readonly/>
+                @endunless
             </div>
 
             <!-- Permisos -->
             <fieldset class="mt-4">
                 <p class="block font-medium text-sm text-gray-700">Permisos</p>
                 <div class="divide-y divide-gray-200">
-                    {{-- <div class="border-t border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-indigo-500"> --}}
-                    {{--     <p>Usuario</p> --}}
-                    {{-- </div> --}}
                     <div class="mt-1 grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-4">
                         @foreach(\Spatie\Permission\Models\Permission::all() as $permission)
                             <x-checkbox wire:model.defer="permissions" :value="$permission->id" :for="$permission->name" :label="$permission->human_name"/>
