@@ -20,8 +20,8 @@ class Course extends Model
         'perfil',
     ];
 
-    public function coursesdetails()
+    public function courseDetails()
     {
-        return $this->hasMany(Coursesdetail::class);
+        return $this->hasMany(CourseDetail::class);
     }
 }
