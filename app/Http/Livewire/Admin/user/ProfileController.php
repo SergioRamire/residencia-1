@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Perfil;
+namespace App\Http\Livewire\Admin\user;
 
 use App\Models\Area;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
-class PerfilController extends Component
+class ProfileController extends Component
 {
     public User $user;
     public Area $area;
@@ -18,6 +18,7 @@ class PerfilController extends Component
         $this->user = auth()->user();
         $this->area = Area::find(auth()->user()->area_id);
     }
+
     public function rules()
     {
         return [
@@ -45,11 +46,12 @@ class PerfilController extends Component
             'user.cuenta_moodle' => 'required',
         ];
     }
+
     public function render()
     {
         return view('livewire.admin.perfil.index');
     }
-    
+
     public function confirmSave()
     {
         $this->validate();

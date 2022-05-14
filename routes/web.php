@@ -26,5 +26,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('perfil', \App\Http\Livewire\Admin\Perfil\PerfilController::class)->name('perfil');
+    Route::get('perfil', \App\Http\Livewire\Admin\user\ProfileController::class)->name('perfil');
 });
