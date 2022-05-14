@@ -21,7 +21,7 @@ class CourseDetail extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'inscriptions')
-            ->withPivot('calificacion', 'estatus', 'asistencias_minimas')
+            ->withPivot('calificacion', 'estatus_participante', 'asistencias_minimas')
             ->as('inscription')
             ->withTimestamps();
     }

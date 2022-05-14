@@ -18,11 +18,11 @@ class CourseDetailFactory extends Factory
      */
     public function definition()
     {
-        $hora_inicio = $this->faker->time();
+        $hora_inicio = $this->faker->time('H:i');
 
         return [
             'hora_inicio' => $hora_inicio,
-            'hora_fin' => date('H:i:s', strtotime($hora_inicio.'+1 hour')),
+            'hora_fin' => date('H:i', strtotime($hora_inicio.'+1 hour')),
             'lugar' => rtrim($this->faker->sentence(2), '.'),
             'capacidad' => $this->faker->numberBetween(10, 30),
             'course_id' => Course::inRandomOrder()->first()->id,

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\CourseDetail;
-use App\Models\Group;
 use App\Models\Period;
 use App\Models\User;
 use Faker\Factory;
@@ -34,7 +33,6 @@ class CourseDetailSeeder extends Seeder
         }
 
         foreach (Period::all() as $period) {
-            $faker = Factory::create();
             $courseDetails = CourseDetail::inRandomOrder()->take(rand(1, 10))->pluck('id');
             $period->courseDetails()->attach($courseDetails);
         }
