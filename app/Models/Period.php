@@ -5,16 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Group extends Model
+class Period extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'nombre',
+        'fecha_inicio',
+        'fecha_fin',
     ];
 
     public function courseDetails()
     {
-        return $this->hasMany(CourseDetail::class);
+        return $this->belongsToMany(CourseDetail::class, 'period_details')
+            ->as('period_detail')
+            ->withTimestamps();
     }
 }

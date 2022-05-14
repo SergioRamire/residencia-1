@@ -31,17 +31,18 @@ return new class extends Migration
             $table->string('clave_presupuestal')->nullable();
             $table->string('estudio_maximo')->nullable();
             $table->string('correo_tecnm')->nullable();
-            $table->string('puesto')->nullable();
+            $table->string('puesto_en_area')->nullable();
+            $table->string('jefe_inmediato')->nullable();
             $table->time('hora_entrada')->nullable();
             $table->time('hora_salida')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->timestamps();
             $table->foreignId('area_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
-            $table->timestamps();
         });
     }
 
