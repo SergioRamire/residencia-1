@@ -3,7 +3,6 @@
         Course: <strong>{{ $course->field }}</strong>
     </x-slot>
     <x-slot name="content">
-        {{-- Recuerda omitir los 'id', 'name' y poner 'disabled' --}}
         <!-- Clave y Periodo -->
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
             <!-- Clave -->

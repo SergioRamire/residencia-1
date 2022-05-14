@@ -127,8 +127,7 @@
                         </tr>
                     @empty
                         <tr>
-                            {{-- Cambia el número según el numero de columnas --}}
-                            <x-table.cell colspan="7">
+                            <x-table.cell colspan="4">
                                 <div class="flex justify-center items-center space-x-2">
                                     <!-- Icono -->
                                     <svg class="inline-block h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
