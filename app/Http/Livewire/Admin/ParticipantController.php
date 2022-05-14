@@ -2,6 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Traits\WithFilters;
+use App\Http\Traits\WithSearching;
+use App\Http\Traits\WithSorting;
+use App\Http\Traits\WithTrimAndNullEmptyStrings;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -10,14 +14,15 @@ use Livewire\WithPagination;
 
 class ParticipantController extends Component
 {
+    use WithFilters;
     use WithPagination;
+    use WithSearching;
+    use WithSorting;
+    use WithTrimAndNullEmptyStrings;
 
     public User $user;
 
     public int $perPage = 5;
-    public string $search = '';
-    public string $sortField = 'id';
-    public string $sortDirection = 'asc';
     public array $filters = [
         'area' => '',
         'tipo' => '',
@@ -30,9 +35,7 @@ class ParticipantController extends Component
     public bool $showConfirmationModal = false;
 
     protected $queryString = [
-        'search' => ['except' => ''],
-        'sortField' => ['except' => 'id'],
-        'sortDirection',
+        'perPage' => ['except' => 5, 'as' => 'p'],
     ];
 
     public function rules(): array
@@ -63,31 +66,6 @@ class ParticipantController extends Component
     public function mount()
     {
         $this->blankUser();
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function updatingFilters()
-    {
-        $this->resetPage();
-    }
-
-    public function resetFilters()
-    {
-        $this->reset('filters');
-    }
-
-    public function sortBy(string $field)
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortField = $field;
-            $this->sortDirection = 'asc';
-        }
     }
 
     public function blankUser()
