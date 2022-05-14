@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Http\Traits\WithFilters;
 use App\Http\Traits\WithSearching;
 use App\Http\Traits\WithSorting;
+use App\Http\Traits\WithTrimAndNullEmptyStrings;
 use App\Models\Course;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -16,6 +17,7 @@ class CourseController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
+    use WithTrimAndNullEmptyStrings;
 
     public Course $course;
 
@@ -41,7 +43,7 @@ class CourseController extends Component
             'course.duracion' => ['required', 'integer', 'max:50'],
             'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
             'course.dirigido' => ['required', 'max:255'],
-            'course.observaciones' => ['present', 'max:255'],
+            'course.observaciones' => ['nullable', 'max:255'],
         ];
     }
 
