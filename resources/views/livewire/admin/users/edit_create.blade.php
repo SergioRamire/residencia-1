@@ -35,7 +35,7 @@
 
                 <!-- Rol -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="rol" value="Correo"/>
+                    <x-jet-label for="rol" value="Rol"/>
                     <x-input.select wire:model.defer="role" id="rol" class="mt-1 w-full" name="rol">
                         <option value="" disabled>Selecciona rol...</option>
                         @foreach(\Spatie\Permission\Models\Role::all() as $role)
