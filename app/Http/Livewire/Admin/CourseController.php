@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Traits\WithFilters;
+use App\Http\Traits\WithSearching;
+use App\Http\Traits\WithSorting;
 use App\Models\Course;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -9,14 +12,14 @@ use Livewire\WithPagination;
 
 class CourseController extends Component
 {
+    use WithFilters;
     use WithPagination;
+    use WithSearching;
+    use WithSorting;
 
     public Course $course;
 
     public int $perPage = 5;
-    public string $search = '';
-    public string $sortField = 'id';
-    public string $sortDirection = 'asc';
     public array $filters = [
         'modalidad' => '',
         'perfil' => '',
@@ -27,12 +30,6 @@ class CourseController extends Component
     public bool $showConfirmationModal = false;
     public bool $edit = false;
     public bool $delete = false;
-
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'sortField' => ['except' => 'id'],
-        'sortDirection',
-    ];
 
     public function rules(): array
     {
@@ -51,31 +48,6 @@ class CourseController extends Component
     public function mount()
     {
         $this->blankCourse();
-    }
-
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function updatingFilters()
-    {
-        $this->resetPage();
-    }
-
-    public function resetFilters()
-    {
-        $this->reset('filters');
-    }
-
-    public function sortBy(string $field)
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortField = $field;
-            $this->sortDirection = 'asc';
-        }
     }
 
     public function blankCourse()
