@@ -34,7 +34,7 @@ class CourseController extends Component
     public bool $delete = false;
 
     protected $queryString = [
-        'perPage' => ['except' => 5, 'as' => 'p']
+        'perPage' => ['except' => 5, 'as' => 'p'],
     ];
 
     public function rules(): array
