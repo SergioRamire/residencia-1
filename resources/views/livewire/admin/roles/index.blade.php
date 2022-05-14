@@ -50,21 +50,24 @@
                     </x-slot>
 
                     @forelse($roles as $r)
-                        <tr wire:key="role-{{ $r->id }}" wire:loading.class.delay="opacity-50">
-                            @unless($r->name === 'super-admin')
+                        @unless($r->name === 'Super admin' && auth()->user()->getRoleNames()->first() !== 'Super admin')
+                            <tr wire:key="role-{{ $r->id }}" wire:loading.class.delay="opacity-50">
                                 <x-table.cell>{{ $r->name }}</x-table.cell>
                                 <x-table.cell>
-                                    <button wire:click="edit({{ $r->id }})" type="button" class="text-amber-600 hover:text-amber-900">
-                                        <x-icon.pencil alt class="h-6 w-6"/>
-                                    </button>
-                                    @unless($r->name === 'admin' || $r->name === 'instructor' || $r->name === 'participant')
+                                    @unless($r->name === 'Super admin')
+                                        <button wire:click="edit({{ $r->id }})" type="button" class="text-amber-600 hover:text-amber-900">
+                                            <x-icon.pencil alt class="h-6 w-6"/>
+                                        </button>
+                                    @endunless
+
+                                    @unless(in_array($r->name, ['Super admin', 'Administrador', 'Participante', 'Instructor']))
                                         <button wire:click="delete({{ $r->id }})" type="button" class="text-red-600 hover:text-red-900">
                                             <x-icon.trash class="h-6 w-6"/>
                                         </button>
                                     @endunless
                                 </x-table.cell>
-                            @endunless
-                        </tr>
+                            </tr>
+                        @endunless
                     @empty
                         <tr>
                             <x-table.cell colspan="2">
