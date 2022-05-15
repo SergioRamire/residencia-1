@@ -48,7 +48,7 @@ class ProfileController extends Component
 
     public function render()
     {
-        return view('livewire.admin.perfil.index');
+        return view('livewire.admin.user.index');
     }
 
     public function confirmSave()
