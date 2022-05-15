@@ -7,12 +7,15 @@ use App\Http\Traits\WithSearching;
 use App\Http\Traits\WithSorting;
 use App\Http\Traits\WithTrimAndNullEmptyStrings;
 use App\Models\Course;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class CourseController extends Component
 {
+    use AuthorizesRequests;
     use WithFilters;
     use WithPagination;
     use WithSearching;
@@ -66,8 +69,13 @@ class CourseController extends Component
         ]);
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function create()
     {
+        $this->authorize('course.create');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -79,8 +87,13 @@ class CourseController extends Component
         $this->showEditCreateModal = true;
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(Course $course)
     {
+        $this->authorize('course.edit');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -109,8 +122,13 @@ class CourseController extends Component
         $this->showViewModal = true;
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function delete(Course $course)
     {
+        $this->authorize('course.delete');
+
         $this->course = $course;
 
         $this->edit = false;
