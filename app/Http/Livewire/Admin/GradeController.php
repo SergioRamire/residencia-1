@@ -103,20 +103,21 @@ class GradeController extends Component
     }
 
     public function miFuncion()
-{
-    // id de sala
-    $id_sala = $request->get('id');
-    // instancia sala
-    $this->grad = inscrition::with('users')->find(3);
+    {
+        // id de sala
+        $id_sala = $request->get('id');
+        // instancia sala
+        $this->grad = inscrition::with('users')->find(3);
 
-    return  $this->grad;
-}
+        return  $this->grad;
+    }
 
     public function render()
     {
-        $grads = User::find(1)->courseDetails->pivot->where('calificacion',44)->get();
+        $grads = User::find(1)->courseDetails->pivot->where('calificacion', 44)->get();
+
         return view('livewire.admin.grades.index', [
-            'grads'
+            'grads',
         ]);
     }
 }

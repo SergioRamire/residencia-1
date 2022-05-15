@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Area;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Validation\Rule;
 
 class AreaController extends Component
 {
@@ -48,7 +48,7 @@ class AreaController extends Component
             'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             'extension' => ['required', 'numeric'],
-            'clave' => ['required', 'alpha_num',Rule::unique('areas', 'clave')->ignore($this->area)],
+            'clave' => ['required', 'alpha_num', Rule::unique('areas', 'clave')->ignore($this->area)],
             'telefono' => ['required', 'numeric'],
 
         ]);
