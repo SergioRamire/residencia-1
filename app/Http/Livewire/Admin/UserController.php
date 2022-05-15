@@ -28,6 +28,7 @@ class UserController extends Component
     public string $password_confirmation = '';
 
     public int $perPage = 5;
+    protected array $cleanStringsExcept = ['search'];
 
     public bool $showEditCreateModal = false;
     public bool $showViewModal = false;
