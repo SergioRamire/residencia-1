@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Admin\ParticipantController;
 use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,4 +28,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('roles', RoleController::class)->name('roles');
+
+    Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
+        ->get('participante', ParticipantController::class)->name('participante');
 });

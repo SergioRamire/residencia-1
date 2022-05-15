@@ -7,6 +7,8 @@ use App\Http\Traits\WithSearching;
 use App\Http\Traits\WithSorting;
 use App\Http\Traits\WithTrimAndNullEmptyStrings;
 use App\Models\User;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
@@ -14,6 +16,7 @@ use Livewire\WithPagination;
 
 class ParticipantController extends Component
 {
+    use AuthorizesRequests;
     use WithFilters;
     use WithPagination;
     use WithSearching;
@@ -23,6 +26,7 @@ class ParticipantController extends Component
     public User $user;
 
     public int $perPage = 5;
+    protected array $cleanStringsExcept = ['search'];
     public array $filters = [
         'area' => '',
         'tipo' => '',
@@ -73,8 +77,13 @@ class ParticipantController extends Component
         $this->user = User::make();
     }
 
+    /**
+     * @throws AuthorizationException
+     */
     public function edit(User $user)
     {
+        $this->authorize('participant.edit');
+
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
