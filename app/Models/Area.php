@@ -12,7 +12,7 @@ class Area extends Model
     protected $fillable = [
         'nombre',
         'clave',
-        'jefe',
+        'jefe_area',
         'telefono',
         'extension',
     ];

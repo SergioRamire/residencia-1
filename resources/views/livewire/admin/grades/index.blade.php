@@ -44,8 +44,8 @@
                 </div>
             </div>
         </div>
-
-        <!-- Tabla -->
+{{$grads}}
+      {{--   <!-- Tabla -->
         <div class="flex flex-col space-y-2">
             <x-table>
                 <x-slot name="head">
@@ -88,7 +88,7 @@
             </div>
             @if($isOpen)
                 @include('livewire.admin.grades.edit')
-            @endif
+            @endif --}}
         </div>
     </div>
 </div>

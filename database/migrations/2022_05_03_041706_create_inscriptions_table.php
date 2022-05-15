@@ -16,17 +16,17 @@ return new class extends Migration
         Schema::create('inscriptions', function (Blueprint $table) {
             $table->id();
             $table->double('calificacion');
-            $table->string('estatus');
+            $table->string('estatus_participante');
             $table->boolean('asistencias_minimas');
+            $table->timestamps();
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
-            $table->foreignId('coursesdetail_id')
+            $table->foreignId('course_detail_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
-            $table->timestamps();
         });
     }
 

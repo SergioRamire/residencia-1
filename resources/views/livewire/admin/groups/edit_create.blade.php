@@ -12,12 +12,6 @@
                     <x-input.error wire:model.defer="nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="nombre" required/>
                 </div>
 
-                <!-- Capacidad -->
-                <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="cap" value="Capacidad" />
-                    <x-input.error wire:model.defer="capacidad" class="block mt-1 w-full" type="number" id="capacidad" name="capacidad" for="capacidad" maxlength="2" required/>
-                </div>
-
         </form>
     </x-slot>
 

@@ -1,7 +1,7 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
 <x-jet-confirmation-modal wire:model="confirmingAreaDeletion">
     <x-slot name="title">
-        {{ __('Eliminar Área.') }}
+        Eliminar Área.
     </x-slot>
 
     <x-slot name="content">

@@ -30,13 +30,13 @@ class CourseFactory extends Factory
 
         return [
             'clave' => $this->faker->unique()->regexify('[A-Z]{3}[0-9]{2}'),
-            'nombre' => $this->faker->sentence(3),
-            'objetivo' => $this->faker->paragraph(),
-            'modalidad' => $this->faker->randomElement(['Presencial',  'En linea']),
+            'nombre' => rtrim($this->faker->sentence(3), '.'),
+            'objetivo' => rtrim($this->faker->paragraph(), '.'),
+            'modalidad' => $this->faker->randomElement(['Presencial', 'En linea']),
             'duracion' => $this->faker->numberBetween(1, 5),
-            'observaciones' => $this->faker->paragraph(),
+            'observaciones' => rtrim($this->faker->paragraph(), '.'),
             'dirigido' => implode(', ', $dirigido),
-            'perfil' => $this->faker->randomElement(['Formación docente', 'Actualización docente']),
+            'perfil' => $this->faker->randomElement(['Formación docente', 'Actualización profesional']),
         ];
     }
 }

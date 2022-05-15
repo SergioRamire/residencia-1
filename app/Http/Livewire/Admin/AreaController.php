@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Area;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Validation\Rule;
 
 class AreaController extends Component
 {
@@ -16,7 +17,7 @@ class AreaController extends Component
     public $area_id;
     public $nombre;
     public $telefono;
-    public $jefe;
+    public $jefe_area;
     public $extension;
     public $clave;
     public $edit = false;
@@ -45,9 +46,9 @@ class AreaController extends Component
     {
         $this->validate([
             'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            'jefe' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             'extension' => ['required', 'numeric'],
-            'clave' => ['required', 'alpha_num'],
+            'clave' => ['required', 'alpha_num',Rule::unique('areas', 'clave')->ignore($this->area)],
             'telefono' => ['required', 'numeric'],
 
         ]);
@@ -76,7 +77,7 @@ class AreaController extends Component
         $this->area_id = '';
         $this->clave = '';
         $this->nombre = '';
-        $this->jefe = '';
+        $this->jefe_area = '';
         $this->telefono = '';
         $this->extension = '';
     }
@@ -88,7 +89,7 @@ class AreaController extends Component
         Area::updateOrCreate(['id' => $this->area_id], [
             'clave' => $this->clave,
             'nombre' => $this->nombre,
-            'jefe' => $this->jefe,
+            'jefe_area' => $this->jefe_area,
             'telefono' => $this->telefono,
             'extension' => $this->extension,
         ]);
@@ -117,7 +118,7 @@ class AreaController extends Component
         $this->area_id = $id;
         $this->clave = $area->clave;
         $this->nombre = $area->nombre;
-        $this->jefe = $area->jefe;
+        $this->jefe_area = $area->jefe_area;
         $this->telefono = $area->telefono;
         $this->extension = $area->extension;
         $this->edit = true;
@@ -147,7 +148,7 @@ class AreaController extends Component
     {
         return view('livewire.admin.areas.index', [
             'areas' => Area::where('nombre', 'like', '%'.$this->search.'%')
-                            ->orWhere('jefe', 'like', '%'.$this->search.'%')
+                            ->orWhere('jefe_area', 'like', '%'.$this->search.'%')
                             ->orWhere('clave', 'like', '%'.$this->search.'%')->paginate($this->perPage),
         ]);
     }

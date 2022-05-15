@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Livewire\Admin\RoleController;
+use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,16 +19,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:web',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::get('calificaciones', \App\Http\Livewire\Admin\GradeController::class)->name('grades');
-    Route::get('areas', \App\Http\Livewire\Admin\AreaController::class)->name('area');
-    Route::get('grupos', \App\Http\Livewire\Admin\GroupController::class)->name('group');
-    Route::get('inscripciones', \App\Http\Livewire\Admin\InscriptionController::class)->name('inscriptions');
+Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->group(function () {
+    Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
+
+    Route::middleware('can:user.show')->prefix('admin')->name('admin.')
+        ->get('usuarios', UserController::class)->name('usuarios');
+
+    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+        ->get('roles', RoleController::class)->name('roles');
+
+    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+        ->get('areas', AreaController::class)->name('area');
+
+    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+        ->get('grupos', GroupController::class)->name('group');
+
+    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+        ->get('calificaciones', GradeController::class)->name('grade');
 });

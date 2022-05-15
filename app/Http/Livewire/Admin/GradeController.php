@@ -4,8 +4,6 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Coursesdetail;
 use App\Models\Group;
-use App\Models\Groupassignment;
-use App\Models\Inscription;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -20,6 +18,7 @@ class GradeController extends Component
     public $search = '';
     public $calificacion;
     public $participante;
+    public $grad;
     public $curso = 'Quis qui quos quo.';
     public $grupo = 24;
     public $isOpen = false;
@@ -61,7 +60,7 @@ class GradeController extends Component
 
     public function store()
     {
-        $this->validateInputs();
+        /* $this->validateInputs();
         Inscription::updateOrCreate(['id' => $this->grade_id], [
             'calificacion' => $this->calificacion,
         ]);
@@ -73,12 +72,12 @@ class GradeController extends Component
         ]);
 
         $this->confirmingSaveGrade = false;
-        $this->closeModal();
+        $this->closeModal(); */
     }
 
     public function edit($id)
     {
-        $grade = Inscription::join('users', 'users.id', '=', 'user_id')
+        /* $grade = Inscription::join('users', 'users.id', '=', 'user_id')
                 ->join('coursesdetails', 'coursesdetails.id', '=', 'inscriptions.coursesdetail_id')
                 ->join('courses', 'courses.id', '=', 'coursesdetails.course_id')
                 ->where('inscriptions.id', '=', $id)
@@ -89,7 +88,7 @@ class GradeController extends Component
         $this->curso = $grade->curso;
         $this->calificacion = $grade->calificacion;
         $this->validateInputs();
-        $this->openModal();
+        $this->openModal(); */
     }
 
     public function obtenerCurso()
@@ -103,25 +102,21 @@ class GradeController extends Component
         $this->confirmingSaveGrade = true;
     }
 
+    public function miFuncion()
+{
+    // id de sala
+    $id_sala = $request->get('id');
+    // instancia sala
+    $this->grad = inscrition::with('users')->find(3);
+
+    return  $this->grad;
+}
+
     public function render()
     {
+        $grads = User::find(1)->courseDetails->pivot->where('calificacion',44)->get();
         return view('livewire.admin.grades.index', [
-            'grades' => Inscription::join('users', 'users.id', '=', 'user_id')
-                     ->join('coursesdetails', 'coursesdetails.id', '=', 'inscriptions.coursesdetail_id')
-                     ->join('courses', 'courses.id', '=', 'coursesdetails.course_id')
-                     ->join('groupassignments', 'groupassignments.coursesdetail_id', '=', 'coursesdetails.id')
-                     ->join('groups', 'groups.id', '=', 'groupassignments.group_id')
-                     ->where('groupassignments.coursesdetail_id', '=', 6)
-                     ->where('groups.id', '=', 3)
-                     ->select('inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.calificacion')
-                     ->when($this->search, function ($query, $b) {
-                         return $query->where(function ($q) {
-                             $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
-                               ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%');
-                         });
-                     })
-                     ->orderBy('users.name', 'asc')
-                     ->paginate($this->perPage),
+            'grads'
         ]);
     }
 }

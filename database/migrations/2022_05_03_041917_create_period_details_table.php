@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('coursesdetails', function (Blueprint $table) {
-            $table->id();
-            $table->date('fecha_inicio');
-            $table->date('fecha_fin');
-            $table->string('lugar');
-            $table->foreignId('course_id')
+        Schema::create('period_details', function (Blueprint $table) {
+            $table->timestamps();
+            $table->foreignId('period_id')
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
-            $table->timestamps();
+            $table->foreignId('course_detail_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('set null');
         });
     }
 
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coursesdetails');
+        Schema::dropIfExists('period_details');
     }
 };

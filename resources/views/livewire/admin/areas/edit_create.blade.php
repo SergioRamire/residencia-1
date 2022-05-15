@@ -18,7 +18,7 @@
                 <!-- Jefe -->
                 <div class="mt-4">
                     <x-jet-label for="nombre" value="Jefe" />
-                    <x-input.error wire:model.defer="jefe" class="block mt-1 w-full" type="text" id="jefe" name="jefe" for="jefe" required/>
+                    <x-input.error wire:model.defer="jefe_area" class="block mt-1 w-full" type="text" id="jefe_area" name="jefe" for="jefe_area" required/>
                 </div>
 
                 <!-- Telefono -->

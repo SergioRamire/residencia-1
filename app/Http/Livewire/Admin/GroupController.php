@@ -17,7 +17,6 @@ class GroupController extends Component
     public $search = '';
     public $group_id;
     public $nombre;
-    public $capacidad;
     // public $curso='Atque pariatur eveniet.',$grupo=24;
 
     public $edit = false;
@@ -36,9 +35,7 @@ class GroupController extends Component
     private function validateInputs()
     {
         $this->validate([
-            'capacidad' => ['required', 'numeric'],
-            'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-
+            'nombre' => ['required', 'alpha_num'],
         ]);
     }
 
@@ -75,15 +72,14 @@ class GroupController extends Component
     {
         $this->group_id = '';
         $this->nombre = '';
-        $this->capacidad = '';
     }
 
     public function store()
     {
         $this->validateInputs();
+
         Group::updateOrCreate(['id' => $this->group_id], [
             'nombre' => $this->nombre,
-            'capacidad' => $this->capacidad,
         ]);
 
         $this->dispatchBrowserEvent('notify', [
@@ -106,8 +102,8 @@ class GroupController extends Component
     public function edit($id)
     {
         $group = Group::findOrFail($id);
+        $this->group_id = $id;
         $this->nombre = $group->nombre;
-        $this->capacidad = $group->capacidad;
         $this->edit = true;
         $this->create = false;
         $this->openModal();
@@ -137,7 +133,6 @@ class GroupController extends Component
     {
         return view('livewire.admin.groups.index', [
             'groups' => Group::where('nombre', 'like', '%'.$this->search.'%')
-                     ->orWhere('capacidad', 'like', '%'.$this->search.'%')
                      ->paginate($this->perPage),
         ]);
     }

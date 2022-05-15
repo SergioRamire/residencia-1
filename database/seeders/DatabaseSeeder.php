@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AreaSeeder::class,
             UserSeeder::class,
+            PermissionSeeder::class,
             CourseSeeder::class,
             GroupSeeder::class,
-            CoursesdetailSeeder::class,
-            InscriptionSeeder::class,
-            GroupassignmentSeeder::class,
+            PeriodSeeder::class,
+            CourseDetailSeeder::class,
         ]);
     }
 }

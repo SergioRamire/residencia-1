@@ -4,13 +4,6 @@
             GRUPOS
         </h2>
     </x-slot>
-    @if (session()->has('message'))
-        <div class="flex">
-            <div>
-            <x-alert.info duration="8000">{{ session('message') }}</x-alert.info>
-            </div>
-        </div>
-    @endif
     <div class="space-y-2">
         <!-- Botón de nuevo -->
         <div>
@@ -24,7 +17,7 @@
             <!-- Parte izquierda -->
             <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
                 <!-- Barra de búsqueda -->
-                <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar usuarios...">
+                <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar grupos...">
                     <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                 </x-input.icon>
 
@@ -52,14 +45,12 @@
             <x-table>
                 <x-slot name="head">
                     <x-table.header >Nombre</x-table.header>
-                    <x-table.header>Capacidad</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
                 @forelse($groups as $g)
                     <tr wire:key="group-{{ $g->id }}" wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $g->nombre }}</x-table.cell>
-                        <x-table.cell>{{ $g->capacidad }}</x-table.cell>
                         <x-table.cell>
                             <button  wire:click="edit({{ $g->id }})" type="button" class="text-amber-600 hover:text-amber-900">
                                 <x-icon.pencil alt class="h-6 w-6"/>
