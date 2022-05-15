@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Livewire\Admin\RoleController;
-use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\AreaController;
 use App\Http\Livewire\Admin\GroupController;
+use App\Http\Livewire\Admin\RoleController;
+use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,5 +35,4 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('grupos', GroupController::class)->name('group');
-
 });
