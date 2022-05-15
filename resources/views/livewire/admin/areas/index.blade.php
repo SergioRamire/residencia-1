@@ -4,13 +4,6 @@
             DEPARTAMENTOS
         </h2>
     </x-slot>
-    @if (session()->has('message'))
-        <div class="flex">
-            <div>
-            <x-alert.info duration="8000">{{ session('message') }}</x-alert.info>
-            </div>
-        </div>
-    @endif
 
     <div class="space-y-2">
         <!-- Botón de nuevo -->

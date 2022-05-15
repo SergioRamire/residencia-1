@@ -48,7 +48,7 @@ class AreaController extends Component
             'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             'extension' => ['required', 'numeric'],
-            'clave' => ['required', 'alpha_num', Rule::unique('areas', 'clave')->ignore($this->area)],
+            'clave' => ['required', 'alpha_num'],
             'telefono' => ['required', 'numeric'],
 
         ]);
