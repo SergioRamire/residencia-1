@@ -22,6 +22,7 @@ class CourseController extends Component
     public Course $course;
 
     public int $perPage = 5;
+    protected array $cleanStringsExcept = ['search'];
     public array $filters = [
         'modalidad' => '',
         'perfil' => '',
