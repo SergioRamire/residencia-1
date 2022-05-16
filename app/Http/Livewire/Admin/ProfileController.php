@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\user;
+namespace App\Http\Livewire\Admin;
 
 use App\Models\Area;
 use App\Models\User;
@@ -34,21 +34,21 @@ class ProfileController extends Component
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
 
             'user.area_id' => ['required',  'exists:areas,id'],
-            'user.clave_presupuestal' => 'required',
-            'user.puesto_en_area' => 'required',
+            'user.clave_presupuestal' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'user.puesto_en_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             'area.telefono' => ['required', 'numeric', 'digits:10'],
-            'area.jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'user.jefe_inmediato' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             'user.hora_entrada' => 'required',
             'user.hora_salida' => 'required',
-            'user.tipo' => 'required',
-            'user.organizacion_origen' => 'required',
+            'user.tipo' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'user.organizacion_origen' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             'user.cuenta_moodle' => 'required',
         ];
     }
 
     public function render()
     {
-        return view('livewire.admin.user.index');
+        return view('livewire.admin.users.profile');
     }
 
     public function confirmSave()

@@ -28,5 +28,5 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('roles', RoleController::class)->name('roles');
 
-    Route::get('perfil', \App\Http\Livewire\Admin\user\ProfileController::class)->name('perfil');
+    Route::get('perfil', \App\Http\Livewire\Admin\ProfileController::class)->name('perfil');
 });

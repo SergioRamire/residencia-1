@@ -158,5 +158,5 @@
             </div>
         </div>
     </div>
-    @include('livewire.admin.user.confirmation')
+    @include('livewire.admin.users.profileConfirmation')
 </div>
