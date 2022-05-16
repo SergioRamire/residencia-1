@@ -25,7 +25,6 @@ class ConstanciasController extends Component
         'fecha_fin' => '',
     ];
 
-
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
@@ -37,7 +36,7 @@ class ConstanciasController extends Component
             ->join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
             ->join('users', 'users.id', '=', 'inscriptions.user_id')
-            ->join('period_details','period_details.course_detail_id', '=', 'course_details.id')
+            ->join('period_details', 'period_details.course_detail_id', '=', 'course_details.id')
             ->join('periods', 'periods.id', '=', 'period_details.period_id')
             ->select('users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.calificacion', 'inscriptions.estatus_participante', 'course_details.id')
             ->where('inscriptions.estatus_participante', '=', 'Participante')
@@ -50,16 +49,17 @@ class ConstanciasController extends Component
                 });
             })
              ->when($this->filters['filtro_curso'], function ($query, $b) {
-                return $query->where(function ($q) {
-                    $q->where('courses.nombre', 'like', '%'.$this->filters['filtro_curso'].'%');
-                });
-            })
+                 return $query->where(function ($q) {
+                     $q->where('courses.nombre', 'like', '%'.$this->filters['filtro_curso'].'%');
+                 });
+             })
             ->when($this->filters['filtro_calificacion'], function ($query, $b) {
                 return $query->where(function ($q) {
-                    if($this->filters['filtro_calificacion'] == 69)
-                        $q->where('inscriptions.calificacion','>',69);
-                    elseif($this->filters['filtro_calificacion'] == 70)
-                       $q->where('inscriptions.calificacion','<',70);
+                    if ($this->filters['filtro_calificacion'] == 69) {
+                        $q->where('inscriptions.calificacion', '>', 69);
+                    } elseif ($this->filters['filtro_calificacion'] == 70) {
+                        $q->where('inscriptions.calificacion', '<', 70);
+                    }
                 });
             })
             ->when($this->filters['fecha_inicio'], function ($query, $b) {
@@ -93,7 +93,6 @@ class ConstanciasController extends Component
 
     public function resetFilters2()
     {
-         $this->reset('filters');
+        $this->reset('filters');
     }
-
 }

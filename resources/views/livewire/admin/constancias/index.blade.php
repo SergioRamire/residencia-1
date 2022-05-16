@@ -83,7 +83,7 @@
                             <!-- fehc fin -->
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
-                                    <x-jet-label for="fecha_fin" value="Año"/>
+                                    <x-jet-label for="fecha_fin" value="Fecha inicio"/>
                                     <x-input.select wire:model="filters.fecha_fin" name="fecha_fin" id="fecha_fin" class="text-sm block mt-1 w-full" required>
                                         <option value="">Fecha Fin</option>
                                         @foreach(\App\Models\Period::all() as $period)
@@ -118,7 +118,6 @@
                         <x-table.header class="text-center">Participante</x-table.header>
                         <x-table.header class="text-center">curso</x-table.header>
                         <x-table.header class="text-center">Calificación</x-table.header>
-                        <x-table.header class="text-center">Estatus</x-table.header>
                         <x-table.header class="text-center">Opcion</x-table.header>
                     </x-slot>
 
@@ -129,7 +128,6 @@
                             </x-table.cell>
                             <x-table.cell class="text-center">{{ $g->curso }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->calificacion }}</x-table.cell>
-                            <x-table.cell class="text-center">{{ $g->estatus_participante }}</x-table.cell>
                             <div>
                                 @if($g->calificacion > 69)
                                     <x-table.cell class="text-center">

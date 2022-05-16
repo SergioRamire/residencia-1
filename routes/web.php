@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Livewire\Admin\RoleController;
-use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\ConstanciasController;
 use App\Http\Livewire\Admin\InstructorCurseController;
+use App\Http\Livewire\Admin\RoleController;
+use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,7 +32,6 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:user.show')->prefix('admin')->name('admin.')
         ->get('instructores', InstructorCurseController::class)->name('instructores');
-
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('roles', RoleController::class)->name('roles');
