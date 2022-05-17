@@ -4,16 +4,19 @@
     </x-slot>
     <x-slot name="content">
         <form  id="courseForm">
+            <!-- Clave y Grupo -->
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Curso -->
                 <div class="mt-4">
                     <x-jet-label for="curso" value="Curso" />
                     <x-input.error readonly  wire:model="curso" class="block mt-1 w-full" type="text" id="curso" name="curso" for="curso"/>
                 </div>
                 <!-- Grupo -->
-                {{-- <div class="mt-4">
+                <div class="mt-4">
                     <x-jet-label for="grupo" value="Grupo" />
                     <x-input.error readonly  wire:model="grupo" class="block mt-1 w-full" type="text" id="grupo" name="grupo" for="grupo"/>
-                </div> --}}
+                </div>
+            </div>
                 <!-- Participante -->
                 <div class="mt-4">
                     <x-jet-label for="nombre" value="Participante" />

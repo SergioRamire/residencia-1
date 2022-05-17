@@ -2,8 +2,6 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Coursesdetail;
-use App\Models\Group;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -19,8 +17,8 @@ class GradeController extends Component
     public $calificacion;
     public $participante;
     public $grad;
-    public $curso = 'Quis qui quos quo.';
-    public $grupo = 24;
+    public $curso;
+    public $grupo;
     public $isOpen = false;
     public $grade_id;
     public $confirmingSaveGrade = false;
@@ -60,7 +58,11 @@ class GradeController extends Component
 
     public function store()
     {
-        /* $this->validateInputs();
+        $user = User::find($this->grade_id);
+        $user->courseDetails()->sync(9, ['calificacion' => 54]);
+        /*
+        FALTA CODIGO
+        $this->validateInputs();
         Inscription::updateOrCreate(['id' => $this->grade_id], [
             'calificacion' => $this->calificacion,
         ]);
@@ -77,18 +79,20 @@ class GradeController extends Component
 
     public function edit($id)
     {
-        /* $grade = Inscription::join('users', 'users.id', '=', 'user_id')
-                ->join('coursesdetails', 'coursesdetails.id', '=', 'inscriptions.coursesdetail_id')
-                ->join('courses', 'courses.id', '=', 'coursesdetails.course_id')
-                ->where('inscriptions.id', '=', $id)
-                ->select('inscriptions.id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'inscriptions.calificacion')
+        $grade = User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
+                ->join('course_details','course_details.id', 'inscriptions.course_detail_id')
+                ->join('courses', 'courses.id', '=', 'course_details.course_id')
+                ->join('groups', 'groups.id', '=', 'course_details.group_id')
+                ->where('users.id', '=', $id)
+                ->select('users.id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo','inscriptions.calificacion')
                 ->first();
         $this->grade_id = $id;
         $this->participante = $grade->nombre;
         $this->curso = $grade->curso;
+        $this->grupo = $grade->grupo;
         $this->calificacion = $grade->calificacion;
         $this->validateInputs();
-        $this->openModal(); */
+        $this->openModal();
     }
 
     public function obtenerCurso()
@@ -102,22 +106,33 @@ class GradeController extends Component
         $this->confirmingSaveGrade = true;
     }
 
-    public function miFuncion()
-    {
-        // id de sala
-        $id_sala = $request->get('id');
-        // instancia sala
-        $this->grad = inscrition::with('users')->find(3);
-
-        return  $this->grad;
-    }
-
     public function render()
     {
-        $grads = User::find(1)->courseDetails->pivot->where('calificacion', 44)->get();
 
         return view('livewire.admin.grades.index', [
-            'grads',
+            'grades' =>  User::
+            join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
+            ->join('course_details','course_details.id', 'inscriptions.course_detail_id')
+            ->join('courses', 'courses.id', '=', 'course_details.course_id')
+            ->join('groups', 'groups.id', '=', 'course_details.group_id')
+            ->join('period_details','period_details.course_detail_id', '=', 'course_details.id')
+            ->join('periods', 'periods.id', '=', 'period_details.period_id')
+            ->where('periods.fecha_inicio', '=', "2022-06-08")
+            ->where('periods.fecha_fin', '=', '2022-06-14')
+            ->where('course_details.course_id', '=', 6)
+            ->where('course_details.group_id', '=', 3)
+            ->where('inscriptions.estatus_participante', '=', "Participante")
+            ->select('users.id','users.name', 'users.apellido_paterno', 'users.apellido_materno'
+                    ,'inscriptions.calificacion','courses.nombre as curso','groups.nombre as grupo',
+                    'periods.fecha_inicio','periods.fecha_fin')
+            ->when($this->search, function ($query, $b) {
+                return $query->where(function ($q) {
+                    $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
+                      ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%');
+                });
+            })
+            ->orderBy('users.name', 'desc')
+            ->paginate($this->perPage),
         ]);
     }
 }
