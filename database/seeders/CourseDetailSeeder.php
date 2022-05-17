@@ -32,9 +32,9 @@ class CourseDetailSeeder extends Seeder
             ]);
         }
 
-        foreach (Period::all() as $period) {
+        /* foreach (Period::all() as $period) {
             $courseDetails = CourseDetail::inRandomOrder()->take(rand(1, 10))->pluck('id');
             $period->courseDetails()->attach($courseDetails);
-        }
+        } */
     }
 }

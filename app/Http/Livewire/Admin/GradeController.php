@@ -73,12 +73,10 @@ class GradeController extends Component
     public function edit($id)
     {
         $grade = User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
-
                 ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
                 ->join('courses', 'courses.id', '=', 'course_details.course_id')
                 ->join('groups', 'groups.id', '=', 'course_details.group_id')
                 ->where('users.id', '=', $id)
-
                 ->select('users.id', 'course_details.id as course_details_id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion')
                 ->first();
         $this->grade_id = $id;
@@ -109,11 +107,11 @@ class GradeController extends Component
             ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
             ->join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
-            ->join('period_details', 'period_details.course_detail_id', '=', 'course_details.id')
-            ->join('periods', 'periods.id', '=', 'period_details.period_id')
-            ->where('periods.fecha_inicio', '=', '2022-06-08')
-            ->where('periods.fecha_fin', '=', '2022-06-14')
-            ->where('course_details.course_id', '=', 6)
+           /*  ->join('period_details', 'period_details.course_detail_id', '=', 'course_details.id') */
+            ->join('periods', 'periods.id', '=', 'course_details.period_id')
+            ->where('periods.fecha_inicio', '=', '2022-06-21')
+            ->where('periods.fecha_fin', '=', '2022-06-28')
+            ->where('course_details.course_id', '=', 1)
             ->where('course_details.group_id', '=', 3)
             ->where('inscriptions.estatus_participante', '=', 'Participante')
             ->select('users.id','users.name', 'users.apellido_paterno', 'users.apellido_materno'

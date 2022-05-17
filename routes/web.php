@@ -3,6 +3,7 @@
 use App\Http\Livewire\Admin\AreaController;
 use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
+use App\Http\Livewire\Admin\PeriodCoursesController;
 use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -39,4 +40,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('Asignar-calificacion', GradeController::class)->name('grades');
+
+    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+        ->get('periodos-cursos', PeriodCoursesController::class)->name('periods-courses');
 });

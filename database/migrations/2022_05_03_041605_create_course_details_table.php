@@ -28,6 +28,10 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->onDelete('set null');
+            $table->foreignId('period_id')
+                ->nullable()
+                ->constrained()
+                ->onDelete('set null');
         });
     }
 

@@ -14,10 +14,15 @@ class Period extends Model
         'fecha_fin',
     ];
 
-    public function courseDetails()
+    /* public function courseDetails()
     {
         return $this->belongsToMany(CourseDetail::class, 'period_details')
             ->as('period_detail')
             ->withTimestamps();
+    }
+ */
+    public function courseDetails()
+    {
+        return $this->hasMany(CourseDetail::class);
     }
 }

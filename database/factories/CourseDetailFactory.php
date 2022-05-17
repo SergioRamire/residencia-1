@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Course;
 use App\Models\Group;
+use App\Models\Period;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,6 +28,7 @@ class CourseDetailFactory extends Factory
             'capacidad' => $this->faker->numberBetween(10, 30),
             'course_id' => Course::inRandomOrder()->first()->id,
             'group_id' => Group::inRandomOrder()->first()->id,
+            'period_id' => Period::inRandomOrder()->first()->id,
         ];
     }
 }

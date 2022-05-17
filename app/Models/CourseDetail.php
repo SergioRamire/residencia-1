@@ -16,6 +16,7 @@ class CourseDetail extends Model
         'capacidad',
         'course_id',
         'group_id',
+        'period_id',
     ];
 
     public function users()
@@ -36,10 +37,15 @@ class CourseDetail extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function periods()
+    public function period()
+    {
+        return $this->belongsTo(Period::class);
+    }
+
+    /* public function periods()
     {
         return $this->belongsToMany(Period::class, 'period_details')
             ->as('period_detail')
             ->withTimestamps();
-    }
+    } */
 }
