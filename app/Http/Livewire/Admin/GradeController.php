@@ -81,12 +81,12 @@ class GradeController extends Component
     {
         $grade = User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
 
-                ->join('course_details','course_details.id', 'inscriptions.course_detail_id')
+                ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
                 ->join('courses', 'courses.id', '=', 'course_details.course_id')
                 ->join('groups', 'groups.id', '=', 'course_details.group_id')
                 ->where('users.id', '=', $id)
 
-                ->select('users.id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo','inscriptions.calificacion')
+                ->select('users.id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion')
                 ->first();
         $this->grade_id = $id;
         $this->participante = $grade->nombre;
@@ -110,23 +110,21 @@ class GradeController extends Component
 
     public function render()
     {
-
         return view('livewire.admin.grades.index', [
-            'grades' =>  User::
-            join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
-            ->join('course_details','course_details.id', 'inscriptions.course_detail_id')
+            'grades' =>  User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
+            ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
             ->join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
-            ->join('period_details','period_details.course_detail_id', '=', 'course_details.id')
+            ->join('period_details', 'period_details.course_detail_id', '=', 'course_details.id')
             ->join('periods', 'periods.id', '=', 'period_details.period_id')
-            ->where('periods.fecha_inicio', '=', "2022-06-08")
+            ->where('periods.fecha_inicio', '=', '2022-06-08')
             ->where('periods.fecha_fin', '=', '2022-06-14')
             ->where('course_details.course_id', '=', 6)
             ->where('course_details.group_id', '=', 3)
-            ->where('inscriptions.estatus_participante', '=', "Participante")
+            ->where('inscriptions.estatus_participante', '=', 'Participante')
             ->select('users.id','users.name', 'users.apellido_paterno', 'users.apellido_materno'
                     ,'inscriptions.calificacion','courses.nombre as curso','groups.nombre as grupo',
-                    'periods.fecha_inicio','periods.fecha_fin')
+                    'periods.fecha_inicio', 'periods.fecha_fin')
             ->when($this->search, function ($query, $b) {
                 return $query->where(function ($q) {
                     $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,

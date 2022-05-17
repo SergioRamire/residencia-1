@@ -38,5 +38,4 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('Asignar-calificacion', GradeController::class)->name('grades');
-
 });
