@@ -73,16 +73,14 @@ class GradeController extends Component
     public function edit($id)
     {
         $grade = User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
-
                 ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
                 ->join('courses', 'courses.id', '=', 'course_details.course_id')
                 ->join('groups', 'groups.id', '=', 'course_details.group_id')
                 ->where('users.id', '=', $id)
-
                 ->select('users.id', 'course_details.id as course_details_id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion')
                 ->first();
         $this->grade_id = $id;
-        $this->course_details_id =$grade->course_details_id;
+        $this->course_details_id = $grade->course_details_id;
         $this->participante = $grade->nombre;
         $this->curso = $grade->curso;
         $this->grupo = $grade->grupo;
