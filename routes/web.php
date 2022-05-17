@@ -1,13 +1,9 @@
 <?php
 
 use App\Http\Livewire\Admin\AreaController;
-use App\Http\Livewire\Admin\GroupController;
-<<<<<<< HEAD
 use App\Http\Livewire\Admin\GradeController;
-=======
+use App\Http\Livewire\Admin\GroupController;
 use App\Http\Livewire\Admin\RoleController;
-use App\Http\Livewire\Admin\UserController;
->>>>>>> 4e6f3902fa7a93297b28ad0ef0ef15ddf300268c
 use Illuminate\Support\Facades\Route;
 
 /*
