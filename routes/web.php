@@ -4,6 +4,7 @@ use App\Http\Livewire\Admin\AreaController;
 use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
 use App\Http\Livewire\Admin\RoleController;
+use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*

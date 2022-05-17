@@ -18,6 +18,7 @@ class GradeController extends Component
     public $participante;
     public $grad;
     public $curso;
+    public $course_details_id;
     public $grupo;
     public $isOpen = false;
     public $grade_id;
@@ -58,23 +59,15 @@ class GradeController extends Component
 
     public function store()
     {
-        $user = User::find($this->grade_id);
-        $user->courseDetails()->sync(9, ['calificacion' => 54]);
-        /*
-        FALTA CODIGO
         $this->validateInputs();
-        Inscription::updateOrCreate(['id' => $this->grade_id], [
-            'calificacion' => $this->calificacion,
-        ]);
-        $this->confirmingSaveArea = false;
-
+        $user = User::find($this->grade_id);
+        $user->courseDetails()->syncWithPivotValues($this->course_details_id, ['calificacion' => $this->calificacion]);
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'pencil',
             'message' => 'Calificación actualizada exitosamente',
         ]);
-
         $this->confirmingSaveGrade = false;
-        $this->closeModal(); */
+        $this->closeModal();
     }
 
     public function edit($id)
@@ -86,9 +79,10 @@ class GradeController extends Component
                 ->join('groups', 'groups.id', '=', 'course_details.group_id')
                 ->where('users.id', '=', $id)
 
-                ->select('users.id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion')
+                ->select('users.id', 'course_details.id as course_details_id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion')
                 ->first();
         $this->grade_id = $id;
+        $this->course_details_id =$grade->course_details_id;
         $this->participante = $grade->nombre;
         $this->curso = $grade->curso;
         $this->grupo = $grade->grupo;
