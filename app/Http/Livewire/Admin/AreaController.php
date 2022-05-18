@@ -163,7 +163,8 @@ class AreaController extends Component
         return view('livewire.admin.areas.index', [
             'areas' => Area::where('nombre', 'like', '%'.$this->search.'%')
                             ->orWhere('jefe_area', 'like', '%'.$this->search.'%')
-                            ->orWhere('clave', 'like', '%'.$this->search.'%')->paginate($this->perPage),
+                            ->orWhere('clave', 'like', '%'.$this->search.'%')
+                            ->paginate($this->perPage),
         ]);
     }
 }
