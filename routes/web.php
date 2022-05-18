@@ -6,6 +6,7 @@ use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
 use App\Http\Livewire\Admin\PeriodCoursesController;
 use App\Http\Livewire\Admin\CourseController;
+use App\Http\Livewire\Admin\ParticipantController;
 use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -51,4 +52,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:course.show')->prefix('admin')->name('admin.')
         ->get('cursos', CourseController::class)->name('cursos');
+
+    Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
+        ->get('participante', ParticipantController::class)->name('participante');
 });
