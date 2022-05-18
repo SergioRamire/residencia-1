@@ -65,6 +65,6 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
 
-    Route::get('perfil', \App\Http\Livewire\Admin\ProfileController::class)->name('perfil');
-    
+    Route::get('perfil', ProfileController::class)->name('perfil');
+
 });
