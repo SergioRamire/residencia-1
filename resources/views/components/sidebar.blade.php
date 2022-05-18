@@ -1,8 +1,9 @@
-{{--@php--}}
-{{--    /* Devuelve el primer (y único) rol del usuario autenticado */--}}
-{{--    $role = auth()->user()->getRoleNames()->first();--}}
-{{--    $route = $role === 'super-admin' ? '' : "{$role}." ;--}}
-{{--@endphp--}}
+
+@php
+    /* Devuelve el primer (y único) rol del usuario autenticado */
+    $role = auth()->user()->getRoleNames()->first();
+    $route = $role === 'super-admin' ? '' : "{$role}." ;
+@endphp
 
 <!-- Barra lateral para móviles -->
 <div x-cloak x-show="sidebarOpen" class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
@@ -51,55 +52,86 @@
         <!-- Enlaces de navegación -->
         <div class="mt-5 flex-1 h-0 overflow-y-auto">
             <nav class="px-2 space-y-1">
+
                 <x-sidebar.link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></x-slot>
-                    Dashboard
+                    Inicio
                 </x-sidebar.link>
 
-                <x-sidebar.dropdown title="E-commerce 1" dp-id="1">
-                    <x-slot name="icon" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                    </x-slot>
+                @can('user_show')
+                    <x-sidebar.link :href='route("perfil")' :active='request()->route("perfil")'>
+                        <x-slot name="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </x-slot>
+                        Perfil
+                    </x-sidebar.link>
+                @endcan
 
-                    <x-sidebar.link href="#" class="pl-11">Products</x-sidebar.link>
-                    <x-sidebar.link href="#" class="pl-11">Billing</x-sidebar.link>
-                    <x-sidebar.link href="#" class="pl-11">Invoice</x-sidebar.link>
-                </x-sidebar.dropdown>
+                @can('user_show')
+                    <x-sidebar.dropdown title="Usuarios" dp-id="1">
+                        <x-slot name="icon" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </x-slot>
+                        <x-sidebar.link class="pl-11" :href='route("admin.usuarios")' :active='request()->route("admin.usuarios")'>
+                            Mostrar
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.roles")' :active='request()->route("admin.roles")'>
+                            Roles
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.participante")' :active='request()->route("admin.participante")'>
+                            Participante
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active='request()->route("admin.instructores")'>
+                            Instructores
+                        </x-sidebar.link>
+                    </x-sidebar.dropdown>
+                @endcan
 
-                <x-sidebar.dropdown title="E-commerce 2">
-                    <x-slot name="icon" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                    </x-slot>
+                @can('user_show')
+                    <x-sidebar.dropdown title="Cursos" dp-id="1">
+                        <x-slot name="icon" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </x-slot>
+                        <x-sidebar.link class="pl-11" :href='route("admin.cursos")' :active='request()->route("admin.cursos")'>
+                            Mostrar
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.coursedetail")' :active='request()->route("admin.coursedetail")'>
+                            Detalles de Cursos
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.periods-courses")' :active='request()->route("admin.periods-courses")'>
+                            Periodos de Cursos
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.coursedetail")' :active='request()->route("admin.coursedetail")'>
+                            Grupos
+                        </x-sidebar.link>
+                    </x-sidebar.dropdown>
+                @endcan
 
-                    <x-sidebar.link href="#" class="pl-11">Products</x-sidebar.link>
-                    <x-sidebar.link href="#" class="pl-11">Billing</x-sidebar.link>
-                    <x-sidebar.link href="#" class="pl-11">Invoice</x-sidebar.link>
-                </x-sidebar.dropdown>
+                @can('user_show')
+                    <x-sidebar.dropdown title="Departamentos" dp-id="1">
+                        <x-slot name="icon" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </x-slot>
+                        <x-sidebar.link class="pl-11" :href='route("admin.area")' :active='request()->route("admin.area")'>
+                            Area
+                        </x-sidebar.link>
+                    </x-sidebar.dropdown>
+                @endcan
 
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></x-slot>
-                    Team
-                </x-sidebar.link>
+                @can('user_show')
+                    <x-sidebar.link :href='route("admin.grades")' :active='request()->route("admin.grades")'>
+                        <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
+                        Calificaciones
+                    </x-sidebar.link>
+                @endcan
+                
+                @can('user_show')
+                    <x-sidebar.link :href='route("admin.constancias")' :active='request()->route("admin.constancias")'>
+                        <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
+                        Constancias
+                    </x-sidebar.link>
+                @endcan
 
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></x-slot>
-                    Projects
-                </x-sidebar.link>
-
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></x-slot>
-                    Calendar
-                </x-sidebar.link>
-
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" /></x-slot>
-                    Documents
-                </x-sidebar.link>
-
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></x-slot>
-                    Reports
-                </x-sidebar.link>
             </nav>
         </div>
     </div>
@@ -123,55 +155,86 @@
         <!-- Enlaces de navegación -->
         <div class="mt-5 flex-1 h-0 overflow-y-auto">
             <nav class="px-2 space-y-1">
+
                 <x-sidebar.link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></x-slot>
-                    Dashboard
+                    Inicio
                 </x-sidebar.link>
 
-                <x-sidebar.dropdown title="E-commerce 1" dp-id="1">
-                    <x-slot name="icon" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                    </x-slot>
+                @can('user_show')
+                    <x-sidebar.link :href='route("perfil")' :active='request()->route("perfil")'>
+                        <x-slot name="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </x-slot>
+                        Perfil
+                    </x-sidebar.link>
+                @endcan
 
-                    <x-sidebar.link href="#" class="pl-11">Products</x-sidebar.link>
-                    <x-sidebar.link href="#" class="pl-11">Billing</x-sidebar.link>
-                    <x-sidebar.link href="#" class="pl-11">Invoice</x-sidebar.link>
-                </x-sidebar.dropdown>
+                @can('user_show')
+                    <x-sidebar.dropdown title="Usuarios" dp-id="1">
+                        <x-slot name="icon" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </x-slot>
+                        <x-sidebar.link class="pl-11" :href='route("admin.usuarios")' :active='request()->route("admin.usuarios")'>
+                            Mostrar
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.roles")' :active='request()->route("admin.roles")'>
+                            Roles
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.participante")' :active='request()->route("admin.participante")'>
+                            Participante
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active='request()->route("admin.instructores")'>
+                            Instructores
+                        </x-sidebar.link>
+                    </x-sidebar.dropdown>
+                @endcan
 
-                <x-sidebar.dropdown title="E-commerce 2">
-                    <x-slot name="icon" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                    </x-slot>
+                @can('user_show')
+                    <x-sidebar.dropdown title="Cursos" dp-id="1">
+                        <x-slot name="icon" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </x-slot>
+                        <x-sidebar.link class="pl-11" :href='route("admin.cursos")' :active='request()->route("admin.cursos")'>
+                            Mostrar
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.coursedetail")' :active='request()->route("admin.coursedetail")'>
+                            Detalles de Cursos
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.periods-courses")' :active='request()->route("admin.periods-courses")'>
+                            Periodos de Cursos
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.coursedetail")' :active='request()->route("admin.coursedetail")'>
+                            Grupos
+                        </x-sidebar.link>
+                    </x-sidebar.dropdown>
+                @endcan
 
-                    <x-sidebar.link href="#" class="pl-11">Products</x-sidebar.link>
-                    <x-sidebar.link href="#" class="pl-11">Billing</x-sidebar.link>
-                    <x-sidebar.link href="#" class="pl-11">Invoice</x-sidebar.link>
-                </x-sidebar.dropdown>
+                @can('user_show')
+                    <x-sidebar.dropdown title="Departamentos" dp-id="1">
+                        <x-slot name="icon" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </x-slot>
+                        <x-sidebar.link class="pl-11" :href='route("admin.area")' :active='request()->route("admin.area")'>
+                            Area
+                        </x-sidebar.link>
+                    </x-sidebar.dropdown>
+                @endcan
 
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></x-slot>
-                    Team
-                </x-sidebar.link>
+                @can('user_show')
+                    <x-sidebar.link :href='route("admin.grades")' :active='request()->route("admin.grades")'>
+                        <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
+                        Calificaciones
+                    </x-sidebar.link>
+                @endcan
+                
+                @can('user_show')
+                    <x-sidebar.link :href='route("admin.constancias")' :active='request()->route("admin.constancias")'>
+                        <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
+                        Constancias
+                    </x-sidebar.link>
+                @endcan
 
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></x-slot>
-                    Projects
-                </x-sidebar.link>
-
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></x-slot>
-                    Calendar
-                </x-sidebar.link>
-
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" /></x-slot>
-                    Documents
-                </x-sidebar.link>
-
-                <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></x-slot>
-                    Reports
-                </x-sidebar.link>
             </nav>
         </div>
     </div>
