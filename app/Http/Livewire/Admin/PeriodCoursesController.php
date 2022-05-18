@@ -29,13 +29,13 @@ class PeriodCoursesController extends Component
 
     public function render()
     {
-        return view('livewire.admin.periodCourses.index',[
+        return view('livewire.admin.periodCourses.index', [
             'periods'=>CourseDetail::distinct()
                      /* ->join('period_details','period_details.course_detail_id','course_detail_id') */
-                     ->join('periods','periods.id','course_details.period_id')
-                     ->join('courses','courses.id','course_details.course_id')
-                     ->join('groups','groups.id','course_details.group_id')
-                     ->select('courses.nombre as curso','groups.nombre as grupo','periods.fecha_inicio','periods.fecha_fin')
+                     ->join('periods', 'periods.id', 'course_details.period_id')
+                     ->join('courses', 'courses.id', 'course_details.course_id')
+                     ->join('groups', 'groups.id', 'course_details.group_id')
+                     ->select('courses.nombre as curso', 'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
                      ->orderBy('periods.fecha_inicio')
                      ->paginate($this->perPage),
         ]);

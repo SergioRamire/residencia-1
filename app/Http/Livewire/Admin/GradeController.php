@@ -80,7 +80,7 @@ class GradeController extends Component
                 ->select('users.id', 'course_details.id as course_details_id', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion')
                 ->first();
         $this->grade_id = $id;
-        $this->course_details_id =$grade->course_details_id;
+        $this->course_details_id = $grade->course_details_id;
         $this->participante = $grade->nombre;
         $this->curso = $grade->curso;
         $this->grupo = $grade->grupo;

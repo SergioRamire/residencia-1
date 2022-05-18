@@ -44,7 +44,7 @@ class AreaController extends Component
 
     private function validateInputs()
     {
-        if($this->edit==true){
+        if ($this->edit == true) {
             $this->validate([
                 'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
                 'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
@@ -53,12 +53,12 @@ class AreaController extends Component
                 'telefono' => ['required', 'numeric'],
             ]);
         }
-        if($this->create==true){
+        if ($this->create == true) {
             $this->validate([
-                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u','unique:areas'],
+                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'unique:areas'],
                 'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
                 'extension' => ['required', 'numeric'],
-                'clave' => ['required', 'alpha_num','unique:areas'],
+                'clave' => ['required', 'alpha_num', 'unique:areas'],
                 'telefono' => ['required', 'numeric'],
             ]);
         }
