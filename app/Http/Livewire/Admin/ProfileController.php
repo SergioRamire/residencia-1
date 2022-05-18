@@ -22,7 +22,7 @@ class ProfileController extends Component
     public function rules()
     {
         return [
-            'user.rfc' => ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
+            'user.rfc' =>  ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
             'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.apellido_materno' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
@@ -33,16 +33,16 @@ class ProfileController extends Component
             'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
 
-            'user.area_id' => ['required',  'exists:areas,id'],
-            'user.clave_presupuestal' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            'user.puesto_en_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            'area.telefono' => ['required', 'numeric', 'digits:10'],
-            'user.jefe_inmediato' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'user.area_id' => 'required',
+            'user.clave_presupuestal'  => 'required',
+            'user.puesto_en_area'  => 'required',
+            'area.telefono' => 'required|numeric',
+            'user.jefe_inmediato'  => 'required',
             'user.hora_entrada' => 'required',
             'user.hora_salida' => 'required',
-            'user.tipo' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            'user.organizacion_origen' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            'user.cuenta_moodle' => 'required',
+            'user.tipo'  => 'required',
+            'user.organizacion_origen'  => 'required',
+            'user.cuenta_moodle'  => 'required',
         ];
     }
 
