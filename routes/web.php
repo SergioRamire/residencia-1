@@ -66,5 +66,4 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         ->get('participante', ParticipantController::class)->name('participante');
 
     Route::get('perfil', ProfileController::class)->name('perfil');
-
 });
