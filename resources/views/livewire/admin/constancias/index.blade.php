@@ -72,7 +72,7 @@
                                 <div>
                                     <x-jet-label for="fecha_inicio" value="Fecha Inicio"/>
                                     <x-input.select wire:model="filters.fecha_inicio" name="fecha_inicio" id="fecha_inicio" class="text-sm block mt-1 w-full" required>
-                                        <option value="">Fecha inicio</option>
+                                        <option value="">Todas las Fechas</option>
                                         @foreach(\App\Models\Period::all() as $period)
                                           <option value="{{$period->fecha_inicio}}">{{date('d-m-Y', strtotime($period->fecha_inicio))}}</option>
                                         @endforeach
@@ -85,7 +85,7 @@
                                 <div>
                                     <x-jet-label for="fecha_fin" value="Fecha inicio"/>
                                     <x-input.select wire:model="filters.fecha_fin" name="fecha_fin" id="fecha_fin" class="text-sm block mt-1 w-full" required>
-                                        <option value="">Fecha Fin</option>
+                                        <option value="">Todas las Fechas</option>
                                         @foreach(\App\Models\Period::all() as $period)
                                           <option value="{{$period->fecha_fin}}">{{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
                                         @endforeach
