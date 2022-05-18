@@ -36,8 +36,7 @@ class ConstanciasController extends Component
             ->join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
             ->join('users', 'users.id', '=', 'inscriptions.user_id')
-            ->join('period_details', 'period_details.course_detail_id', '=', 'course_details.id')
-            ->join('periods', 'periods.id', '=', 'period_details.period_id')
+            ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->select('users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.calificacion', 'inscriptions.estatus_participante', 'course_details.id')
             ->where('inscriptions.estatus_participante', '=', 'Participante')
             ->when($this->search, function ($query, $b) {
