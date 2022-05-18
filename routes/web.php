@@ -2,13 +2,13 @@
 
 use App\Http\Livewire\Admin\AreaController;
 use App\Http\Livewire\Admin\ConstanciasController;
+use App\Http\Livewire\Admin\CourseController;
 use App\Http\Livewire\Admin\CourseDetailsController;
 use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
-use App\Http\Livewire\Admin\PeriodCoursesController;
-use App\Http\Livewire\Admin\CourseController;
-use App\Http\Livewire\Admin\ParticipantController;
 use App\Http\Livewire\Admin\InstructorCurseController;
+use App\Http\Livewire\Admin\ParticipantController;
+use App\Http\Livewire\Admin\PeriodCoursesController;
 use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\UserController;
 use Illuminate\Support\Facades\Route;
