@@ -44,14 +44,24 @@ class AreaController extends Component
 
     private function validateInputs()
     {
-        $this->validate([
-            'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            'extension' => ['required', 'numeric'],
-            'clave' => ['required', 'alpha_num'],
-            'telefono' => ['required', 'numeric'],
-
-        ]);
+        if($this->edit==true){
+            $this->validate([
+                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'extension' => ['required', 'numeric'],
+                'clave' => ['required', 'alpha_num'],
+                'telefono' => ['required', 'numeric'],
+            ]);
+        }
+        if($this->create==true){
+            $this->validate([
+                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u','unique:areas'],
+                'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'extension' => ['required', 'numeric'],
+                'clave' => ['required', 'alpha_num','unique:areas'],
+                'telefono' => ['required', 'numeric'],
+            ]);
+        }
     }
 
     public function create()
@@ -102,6 +112,10 @@ class AreaController extends Component
         $this->edit = false;
         $this->create = false;
         $this->confirmingSaveArea = false;
+        /* Reinicia los errores */
+        $this->resetErrorBag();
+        $this->resetValidation();
+
         $this->closeModal();
         $this->resetInputFields();
     }

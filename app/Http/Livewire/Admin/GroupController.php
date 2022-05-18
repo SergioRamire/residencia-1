@@ -34,9 +34,17 @@ class GroupController extends Component
 
     private function validateInputs()
     {
-        $this->validate([
-            'nombre' => ['required', 'alpha_num'],
-        ]);
+        if($this->create==true){
+            $this->validate([
+                'nombre' => ['required', 'alpha_num','unique:groups'],
+            ]);
+        }
+        if($this->edit==true){
+            $this->validate([
+                'nombre' => ['required', 'alpha_num'],
+            ]);
+        }
+
     }
 
     public function updatingSearch()
@@ -89,6 +97,11 @@ class GroupController extends Component
 
         $this->edit = false;
         $this->create = false;
+
+        /* Reinicia los errores */
+        $this->resetErrorBag();
+        $this->resetValidation();
+
         $this->closeModal();
         $this->resetInputFields();
     }
