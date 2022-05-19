@@ -16,7 +16,9 @@ class ProfileController extends Component
     public function mount()
     {
         $this->user = auth()->user();
-        $this->area = Area::find(auth()->user()->area_id);
+        if (auth()->user()->area_id != null ) {
+            $this->area = Area::find(auth()->user()->area_id);
+        }
     }
 
     public function rules()
@@ -33,10 +35,10 @@ class ProfileController extends Component
             'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
 
-            'user.area_id' => 'required',
+            'user.area_id' => '',
             'user.clave_presupuestal'  => 'required',
             'user.puesto_en_area'  => 'required',
-            'area.telefono' => 'required|numeric',
+            'area.telefono' => '',
             'user.jefe_inmediato'  => 'required',
             'user.hora_entrada' => 'required',
             'user.hora_salida' => 'required',

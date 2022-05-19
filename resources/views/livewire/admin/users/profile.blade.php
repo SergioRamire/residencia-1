@@ -91,72 +91,75 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto pt-5 pb-5">
-        <div class="space-y-2">
-            <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
-                <h5 class="text-xl font-medium text-gray-800 ">Datos Laborales</h5>
-                <form id="courseForm">
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                        {{-- Nombre de area --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="areanombre" value="Nombre de Area" />
-                                <x-jet-input :value="$user->area->nombre ?? ''" class="mt-1 w-full" type="text" disabled/>
+
+    @if (!is_null($user->area))
+        <div class="max-w-7xl mx-auto pt-5 pb-5">
+            <div class="space-y-2">
+                <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
+                    <h5 class="text-xl font-medium text-gray-800 ">Datos Laborales</h5>
+                    <form id="courseForm">
+                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                            {{-- Nombre de area --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="areanombre" value="Nombre de Area" />
+                                    <x-jet-input :value="$user->area->nombre ?? ''" class="mt-1 w-full" type="text" disabled/>
+                            </div>
+                            {{-- clave_presupuestal --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="clave_presupuestal" value="Clave Presupuestal" />
+                                <x-jet-input wire:model="user.clave_presupuestal" class="block mt-1 w-full" type="text" disabled/>
+                            </div>
                         </div>
-                        {{-- clave_presupuestal --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="clave_presupuestal" value="Clave Presupuestal" />
-                            <x-jet-input wire:model="user.clave_presupuestal" class="block mt-1 w-full" type="text" disabled/>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> 
+                            {{-- jefe --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="jefe_inmediato" value="Nombre del Jefe inmediato" />
+                                <x-jet-input wire:model="user.jefe_inmediato" class="block mt-1 w-full" type="text" disabled/>
+                            </div>
+                            {{-- telefono --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="telefono" value="Telefono" />
+                                <x-jet-input wire:model="area.telefono" class="block mt-1 w-full" type="number" disabled/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> 
-                        {{-- jefe --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="jefe_inmediato" value="Nombre del Jefe inmediato" />
-                            <x-jet-input wire:model="user.jefe_inmediato" class="block mt-1 w-full" type="text" disabled/>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                            <!-- puesto_en_area -->
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="puesto_en_area" value="Puesto en Area" />
+                                <x-jet-input wire:model="user.puesto_en_area" class="block mt-1 w-full" type="text" disabled/>
+                            </div>       
+                            {{-- hora_entrada --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="hora_entrada" value="Hora de Entrada" />
+                                <x-jet-input wire:model="user.hora_entrada" class="block mt-1 w-full" type="time" disabled/>
+                            </div>
+                            {{-- hora_salida --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="hora_salida" value="Hora de Salida" />
+                                <x-jet-input wire:model="user.hora_entrada" class="block mt-1 w-full" type="time" disabled/>
+                            </div>
                         </div>
-                        {{-- telefono --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="telefono" value="Telefono" />
-                            <x-jet-input wire:model="area.telefono" class="block mt-1 w-full" type="number" disabled/>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                            {{-- tipo --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="tipo" value="Tipo" />
+                                <x-jet-input :value="$user->tipo ?? ''" class="mt-1 w-full" type="text" disabled/>
+                            </div>
+                            {{-- organizacion_origen --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="organizacion_origen" value="Organizacion de Origen" />
+                                <x-jet-input wire:model="user.organizacion_origen" class="block mt-1 w-full" type="text" disabled/>
+                            </div>
+                            {{-- cuenta_moodle --}}
+                            <div class="mt-4 flex-1">
+                                <x-jet-label for="cuenta_moodle" value="Cuenta Moodle" />
+                                <x-jet-input :value="$user->cuenta_moodle ? 'Tiene' : 'No Tiene'" class="mt-1 w-full" type="text" disabled/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                        <!-- puesto_en_area -->
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="puesto_en_area" value="Puesto en Area" />
-                            <x-jet-input wire:model="user.puesto_en_area" class="block mt-1 w-full" type="text" disabled/>
-                        </div>       
-                        {{-- hora_entrada --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="hora_entrada" value="Hora de Entrada" />
-                            <x-jet-input wire:model="user.hora_entrada" class="block mt-1 w-full" type="time" disabled/>
-                        </div>
-                        {{-- hora_salida --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="hora_salida" value="Hora de Salida" />
-                            <x-jet-input wire:model="user.hora_entrada" class="block mt-1 w-full" type="time" disabled/>
-                        </div>
-                    </div>
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                        {{-- tipo --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="tipo" value="Tipo" />
-                            <x-jet-input :value="$user->tipo ?? ''" class="mt-1 w-full" type="text" disabled/>
-                        </div>
-                        {{-- organizacion_origen --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="organizacion_origen" value="Organizacion de Origen" />
-                            <x-jet-input wire:model="user.organizacion_origen" class="block mt-1 w-full" type="text" disabled/>
-                        </div>
-                        {{-- cuenta_moodle --}}
-                        <div class="mt-4 flex-1">
-                            <x-jet-label for="cuenta_moodle" value="Cuenta Moodle" />
-                            <x-jet-input :value="$user->cuenta_moodle ? 'Tiene' : 'No Tiene'" class="mt-1 w-full" type="text" disabled/>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
     @include('livewire.admin.users.profileConfirmation')
 </div>
