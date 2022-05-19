@@ -34,13 +34,8 @@ class PeriodCoursesController extends Component
     {
         return view('livewire.admin.periodCourses.index', [
             'periods'=>Period::distinct()
-                     /* ->join('period_details','period_details.course_detail_id','course_detail_id') */
-                     /* ->join('periods', 'periods.id', 'course_details.period_id')
-                     ->join('courses', 'courses.id', 'course_details.course_id')
-                     ->join('groups', 'groups.id', 'course_details.group_id')
-                     ->select('courses.nombre as curso', 'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin') */
                      ->when($this->filters, function ($query, $b) {
-                        return $query->where(function ($q) {
+                         return $query->where(function ($q) {
                             $q->where('fecha_inicio', '=', $this->filters);
                         });
                     })
