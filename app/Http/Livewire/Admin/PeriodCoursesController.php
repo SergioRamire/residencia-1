@@ -37,8 +37,8 @@ class PeriodCoursesController extends Component
                      ->when($this->filters, function ($query, $b) {
                          return $query->where(function ($q) {
                              $q->where('fecha_inicio', '=', $this->filters);
-                        });
-                    })
+                         });
+                     })
                      ->orderBy('fecha_inicio')
                      ->paginate($this->perPage),
         ]);
