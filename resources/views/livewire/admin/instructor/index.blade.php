@@ -54,7 +54,7 @@
                                 </div>
                             </div>
 
-                            <!-- fehc inicio -->
+                            <!-- fecha inicio -->
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
                                     <x-jet-label for="fecha_inicio" value="Fecha Inicio"/>

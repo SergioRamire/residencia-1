@@ -8,18 +8,23 @@
         <!-- Opciones de tabla -->
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
             <!-- Parte izquierda -->
-            <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                <!-- Barra de búsqueda -->
-                <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar usuarios...">
-                    <x-icon.search solid class="h-5 w-5 text-gray-400"/>
-                </x-input.icon>
 
-                <!-- Filtros -->
-            </div>
+                <!-- fecha inicio -->
+                <!-- Parte izquierda -->
+                <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
+                    <div>
+                        {{-- <x-jet-label for="fecha_inicio" value="Fecha Inicio"/> --}}
+                        <x-input.select wire:model="filters" name="fecha_inicio" id="fecha_inicio" class="w-full" required>
+                            <option value="">Todas las Fechas</option>
+                            @foreach(\App\Models\Period::all() as $period)
+                              <option value="{{$period->fecha_inicio}}">{{date('d-m-Y', strtotime($period->fecha_inicio))}}</option>
+                            @endforeach
+                        </x-input.select>
+                    </div>
+                </div>
 
             <!-- Parte derecha -->
             <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
-                <!-- Exportar y eliminar -->
 
                 <!-- Selección de paginación -->
                 <div>
@@ -36,25 +41,24 @@
         <div class="flex flex-col space-y-2">
             <x-table>
                 <x-slot name="head">
+                    {{-- <x-table.header >Número</x-table.header> --}}
                     <x-table.header >Fecha de inicio</x-table.header>
                     <x-table.header >Fecha de finalización</x-table.header>
-                    <x-table.header >Nombre del curso</x-table.header>
-                    <x-table.header >Nombre del grupo</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
                 @forelse($periods as $p)
-                    <tr wire:loading.class.delay="opacity-50">
+                    <tr wire:key="period-{{ $p->id }}" wire:loading.class.delay="opacity-50">
+                        {{-- <x-table.cell>{{ $numero }}</x-table.cell> --}}
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
-                        <x-table.cell>{{ $p->curso }}</x-table.cell>
-                        <x-table.cell>{{ $p->grupo }}</x-table.cell>
                         <x-table.cell>
                             <button wire:click="edit( {{$p->id }})" type="button" class="text-amber-600 hover:text-amber-900">
                                 <x-icon.pencil alt class="h-6 w-6"/>
                             </button>
                         </x-table.cell>
                     </tr>
+                    {{-- @php $numero=$numero+1 @endphp --}}
                 @empty
                     <tr>
                         <x-table.cell colspan="7">

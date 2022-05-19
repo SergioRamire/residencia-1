@@ -21,13 +21,10 @@
                 <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar departamentos...">
                     <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                 </x-input.icon>
-
-                <!-- Filtros -->
             </div>
 
             <!-- Parte derecha -->
             <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
-                <!-- Exportar y eliminar -->
 
                 <!-- Selección de paginación -->
                 <div>
