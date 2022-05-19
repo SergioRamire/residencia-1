@@ -16,7 +16,7 @@ class ProfileController extends Component
     public function mount()
     {
         $this->user = auth()->user();
-        if (auth()->user()->area_id != null ) {
+        if (auth()->user()->area_id != null) {
             $this->area = Area::find(auth()->user()->area_id);
         }
     }
