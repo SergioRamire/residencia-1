@@ -43,12 +43,24 @@
         <div class="flex flex-col space-y-2">
             <x-table>
                 <x-slot name="head">
-                    <x-table.header >Curso</x-table.header>
-                    <x-table.header >Periodo</x-table.header>
-                    <x-table.header >Horario</x-table.header>
-                    <x-table.header >Lugar</x-table.header>
-                    <x-table.header >Capacidad</x-table.header>
-                    <x-table.header >Grupo</x-table.header>
+                    <x-table.header wire:click="sortBy('curso')" sortable :direction="$sortField === 'curso' ? $sortDirection : null">
+                        Curso
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('fecha_inicio')" sortable :direction="$sortField === 'fecha_inicio' ? $sortDirection : null">
+                        Periodo
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('hora_inicio')" sortable :direction="$sortField === 'hora_inicio' ? $sortDirection : null">
+                        Horario
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('lugar')" sortable :direction="$sortField === 'lugar' ? $sortDirection : null">
+                        Lugar
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('capacidad')" sortable :direction="$sortField === 'capacidad' ? $sortDirection : null">
+                        Capacidad
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('grupo')" sortable :direction="$sortField === 'grupo' ? $sortDirection : null">
+                        Grupo
+                    </x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 

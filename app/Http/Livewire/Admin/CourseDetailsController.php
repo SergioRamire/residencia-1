@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\CourseDetail;
+use App\Http\Traits\WithSorting;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class CourseDetailsController extends Component
 {
     use WithPagination;
+    use WithSorting;
 
     public $perPage = '5';
     public $search = '';
@@ -27,7 +29,7 @@ class CourseDetailsController extends Component
             ->select('course_details.id', 'course_details.lugar', 'course_details.capacidad',
               'course_details.hora_inicio', 'course_details.hora_fin', 'courses.nombre as curso',
               'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
-            ->orderBy('periods.fecha_inicio')
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage),
         ]);
     }

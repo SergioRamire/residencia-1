@@ -5,6 +5,13 @@
         </h2>
     </x-slot>
     <div class="space-y-2">
+        <!-- Botón de nuevo -->
+        <div>
+            <x-jet-secondary-button wire:click="create()" class="border-green-300 text-green-700 hover:text-green-500 active:text-green-800 active:bg-green-50">
+                <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
+                Nuevo Periodo
+            </x-jet-secondary-button>
+        </div>
         <!-- Opciones de tabla -->
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
             <!-- Parte izquierda -->
@@ -42,8 +49,11 @@
             <x-table>
                 <x-slot name="head">
                     {{-- <x-table.header >Número</x-table.header> --}}
-                    <x-table.header >Fecha de inicio</x-table.header>
-                    <x-table.header >Fecha de finalización</x-table.header>
+                    <x-table.header wire:click="sortBy('fecha_inicio')" sortable :direction="$sortField === 'fecha_inicio' ? $sortDirection : null">
+                        Fecha de inicio
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('fecha_fin')" sortable :direction="$sortField === 'fecha_fin' ? $sortDirection : null">
+                        Fecha de finalización</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
@@ -53,8 +63,11 @@
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
                         <x-table.cell>
-                            <button wire:click="edit( {{$p->id }})" type="button" class="text-amber-600 hover:text-amber-900">
+                            <button wire:click="edit({{ $p->id }})" type="button" class="text-amber-600 hover:text-amber-900">
                                 <x-icon.pencil alt class="h-6 w-6"/>
+                            </button>
+                            <button wire:click="deletePeriod('{{ $p->id }}','{{ $p->fecha_inicio }}','{{ $p->fecha_fip }}')" type="button" class="text-red-600 hover:text-red-900">
+                                <x-icon.trash class="h-6 w-6"/>
                             </button>
                         </x-table.cell>
                     </tr>
@@ -79,9 +92,15 @@
             <div>
                 {{ $periods->links() }}
             </div>
-            {{-- @if($isOpen)
-                @include('livewire.admin.grades.edit')
-            @endif --}}
+            @if($create)
+                        @include('livewire.admin.periodCourses.edit_create',['modo'=>'Crear'])
+
+            @elseif($edit)
+                        @include('livewire.admin.periodCourses.edit_create',['modo'=>'Actualizar'])
+            @endif
+            @if($confirmingPeriodDeletion)
+                        @include('livewire.admin.periodCourses.destroy')
+            @endif
         </div>
     </div>
 </div>

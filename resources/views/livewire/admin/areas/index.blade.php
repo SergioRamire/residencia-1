@@ -42,10 +42,18 @@
         <div class="flex flex-col space-y-2">
             <x-table>
                 <x-slot name="head">
-                    <x-table.header >clave</x-table.header>
-                    <x-table.header >Área o Departamento</x-table.header>
-                    <x-table.header >Jefe</x-table.header>
-                    <x-table.header >Teléfono</x-table.header>
+                    <x-table.header wire:click="sortBy('clave')" sortable :direction="$sortField === 'clave' ? $sortDirection : null">
+                        clave
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">
+                        Área o Departamento
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('jefe_area')" sortable :direction="$sortField === 'jefe_area' ? $sortDirection : null">
+                        Jefe
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('telefono')" sortable :direction="$sortField === 'telefono' ? $sortDirection : null">
+                        Teléfono
+                    </x-table.header>
                     <x-table.header >Extensión</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>

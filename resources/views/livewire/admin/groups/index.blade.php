@@ -44,7 +44,9 @@
         <div class="flex flex-col space-y-2">
             <x-table>
                 <x-slot name="head">
-                    <x-table.header >Nombre</x-table.header>
+                    <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">
+                        Nombre
+                    </x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
