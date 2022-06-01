@@ -52,9 +52,14 @@
                             <x-jet-label for="curso_filter" value="Curso"/>
                             <x-input.select wire:model="filters.curso" id="curso_filter" class="text-sm block mt-1 w-full" name="curso_filter" required>
                                 <option value="" disabled>Selecciona el curso...</option>
-                                @foreach(\App\Models\Course::all() as $course)
-                            <option value="{{ $course->id }}">{{$course->nombre}}</option>
-                        @endforeach
+                                @foreach(\App\Models\CourseDetail::join('courses','courses.id','=','course_details.course_id')
+                                ->join('periods','periods.id','=', 'course_details.period_id')
+                                ->where('course_details.period_id','=',$filters['periodo'])
+                                ->select('course_details.course_id as id','courses.nombre')
+                                ->distinct()
+                                ->get() as $course)
+                                    <option value="{{ $course->id }}">{{$course->nombre}}</option>
+                                @endforeach
                             </x-input.select>
                         </div>
                     </div>
@@ -65,97 +70,26 @@
                             <x-jet-label for="grupo_filter" value="Grupo"/>
                             <x-input.select wire:model="filters.grupo" id="grupo_filter" class="text-sm block mt-1 w-full" name="grupo_filter" required>
                                 <option value="" disabled>Selecciona el grupo...</option>
-                                @foreach(\App\Models\Group::all() as $group)
-                            <option value="{{ $group->id }}">{{$group->nombre}}</option>
-                        @endforeach
+                                @foreach(\App\Models\CourseDetail::join('groups','groups.id','=','course_details.group_id')
+                                ->join('periods','periods.id','=', 'course_details.period_id')
+                                ->join('courses','courses.id','=', 'course_details.course_id')
+                                ->where('course_details.period_id','=',$filters['periodo'])
+                                ->where('course_details.course_id','=',$filters['curso'])
+                                ->select('course_details.group_id as id','groups.nombre')
+                                ->distinct()
+                                ->get() as $group)
+                                    <option value="{{ $group->id }}">{{$group->nombre}}</option>
+                                @endforeach
                             </x-input.select>
                         </div>
                     </div>
                 </x-slot>
             </x-dropdown>
             </div>
-
-            {{-- <div class="block px-4 py-2 space-y-1">
-                <div>
-                    <x-jet-label for="periodo" value="Periodo"/>
-                    <x-input.select wire:model="periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
-                        <option value="" disabled>Selecciona el periodo...</option>
-                        @foreach(\App\Models\Period::all() as $period)
-                            <option value="{{ $period->id }}">{{date('d-m-Y', strtotime($period->fecha_inicio))}} a {{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
-                        @endforeach
-                    </x-input.select>
-                </div>
-            </div>
-
-            <!-- Curso -->
-            <div class="block px-4 py-2 space-y-1">
-                <div>
-                    <x-jet-label for="curso_filter" value="Curso"/>
-                    <x-input.select wire:model="curso" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
-                        <option value="" disabled>Selecciona el curso...</option>
-                        @foreach(\App\Models\Course::all() as $course)
-                            <option value="{{ $course->id }}">{{$course->nombre}}</option>
-                        @endforeach
-                    </x-input.select>
-                </div>
-            </div>
-
-            <!-- Grupo -->
-            <div class="block px-4 py-2 space-y-1">
-                <div>
-                    <x-jet-label for="grupo_filter" value="Grupo"/>
-                    <x-input.select wire:model="grupo" id="grupo" class="text-sm block mt-1 w-full" name="grupo" required>
-                        <option value="" disabled>Selecciona el grupo...</option>
-                        @foreach(\App\Models\Group::all() as $group)
-                            <option value="{{ $group->id }}">{{$group->nombre}}</option>
-                        @endforeach
-                    </x-input.select>
-                </div>
-            </div> --}}
         </div>
 
             <!-- Opciones de tabla -->
             <div class="md:flex md:justify-between space-y-2 md:space-y-0">
-
-                <!-- Filtros -->
-                <!-- Periodo -->
-                {{-- <div class="block px-4 py-2 space-y-1">
-                    <div>
-                        <x-jet-label for="periodo_filter" value="Periodo"/>
-                        <x-input.select wire:model.defer="periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
-                            <option value="" disabled>Selecciona el periodo...</option>
-                            @foreach(\App\Models\Period::all() as $period)
-                                <option value="{{ $period->id }}">{{date('d-m-Y', strtotime($period->fecha_inicio))}} a {{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
-                </div>
-
-                <!-- Curso -->
-                <div class="block px-4 py-2 space-y-1">
-                    <div>
-                        <x-jet-label for="curso_filter" value="Curso"/>
-                        <x-input.select wire:model.defer="curso" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
-                            <option value="" disabled>Selecciona el curso...</option>
-                            @foreach(\App\Models\Course::all() as $course)
-                                <option value="{{ $course->id }}">{{$course->nombre}}</option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
-                </div>
-
-                <!-- Grupo -->
-                <div class="block px-4 py-2 space-y-1">
-                    <div>
-                        <x-jet-label for="grupo_filter" value="Grupo"/>
-                        <x-input.select wire:model.defer="grupo" id="grupo" class="text-sm block mt-1 w-full" name="grupo" required>
-                            <option value="" disabled>Selecciona el grupo...</option>
-                            @foreach(\App\Models\Group::all() as $group)
-                                <option value="{{ $group->id }}">{{$group->nombre}}</option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
-                </div> --}}
 
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
@@ -183,10 +117,18 @@
             <div class="flex flex-col space-y-2">
                 <x-table>
                     <x-slot name="head">
-                        <x-table.header >Participante</x-table.header>
-                        <x-table.header >Departamento</x-table.header>
-                        <x-table.header >Curso</x-table.header>
-                        <x-table.header >Grupo</x-table.header>
+                        <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">
+                            Participante
+                        </x-table.header>
+                        <x-table.header wire:click="sortBy('area')" sortable :direction="$sortField === 'area' ? $sortDirection : null">
+                            Departamento
+                        </x-table.header>
+                        <x-table.header wire:click="sortBy('curso')" sortable :direction="$sortField === 'curso' ? $sortDirection : null">
+                            Curso
+                        </x-table.header>
+                        <x-table.header wire:click="sortBy('grupo')" sortable :direction="$sortField === 'grupo' ? $sortDirection : null">
+                            Grupo
+                        </x-table.header>
                     </x-slot>
 
                     @forelse($lists as $l)
