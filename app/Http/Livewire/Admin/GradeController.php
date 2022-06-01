@@ -117,7 +117,7 @@ class GradeController extends Component
             ->select('users.id','users.name', 'users.apellido_paterno', 'users.apellido_materno'
                     ,'inscriptions.calificacion','courses.nombre as curso','groups.nombre as grupo',
                     'periods.fecha_inicio', 'periods.fecha_fin')
-            ->when($this->search, function ($query, $b) {
+            ->when($this->search, function ($query) {
                 return $query->where(function ($q) {
                     $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
                       ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%');

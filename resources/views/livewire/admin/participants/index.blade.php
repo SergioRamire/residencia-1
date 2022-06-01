@@ -86,7 +86,7 @@
                                     <x-jet-label for="moodle_filter" value="Cuenta moodle"/>
                                     <x-input.select wire:model="filters.cuenta_moodle" id="moodle_filter" class="text-sm block mt-1 w-full" name="moodle_filter" required>
                                         <option value="" disabled>Selecciona la opción</option>
-                                        <option value="Si">Si tiene</option>
+                                        <option value="Si">Tiene</option>
                                         <option value="No">No tiene</option>
                                     </x-input.select>
                                 </div>
@@ -135,7 +135,7 @@
                             <x-table.cell>{{ $u->area->nombre ?? '' }}</x-table.cell>
                             <x-table.cell>
                                 @if($u->cuenta_moodle === 1)
-                                    <x-badge.basic value="Si tiene" color="green" large/>
+                                    <x-badge.basic value="Tiene" color="green" large/>
                                 @elseif($u->cuenta_moodle === 0)
                                     <x-badge.basic value="No tiene" color="red" large/>
                                 @endif

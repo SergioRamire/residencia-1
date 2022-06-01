@@ -20,13 +20,10 @@
                 <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar curso...">
                     <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                 </x-input.icon>
-
-                <!-- Filtros -->
             </div>
 
             <!-- Parte derecha -->
             <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
-                <!-- Exportar y eliminar -->
 
                 <!-- Selección de paginación -->
                 <div>
@@ -75,6 +72,9 @@
                         <x-table.cell>{{ $d->capacidad }}</x-table.cell>
                         <x-table.cell>{{ $d->grupo }}</x-table.cell>
                         <x-table.cell>
+                            <button wire:click="view({{ $d->id }})" type="button" class="text-indigo-600 hover:text-indigo-900">
+                                <x-icon.eye class="h-6 w-6"/>
+                            </button>
                             <button wire:click="edit({{ $d->id }})" type="button" class="text-amber-600 hover:text-amber-900">
                                 <x-icon.pencil alt class="h-6 w-6"/>
                             </button>
@@ -103,9 +103,14 @@
             <div>
                 {{ $detalles->links() }}
             </div>
-            {{-- @if($isOpen)
-                @include('livewire.admin.grades.edit')
-            @endif --}}
+            @if($create)
+            @include('livewire.admin.coursedetails.edit_create',['modo'=>'Crear'])
+            @elseif($edit)
+                        @include('livewire.admin.coursedetails.edit_create',['modo'=>'Actualizar'])
+            @endif
+            @if($confirmingDetailsDeletion)
+                        @include('livewire.admin.coursedetails.destroy')
+            @endif
         </div>
     </div>
 </div>

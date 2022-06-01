@@ -43,7 +43,7 @@
             <!-- Sexo, Tipo y Clave presupuestal -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Sexo -->
-                <div class="mt-4 sm:flex-1">
+                <div class="mt-4">
                     <x-jet-label for="sexo" value="Sexo"/>
                     <x-input.select wire:model.defer="user.sexo" class="mt-1 w-full" id="sexo" name="sexo" required>
                         <option value="" disabled>Selecciona el sexo</option>
@@ -53,8 +53,55 @@
                     <x-jet-input-error for="user.sexo"/>
                 </div>
 
-                <!-- Tipo -->
+                <!-- Estudios máximos -->
                 <div class="mt-4 sm:flex-1">
+                    <x-jet-label for="estudio_maximo" value="Estudios máximos"/>
+                    <x-input.error wire:model.defer="user.estudio_maximo" class="block mt-1 w-full" type="text" id="estudio_maximo" name="estudio_maximo" for="user.estudio_maximo" required/>
+                </div>
+            </div>
+
+            <!-- Organización de origen -->
+            <div class="mt-4">
+                <x-jet-label for="organizacion_origen" value="Organización de origen"/>
+                <x-input.error wire:model.defer="user.organizacion_origen" class="block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" for="user.organizacion_origen" required/>
+            </div>
+
+            <!-- Correo ITO y TECNM -->
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                <!-- Correo ITO -->
+                <div class="mt-4 sm:flex-1">
+                    <x-jet-label for="email" value="Correo extension ITO"/>
+                    <x-input.error wire:model.defer="user.email" class="block mt-1 w-full" type="email" id="email" name="email" for="user.email" required/>
+                </div>
+
+                <!-- Correo TECNM -->
+                <div class="mt-4 sm:flex-1">
+                    <x-jet-label for="correo_tecnm" value="Correo extension TECNM"/>
+                    <x-input.error wire:model.defer="user.correo_tecnm" class="block mt-1 w-full" type="email" id="correo_tecnm" name="correo_tecnm" for="user.correo_tecnm" required/>
+                </div>
+            </div>
+
+            <!-- Cuenta moodle -->
+            <div class="mt-4">
+                <x-jet-label for="cuenta_moodle" value="Cuenta moodle"/>
+                <x-input.select wire:model.defer="user.cuenta_moodle" class="mt-1 w-full" id="cuenta_moodle" name="cuenta_moodle" required>
+                    <option value="" disabled>Selecciona la opción</option>
+                    <option value="1">Tiene</option>
+                    <option value="0">No tiene</option>
+                </x-input.select>
+                <x-jet-input-error for="user.cuenta_moodle"/>
+            </div>
+
+            <!-- Carrera-->
+            <div class="mt-4">
+                <x-jet-label for="carrera" value="Carrera"/>
+                <x-input.error wire:model.defer="user.carrera" class="block mt-1 w-full" type="text" id="carrera" name="carrera" for="user.carrera" required/>
+            </div>
+
+            <!-- Tipo y Clave-->
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                <!-- Tipo -->
+                <div class="mt-4">
                     <x-jet-label for="tipo" value="Tipo"/>
                     <x-input.select wire:model.defer="user.tipo" class="mt-1 w-full" id="tipo" name="tipo" required>
                         <option value="" disabled>Selecciona el tipo</option>
@@ -72,31 +119,21 @@
                 </div>
             </div>
 
-            <!-- Estudios máximos -->
+            <!-- Area -->
             <div class="mt-4">
-                <x-jet-label for="estudio_maximo" value="Estudios máximos"/>
-                <x-input.error wire:model.defer="user.estudio_maximo" class="block mt-1 w-full" type="text" id="estudio_maximo" name="estudio_maximo" for="user.estudio_maximo" required/>
+                <x-jet-label for="area" value="Área de adscripción"/>
+                <x-input.select wire:model.defer="user.area_id" class="mt-1 w-full" id="area_id" name="area_id" required>
+                    <option value="" disabled>Selecciona el área</option>
+                    @foreach(\App\Models\Area::all() as $area)
+                        <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                    @endforeach
+                </x-input.select>
             </div>
 
-            <!-- Carrera-->
+            <!-- Jefe Inmediato -->
             <div class="mt-4">
-                <x-jet-label for="carrera" value="Carrera"/>
-                <x-input.error wire:model.defer="user.carrera" class="block mt-1 w-full" type="text" id="carrera" name="carrera" for="user.carrera" required/>
-            </div>
-
-            <!-- Correo ITO y TECNM -->
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                <!-- Correo ITO -->
-                <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="email" value="Correo extension ITO"/>
-                    <x-input.error wire:model.defer="user.email" class="block mt-1 w-full" type="email" id="email" name="email" for="user.email" required/>
-                </div>
-
-                <!-- Correo TECNM -->
-                <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="correo_tecnm" value="Correo extension TECNM"/>
-                    <x-input.error wire:model.defer="user.correo_tecnm" class="block mt-1 w-full" type="email" id="correo_tecnm" name="correo_tecnm" for="user.correo_tecnm" required/>
-                </div>
+                <x-jet-label for="jefe" value="Jefe Inmediato"/>
+                <x-input.error wire:model.defer="user.jefe_inmediato" class="block mt-1 w-full" type="text" id="jefe" name="jefe" for="user.jefe_inmediato" required/>
             </div>
 
             <!-- Puesto, Hora entrada y Hora salida -->
@@ -119,37 +156,6 @@
                     <x-jet-label for="hora_salida" value="Hora salida"/>
                     <x-jet-input wire:model.defer="user.hora_salida" class="block mt-1 w-full" type="time" id="hora_salida" name="hora_salida"/>
                     <x-jet-input-error for="user.hora_salida"/>
-                </div>
-            </div>
-
-            <!-- Area -->
-            <div class="mt-4">
-                <x-jet-label for="area" value="Área de adscripción"/>
-                <x-input.select wire:model.defer="user.area_id" class="mt-1 w-full" id="area_id" name="area_id" required>
-                    <option value="" disabled>Selecciona el área</option>
-                    @foreach(\App\Models\Area::all() as $area)
-                        <option value="{{ $area->id }}">{{ $area->nombre }}</option>
-                    @endforeach
-                </x-input.select>
-            </div>
-
-            <!-- Organización de origen y Cuenta moodle -->
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                <!-- Organización de origen -->
-                <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="organizacion_origen" value="Organización de origen"/>
-                    <x-input.error wire:model.defer="user.organizacion_origen" class="block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" for="user.organizacion_origen" required/>
-                </div>
-
-                <!-- Cuenta moodle -->
-                <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="cuenta_moodle" value="Cuenta moodle"/>
-                    <x-input.select wire:model.defer="user.cuenta_moodle" class="mt-1 w-full" id="cuenta_moodle" name="cuenta_moodle" required>
-                        <option value="" disabled>Selecciona la opción</option>
-                        <option value="1">Si tiene</option>
-                        <option value="0">No tiene</option>
-                    </x-input.select>
-                    <x-jet-input-error for="user.cuenta_moodle"/>
                 </div>
             </div>
         </form>

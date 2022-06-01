@@ -8,6 +8,7 @@ use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
 use App\Http\Livewire\Admin\InstructorCurseController;
 use App\Http\Livewire\Admin\ParticipantController;
+use App\Http\Livewire\Admin\ParticipantListsController;
 use App\Http\Livewire\Admin\PeriodCoursesController;
 use App\Http\Livewire\Admin\ProfileController;
 use App\Http\Livewire\Admin\RoleController;
@@ -64,6 +65,9 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
+
+    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+        ->get('Listaparticipantes', ParticipantListsController::class)->name('participantLists');
 
     Route::get('perfil', ProfileController::class)->name('perfil');
 });
