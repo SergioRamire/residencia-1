@@ -6,10 +6,8 @@ use App\Http\Livewire\Admin\CourseController;
 use App\Http\Livewire\Admin\CourseDetailsController;
 use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
-use App\Http\Livewire\Admin\InsControllerller;
+use App\Http\Livewire\Admin\InscriptionControllerller;
 use App\Http\Livewire\Admin\InstructorCurseController;
-use App\Http\Livewire\Admin\InscriptionController;
-use App\Http\Livewire\Admin\InscripController;
 use App\Http\Livewire\Admin\ParticipantController;
 use App\Http\Livewire\Admin\PeriodCoursesController;
 use App\Http\Livewire\Admin\ProfileController;
@@ -67,12 +65,9 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
-
-    Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
-        ->get('inscription', InscriptionController::class)->name('inscription');
         
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
-        ->get('ins', InsControllerller::class)->name('ins');
+        ->get('inscription', InscriptionControllerller::class)->name('inscription');
 
     Route::get('perfil', ProfileController::class)->name('perfil');
 });

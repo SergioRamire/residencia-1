@@ -3,18 +3,33 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Course;
-use App\Models\CourseDetail;
 use App\Models\Period;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
-class InsControllerller extends Component
+class InscriptionControllerller extends Component
 {
     public User $user;
     public int $perPage = 5;
     public $arreglo = [];
     public $keyCache = 'horario'; /* .auth()->user()->id; */
+    
+    public bool $showOneModal = false;
+    public bool $showHorario = false;
+
+    public function openShowHorario(){
+        $this->showHorario = true;
+    }
+    public function closeShowHorario(){
+        $this->showHorario = false;
+    }    
+    public function openShowOneModal(){
+        $this->showOneModal = true;
+    }
+    public function closeShowOneModal(){
+        $this->showOneModal = false;
+    }
 
     public function rangoFecha($inicio, $fin){
         return Period::query()
@@ -39,7 +54,7 @@ class InsControllerller extends Component
 
     public function render(){
         $this->addcache();
-        return view('livewire.admin.ins-controllerller',
+        return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
                 'semana1' => $this->rangoFecha('2022-06-08', '2022-07-14')->paginate($this->perPage),
@@ -82,17 +97,18 @@ class InsControllerller extends Component
     }
  
     public function addHorario(){
-        $this->user = User::find(auth()->user()->id);
-        foreach ($this->arreglo as $id) {
-            $courseDetails = CourseDetail::find($id);
-            $this->user->courseDetails()->attach( $courseDetails, [
-                        'calificacion' => 0,
-                        'estatus_participante' => 'Participante',
-                        'asistencias_minimas' => 0,
-                    ]);
-            }
-            Cache::forget($this->keyCache);
-            $this-> noti('success','Horario creado Exitosamente');
+        $this->openShowHorario();
+        // $this->user = User::find(auth()->user()->id);
+        // foreach ($this->arreglo as $id) {
+        //     $courseDetails = CourseDetail::find($id);
+        //     $this->user->courseDetails()->attach( $courseDetails, [
+        //                 'calificacion' => 0,
+        //                 'estatus_participante' => 'Participante',
+        //                 'asistencias_minimas' => 0,
+        //             ]);
+        // }
+        // Cache::forget($this->keyCache);
+        // $this-> noti('success','Horario creado Exitosamente');
     }
 
     public function noti($icon,$txt){
