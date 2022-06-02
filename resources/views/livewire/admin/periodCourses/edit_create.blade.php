@@ -9,12 +9,12 @@
                 <!-- Clave -->
                 <div class="sm:flex-1">
                     <x-jet-label for="FechaInicio" value="Fecha Inicio"/>
-                    <x-input.error wire:model.defer="fecha_inicio" class="block mt-1 w-full" type="text" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required/>
+                    <x-input.error wire:model="fecha_inicio" class="block mt-1 w-full" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required/>
                 </div>
                 <!-- Perfil -->
                 <div class="sm:flex-1">
                     <x-jet-label for="FechaFin" value="Fecha Fin"/>
-                    <x-input.error wire:model.defer="fecha_fin" class="block mt-1 w-full" type="text" id="fecha_fin" name="fecha_fin" for="fecha_fin" required/>
+                    <x-input.error wire:model="fecha_fin" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required/>
                 </div>
             </div>
         </form>
@@ -28,8 +28,8 @@
         <x-jet-button class="ml-3" wire:click.prevent=" updatePeriod()" wire:loading.attr="disabled" form="courseForm">
             {{$modo}} Datos
          </x-jet-button>
-         @if($confirmingSavePeriod)
-                     @include('livewire.admin.periodCourses.confirmation')
-         @endif
+        @if($confirmingSavePeriod)
+                    @include('livewire.admin.periodCourses.confirmation')
+        @endif
     </x-slot>
 </x-jet-dialog-modal>

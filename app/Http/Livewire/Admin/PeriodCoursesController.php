@@ -21,6 +21,7 @@ class PeriodCoursesController extends Component
     public $fecha_fin;
     public $numero = 1;
     public $filters = '';
+    public $filters2 = '';
     protected $queryString = [
         'search' => ['except' => '', 'as' => 's'],
         'perPage' => ['except' => 1, 'as' => 'p'],
@@ -41,12 +42,29 @@ class PeriodCoursesController extends Component
     {
         $this->reset('search');
         $this->reset('filters');
+        $this->reset('filters2');
     }
-
+    private function validateInputs()
+    {
+        if ($this->edit == true) {
+            $this->validate([
+                'fecha_inicio' => ['required', 'date', 'unique:periods'],
+                'fecha_fin' => ['required', 'date', 'unique:periods'],
+            ]);
+        }
+        if ($this->create == true) {
+            $this->validate([
+                'fecha_inicio' => ['required', 'date', 'unique:periods'],
+                'fecha_fin' => ['required', 'date', 'unique:periods'],
+            ]);
+        }
+    }
     public function create()
     {
         $this->resetInputFields();
         $this->openModal();
+        $this->confirmingPeriodDeletion = false;
+        $this->confirmingSavePeriod = false;
         $this->edit = false;
         $this->create = true;
     }
@@ -84,6 +102,32 @@ class PeriodCoursesController extends Component
         $this->create = false;
         $this->openModal();
     }
+    public function store(){
+        // $this->validateInputs();
+
+        Period::updateOrCreate(['id' => $this->periodo_id], [
+            'fecha_inicio' => $this->fecha_inicio,
+            'fecha_fin' => $this->fecha_fin,
+        ]);
+
+
+        $this->edit = false;
+        $this->create = false;
+        $this->confirmingSaveArea = false;
+        /* Reinicia los errores */
+        $this->resetErrorBag();
+        $this->resetValidation();
+
+        $this->showEditCreateModal = false;
+        $this->confirmingPeriodDeletion = false;
+        $this->confirmingSavePeriod = false;
+        $this->resetInputFields();
+
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $this->edit ? 'pencil' : 'success',
+            'message' =>  $this->edit ? 'Área actualizada exitosamente' : 'Área creada exitosamente',
+        ]);
+    }
 
     public function deletePeriod($id, $fi, $ff)
     {
@@ -107,14 +151,19 @@ class PeriodCoursesController extends Component
     public function render()
     {
         return view('livewire.admin.periodCourses.index', [
-            'periods'=>Period::distinct()
-                     ->when($this->filters, function ($query, $b) {
-                         return $query->where(function ($q) {
-                             $q->where('fecha_inicio', '=', $this->filters);
-                         });
-                     })
-                     ->orderBy($this->sortField, $this->sortDirection)
-                     ->paginate($this->perPage),
+            'periods' => Period::query()
+                ->when($this->filters, function ($query, $b) {
+                    return $query->where(function ($q) {
+                        $q->where('fecha_inicio', '>=', $this->filters);
+                    });
+                })
+                ->when($this->filters2, function ($query, $b) {
+                    return $query->where(function ($q) {
+                        $q->where('fecha_fin', '<=', $this->filters2);
+                    });
+                })
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate($this->perPage),
         ]);
     }
 }
