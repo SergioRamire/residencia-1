@@ -12,17 +12,16 @@ class ProfileController extends Component
     public User $user;
     public Area $area;
     public $showConfirmationModal = false;
+    public $showEditModal = false;
 
-    public function mount()
-    {
+    public function mount(){
         $this->user = auth()->user();
         if (auth()->user()->area_id != null ) {
             $this->area = Area::find(auth()->user()->area_id);
         }
     }
 
-    public function rules()
-    {
+    public function rules(){
         return [
             'user.rfc' =>  ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
             'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
@@ -48,21 +47,25 @@ class ProfileController extends Component
         ];
     }
 
-    public function render()
-    {
+    public function render(){
         return view('livewire.admin.users.profile');
     }
 
-    public function confirmSave()
-    {
+    public function editInfo(){
         $this->validate();
+        $this->showEditModal = true;
+    }   
+    
+    public function confirmSave(){
+        $this->validate();
+        $this->showEditModal = false;
         $this->showConfirmationModal = true;
     }
 
-    public function save()
-    {
+    public function save(){
         $this->user->save();
 
+        $this->showEditModal = false;
         $this->showConfirmationModal = false;
 
         $this->dispatchBrowserEvent('notify', [
