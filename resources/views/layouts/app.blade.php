@@ -63,7 +63,7 @@
         </div>
 
         <x-back-top/>
-
         @livewireScripts
+
     </body>
 </html>

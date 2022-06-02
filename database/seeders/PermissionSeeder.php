@@ -63,13 +63,13 @@ class PermissionSeeder extends Seeder
         */
         $users = User::all();
         $users->get(0)->assignRole($superAdminRole);
-        $users->get(1)->assignRole($adminRole);
-        $users->get(2)->assignRole($adminRole);
-        $users->get(3)->assignRole($instructorRole);
-        $users->get(4)->assignRole($instructorRole);
-        $users->get(5)->assignRole($instructorRole);
-        $users->get(6)->assignRole($participantRole);
-        $users->get(7)->assignRole($participantRole);
-        $users->get(8)->assignRole($participantRole);
+        $users->get(1)->assignRole($instructorRole);
+        $users->get(2)->assignRole($participantRole);
+        // $users->get(3)->assignRole($instructorRole);
+        // $users->get(4)->assignRole($instructorRole);
+        // $users->get(5)->assignRole($instructorRole);
+        // $users->get(6)->assignRole($participantRole);
+        // $users->get(7)->assignRole($participantRole);
+        // $users->get(8)->assignRole($participantRole);
     }
 }

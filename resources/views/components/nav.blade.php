@@ -47,7 +47,10 @@
                         </svg>
                     </button>
                     <!-- Punto notificación -->
-                    <x-dot-badge/>
+                    @if(count(auth()->user()->unreadNotifications) > 0)
+                        <x-dot-badge/>
+                    @endif
+
                 </div>
 
                 <!-- Dropdown menu y enlaces de navegación -->
@@ -61,14 +64,49 @@
                      x-transition:leave-start="transform opacity-100 scale-100"
                      x-transition:leave-end="transform opacity-0 scale-95">
                     <!-- Active: "bg-gray-100", Not Active: "" -->
-                    <x-nav.separator value="Cursos"/>
 
-                    <x-nav.link href="#">
-                        Prueba 1
-                    </x-nav.link>
-                    <x-nav.link href="#">
-                        Prueba 2
-                    </x-nav.link>
+                    <!--contador de notificaciones que tiene sin leer-->
+                    <div>
+                        @if(count(auth()->user()->unreadNotifications))
+                          <span class="badge badge-warning">
+                            {{count(auth()->user()->unreadNotifications)}}
+                          </span>
+                        @endif
+                    </div>
+                    <!--Muestra las notificationes sin leer-->
+                    <x-nav.separator value="Notificaciones no leidas"/>
+                    {{-- <x-nav.link >Notificaciones no leidas</x-nav.link> --}}
+                    @forelse (auth()->user()->unreadNotifications->take(5) as $notification)
+                        <x-nav.link  href="{{route('post.index')}}">
+                            {{$notification->data['title']}}
+                        </x-nav.link>
+                        {{-- <x-nav.link>
+
+                        </x-nav.link> --}}
+                        <span >{{$notification->created_at->diffForHumans()}}</span>
+                    @empty
+                        <span>Sin notificaciones por leer</span>
+                    @endforelse
+
+                    <x-jet-section-border></x-jet-section-border>
+                    {{-- <div class="dropdown-divider"></div> --}}
+                    <x-nav.separator value="Notificaciones leídas"/>
+                    {{-- <x-nav.link>Notificaciones leídas</x-nav.link> --}}
+                    @forelse (auth()->user()->readNotifications->take(3) as $notification)
+                        <x-nav.link  href="{{route('post.index')}}">
+                            {{$notification->data['title']}}
+                        </x-nav.link>
+                        <span>{{$notification->created_at->diffForHumans()}}</span>
+                    @empty
+                      <span>Sin notificaciones leidas</span>
+                    @endforelse
+
+                    <!--divisor-->
+                    {{-- <div class="grid grid-cols-3 divide-y">______________________</div> --}}
+                    <x-jet-section-border></x-jet-section-border>
+                    <div>
+                        <button href={{route('markAsRead')}} class="dropdown-item dropdown-footer">Marcar las notificationes como leídas</button>
+                    </div>
                 </div>
             </div>
 

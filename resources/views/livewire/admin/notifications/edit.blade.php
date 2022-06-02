@@ -1,0 +1,53 @@
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditModal">
+    <x-slot name="title">
+       Crear post
+    </x-slot>
+    <x-slot name="content">
+        <form  id="courseForm">
+
+            <!-- Nombre -->
+            <div class="mt-4">
+                <x-jet-label for="title"  value="{{ __('Titulo') }}" />
+                <x-input.error wire:model="arr.title" class="block mt-1 w-full" type="text" id="title" name="title" for="title" required/>
+                <x-jet-input-error for="arr.title"/>
+            </div>
+
+            <div class="mt-4">
+                <x-jet-label for="description" value="{{ __('Descripción') }}" />
+                <x-input.error wire:model="arr.description" class="block mt-1 w-full" type="text" id="description" name="description" for="description" required/>
+                <x-jet-input-error for="arr.description"/>
+            </div>
+
+            <div class="mt-4 sm:flex-1">
+                <x-jet-label for="rol" value="Rol"/>
+                <x-input.select wire:model.defer="arr.role" id="rol" class="mt-1 w-full" name="rol">
+                        <option value="" disabled>Selecciona</option>
+                        <option value="Participante">Para Participante</option>
+                        <option value="Instructor">Para Instructor</option>
+                        <option value="Todos">Para todos</option>
+                        {{-- @foreach(\Spatie\Permission\Models\Role::all() as $role)
+                            <option value="{{ $role->name }}">{{ ucwords($role->name) }}</option>
+                        @endforeach --}}
+                </x-input.select>
+                <x-jet-input-error for="arr.role"/>
+            </div>
+            {{-- <div class="mt-4 sm:flex-1">
+                <textarea class="resize-x rounded-md"></textarea>
+            </div> --}}
+
+        </form>
+    </x-slot>
+
+    <x-slot name="footer">
+        <x-jet-secondary-button wire:click="$toggle('showEditModal')" wire:loading.attr="disabled">
+            Cancelar
+        </x-jet-secondary-button>
+
+        <x-jet-button class="ml-3" wire:click.prevent="store()" wire:loading.attr="disabled" form="courseForm">
+            enviar
+        </x-jet-button>
+        {{-- @if($confirmingSaveParti)
+                @include('livewire.admin.participante.confirCreate')
+        @endif --}}
+    </x-slot>
+</x-jet-dialog-modal>

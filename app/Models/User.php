@@ -95,4 +95,6 @@ class User extends Authenticatable
             ->as('inscription')
             ->withTimestamps();
     }
+
+
 }

@@ -12,8 +12,9 @@ use App\Http\Livewire\Admin\PeriodCoursesController;
 use App\Http\Livewire\Admin\ProfileController;
 use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\UserController;
+use App\Http\Livewire\Admin\PostController;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,5 +66,43 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
 
+    // Route::get('perfil', ProfileController::class)->name('perfil');
+    //     ->get('post', PostController::class)->name('post');
     Route::get('perfil', ProfileController::class)->name('perfil');
+
+    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+        ->get('post', PostController::class)->name('post');
+
+    Route::resource('post', PostController::class);
+
+    // Ruta para marcar como leída las notificaciones
+    Route::get('markAsRead', function (){
+        auth()->user()->unreadNotifications->markAsRead();
+        return redirect()->back();//te retorna a la misma vista
+    })->name('markAsRead');
+     // Ruta para eliminar todas sus notifications
+    Route::get('destroyNotificationsss', function (){
+        auth()->user()->Notifications->each->delete();
+        return redirect()->back();//te retorna a la misma vista
+    })->name('destroyNotificationsss');
+
+    // Ruta para eliminar todas sus notifications lídas
+    Route::get('destroyNotifications', function (){
+        auth()->user()->readNotifications->each->delete();
+        return redirect()->back();//te retorna a la misma vista
+    })->name('destroyNotifications');
+
+    //Ruta para marcar una notificación como marcada
+    Route::get('marcarunanoti/{id}', function ($id){
+        auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+        return redirect()->back();//te retorna a la misma vista
+    })->name('marcarunanoti');
+
+    Route::post('/mark-as-read', PostController::class)->name('markNotification');
+    // Route::get('/mark-as-readone', PostController::class)->name('markNotificationone');
+    Route::get('markNotificationone', function (Request $request){
+        auth()->user()->unreadNotifications
+        ->where('id', $request)->markAsRead();
+        return redirect()->back();//te retorna a la misma vista
+    })->name('markNotificationone');
 });
