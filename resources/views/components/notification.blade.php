@@ -22,6 +22,9 @@
                 <template x-if="icon == 'trash'">
                     <x-icon.trash class="h-6 w-6 text-red-600"/>
                 </template>
+                <template x-if="icon == 'info'">
+                    <x-icon.trash class="h-6 w-6 text-blue-600"/>
+                </template>
             </div>
 
             <div class="'w-0 flex-1 pt-0.5 ml-3">
