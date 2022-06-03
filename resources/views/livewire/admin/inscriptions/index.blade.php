@@ -62,14 +62,14 @@
 
 
 
-                        <div class="mt-4 flex justify-center">
+                        {{-- <div class="mt-4 flex justify-center">
                             <x-jet-button wire:click="shows1()" type="button">
                                 Semana 1
                             </x-jet-button>
                             <x-jet-button wire:click="shows1()" type="button">
                                 Semana 2
                             </x-jet-button>
-                        </div>
+                        </div> --}}
 
 
 
@@ -201,7 +201,7 @@
 </div>
 
 
-    @include('livewire.admin.inscriptions.semana')
+    {{-- @include('livewire.admin.inscriptions.semana') --}}
 
     @include('livewire.admin.inscriptions.horario')
 
