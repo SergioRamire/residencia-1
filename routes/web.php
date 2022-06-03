@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Admin\AreaController;
+use App\Http\Livewire\Admin\AssignedInstructorController;
 use App\Http\Livewire\Admin\ConstanciasController;
 use App\Http\Livewire\Admin\CourseController;
 use App\Http\Livewire\Admin\CourseDetailsController;
@@ -68,6 +69,9 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('inscription', InscriptionControllerller::class)->name('inscription');
+    
+    Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
+        ->get('asig', AssignedInstructorController::class)->name('asig');
 
     Route::get('perfil', ProfileController::class)->name('perfil');
 });
