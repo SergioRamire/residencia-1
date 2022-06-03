@@ -61,6 +61,7 @@ class PostNotification extends Notification
             'title' => $this->post->title,
             'description' =>$this->post->description,
             'role' =>$this->post->role,
+            'created_at'=>$this->post->created_at,
             'time' => carbon::now()->diffForHumans(),
         ];
     }

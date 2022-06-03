@@ -131,6 +131,7 @@ class PostController extends Component
     public function delete()
     {
         $this->posts->delete();
+        // Notification::where('data[1]', '=', $title)->each->delete();
         $this->confirmingPartDeletion = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
