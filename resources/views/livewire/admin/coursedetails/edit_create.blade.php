@@ -8,7 +8,15 @@
             <!-- Nombre  Curso-->
             <div class="mt-4">
                 <x-jet-label for="nombrec" value="Curso"/>
-                <x-input.error wire:model.defer="curso" class="block mt-1 w-full" type="text" id="curso" name="curso" for="curso" required/>
+                <x-input.icon wire:model="busq" class="w-full" type="text" placeholder="Buscar Curso...">
+                    <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                </x-input.icon>
+                <x-input.select wire:model="curso" name="curso" id="curso" class="text-sm block mt-1 w-full" required>
+                    <option value="">Selecciones un Curso...</option>
+                    @foreach($busqueda as $c)
+                      <option value="{{$c->nombre}}">{{$c->nombre}}</option>
+                    @endforeach
+                </x-input.select>
             </div>
 
             <!-- Periodo y Hora inicio y Hora fin -->
