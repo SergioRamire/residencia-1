@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Area;
 use App\Http\Traits\WithSorting;
+use App\Models\Area;
 use Livewire\Component;
 use Livewire\WithPagination;
 
