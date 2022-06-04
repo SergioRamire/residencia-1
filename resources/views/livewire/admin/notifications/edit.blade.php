@@ -12,11 +12,18 @@
                 <x-jet-input-error for="arr.title"/>
             </div>
 
+            <!-- Descripcion -->
             <div class="mt-4">
+                <x-jet-label for="description" value="{{ __('Descripción') }}"/>
+                <x-input.textarea wire:model.defer="arr.description" id="arr.description" class="block mt-1 w-full" name="arr.description" required/>
+                <x-jet-input-error for="arr.description"/>
+            </div>
+
+            {{-- <div class="mt-4">
                 <x-jet-label for="description" value="{{ __('Descripción') }}" />
                 <x-input.error wire:model="arr.description" class="block mt-1 w-full" type="text" id="description" name="description" for="description" required/>
                 <x-jet-input-error for="arr.description"/>
-            </div>
+            </div> --}}
 
             <div class="mt-4 sm:flex-1">
                 <x-jet-label for="rol" value="Rol"/>

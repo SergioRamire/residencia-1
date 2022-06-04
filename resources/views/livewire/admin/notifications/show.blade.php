@@ -1,21 +1,22 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="showViewModal">
     <x-slot name="title">
-        SSSS:
-        <strong>{{'postt.title'}}</strong>
+        <strong>Notificación {{$title}} enviada.</strong>
     </x-slot>
     <x-slot name="content">
         {{-- <form  id="courseForm"> --}}
             <div class="mt-4">
-                <x-jet-label value="Descripción"/>
-                <x-jet-input wire:model.defer="postt.description" class="block mt-1 w-full" type="text" disabled/>
+                <x-jet-label value="Titulo"/>
+                <x-jet-input wire:model.defer="title" class="block mt-1 w-full" type="text" disabled/>
+            </div>
+
+            <!-- Descripcion -->
+            <div class="mt-4">
+                <x-jet-label for="description" value="{{ __('Descripción') }}"/>
+                <x-input.textarea wire:model.defer="description" id="arr.description" class="block mt-1 w-full" name="description" disabled/>
             </div>
             <div class="mt-4">
-                <x-jet-label value="title"/>
-                <x-jet-input wire:model.defer="postt.title" class="block mt-1 w-full" type="text" disabled/>
-            </div>
-            <div class="mt-4">
-                <x-jet-label value="role"/>
-                <x-jet-input wire:model.defer="postt.role" class="block mt-1 w-full" type="text" disabled/>
+                <x-jet-label value="Para"/>
+                <x-jet-input wire:model.defer="role" class="block mt-1 w-full" type="text" disabled/>
             </div>
         {{-- </form> --}}
     </x-slot>

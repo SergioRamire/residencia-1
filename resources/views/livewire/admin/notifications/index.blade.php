@@ -48,7 +48,6 @@
             <div class="flex flex-col space-y-2">
                 <x-table>
                     <x-slot name="head">
-                        <x-table.header>id</x-table.header>
                         <x-table.header>titulo</x-table.header>
                         <x-table.header>cuerpo</x-table.header>
                         <x-table.header>Para</x-table.header>
@@ -58,7 +57,6 @@
 
                     @forelse($postss as $r)
                             <tr>
-                                <x-table.cell>{{ $r->id }}</x-table.cell>
                                 <x-table.cell>{{ $r->title }}</x-table.cell>
                                 <x-table.cell>{{ $r->description}}</x-table.cell>
                                 <x-table.cell>{{ $r->role}}</x-table.cell>
@@ -106,6 +104,7 @@
     @if($confirminNotificacion)
         @include('livewire.admin.notifications.deletenotifi')
     @endif
-    @include('livewire.admin.notifications.show')
-
+    @if($showViewModal)
+        @include('livewire.admin.notifications.show')
+    @endif
 </div>

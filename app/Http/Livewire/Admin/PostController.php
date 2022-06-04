@@ -100,7 +100,9 @@ class PostController extends Component
 
     public function view(Post $post)
     {
-        $this->postt = $post;
+        $this->title = $post->title;
+        $this->description= $post->description;
+        $this->role= $post->role;
         $this->showViewModal = true;
     }
 
