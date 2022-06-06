@@ -2,11 +2,12 @@
     <x-jet-authentication-card>
 
         <x-slot name="logo">.
-
-            <h2 class="text-justify text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 class="justify-center text-justify text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                 Cursos Intersemestrales
             </h2>
-            <span>Siempre es un buen momento para aprender</span>
+            <div class="flex items-center justify-center">
+                <span class="justify-center">Siempre es un buen momento para aprender</span>
+            </div>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -53,13 +54,13 @@
             </div>
         </form>
 
-        <form method="get" action="{{ route('register') }}">
+        {{-- <form method="get" action="{{ route('register') }}">
             <div class="flex items-center justify-center mt-4">
                 <x-jet-button  class="ml-4 bg-gray-200 text-gray-900">
                     Registrar
                 </x-jet-button>
             </div>
-        </form>
+        </form> --}}
 
 
 
