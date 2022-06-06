@@ -26,12 +26,12 @@
             </div> --}}
 
             <div class="mt-4 sm:flex-1">
-                <x-jet-label for="rol" value="Rol"/>
+                <x-jet-label for="rol" value="Destinatario"/>
                 <x-input.select wire:model.defer="arr.role" id="rol" class="mt-1 w-full" name="rol">
                         <option value="" disabled>Selecciona</option>
-                        <option value="Participante">Para Participante</option>
-                        <option value="Instructor">Para Instructor</option>
-                        <option value="Todos">Para todos</option>
+                        <option value="Participante">Participantes</option>
+                        <option value="Instructor">Instructores</option>
+                        <option value="Todos">Todos</option>
                         {{-- @foreach(\Spatie\Permission\Models\Role::all() as $role)
                             <option value="{{ $role->name }}">{{ ucwords($role->name) }}</option>
                         @endforeach --}}

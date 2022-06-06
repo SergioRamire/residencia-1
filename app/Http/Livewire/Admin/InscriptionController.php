@@ -14,6 +14,8 @@ class InscriptionControllerller extends Component
     public User $user;
     public int $perPage = 5;
     public $arreglo = [];
+    public $arreglo1 = [];
+    public $unionarreglos = [];
     public $keyCache = 'horario'; /* .auth()->user()->id; */
     public int $countabla1 = 1;
     public int $countabla2 = 1;
@@ -59,33 +61,33 @@ class InscriptionControllerller extends Component
     }
 
     public function addTabla2($id){
-        $this->countabla2=$this->countabla2+1;
-        if($this->countabla2<=3){
-        array_push($this->arreglo, $id);
 
-        // $this->updatecache($this->keyCache, $this->arreglo);
-
+        if($this->countabla2<3){
+            $this->countabla2=$this->countabla2+1;
+            array_push($this->arreglo1, $id);
             $this-> noti('success','Curso seleccionado ');
         }
-        else{
+        elseif($this->countabla2>2){
             $this-> noti('danger','No se pueden seleccionar más de 2 cursos por semana ',);
         }
+        $this->buscar();
     }
 
 
     public function add($id){
-        $this->countabla1=$this->countabla1+1;
-        if($this->countabla1<=3){
-        array_push($this->arreglo, $id);
 
-        // $this->updatecache($this->keyCache, $this->arreglo);
+
+        if($this->countabla1<3){
+            $this->countabla1=$this->countabla1+1;
+            array_push($this->arreglo, $id);
 
             $this-> noti('success','Curso seleccionado ');
         }
-        else{
-            $this-> noti('danger','No se pueden seleccionar más de 2 cursos por semana ',);
+        elseif($this->countabla1>2){
+            $this-> noti('danger','No se pueden seleccionar más de 2 cursos por semana ');
+            return;
         }
-
+        $this->buscar();
     }
     public function tablaVacia(){
         if(count($this->buscar())!==0)
@@ -94,7 +96,8 @@ class InscriptionControllerller extends Component
             $this->btnContinuar = false;
     }
     public function buscar(){
-        $i = $this->arreglo;
+        $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
+        $i = array_merge($this->arreglo,$this->arreglo1);
         return Period::query()
             ->join('course_details', 'periods.id', '=', 'course_details.period_id')
             ->join('courses', 'course_details.course_id', '=', 'courses.id')
@@ -107,7 +110,6 @@ class InscriptionControllerller extends Component
 
     public function render(){
         $this->tablaVacia();
-        // $this->addcache();
         return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
@@ -118,10 +120,22 @@ class InscriptionControllerller extends Component
     }
 
     public function del($id){
+        foreach ($this->arreglo as $i) {
+            if($i==$id){
+                $this->countabla1=$this->countabla1-1;
+                $indice1=array_search($id, $this->arreglo);
+                unset($this->arreglo[$indice1]);
+            }
+        }
 
-        $indice=array_search($id, $this->arreglo);
-        unset($this->arreglo[$indice]);
-        $this->countabla1=$this->countabla1-2;
+        foreach ($this->arreglo1 as $j) {
+            if($j==$id){
+                $this->countabla2=$this->countabla2-1;
+                $indice2=array_search($id, $this->arreglo1);
+                unset($this->arreglo1[$indice2]);
+            }
+        }
+        $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $this->buscar();
         $this-> noti('trash','Curso descartado');
     }
@@ -144,6 +158,13 @@ class InscriptionControllerller extends Component
                     ]);
         }
         $this-> noti('success','Horario creado Exitosamente');
+    }
+
+    public function noti($icon,$txt){
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $icon,
+            'message' => $txt,
+        ]);
     }
 
 }

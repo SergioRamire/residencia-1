@@ -70,20 +70,18 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
-        
+
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('inscription', InscriptionControllerller::class)->name('inscription');
-    
+
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('asig', AssignedInstructorController::class)->name('asig');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
-        ->get('Listaparticipantes', ParticipantListsController::class)->name('participantLists');
+    Route::get('Listaparticipantes', ParticipantListsController::class)->name('participantLists');
 
     Route::get('perfil', ProfileController::class)->name('perfil');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
-        ->get('post', PostController::class)->name('post');
+    Route::get('post', PostController::class)->name('post');
 
     Route::resource('post', PostController::class);
 
