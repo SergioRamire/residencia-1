@@ -12,6 +12,9 @@ use App\Notifications\PostNotification;
 // class PostListener implements ShouldQueue
 class PostListener
 {
+    // public $user1;
+    // public $user2;
+    // public $user3;
     /**
      * Create the event listener.
      *
@@ -31,6 +34,7 @@ class PostListener
     public function handle($event)
     {
         // $this->user = User::all()
+
         if($event->post->role == 'Participante')
             $this->user=User::join('inscriptions as in', 'in.user_id', '=', 'users.id')
             ->join('course_details','course_details.id', '=', 'in.course_detail_id')

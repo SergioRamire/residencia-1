@@ -15,6 +15,8 @@ use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+
+// Use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,8 +68,6 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
 
-    // Route::get('perfil', ProfileController::class)->name('perfil');
-    //     ->get('post', PostController::class)->name('post');
     Route::get('perfil', ProfileController::class)->name('perfil');
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
@@ -99,10 +99,11 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     })->name('marcarunanoti');
 
     Route::post('/mark-as-read', PostController::class)->name('markNotification');
-    // Route::get('/mark-as-readone', PostController::class)->name('markNotificationone');
+
     Route::get('markNotificationone', function (Request $request){
         auth()->user()->unreadNotifications
         ->where('id', $request)->markAsRead();
         return redirect()->back();//te retorna a la misma vista
     })->name('markNotificationone');
+
 });
