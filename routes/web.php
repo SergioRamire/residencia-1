@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Livewire\Admin\AreaController;
+use App\Http\Livewire\Admin\AssignedInstructorController;
 use App\Http\Livewire\Admin\ConstanciasController;
 use App\Http\Livewire\Admin\CourseController;
 use App\Http\Livewire\Admin\CourseDetailsController;
 use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
+use App\Http\Livewire\Admin\InscriptionControllerller;
 use App\Http\Livewire\Admin\InstructorCurseController;
 use App\Http\Livewire\Admin\ParticipantController;
 use App\Http\Livewire\Admin\PeriodCoursesController;
@@ -29,7 +31,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
 
 Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->group(function () {
@@ -67,6 +69,12 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
+        
+    Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
+        ->get('inscription', InscriptionControllerller::class)->name('inscription');
+    
+    Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
+        ->get('asig', AssignedInstructorController::class)->name('asig');
 
     Route::get('perfil', ProfileController::class)->name('perfil');
 
