@@ -1,16 +1,16 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
-<x-jet-confirmation-modal wire:model="confirmingDetailsDeletion">
+<x-jet-confirmation-modal wire:model="confirmingPeriodDeletion">
     <x-slot name="title">
-        Eliminar Detalles de un curso.
+        Eliminar Periodo.
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea eliminar los detalles del curso <span class="font-bold text-red-900">{{ $curso }}</span>?
+        ¿Seguro que desea eliminar el Periodo de <strong> {{$period->fecha_inicio}} - {{$period->fecha_fin}} </strong> ?
     </x-slot>
 
     {{-- botones --}}
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('confirmingDetailsDeletion')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('confirmingPeriodDeletion')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 

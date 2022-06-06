@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Traits\WithSorting;
 use App\Models\Area;
-use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class AreaController extends Component
 {
     use WithPagination;
+    use WithSorting;
 
     public Area $area;
     public $perPage = '5';
@@ -27,7 +28,7 @@ class AreaController extends Component
         'search' => ['except' => '', 'as' => 's'],
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
-    // variable para confimacion de eliminacion de registro
+
     public $showEditCreateModal = false;
     public $confirmingAreaDeletion = false;
     public $confirmingSaveArea = false;
@@ -164,6 +165,7 @@ class AreaController extends Component
             'areas' => Area::where('nombre', 'like', '%'.$this->search.'%')
                             ->orWhere('jefe_area', 'like', '%'.$this->search.'%')
                             ->orWhere('clave', 'like', '%'.$this->search.'%')
+                            ->orderBy($this->sortField, $this->sortDirection)
                             ->paginate($this->perPage),
         ]);
     }

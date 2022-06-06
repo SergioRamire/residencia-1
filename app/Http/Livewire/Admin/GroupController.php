@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 namespace App\Http\Livewire\Admin;
 
+use App\Http\Traits\WithSorting;
 use App\Models\Group;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,6 +12,7 @@ use Livewire\WithPagination;
 class GroupController extends Component
 {
     use WithPagination;
+    use WithSorting;
 
     public $group;
     public $perPage = '5';
@@ -145,6 +147,7 @@ class GroupController extends Component
     {
         return view('livewire.admin.groups.index', [
             'groups' => Group::where('nombre', 'like', '%'.$this->search.'%')
+                     ->orderBy($this->sortField, $this->sortDirection)
                      ->paginate($this->perPage),
         ]);
     }

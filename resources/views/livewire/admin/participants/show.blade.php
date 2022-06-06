@@ -39,37 +39,25 @@
             </div>
         </div>
 
-        <!-- Sexo, Tipo y Clave presupuestal -->
+        <!-- Sexo y Estudios Máximos -->
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
             <!-- Sexo -->
-            <div class="mt-4 sm:flex-1">
+            <div class="mt-4">
                 <x-jet-label value="Sexo"/>
                 <x-jet-input :value="$user->sexo === 'F' ? 'Femenino' : 'Masculino'" class="mt-1 w-full" type="text" disabled/>
             </div>
 
-            <!-- Tipo -->
+            <!-- Estudios máximos -->
             <div class="mt-4 sm:flex-1">
-                <x-jet-label value="Tipo"/>
-                <x-jet-input wire:model.defer="user.tipo" class="mt-1 w-full" type="text" disabled/>
-            </div>
-
-            <!-- Clave -->
-            <div class="mt-4 sm:flex-1">
-                <x-jet-label value="Clave presupuestal"/>
-                <x-jet-input wire:model.defer="user.clave_presupuestal" class="block mt-1 w-full" type="text" disabled/>
+                <x-jet-label value="Estudios máximos"/>
+                <x-jet-input wire:model.defer="user.estudio_maximo" class="block mt-1 w-full" type="text" disabled/>
             </div>
         </div>
 
-        <!-- Estudios máximos -->
-        <div class="mt-4">
-            <x-jet-label value="Estudios máximos"/>
-            <x-jet-input wire:model.defer="user.estudio_maximo" class="block mt-1 w-full" type="text" disabled/>
-        </div>
-
-        <!-- Carrera-->
-        <div class="mt-4">
-            <x-jet-label value="Carrera"/>
-            <x-jet-input wire:model.defer="user.carrera" class="block mt-1 w-full" type="text" disabled/>
+        <!-- Organización de origen -->
+        <div class="mt-4 sm:flex-1">
+            <x-jet-label value="Organización de origen"/>
+            <x-jet-input wire:model.defer="user.organizacion_origen" class="block mt-1 w-full" type="text" disabled/>
         </div>
 
         <!-- Correo ITO y TECNM -->
@@ -85,6 +73,45 @@
                 <x-jet-label value="Correo extension TECNM"/>
                 <x-jet-input wire:model.defer="user.correo_tecnm" class="block mt-1 w-full" type="email" disabled/>
             </div>
+        </div>
+
+        <!-- Cuenta moodle -->
+        <div class="mt-4 sm:flex-1">
+            <x-jet-label value="Cuenta moodle"/>
+            <x-jet-input :value="$user->cuenta_moodle ? 'Tiene' : 'No tiene'" class="mt-1 w-full" type="text" disabled/>
+        </div>
+
+        <!-- Carrera-->
+        <div class="mt-4">
+            <x-jet-label value="Carrera"/>
+            <x-jet-input wire:model.defer="user.carrera" class="block mt-1 w-full" type="text" disabled/>
+        </div>
+
+        <!-- Tipo y Clave-->
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+            <!-- Tipo -->
+            <div class="mt-4">
+                <x-jet-label value="Tipo"/>
+                <x-jet-input wire:model.defer="user.tipo" class="mt-1 w-full" type="text" disabled/>
+            </div>
+
+            <!-- Clave -->
+            <div class="mt-4 sm:flex-1">
+                <x-jet-label value="Clave presupuestal"/>
+                <x-jet-input wire:model.defer="user.clave_presupuestal" class="block mt-1 w-full" type="text" disabled/>
+            </div>
+        </div>
+
+        <!-- Area -->
+        <div class="mt-4">
+            <x-jet-label value="Área de adscripción"/>
+            <x-jet-input :value="$user->area->nombre ?? ''" class="mt-1 w-full" type="text" disabled/>
+        </div>
+
+        <!-- Jefe Directo -->
+        <div class="mt-4">
+            <x-jet-label value="Jefe Inmediato"/>
+            <x-jet-input wire:model.defer="user.jefe_inmediato" class="block mt-1 w-full" type="text" disabled/>
         </div>
 
         <!-- Puesto, Hora entrada y Hora salida -->
@@ -108,26 +135,6 @@
             </div>
         </div>
 
-        <!-- Area -->
-        <div class="mt-4">
-            <x-jet-label value="Área de adscripción"/>
-            <x-jet-input :value="$user->area->nombre ?? ''" class="mt-1 w-full" type="text" disabled/>
-        </div>
-
-        <!-- Organización de origen y Cuenta moodle -->
-        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-            <!-- Organización de origen -->
-            <div class="mt-4 sm:flex-1">
-                <x-jet-label value="Organización de origen"/>
-                <x-jet-input wire:model.defer="user.organizacion_origen" class="block mt-1 w-full" type="text" disabled/>
-            </div>
-
-            <!-- Cuenta moodle -->
-            <div class="mt-4 sm:flex-1">
-                <x-jet-label value="Cuenta moodle"/>
-                <x-jet-input :value="$user->cuenta_moodle ? 'Si tiene' : 'No tiene'" class="mt-1 w-full" type="text" disabled/>
-            </div>
-        </div>
     </x-slot>
 
     <x-slot name="footer">

@@ -5,23 +5,31 @@
         </h2>
     </x-slot>
     <div class="space-y-2">
+        <!-- Botón de nuevo -->
+        <div>
+            <x-jet-secondary-button wire:click="create()" class="border-green-300 text-green-700 hover:text-green-500 active:text-green-800 active:bg-green-50">
+                <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
+                Nuevo Periodo
+            </x-jet-secondary-button>
+        </div>
         <!-- Opciones de tabla -->
+        <span class="mx-4 text-gray-500"></span>
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
-            <!-- Parte izquierda -->
-
-                <!-- fecha inicio -->
-                <!-- Parte izquierda -->
-                <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                    <div>
-                        {{-- <x-jet-label for="fecha_inicio" value="Fecha Inicio"/> --}}
-                        <x-input.select wire:model="filters" name="fecha_inicio" id="fecha_inicio" class="w-full" required>
-                            <option value="">Todas las Fechas</option>
-                            @foreach(\App\Models\Period::all() as $period)
-                              <option value="{{$period->fecha_inicio}}">{{date('d-m-Y', strtotime($period->fecha_inicio))}}</option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
+            <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
+                <div>
+                    <x-jet-label for="desde" value="Desde" class="text-lg" />
+                    <x-input.error wire:model="filters" class="block mt-1 w-full" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required />
                 </div>
+                <div>
+                    <x-jet-label for="hasta" value="Hasta" class="text-lg" />
+                    <x-input.error wire:model="filters2" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required />
+                </div>
+                <div class="flex items-end">
+                    <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">
+                        <x-icon.trash solid alt="sm" class="inline-block h-5 w-5" />
+                    </x-jet-secondary-button>
+                </div>
+            </div>
 
             <!-- Parte derecha -->
             <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
@@ -42,8 +50,11 @@
             <x-table>
                 <x-slot name="head">
                     {{-- <x-table.header >Número</x-table.header> --}}
-                    <x-table.header >Fecha de inicio</x-table.header>
-                    <x-table.header >Fecha de finalización</x-table.header>
+                    <x-table.header wire:click="sortBy('fecha_inicio')" sortable :direction="$sortField === 'fecha_inicio' ? $sortDirection : null">
+                        Fecha de inicio
+                    </x-table.header>
+                    <x-table.header wire:click="sortBy('fecha_fin')" sortable :direction="$sortField === 'fecha_fin' ? $sortDirection : null">
+                        Fecha de finalización</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
@@ -53,8 +64,12 @@
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
                         <x-table.cell>
-                            <button wire:click="edit( {{$p->id }})" type="button" class="text-amber-600 hover:text-amber-900">
-                                <x-icon.pencil alt class="h-6 w-6"/>
+                            <button wire:click="edit({{ $p->id }})" type="button" class="text-amber-600 hover:text-amber-900">
+                                <x-icon.pencil alt class="h-6 w-6" />
+                            </button>
+                            <button
+                                wire:click="deletePeriod('{{ $p->id }}','{{ $p->fecha_inicio }}','{{ $p->fecha_fip }}')" type="button" class="text-red-600 hover:text-red-900">
+                                <x-icon.trash class="h-6 w-6" />
                             </button>
                         </x-table.cell>
                     </tr>
@@ -79,9 +94,14 @@
             <div>
                 {{ $periods->links() }}
             </div>
-            {{-- @if($isOpen)
-                @include('livewire.admin.grades.edit')
-            @endif --}}
+            @if ($create)
+                @include('livewire.admin.periodCourses.edit_create', ['modo' => 'Crear'])
+            @elseif($edit)
+                @include('livewire.admin.periodCourses.edit_create', [ 'modo' => 'Actualizar', ])
+            @endif
+            @if ($confirmingPeriodDeletion)
+                @include('livewire.admin.periodCourses.destroy')
+            @endif
         </div>
     </div>
 </div>
