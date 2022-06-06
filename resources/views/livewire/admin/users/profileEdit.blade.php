@@ -12,6 +12,9 @@
                     <x-jet-label for="nombre" value="Nombre" />
                     <x-input.error wire:model.defer="user.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="user.name" required />
                 </div>
+            </div>
+                
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- paterno -->
                 <div class="mt-4 flex-1">
                     <x-jet-label for="apellido_paterno" value="Apellido Paterno" />
@@ -34,15 +37,6 @@
                     <x-jet-label for="curp" value="CURP" />
                     <x-input.error wire:model.defer="user.curp" class="block mt-1 w-full" type="text" id="curp" name="curp" for="user.curp" required />
                 </div>
-                {{-- sexo --}}
-                <div>
-                    <x-jet-label for="sexo" value="Sexo" />
-                    <x-input.select wire:model.defer="user.sexo" id="sexo" class="mt-1 w-full" name="sexo" for="user.sexo" required>
-                        <option value="" disabled>Selecciona Sexo...</option>
-                        <option value="M">Masculino</option>
-                        <option value="F">Femenino</option>
-                    </x-input.select>
-                </div>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 {{-- ito --}}
@@ -62,6 +56,17 @@
                     <x-jet-label for="estudio_maximo" value="Estudios Maximos" />
                     <x-input.error wire:model.defer="user.estudio_maximo" class="block mt-1 w-full" type="text" id="estudio_maximo" name="estudio_maximo" for="user.estudio_maximo" required />
                 </div>
+                {{-- sexo --}}
+                <div class="mt-4 flex-1">
+                    <x-jet-label for="sexo" value="Sexo" />
+                    <x-input.select wire:model.defer="user.sexo" id="sexo" class="mt-1 w-full" name="sexo" for="user.sexo" required>
+                        <option value="" disabled>Selecciona Sexo...</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                    </x-input.select>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 {{-- carrera --}}
                 <div class="mt-4 flex-1">
                     <x-jet-label for="carrera" value="Carrera" />
