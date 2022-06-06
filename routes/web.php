@@ -7,7 +7,7 @@ use App\Http\Livewire\Admin\CourseController;
 use App\Http\Livewire\Admin\CourseDetailsController;
 use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
-use App\Http\Livewire\Admin\InscriptionControllerller;
+use App\Http\Livewire\Admin\InscriptionsController;
 use App\Http\Livewire\Admin\InstructorCurseController;
 use App\Http\Livewire\Admin\ParticipantController;
 use App\Http\Livewire\Admin\ParticipantListsController;
@@ -72,7 +72,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         ->get('participante', ParticipantController::class)->name('participante');
 
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
-        ->get('inscription', InscriptionControllerller::class)->name('inscription');
+        ->get('inscription', InscriptionsController::class)->name('inscription');
 
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('asig', AssignedInstructorController::class)->name('asig');

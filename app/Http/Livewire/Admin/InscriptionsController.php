@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
-class InscriptionControllerller extends Component
+class InscriptionsController extends Component
 {
     public User $user;
     public int $perPage = 5;
