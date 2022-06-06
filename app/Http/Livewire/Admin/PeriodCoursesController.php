@@ -2,11 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Period;
 use App\Http\Traits\WithSorting;
+use App\Models\Period;
 use Livewire\Component;
 use Livewire\WithPagination;
-
 
 class PeriodCoursesController extends Component
 {
@@ -44,6 +43,7 @@ class PeriodCoursesController extends Component
         $this->reset('filters');
         $this->reset('filters2');
     }
+
     private function validateInputs()
     {
         if ($this->edit == true) {
@@ -59,6 +59,7 @@ class PeriodCoursesController extends Component
             ]);
         }
     }
+
     public function create()
     {
         $this->resetInputFields();
@@ -102,14 +103,15 @@ class PeriodCoursesController extends Component
         $this->create = false;
         $this->openModal();
     }
-    public function store(){
+
+    public function store()
+    {
         // $this->validateInputs();
 
         Period::updateOrCreate(['id' => $this->periodo_id], [
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin' => $this->fecha_fin,
         ]);
-
 
         $this->edit = false;
         $this->create = false;

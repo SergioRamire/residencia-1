@@ -4,12 +4,10 @@ namespace App\Http\Livewire\Admin;
 
 namespace App\Http\Livewire\Admin;
 
-
-use App\Models\Group;
 use App\Http\Traits\WithSorting;
+use App\Models\Group;
 use Livewire\Component;
 use Livewire\WithPagination;
-
 
 class GroupController extends Component
 {

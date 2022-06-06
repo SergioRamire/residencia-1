@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\CourseDetail;
 use App\Http\Traits\WithSorting;
 use App\Models\Course;
+use App\Models\CourseDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -75,13 +75,13 @@ class CourseDetailsController extends Component
 
     public function edit($id)
     {
-        $coursedetail = CourseDetail::join('courses','courses.id','course_details.course_id')
-                                      ->join('periods','periods.id','course_details.period_id')
+        $coursedetail = CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
+                                      ->join('periods', 'periods.id', 'course_details.period_id')
                                       ->select('course_details.id','course_details.group_id',
                                                 'course_details.hora_inicio','course_details.hora_fin',
                                                 'course_details.capacidad','course_details.lugar',
-                                                'courses.nombre as curso','periods.fecha_inicio')
-                                      ->where('course_details.id','=',$id)
+                                                'courses.nombre as curso', 'periods.fecha_inicio')
+                                      ->where('course_details.id', '=', $id)
                                       ->first();
         $this->coursedetail_id = $id;
         $this->grupo_id = $coursedetail->group_id;
