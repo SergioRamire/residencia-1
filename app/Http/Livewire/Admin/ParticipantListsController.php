@@ -53,13 +53,8 @@ class ParticipantListsController extends Component
         ' ', users.apellido_materno) as nombre"),'users.name','users.apellido_paterno','users.apellido_materno'
          ,'courses.nombre as curso','groups.nombre as grupo',
          'areas.nombre as area', 'periods.fecha_inicio', 'periods.fecha_fin')
-         // ->distinct()
-        //  ->when($this->filters['periodo'], fn ($query, $periodo)
-        //      => $query->where('course_details.period_id','=' ,$periodo))
          ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
-             ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
-        //  ->when($this->filters['curso'], fn ($query, $curso)
-        //      => $query->where('course_details.course_id','=' ,$curso))
+         ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
          ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,
          ' ', users.apellido_materno)"), 'like', "%$search%"))
          ->orderBy($this->sortField, $this->sortDirection);
