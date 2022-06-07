@@ -8,12 +8,42 @@
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
+            {{-- <div class="md:flex md:justify-between space-y-2 md:space-y-0"> --}}
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                    <div class="mt-1 md:w-1/5">
+                        <x-jet-label for="periodo" value="Periodo"/>
+                        <x-input.select wire:model="classification.periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
+                            <option   value="" disabled>Selecciona el periodo...</option>
+                            @foreach(\App\Models\Period::all() as $period)
+                                    <option value="{{ $period->id }}">{{date('d-m-Y', strtotime($period->fecha_inicio))}} a {{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
+                            @endforeach
+                        </x-input.select>
+                    </div>
+                <!-- Curso -->
+                <div class="mt-1 w-1/2 bg-green-600 ">
+                        <x-jet-label for="curso_classification" value="Curso"/>
+                        <x-input.select wire:model="classification.curso" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
+                            <option value="">Selecciona el curso...</option>
+                            @foreach(\App\Models\CourseDetail::join('courses','courses.id','=','course_details.course_id')
+                                ->join('periods','periods.id','=', 'course_details.period_id')
+                                ->where('course_details.period_id','=',$classification['periodo'])
+                                ->select('course_details.course_id as id','courses.nombre')
+                                ->distinct()
+                                ->get() as $course)
+                                <option value="{{ $course->id }}">{{$course->nombre}}</option>
+                            @endforeach
+                        </x-input.select>
+
+                </div>
+            </div>
+            {{-- </div> --}}
+
             <!-- Opciones de tabla -->
             <div class="md:flex md:justify-between space-y-2 md:space-y-0">
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                    <!-- Barra de búsqueda -->
-                    <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar...">
+                     <!-- Barra de búsqueda -->
+                     <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
                         <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                     </x-input.icon>
 
@@ -41,15 +71,34 @@
                                     <x-icon.trash class="h-5 w-5"/>
                                 </button>
                             </div>
-
-                            <!-- Cursos -->
+                            <!-- Departamento -->
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
-                                    <x-jet-label for="filtro_curso" value="Curso"/>
-                                    <x-input.select wire:model="filters.filtro_curso" name="filtro_curso" id="filtro_curso" class="text-sm block mt-1 w-full" required>
-                                        <option value="">Todo los cursos</option>
-                                        @foreach(\App\Models\Course::all() as $course)
-                                            <option value="{{$course->nombre}}">{{$course->nombre}}</option>
+                                    <x-jet-label for="departamento_filter" value="Departamento"/>
+                                    <x-input.select wire:model="filters.departamento" id="departamento_filter" class="text-sm block mt-1 w-full" name="departamento_filter" required>
+                                        <option value="" disabled>Selecciona departamento...</option>
+                                        @foreach(\App\Models\Area::all() as $area)
+                                                <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                        @endforeach
+                                    </x-input.select>
+                                </div>
+                            </div>
+
+                             <!-- Grupo -->
+                             <div class="block px-4 py-2 space-y-1">
+                                <div>
+                                    <x-jet-label for="grupo_filter" value="Grupo"/>
+                                    <x-input.select wire:model="filters.grupo" id="grupo_filter" class="text-sm block mt-1 w-full" name="grupo_filter" required>
+                                        <option value="" disabled>Selecciona modalidad...</option>
+                                        @foreach(\App\Models\CourseDetail::join('groups','groups.id','=','course_details.group_id')
+                                            ->join('periods','periods.id','=', 'course_details.period_id')
+                                            ->join('courses','courses.id','=', 'course_details.course_id')
+                                            ->where('course_details.period_id','=',$classification['periodo'])
+                                            ->where('course_details.course_id','=',$classification['curso'])
+                                            ->select('course_details.group_id as id','groups.nombre')
+                                            ->distinct()
+                                            ->get() as $group)
+                                            <option value="{{ $group->id }}">{{$group->nombre}}</option>
                                         @endforeach
                                     </x-input.select>
                                 </div>
@@ -67,31 +116,7 @@
                                 </div>
                             </div>
 
-                            <!-- fehc inicio -->
-                            <div class="block px-4 py-2 space-y-1">
-                                <div>
-                                    <x-jet-label for="fecha_inicio" value="Fecha Inicio"/>
-                                    <x-input.select wire:model="filters.fecha_inicio" name="fecha_inicio" id="fecha_inicio" class="text-sm block mt-1 w-full" required>
-                                        <option value="">Todas las Fechas</option>
-                                        @foreach(\App\Models\Period::all() as $period)
-                                          <option value="{{$period->fecha_inicio}}">{{date('d-m-Y', strtotime($period->fecha_inicio))}}</option>
-                                        @endforeach
-                                    </x-input.select>
-                                </div>
-                            </div>
 
-                            <!-- fehc fin -->
-                            <div class="block px-4 py-2 space-y-1">
-                                <div>
-                                    <x-jet-label for="fecha_fin" value="Fecha inicio"/>
-                                    <x-input.select wire:model="filters.fecha_fin" name="fecha_fin" id="fecha_fin" class="text-sm block mt-1 w-full" required>
-                                        <option value="">Todas las Fechas</option>
-                                        @foreach(\App\Models\Period::all() as $period)
-                                          <option value="{{$period->fecha_fin}}">{{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
-                                        @endforeach
-                                    </x-input.select>
-                                </div>
-                            </div>
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -101,7 +126,7 @@
                     <!-- Selección de paginación -->
                     <div>
                         <x-input.select wire:model="perPage" class="block w-full border-green-300 text-green-700 hover:text-green-500 active:text-green-800 active:bg-green-50">
-                            <option value=8>8 por página</option>
+                            <option value=5>5 por página</option>
                             <option value=10>10 por página</option>
                             <option value=25>25 por página</option>
                             <option value=50>50 por página</option>
