@@ -26,8 +26,8 @@ class ProfileController extends Component
             'user.rfc' =>  ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
             'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'user.apellido_materno' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'user.apellido_paterno' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.apellido_materno' => ['regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.apellido_paterno' => ['regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.sexo' => ['required', 'regex:/^[F|M]$/u', 'max:1'],
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
             'user.correo_tecnm' => ['required', 'email', 'ends_with:@oaxaca.tecnm.mx', Rule::unique('users', 'correo_tecnm')->ignore($this->user)],
@@ -61,7 +61,14 @@ class ProfileController extends Component
         $this->showEditModal = false;
         $this->showConfirmationModal = true;
     }
-
+    public function closeM(){
+        $this->showEditModal = false;
+        return redirect()->route('perfil');
+    }
+    public function closeM2(){
+        $this->showConfirmationModal = false;
+        return redirect()->route('perfil');
+    }
     public function save(){
         $this->user->save();
 
