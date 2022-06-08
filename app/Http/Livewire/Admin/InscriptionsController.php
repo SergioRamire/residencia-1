@@ -149,7 +149,7 @@ class InscriptionsController extends Component
         $this->confirmingSaveInscription = false;
         $this->showHorario = false;
         $this->user = User::find(auth()->user()->id);
-        foreach ($this->arreglo as $id) {
+        foreach ($this->unionarreglos as $id) {
             $courseDetails = CourseDetail::find($id);
             $this->user->courseDetails()->attach( $courseDetails, [
                         'calificacion' => 0,
