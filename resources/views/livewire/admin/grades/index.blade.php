@@ -1,28 +1,42 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            CALIFICACIONES
+            ASIGNAR CALIFICACIONES
         </h2>
     </x-slot>
-    <div class="space-y-2">
-        <div class="flex justify-between">
-        <p class="left-6 text-xl text-gray-800">
-            <b> Curso:  {{$curso}}</b>
-        </p>
+    {{-- <div class="space-y-2"> --}}
+        @if($cuenta==1)
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+            <p class="left-6 text-gm text-gray-800">
+                <b> Curso:  {{$curso}}</b>
+            </p>
+        </div>
+        <br>
+        @endif
+    {{-- </div> --}}
 
-        <p class="right-0 text-xl text-gray-800">
-            <b> Grupo: {{$grupo}}</b>
-        </p>
-    </div>
-    </div>
-
     <div class="space-y-2">
+        @if($cuenta>1)
+        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+        <!-- Cursos -->
+            <div class="mt-1  w-1/2">
+                <x-jet-label for="curso_classification" value="Selecciona el curso"/>
+                <x-input.select wire:model="id_course" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
+                    <option value=" ">Selecciona el curso...</option>
+                    @foreach($courses as $course)
+                        <option value="{{ $course->id }}">{{$course->nombre}}</option>
+                    @endforeach
+                </x-input.select>
+            </div>
+        </div>
+        @endif
         <!-- Opciones de tabla -->
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
             <!-- Parte izquierda -->
             <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
+
                 <!-- Barra de búsqueda -->
-                <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar usuarios...">
+                <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
                     <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                 </x-input.icon>
 
@@ -31,7 +45,7 @@
 
             <!-- Parte derecha -->
             <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
-                <!-- Exportar y eliminar -->
+
 
                 <!-- Selección de paginación -->
                 <div>
@@ -49,6 +63,7 @@
             <x-table>
                 <x-slot name="head">
                     <x-table.header >Participante</x-table.header>
+                    <x-table.header >Grupo</x-table.header>
                     <x-table.header >Calificación</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
@@ -58,6 +73,7 @@
                         <x-table.cell>{{ $g->name }}
                                       {{ $g->apellido_paterno }}
                                       {{ $g->apellido_materno }}</x-table.cell>
+                        <x-table.cell>{{ $g->grupo }}</x-table.cell>
                         <x-table.cell>{{ $g->calificacion }}</x-table.cell>
                         <x-table.cell>
                             <button wire:click="edit( {{$g->id }})" type="button" class="text-amber-600 hover:text-amber-900">

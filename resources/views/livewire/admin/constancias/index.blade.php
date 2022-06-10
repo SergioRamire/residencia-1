@@ -20,7 +20,7 @@
                         </x-input.select>
                     </div>
                 <!-- Curso -->
-                <div class="mt-1 w-1/2 bg-green-600 ">
+                <div class="mt-1 w-1/2">
                         <x-jet-label for="curso_classification" value="Curso"/>
                         <x-input.select wire:model="classification.curso" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
                             <option value="">Selecciona el curso...</option>
@@ -107,11 +107,11 @@
                             <!-- Calificación -->
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
-                                    <x-jet-label for="filtro_calificacion" value="Calificacion"/>
+                                    <x-jet-label for="filtro_calificacion" value="Estatus"/>
                                     <x-input.select wire:model="filters.filtro_calificacion" name="filtro_calificacion" id="filtro_calificacion" class="text-sm block mt-1 w-full" required>
-                                        <option value="">Todas las calificaciones</option>
-                                        <option value='69'>Mayor a 70</option>
-                                        <option value='70'>Menor a 70</option>
+                                        <option value="" disabled>Selecciona estatus</option>
+                                        <option value='69'>Aprobados</option>
+                                        <option value='70'>No Aprobados</option>
                                     </x-input.select>
                                 </div>
                             </div>
@@ -142,6 +142,7 @@
                     <x-slot name="head">
                         <x-table.header class="text-center">Participante</x-table.header>
                         <x-table.header class="text-center">curso</x-table.header>
+                        <x-table.header class="text-center">grupo</x-table.header>
                         <x-table.header class="text-center">Calificación</x-table.header>
                         <x-table.header class="text-center">Opcion</x-table.header>
                     </x-slot>
@@ -152,6 +153,7 @@
                                 {{ $g->name }}{{' '}}{{ $g->apellido_paterno }}{{' '}}{{ $g->apellido_materno }}
                             </x-table.cell>
                             <x-table.cell class="text-center">{{ $g->curso }}</x-table.cell>
+                            <x-table.cell class="text-center">{{ $g->grupo }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->calificacion }}</x-table.cell>
                             <div>
                                 @if($g->calificacion > 69)

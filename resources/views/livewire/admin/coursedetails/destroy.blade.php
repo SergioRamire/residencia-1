@@ -1,11 +1,11 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
 <x-jet-confirmation-modal wire:model="confirmingDetailsDeletion">
     <x-slot name="title">
-        Eliminar Detalles de un curso.
+        Eliminar los detalles del curso.
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea eliminar los detalles del curso <span class="font-bold text-red-900">{{ $curso }}</span>?
+        ¿Seguro que desea eliminar los detalles del curso <strong>{{ $curso_elegido }}</strong>?
     </x-slot>
 
     {{-- botones --}}

@@ -72,19 +72,5 @@ class ParticipantListsController extends Component
             ->paginate($this->perPage),
         ]);
         $this->resetFilters();
-        // if($this->consulta==true){
-        // return view('livewire.admin.lists.index', [
-        //     'lists' => $this->mostrar()
-        //                 ->paginate($this->perPage),
-
-        // ]);
-        // $this->consulta=false;
-        // }
-        // else{
-        //     return view('livewire.admin.lists.index',
-        //     'lists'
-        //     );
-        // }
-        // $this->resetFilters();
     }
 }
