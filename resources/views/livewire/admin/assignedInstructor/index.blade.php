@@ -25,8 +25,7 @@
                                     <li class="list-group-item list-group-item-action">
                                         <span wire:click="selectPer({{ $period->id }})"
                                             class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">
-                                            Del {{ date('d-m-Y', strtotime($period->fecha_inicio)) }} al
-                                            {{ date('d-m-Y', strtotime($period->fecha_fin)) }}
+                                            Del {{ date('d-m-Y', strtotime($period->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($period->fecha_fin)) }}
                                         </span>
                                     </li>
                                 @endforeach
@@ -42,15 +41,18 @@
                             </ul>
                         @endif
                     @endif
+                    @if (!is_null($datos))
+                        
                     <div class="pt-6">
                         <span class="text-[20px]">Perido Elegido: </span>
                         <span>
-                            @if (!is_null($datos))
+                            {{-- @if (!is_null($datos)) --}}
                                 <span class="text-[20px]">Del {{ date('d-m-Y', strtotime($datos->fecha_inicio)) }} al
                                     {{ date('d-m-Y', strtotime($datos->fecha_fin)) }}</span>
-                            @endif
+                            {{-- @endif --}}
                         </span>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -145,7 +147,7 @@
                 <!-- Parte derecha -->
                 <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Selección de paginación -->
-                    <div>
+                    {{-- <div>
                         <x-input.select wire:model="perPage" class="block w-full border-green-300 text-green-700 hover:text-green-500 active:text-green-800 active:bg-green-50">
                             <option value=8>8 por página</option>
                             <option value=10>10 por página</option>
@@ -153,7 +155,7 @@
                             <option value=50>50 por página</option>
                             <option value=100>100 por página</option>
                         </x-input.select>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
 
