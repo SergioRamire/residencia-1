@@ -8,7 +8,7 @@
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
             {{-- <div class="md:flex md:justify-between space-y-2 md:space-y-0"> --}}
-                <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                     <div class="mt-1 md:w-1/5">
                         <x-jet-label for="periodo" value="Periodo"/>
                         <x-input.select wire:model="classification.periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
@@ -19,7 +19,7 @@
                         </x-input.select>
                     </div>
                 <!-- Curso -->
-                <div class="mt-1 w-1/2 bg-green-600 ">
+                <div class="mt-1 w-1/2 ">
                         <x-jet-label for="curso_classification" value="Curso"/>
                         <x-input.select wire:model="classification.curso" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
                             <option value="">Selecciona el curso...</option>

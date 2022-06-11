@@ -8,6 +8,7 @@ use App\Models\Period;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 use App\Http\Livewire\Admin\EmailController;
 use Illuminate\Support\Facades\Mail;
@@ -16,18 +17,28 @@ use App\Mail\EnviarEmailCurso;
 
 class InscriptionsController extends Component
 {
+    use WithPagination;
     public User $user;
     public int $perPage = 5;
+    public int $perPage2 = 3;
     public $arreglo = [];
     public $arreglo1 = [];
     public $unionarreglos = [];
     public $keyCache = 'horario'; /* .auth()->user()->id; */
     public int $countabla1 = 1;
     public int $countabla2 = 1;
+    public $fecha_inicio_periodo1;
+    public $fecha_fin_periodo1;
+    public $fecha_inicio_periodo2;
+    public $fecha_fin_periodo2;
 
     public bool $btnContinuar = false;
     public bool $showHorario = false;
     public bool $confirmingSaveInscription = false;
+    protected $queryString = [
+        'perPage' => ['except' => 5, 'as' => 'p'],
+        'perPage2' => ['except' => 3, 'as' => 'p2'],
+    ];
 
     public function openShowHorario(){
 
@@ -68,9 +79,23 @@ class InscriptionsController extends Component
     public function addTabla2($id){
 
         if($this->countabla2<3){
-            $this->countabla2=$this->countabla2+1;
-            array_push($this->arreglo1, $id);
-            $this-> noti('success','Curso seleccionado ');
+            $cap=CourseDetail::select('course_details.capacidad')
+                ->where('course_details.id',"=",$id)
+                ->get();
+            $users = CourseDetail::
+                join('inscriptions as i', 'i.course_detail_id', '=', 'course_details.id')
+                ->where('i.course_detail_id', "=",$id)
+                ->where('i.estatus_participante', "=",'Participante')
+                ->selectRaw('count(*) as user_count')
+                ->first();
+            if($users->user_count<$cap[0]->capacidad){
+                $this->countabla2=$this->countabla2+1;
+                array_push($this->arreglo1, $id);
+                $this-> noti('success','Curso seleccionado ');
+            }
+            else{
+                $this-> noti('danger','Capacidad llena del curso seleccionado');
+            }
         }
         elseif($this->countabla2>2){
             $this-> noti('danger','No se pueden seleccionar más de 2 cursos por semana ',);
@@ -83,14 +108,27 @@ class InscriptionsController extends Component
 
 
         if($this->countabla1<3){
-            $this->countabla1=$this->countabla1+1;
-            array_push($this->arreglo, $id);
+            $cap=CourseDetail::select('course_details.capacidad')
+                             ->where('course_details.id',"=",$id)
+                             ->get();
+            $users = CourseDetail::
+                join('inscriptions as i', 'i.course_detail_id', '=', 'course_details.id')
+                ->where('i.course_detail_id', "=",$id)
+                ->where('i.estatus_participante', "=",'Participante')
+                ->selectRaw('count(*) as user_count')
+                ->first();
+            if($users->user_count<$cap[0]->capacidad){
+                $this->countabla1=$this->countabla1+1;
+                array_push($this->arreglo, $id);
 
-            $this-> noti('success','Curso seleccionado ');
+                $this-> noti('success','Curso seleccionado ');
+            }
+            else{
+                $this-> noti('danger','Capacidad llena del curso seleccionado');
+            }
         }
         elseif($this->countabla1>2){
             $this-> noti('danger','No se pueden seleccionar más de 2 cursos por semana ');
-            return;
         }
         $this->buscar();
     }
@@ -115,13 +153,35 @@ class InscriptionsController extends Component
 
     public function render(){
         $this->tablaVacia();
+
+        $this->obtenerPeriodos();
+
         return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
-                'semana1' => $this->rangoFecha('2022-06-02', '2022-06-10')->paginate($this->perPage),
-                'semana2' => $this->rangoFecha('2022-06-05', '2022-06-18')->paginate($this->perPage),
+                // 'semana1' => $this->rangoFecha('2022-06-02', '2022-06-10')->paginate($this->perPage),
+                // 'semana2' => $this->rangoFecha('2022-06-05', '2022-06-18')->paginate($this->perPage),
+                'semana1' => $this->rangoFecha($this->fecha_inicio_periodo1, $this->fecha_fin_periodo1)->paginate($this->perPage),
+                'semana2' => $this->rangoFecha($this->fecha_inicio_periodo2, $this->fecha_fin_periodo2)->paginate($this->perPage2),
             ]
         );
+    }
+
+    public function obtenerPeriodos(){
+        $fecha_actual = date("Y-m-d");
+
+        $fecha_i_1=Period::select('periods.fecha_inicio')
+                               ->where('periods.fecha_inicio','>',$fecha_actual)
+                               ->first();
+
+        $fecha_f_1=Period::select('periods.fecha_fin')
+                               ->where('periods.fecha_fin','>',$fecha_actual)
+                               ->first();
+        $this->fecha_inicio_periodo1= $fecha_i_1->fecha_inicio;
+        $this->fecha_fin_periodo1= $fecha_f_1->fecha_fin;
+        $this->fecha_inicio_periodo2=date("Y-m-d",strtotime($this->fecha_inicio_periodo1."+ 7 days"));
+        $this->fecha_fin_periodo2=date("Y-m-d",strtotime($this->fecha_fin_periodo1."+ 7 days"));
+
     }
 
     public function del($id){
@@ -153,10 +213,11 @@ class InscriptionsController extends Component
     public function store(){
         $this->confirmingSaveInscription = false;
         $this->showHorario = false;
+
         $this->user = User::find(auth()->user()->id);
         foreach ($this->unionarreglos as $id) {
             $courseDetails = CourseDetail::find($id);
-            $this->user->courseDetails()->attach( $courseDetails, [
+                $this->user->courseDetails()->attach( $courseDetails, [
                         'calificacion' => 0,
                         'estatus_participante' => 'Participante',
                         'asistencias_minimas' => 0,

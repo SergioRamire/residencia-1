@@ -74,7 +74,10 @@
         <div class="max-w-7xl mx-auto pt-5">
             <div class="space-y-2">
                 <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
-                    <h5 class="text-xl font-medium text-blue-800">Cursos Disponibles Semana 1</h5>
+                    <h5 class="text-xl font-medium text-blue-800">Cursos disponibles en la semana del
+                        {{date('d-m-Y', strtotime($fecha_inicio_periodo1))}} al
+                        {{date('d-m-Y', strtotime($fecha_fin_periodo1))}}
+                    </h5>
                     <div class="flex flex-col space-y-2">
 
 
@@ -137,7 +140,9 @@
         <div class="max-w-7xl mx-auto pt-5">
             <div class="space-y-2">
                 <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
-                    <h5 class="text-xl font-medium text-blue-800">Cursos Disponibles Semana 2</h5>
+                    <h5 class="text-xl font-medium text-blue-800">Cursos disponibles en la semana del
+                        {{date('d-m-Y', strtotime($fecha_inicio_periodo2))}} al
+                        {{date('d-m-Y', strtotime($fecha_fin_periodo2))}}
                     <div class="flex flex-col space-y-2">
                         <x-table>
                             <x-slot name="head">

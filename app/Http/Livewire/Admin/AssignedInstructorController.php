@@ -3,91 +3,84 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\CourseDetail;
+use App\Models\User;
+use App\Models\Period;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class AssignedInstructorController extends Component{
-    
-    public $curso;
-    public $grupo;
-    public $instructor;
-    public $lugar;
-    public $horario1;
-    public $horario2;
-    public $search;
 
-    public $id_detalle_de_curso = 5;
+
+    public $datos='';
+    public $lugar='';
+    public $horai;
+    public $horaf;
+    public $id_instructor;
+    public array $classification = [
+        'curso' => '',
+        'periodo' => '',
+        'grupo' => '',
+    ];
+
+
+    public $id_detalle_curso;
 
     public function resetFilters(){
         $this->reset('curso');
         $this->reset('grupo');
         $this->reset('lugar');
-        $this->reset('horario1');
-        $this->reset('horario2');
-        $this->reset('instructor');
-        $this->reset('search');
+        $this->reset('horai');
+        $this->reset('horaf');
     }
 
     public function render(){
-        $this->consultadeta();
+         $this->valores();
         return view('livewire.admin.assignedInstructor.index', [
-            'datoscurso' => $this->consultacurso(), //->paginate($this->perPage)
-            'datosgrupo' => $this->consultagrupo(),
+            'datoscurso' => $this->consultacurso($this->classification['periodo'], $this->classification['curso'],$this->classification['grupo']),
             'datosuser' => $this->consultauser()
         ]);
     }
 
-
-    public function consultacurso(){
-        return CourseDetail::query()
-                ->Join('courses', 'courses.id', '=', 'course_details.course_id')
-                ->select('courses.nombre as nombre_curso', 'courses.id', 'course_details.*')
-                // ->when($this->search, function ($query, $search) {
-                //     $query->where('rfc', 'like', "%$search%")
-                //         ->orWhere(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%");
-                //     }
-                // ->where('course_details.id', '=', $this->id_detalle_de_curso)
-                ->get();
+    public function valores(){
+        $this->datos=$this->consultacurso($this->classification['periodo'], $this->classification['curso'],$this->classification['grupo']);
+        if(count($this->datos)>0){
+            $this->id_detalle_curso=$this->datos[0]->id;
+            $this->lugar=$this->datos[0]->lugar;
+            $this->horai=$this->datos[0]->hora_inicio;
+            $this->horaf=$this->datos[0]->hora_fin;
+        }
     }
-    public function consultagrupo(){
+    public function consultacurso($idp,$idc,$idg){
         return CourseDetail::query()
-                ->Join('groups', 'groups.id', '=', 'course_details.group_id')
-                ->select('groups.nombre as nombre_grupo', 'groups.id', 'course_details.*')
-                // ->when($this->search, function ($query, $search) {
-                //     $query->where('rfc', 'like', "%$search%")
-                //         ->orWhere(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%");
-                //     }
-                // ->where('course_details.id', '=', $this->id_detalle_de_curso)
+                ->select('course_details.id','course_details.lugar','course_details.capacidad','course_details.hora_inicio'
+                        ,'course_details.hora_fin','course_details.capacidad')
+                ->where( 'course_details.period_id','=',$idp)
+                ->where( 'course_details.course_id','=',$idc)
+                ->where( 'course_details.group_id','=',$idg)
                 ->get();
     }
     public function consultauser(){
-        return CourseDetail::query()
-            ->Join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.course_id')
-            ->Join('users', 'users.id', '=', 'inscriptions.user_id')
+        return User::query()
             ->select('users.*')
-                // ->when($this->search, function ($query, $search) {
-                //     $query->where('rfc', 'like', "%$search%")
-                //         ->orWhere(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%");
-                //     }
-                // ->where('course_details.id', '=', $this->id_detalle_de_curso)
-            ->get();
-    }
-    public function consultadetalle(){
-        return CourseDetail::query()
-            ->select('course_details.*')
-                // ->when($this->search, function ($query, $search) {
-                //     $query->where('rfc', 'like', "%$search%")
-                //         ->orWhere(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%");
-                //     }
-                ->where('course_details.id', '=', $this->id_detalle_de_curso)
             ->get();
     }
 
-    public function consultadeta(){
-        $this->lugar = $this->consultadetalle()[0]['lugar'];
-        $this->horario1= $this->consultadetalle()[0]['hora_inicio'];
-        $this->horario2= $this->consultadetalle()[0]['hora_fin'];
+    public function registrar(){
+        $this->user = User::find($this->id_instructor);
+        $courseDetails = CourseDetail::find($this->id_detalle_curso);
+            $this->user->courseDetails()->attach( $courseDetails, [
+                        'calificacion' => 0,
+                        'estatus_participante' => 'Instructor',
+                        'asistencias_minimas' => 0,
+                    ]);
+        $this-> noti('success','Instructor asignado correctamente');
     }
 
+    public function noti($icon,$txt){
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $icon,
+            'message' => $txt,
+        ]);
+    }
 
 }

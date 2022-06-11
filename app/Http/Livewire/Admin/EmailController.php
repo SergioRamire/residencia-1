@@ -32,7 +32,7 @@ class EmailController extends Component
 
     public function send($user){
 
-        Mail::to('valezarate.9903@gmail.com')
+        Mail::to($user->email)
             ->send(new EnviarEmailCurso($this->arreglo, $user));
     }
 

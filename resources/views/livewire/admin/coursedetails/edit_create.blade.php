@@ -14,7 +14,7 @@
                 <x-input.select wire:model="curso" name="curso" id="curso" class="text-sm block mt-1 w-full" required>
                     <option value="">Selecciones un Curso...</option>
                     @foreach($busqueda as $c)
-                      <option value="{{$c->nombre}}">{{$c->nombre}}</option>
+                      <option value="{{$c->id}}">{{$c->nombre}}</option>
                     @endforeach
                 </x-input.select>
             </div>
@@ -24,10 +24,10 @@
                 <!-- Periodo -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="periodo" value="Periodo"/>
-                    <x-input.select wire:model="fecha_inicio" name="fecha_inicio" id="fecha_inicio" class="text-sm block mt-1 w-full" required>
-                        <option value="">Periodos</option>
+                    <x-input.select wire:model="period" name="fecha_inicio" id="fecha_inicio" class="text-sm block mt-1 w-full" required>
+                        <option value="" disabled>Periodos</option>
                         @foreach(\App\Models\Period::all() as $period)
-                          <option value="{{$period->fecha_inicio}}">de {{date('d/m/Y', strtotime($period->fecha_inicio))}} - {{date('d/m/Y', strtotime($period->fecha_fin))}}</option>
+                          <option value="{{$period->id}}">{{date('d/m/Y', strtotime($period->fecha_inicio))}} a {{date('d/m/Y', strtotime($period->fecha_fin))}}</option>
                         @endforeach
                     </x-input.select>
                 </div>

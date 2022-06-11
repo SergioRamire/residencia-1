@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('showConfirmationModal')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="closeM2" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 

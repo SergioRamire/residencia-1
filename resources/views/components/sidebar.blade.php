@@ -72,7 +72,7 @@
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </x-slot>
-                        Inscription
+                        Inscripciones
                     </x-sidebar.link>
                 @endcan
 
@@ -180,8 +180,9 @@
 
         <!-- Logotipo -->
         <div class="flex items-center flex-shrink-0 px-4">
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg" alt="Workflow">
-        </div>
+
+        SCI
+    </div>
 
         <!-- Enlaces de navegación -->
         <div class="mt-5 flex-1 h-0 overflow-y-auto">
@@ -206,7 +207,7 @@
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </x-slot>
-                        Inscription
+                        Inscripciones
                     </x-sidebar.link>
                 @endcan
 
@@ -231,17 +232,16 @@
                 @endcan
 
                 @can('user_show')
-                <x-sidebar.dropdown title="Periodos de cursos" dp-id="1">
-                    <x-slot name="icon" stroke-width="2">
+                <x-sidebar.link :href='route("admin.periods-courses")' :active='request()->route("admin.periods-courses")'>
+                    <x-slot name="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </x-slot>
-                    <x-sidebar.link class="pl-11" :href='route("admin.periods-courses")' :active='request()->route("admin.periods-courses")'>
-                        Mostrar
-                    </x-sidebar.link>
-                </x-sidebar.dropdown>
+                    Periodos
+                </x-sidebar.link>
                 @endcan
 
-                @can('user_show')
+
+                {{-- @can('user_show')
                 <x-sidebar.dropdown title="Grupos" dp-id="1">
                     <x-slot name="icon" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -250,7 +250,9 @@
                         Mostrar
                     </x-sidebar.link>
                 </x-sidebar.dropdown>
-                @endcan
+                @endcan --}}
+
+
 
                 @can('user_show')
                     <x-sidebar.dropdown title="Cursos" dp-id="1">
@@ -263,10 +265,23 @@
                         <x-sidebar.link class="pl-11" :href='route("admin.coursedetail")' :active='request()->route("admin.coursedetail")'>
                             Detalles de Cursos
                         </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.group")' :active='request()->route("admin.group")'>
+                            Grupos
+                        </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan
 
                 @can('user_show')
+                <x-sidebar.link :href='route("admin.area")' :active='request()->route("admin.area")'>
+                    <x-slot name="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </x-slot>
+                    Departamentos
+                </x-sidebar.link>
+                @endcan
+
+
+                {{-- @can('user_show')
                     <x-sidebar.dropdown title="Departamentos" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -275,9 +290,18 @@
                             Mostrar
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
-                @endcan
+                @endcan --}}
 
                 @can('user_show')
+                <x-sidebar.link :href='route("admin.grades")' :active='request()->route("admin.grades")'>
+                    <x-slot name="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </x-slot>
+                    Asignar Calificaciones
+                </x-sidebar.link>
+                @endcan
+
+                {{-- @can('user_show')
                     <x-sidebar.dropdown title="Calificaciones" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
@@ -285,9 +309,18 @@
                             Asignar
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
-                @endcan
+                @endcan --}}
 
                 @can('user_show')
+                <x-sidebar.link :href='route("admin.constancias")' :active='request()->route("admin.constancias")'>
+                    <x-slot name="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </x-slot>
+                    Constancias
+                </x-sidebar.link>
+                @endcan
+
+                {{-- @can('user_show')
                     <x-sidebar.dropdown title="Constancias" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
@@ -295,12 +328,12 @@
                             Generar
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
-                @endcan
+                @endcan --}}
 
-                <x-sidebar.link href="#">
+                {{-- <x-sidebar.link href="#">
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></x-slot>
                     Reports
-                </x-sidebar.link>
+                </x-sidebar.link> --}}
 
                 {{-- <x-sidebar.link href="{{route('post.index')}}">
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></x-slot>
