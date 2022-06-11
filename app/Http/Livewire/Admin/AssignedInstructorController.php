@@ -37,7 +37,9 @@ class AssignedInstructorController extends Component{
          $this->valores();
         return view('livewire.admin.assignedInstructor.index', [
             'datoscurso' => $this->consultacurso($this->classification['periodo'], $this->classification['curso'],$this->classification['grupo']),
-            'datosuser' => $this->consultauser()
+            'datosuser' => $this->consultauser(),
+            'datosTabla' => $this->consultaTabla(),
+            'datosPer' => $this->consultaper(),
         ]);
     }
 
@@ -82,5 +84,38 @@ class AssignedInstructorController extends Component{
             'message' => $txt,
         ]);
     }
+    
+    public $busqPer;
+    public function consultaper(){
+        return Period::when($this->busqPer, fn ($query, $b) => $query
+            ->where('periods.fecha_inicio', 'like', "%$b%")
+            ->orWhere('periods.fecha_fin', 'like', "%$b%"))
+            ->select('periods.*')
+            ->get();
+    }    // Busqueda en periodo;
+    public $periodo_id;
+    public function selectPer($id){
+        $this->periodo_id = $id;
+        $this->classification['periodo'] = $id;
+        $this->busqPer = '';
+    }
 
+    public function consultaTabla(){
+        return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
+        ->join('course_details', 'course_details.id', '=', 'inscriptions.course_detail_id')
+        ->join('courses', 'courses.id', '=', 'course_details.course_id')
+        ->join('periods', 'periods.id', '=', 'course_details.period_id')
+        ->join('groups', 'groups.id', '=', 'course_details.group_id')
+        ->select(
+            'courses.nombre as cnombre',
+            'groups.nombre as gnombre',
+            'course_details.lugar as lugar',
+            'periods.fecha_inicio as f1',
+            'periods.fecha_inicio as f2',
+            'users.name as unombre',
+            'users.apellido_paterno as ap1nombre',
+            'users.apellido_materno as ap1nombre',
+            )
+        ->get();
+    }
 }
