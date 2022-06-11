@@ -178,7 +178,7 @@
                             <x-table.cell class="text-center">{{date('d-m-Y', strtotime($g->f1))}} a {{date('d-m-Y', strtotime($g->f2))}}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->lugar }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->unombre }}{{' '}}{{ $g->ap1nombre }}{{' '}}{{ $g->ap1nombre }}</x-table.cell>
-                            <x-table.cell class="text-center">Accion</x-table.cell>
+                            <x-table.cell class="text-center"><======></x-table.cell>
                         </tr>
                     @empty
                         <tr>

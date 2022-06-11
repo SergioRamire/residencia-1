@@ -103,11 +103,9 @@ class AssignedInstructorController extends Component
     public function consultaper()
     {
         $busqueda = $this->busqPer;
-        if (strcmp($this->busqPer, 'all') === 0) {
-        // if (strcmp(strtolower($this->busqPer), 'todos') === 0){
-            $busqueda = '';
+        if (strcmp($this->busqPer, 'todos') === 0) {
+            $busqueda = '0';
         }
-
         return Period::when($busqueda, fn ($query, $b) => $query
             ->where('periods.fecha_inicio', 'like', "%$b%")
             ->orWhere('periods.fecha_fin', 'like', "%$b%"))
