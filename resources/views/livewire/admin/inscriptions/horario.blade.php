@@ -13,7 +13,7 @@
                                 <br>
                                 <span class="text-gray-400">Curso: </span>{{ $c->nombre }}
                                 <br>
-                                <span class="text-gray-400">Horario: </span> DE {{ date("g:i a", strtotime($c->hora_inicio))}} a {{ date("g:i a", strtotime($c->hora_fin))}}
+                                <span class="text-gray-400">Horario: </span> De {{ date("g:i a", strtotime($c->hora_inicio))}} a {{ date("g:i a", strtotime($c->hora_fin))}}
                                 <br>
                                 <span class="text-gray-400">Lugar: </span>{{ $c->lugar }}
                                 <br>

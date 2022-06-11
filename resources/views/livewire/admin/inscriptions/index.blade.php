@@ -30,7 +30,7 @@
                                     <x-table.cell>{{ $c->nombre }} </x-table.cell>
                                     <x-table.cell>{{ $c->perfil }} </x-table.cell>
                                     <x-table.cell>{{ $c->dirigido }} </x-table.cell>
-                                    <x-table.cell>{{ $c->hora_inicio }} al {{ $c->hora_fin }}</x-table.cell>
+                                    <x-table.cell> De {{ date("g:i a", strtotime($c->hora_inicio))}} a {{ date("g:i a", strtotime($c->hora_fin))}}</x-table.cell>
                                     <x-table.cell>
                                         <button wire:click="del({{ $c->curdet }})" type="button"
                                             class="text-amber-600 hover:text-amber-900">
