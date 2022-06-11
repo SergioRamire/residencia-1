@@ -9,6 +9,11 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
+use App\Http\Livewire\Admin\EmailController;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EnviarEmailCurso;
+
+
 class InscriptionsController extends Component
 {
     public User $user;
@@ -113,8 +118,8 @@ class InscriptionsController extends Component
         return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
-                'semana1' => $this->rangoFecha('2022-06-10', '2022-06-18')->paginate($this->perPage),
-                'semana2' => $this->rangoFecha('2022-06-21', '2022-06-28')->paginate($this->perPage),
+                'semana1' => $this->rangoFecha('2022-06-02', '2022-06-10')->paginate($this->perPage),
+                'semana2' => $this->rangoFecha('2022-06-05', '2022-06-18')->paginate($this->perPage),
             ]
         );
     }
@@ -149,7 +154,7 @@ class InscriptionsController extends Component
         $this->confirmingSaveInscription = false;
         $this->showHorario = false;
         $this->user = User::find(auth()->user()->id);
-        foreach ($this->arreglo as $id) {
+        foreach ($this->unionarreglos as $id) {
             $courseDetails = CourseDetail::find($id);
             $this->user->courseDetails()->attach( $courseDetails, [
                         'calificacion' => 0,
@@ -157,6 +162,9 @@ class InscriptionsController extends Component
                         'asistencias_minimas' => 0,
                     ]);
         }
+
+
+        app(EmailController::class)->cursos($this->user, $this->unionarreglos);
         $this-> noti('success','Horario creado Exitosamente');
     }
 
@@ -166,5 +174,7 @@ class InscriptionsController extends Component
             'message' => $txt,
         ]);
     }
+
+
 
 }
