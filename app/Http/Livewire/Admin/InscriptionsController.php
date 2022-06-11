@@ -35,6 +35,30 @@ class InscriptionsController extends Component
         'perPage2' => ['except' => 3, 'as' => 'p2'],
     ];
 
+    public bool $valorbtn1 = false;
+    public bool $valorbtn2 = false;
+
+    public function switchbtn1(){
+        // $this->valorbtn1 - $this->alternar($this->valorbtn1);
+        $this->valorbtn1 = $this->alternar($this->valorbtn1);
+    }
+
+    public function switchbtn2(){
+        // $this->valorbtn2 - $this->alternar($this->valorbtn2);
+        
+        $this->valorbtn2 = $this->alternar($this->valorbtn2);
+        
+    }
+
+    public function alternar($valor){
+        if($valor){
+            $valor = false;
+        }else{
+            $valor = true;
+        }
+        return $valor;
+    }
+
     public function openShowHorario(){
 
         $this->showHorario = true;
