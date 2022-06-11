@@ -180,8 +180,9 @@
 
         <!-- Logotipo -->
         <div class="flex items-center flex-shrink-0 px-4">
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg" alt="Workflow">
-        </div>
+
+        SCI
+    </div>
 
         <!-- Enlaces de navegación -->
         <div class="mt-5 flex-1 h-0 overflow-y-auto">

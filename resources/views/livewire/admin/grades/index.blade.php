@@ -16,7 +16,7 @@
     {{-- </div> --}}
 
     <div class="space-y-2">
-        @if($cuenta>1)
+        @if($cuenta>1 or $cuenta==0)
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
         <!-- Cursos -->
             <div class="mt-1  w-1/2">
@@ -30,6 +30,7 @@
             </div>
         </div>
         @endif
+
         <!-- Opciones de tabla -->
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
             <!-- Parte izquierda -->
@@ -62,9 +63,12 @@
         <div class="flex flex-col space-y-2">
             <x-table>
                 <x-slot name="head">
-                    <x-table.header >Participante</x-table.header>
-                    <x-table.header >Grupo</x-table.header>
-                    <x-table.header >Calificación</x-table.header>
+                    <x-table.header wire:click="sortBy('name')" sortable :direction="$sortField === 'name' ? $sortDirection : null">
+                        Participante</x-table.header>
+                    <x-table.header wire:click="sortBy('grupo')" sortable :direction="$sortField === 'grupo' ? $sortDirection : null">
+                        Grupo</x-table.header>
+                    <x-table.header wire:click="sortBy('calificacion')" sortable :direction="$sortField === 'calificacion' ? $sortDirection : null">
+                        Calificación</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
@@ -105,5 +109,6 @@
                 @include('livewire.admin.grades.edit')
             @endif
         </div>
+        {{$monthName}}
     </div>
 </div>
