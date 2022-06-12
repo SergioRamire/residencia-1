@@ -32,7 +32,7 @@ class CourseFactory extends Factory
             'clave' => $this->faker->unique()->regexify('[A-Z]{3}[0-9]{2}'),
             'nombre' => rtrim($this->faker->sentence(3), '.'),
             'objetivo' => rtrim($this->faker->paragraph(), '.'),
-            'modalidad' => $this->faker->randomElement(['Presencial', 'En linea']),
+
             'duracion' => $this->faker->numberBetween(1, 5),
             'observaciones' => rtrim($this->faker->paragraph(), '.'),
             'dirigido' => implode(', ', $dirigido),
