@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('periods', function (Blueprint $table) {
             $table->id();
+            $table->string('clave')->unique();
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->timestamps();

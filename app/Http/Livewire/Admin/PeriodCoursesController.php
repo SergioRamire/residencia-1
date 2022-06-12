@@ -18,6 +18,7 @@ class PeriodCoursesController extends Component
     public $periodo_id;
     public $fecha_inicio;
     public $fecha_fin;
+    public $clave;
     public $numero = 1;
     public $filters = '';
     public $filters2 = '';
@@ -48,12 +49,14 @@ class PeriodCoursesController extends Component
     {
         if ($this->edit == true) {
             $this->validate([
-                'fecha_inicio' => ['required', 'date', 'unique:periods'],
-                'fecha_fin' => ['required', 'date', 'unique:periods'],
+                'clave' => ['required', 'unique:periods'],
+                'fecha_inicio' => ['required', 'date'],
+                'fecha_fin' => ['required', 'date'],
             ]);
         }
         if ($this->create == true) {
             $this->validate([
+                'clave' => ['required', 'unique:periods'],
                 'fecha_inicio' => ['required', 'date', 'unique:periods'],
                 'fecha_fin' => ['required', 'date', 'unique:periods'],
             ]);
@@ -83,6 +86,7 @@ class PeriodCoursesController extends Component
     private function resetInputFields()
     {
         $this->periodo_id = '';
+        $this->clave = '';
         $this->fecha_inicio = '';
         $this->fecha_fin = '';
     }
@@ -97,6 +101,7 @@ class PeriodCoursesController extends Component
     {
         $period = Period::findOrFail($id);
         $this->periodo_id = $id;
+        $this->clave = $period->clave;
         $this->fecha_inicio = $period->fecha_inicio;
         $this->fecha_fin = $period->fecha_fin;
         $this->edit = true;
@@ -109,6 +114,7 @@ class PeriodCoursesController extends Component
         // $this->validateInputs();
 
         Period::updateOrCreate(['id' => $this->periodo_id], [
+            'clave' => $this->clave,
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin' => $this->fecha_fin,
         ]);
@@ -127,7 +133,7 @@ class PeriodCoursesController extends Component
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
-            'message' =>  $this->edit ? 'Área actualizada exitosamente' : 'Área creada exitosamente',
+            'message' =>  $this->edit ? 'Periodo actualizado exitosamente' : 'Periodo creado exitosamente',
         ]);
     }
 

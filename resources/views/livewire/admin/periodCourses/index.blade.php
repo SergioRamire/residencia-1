@@ -50,6 +50,9 @@
             <x-table>
                 <x-slot name="head">
                     {{-- <x-table.header >Número</x-table.header> --}}
+                    <x-table.header wire:click="sortBy('clave')" sortable :direction="$sortField === 'clave' ? $sortDirection : null">
+                        Clave
+                    </x-table.header>
                     <x-table.header wire:click="sortBy('fecha_inicio')" sortable :direction="$sortField === 'fecha_inicio' ? $sortDirection : null">
                         Fecha de inicio
                     </x-table.header>
@@ -60,7 +63,7 @@
 
                 @forelse($periods as $p)
                     <tr wire:key="period-{{ $p->id }}" wire:loading.class.delay="opacity-50">
-                        {{-- <x-table.cell>{{ $numero }}</x-table.cell> --}}
+                        <x-table.cell>{{ $p->clave }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
                         <x-table.cell>
