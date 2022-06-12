@@ -14,6 +14,7 @@ class CourseDetail extends Model
         'hora_fin',
         'lugar',
         'capacidad',
+        'modalidad',
         'course_id',
         'group_id',
         'period_id',

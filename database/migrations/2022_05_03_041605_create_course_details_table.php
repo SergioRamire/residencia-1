@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('hora_fin');
             $table->string('lugar');
             $table->tinyInteger('capacidad');
+            $table->string('modalidad', 20);
             $table->timestamps();
             $table->foreignId('course_id')
                 ->nullable()

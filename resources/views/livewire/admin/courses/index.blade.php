@@ -62,7 +62,7 @@
                             </div>
 
                             <!-- Modalidad -->
-                            <div class="block px-4 py-2 space-y-1">
+                            {{-- <div class="block px-4 py-2 space-y-1">
                                 <div>
                                     <x-jet-label for="modalidad_filter" value="Modalidad"/>
                                     <x-input.select wire:model="filters.modalidad" id="modalidad_filter" class="text-sm block mt-1 w-full" name="modalidad_filter" required>
@@ -72,7 +72,7 @@
                                         <option value="En linea">En linea</option>
                                     </x-input.select>
                                 </div>
-                            </div>
+                            </div> --}}
                         </x-slot>
                     </x-dropdown>
                 </div>

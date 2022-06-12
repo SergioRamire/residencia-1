@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('objetivo');
             $table->string('perfil', 30);
             $table->tinyInteger('duracion');
-            $table->string('modalidad', 20);
+
             $table->string('dirigido');
             $table->text('observaciones')->nullable();
             $table->timestamps();

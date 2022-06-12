@@ -168,7 +168,7 @@ class InscriptionsController extends Component
                                ->first();
 
         $fecha_f_1=Period::select('periods.fecha_fin')
-                               ->where('periods.fecha_inicio','>',$fecha_actual)
+                               ->where('periods.fecha_fin','>',$fecha_actual)
                                ->first();
         $this->fecha_inicio_periodo1= $fecha_i_1->fecha_inicio;
         $this->fecha_fin_periodo1= $fecha_f_1->fecha_fin;

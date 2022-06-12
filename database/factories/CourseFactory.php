@@ -70,8 +70,7 @@ class CourseFactory extends Factory
         return [
             'clave' => $this->faker->unique()->regexify('[A-Z]{3}[0-9]{2}'),
             'nombre' => $nombres,
-            'objetivo' => "$verbo $obj $pre",
-            'modalidad' => $this->faker->randomElement(['Presencial', 'En linea']),
+            'objetivo' =>"$verbo $obj $pre",
             'duracion' => $this->faker->numberBetween(1, 5),
             'observaciones' => '',
             'dirigido' => implode(', ', $dirigido),

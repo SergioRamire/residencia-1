@@ -35,6 +35,7 @@ class CourseDetailFactory extends Factory
             'hora_fin' => date('H:i', strtotime($hora_inicio.'+1 hour')),
             'lugar' => $areas,
             'capacidad' => $this->faker->numberBetween(10, 30),
+            'modalidad' => $this->faker->randomElement(['Presencial', 'Semi-presencial', 'En linea']),
             'course_id' => Course::inRandomOrder()->first()->id,
             'group_id' => Group::inRandomOrder()->first()->id,
             'period_id' => Period::inRandomOrder()->first()->id,
