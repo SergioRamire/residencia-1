@@ -32,6 +32,19 @@
                     </x-input.select>
                 </div>
 
+                <!-- Modalidad -->
+                <div class="mt-4 sm:flex-1">
+                    <x-jet-label for="modalidad" value="Modalidad"/>
+                    <x-input.select wire:model.defer="course.modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
+                        <option value="" disabled>Selecciona modalidad...</option>
+                        <option value="Presencial" selected>Presencial</option>
+                        <option value="Semi-presencial">Semi-presencial</option>
+                        <option value="En linea">En linea</option>
+                    </x-input.select>
+                    <x-jet-input-error for="course.modalidad"/>
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Hora inicio -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="hora_inicio" value="Hora inicio"/>

@@ -29,6 +29,7 @@ class CourseDetailsController extends Component
     public $hora_inicio;
     public $hora_fin;
     public $capacidad;
+    public $modalidad;
     public $lugar;
     public $busq;
     public $edit = false;
@@ -40,6 +41,7 @@ class CourseDetailsController extends Component
     ];
     public array $filters = [
         'curso' => '',
+        'modalidad' => '',
     ];
 
     protected $queryString = [
@@ -79,6 +81,7 @@ class CourseDetailsController extends Component
         $this->hora_inicio = '';
         $this->hora_fin = '';
         $this->capacidad = '';
+        $this->modalidad = '';
         $this->lugar = '';
         $this->busq = '';
     }
@@ -91,6 +94,7 @@ class CourseDetailsController extends Component
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
             'lugar' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
             'capacidad' => ['required', 'numeric'],
             'grupo_id' => ['required',  'exists:groups,id'],
         ]);
@@ -111,7 +115,8 @@ class CourseDetailsController extends Component
                                       ->select('courses.nombre as curso',
                                                 'course_details.hora_inicio','course_details.hora_fin',
                                                 'course_details.capacidad','course_details.lugar',
-                                                'groups.nombre as grupo','periods.fecha_inicio as fi','periods.fecha_fin as ff')
+                                                'course_details.modalidad','groups.nombre as grupo',
+                                                'periods.fecha_inicio as fi','periods.fecha_fin as ff')
                                       ->where('course_details.id', '=', $id)
                                       ->first();
         $this->curso_elegido = $coursedetail->curso;
@@ -120,6 +125,7 @@ class CourseDetailsController extends Component
         $this->hora_inicio = $coursedetail->hora_inicio;
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
+        $this->modalidad = $coursedetail->modalidad;
         $this->lugar = $coursedetail->lugar;
         $this->showViewModal = true;
     }
@@ -133,6 +139,7 @@ class CourseDetailsController extends Component
             'hora_fin'=>$this->hora_fin,
             'lugar'=>$this->lugar,
             'capacidad'=>$this->capacidad,
+            'modalidad'=>$this->modalidad,
             'course_id'=>$this->curso,
             'group_id'=>$this->grupo_id,
             'period_id'=>$this->period,
@@ -161,7 +168,7 @@ class CourseDetailsController extends Component
                                       ->select('course_details.id','course_details.group_id',
                                                 'course_details.hora_inicio','course_details.hora_fin',
                                                 'course_details.capacidad','course_details.lugar',
-                                                'courses.id as curso','periods.id as periodo')
+                                                'course_details.modalidad','courses.id as curso','periods.id as periodo')
                                       ->where('course_details.id', '=', $id)
                                       ->first();
         $this->coursedetail_id = $id;
@@ -171,6 +178,7 @@ class CourseDetailsController extends Component
         $this->hora_inicio = $coursedetail->hora_inicio;
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
+        $this->modalidad = $coursedetail->modalidad;
         $this->lugar = $coursedetail->lugar;
         $this->edit = true;
         $this->create = false;
@@ -211,6 +219,7 @@ class CourseDetailsController extends Component
                 'course_details.hora_inicio', 'course_details.hora_fin', 'courses.nombre as curso',
                 'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
                 ->when($this->filters['curso'], fn ($query, $curso) => $query->where('course_details.course_id', '=', $curso))
+                ->when($this->filters['modalidad'], fn ($query, $modalidad) => $query->where('course_details.modalidad', $modalidad))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
             'busqueda'=>$this->listaBuscador(),
