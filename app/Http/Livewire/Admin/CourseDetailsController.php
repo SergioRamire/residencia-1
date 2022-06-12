@@ -124,6 +124,35 @@ class CourseDetailsController extends Component
         $this->showViewModal = true;
     }
 
+    public function store()
+    {
+        $this->validateInputs();
+
+        CourseDetail::updateOrCreate(['id' => $this->coursedetail_id], [
+            'hora_inicio'=>$this->hora_inicio,
+            'hora_fin'=>$this->hora_fin,
+            'lugar'=>$this->lugar,
+            'capacidad'=>$this->capacidad,
+            'course_id'=>$this->curso,
+            'group_id'=>$this->grupo_id,
+            'period_id'=>$this->period,
+        ]);
+
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $this->edit ? 'pencil' : 'success',
+            'message' =>  $this->edit ? 'Detalles actualizados exitosamente' : 'Detalles creados exitosamente',
+        ]);
+
+        $this->edit = false;
+        $this->create = false;
+        $this->confirmingSaveDetails = false;
+        /* Reinicia los errores */
+        $this->resetErrorBag();
+        $this->resetValidation();
+
+        $this->closeModal();
+        $this->resetInputFields();
+    }
 
     public function edit($id)
     {

@@ -44,7 +44,7 @@
                     <x-input.addon wire:model.defer="course.duracion" right addon="hrs" class="block mt-1 w-full" type="number" id="duracion" name="duracion" required/>
                     <x-jet-input-error for="course.duracion"/>
                 </div>
-                <!-- Modalidad -->
+                {{-- <!-- Modalidad -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="modalidad" value="Modalidad"/>
                     <x-input.select wire:model.defer="course.modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
@@ -54,7 +54,7 @@
                         <option value="En linea">En linea</option>
                     </x-input.select>
                     <x-jet-input-error for="course.modalidad"/>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Dirigido -->

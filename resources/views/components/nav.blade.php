@@ -79,9 +79,10 @@
 
                     @forelse (auth()->user()->unreadNotifications->take(5) as $notification)
                         <x-nav.link  href="{{route('post.index')}}">
-                            {{$notification->data['title']}}
+                            <p class="font-black text-left">{{$notification->data['title']}} </p>
+                            <p class="italic text-xs text-right leading-3">{{$notification->created_at->diffForHumans()}}</p>
                         </x-nav.link>
-                        <span>{{$notification->created_at->diffForHumans()}}</span>
+
                     @empty
                         <x-nav.link>Sin notificaciones por leer</x-nav.link>
                     @endforelse
@@ -92,15 +93,17 @@
                     <x-nav.separator value="Notificaciones leídas"/>
                     @forelse (auth()->user()->readNotifications->take(3) as $notification)
                         <x-nav.link  href="{{route('post.index')}}">
-                            {{$notification->data['title']}}
+                            <p class="font-black text-left">{{$notification->data['title']}}</p>
+                            <p class="italic text-xs text-right leading-3">{{$notification->created_at->diffForHumans()}}</p>
                         </x-nav.link>
-                        <span>{{$notification->created_at->diffForHumans()}}</span>
                     @empty
-                        <x-nav.link>Sin notificaciones leídas</x-nav.link>
+                        <x-nav.link disabled>Sin notificaciones leídas</x-nav.link>
                     @endforelse
 
                     <div class="border-t border-gray-200"></div>
-
+                    {{-- <div>
+                        <a href="{{route('markAsRead')}}">dddd</a>
+                    </div> --}}
                     <div>
                         <button href="{{route('markAsRead')}}" class="mt-2 mx-auto inline-flex items-center w-full py-1 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring focus:ring-indigo-300 disabled:opacity-25 transition"
                                 title="Marcar todo como leído">

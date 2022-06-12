@@ -27,7 +27,7 @@ class CourseController extends Component
     public int $perPage = 5;
     protected array $cleanStringsExcept = ['search'];
     public array $filters = [
-        'modalidad' => '',
+        // 'modalidad' => '',
         'perfil' => '',
     ];
 
@@ -49,7 +49,7 @@ class CourseController extends Component
             'course.objetivo' => ['required', 'max:255'],
             'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
             'course.duracion' => ['required', 'integer', 'max:50'],
-            'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
+            // 'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
             'course.dirigido' => ['required', 'max:255'],
             'course.observaciones' => ['nullable', 'max:255'],
         ];
@@ -65,7 +65,7 @@ class CourseController extends Component
         /* Valores predefinidos para los <select> */
         $this->course = Course::make([
             'perfil' => '',
-            'modalidad' => '',
+            // 'modalidad' => '',
         ]);
     }
 
@@ -173,7 +173,7 @@ class CourseController extends Component
     {
         return view('livewire.admin.courses.index', [
             'courses' => Course::query()
-                ->when($this->filters['modalidad'], fn ($query, $modalidad) => $query->where('modalidad', $modalidad))
+                // ->when($this->filters['modalidad'], fn ($query, $modalidad) => $query->where('modalidad', $modalidad))
                 ->when($this->filters['perfil'], fn ($query, $perfil) => $query->where('perfil', $perfil))
                 ->when($this->search, fn ($query, $search) => $query->where('nombre', 'like', "%$search%"))
                 ->orderBy($this->sortField, $this->sortDirection)

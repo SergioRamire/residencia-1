@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('jefe_inmediato')->nullable();
             $table->time('hora_entrada')->nullable();
             $table->time('hora_salida')->nullable();
+            $table->boolean('estado')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

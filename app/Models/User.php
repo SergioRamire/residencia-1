@@ -45,6 +45,7 @@ class User extends Authenticatable
         'hora_entrada',
         'hora_salida',
         'correo_tecnm',
+        'estado',
         'area_id',
     ];
 

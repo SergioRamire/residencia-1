@@ -6,9 +6,9 @@
 
     <x-slot name="content">
         @if($edit)
-                ¿Seguro que desea guardar los cambios de los detalles del curso</strong>
+                ¿Seguro que desea guardar los cambios de los detalles del curso?</strong>
             @else
-                ¿Seguro que desea crear los detalles del curso</strong>
+                ¿Seguro que desea crear los detalles del curso?</strong>
             @endif
     </x-slot>
 
