@@ -5,18 +5,18 @@ namespace App\Http\Livewire\Admin;
 use App\Models\CourseDetail;
 use App\Models\User;
 use App\Models\Period;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class AssignedInstructorController extends Component
 {
 
-
+    protected array $cleanStringsExcept = ['search'];
     public $datos = '';
     public $lugar = '';
     public $horai;
     public $horaf;
     public $id_instructor;
+    public int $perPage = 5;
     public array $classification = [
         'curso' => '',
         'periodo' => '',
@@ -72,11 +72,8 @@ class AssignedInstructorController extends Component
             ->where('course_details.group_id', '=', $idg)
             ->get();
     }
-    public function consultauser()
-    {
-        return User::query()
-            ->select('users.*')
-            ->get();
+    public function consultauser(){
+        return User::all();
     }
 
     public function registrar()
@@ -99,44 +96,51 @@ class AssignedInstructorController extends Component
         ]);
     }
 
-    public $busqPer;
+    // public $busqPer;
+    
     public function consultaper()
     {
-        $busqueda = $this->busqPer;
-        if (strcmp($this->busqPer, 'todos') === 0) {
-            $busqueda = '0';
-        }
-        return Period::when($busqueda, fn ($query, $b) => $query
-            ->where('periods.fecha_inicio', 'like', "%$b%")
-            ->orWhere('periods.fecha_fin', 'like', "%$b%"))
-            ->select('periods.*')
-            ->get();
-    }    // Busqueda en periodo;
-    public $periodo_id;
-    public function selectPer($id)
-    {
-        $this->periodo_id = $id;
-        $this->classification['periodo'] = $id;
-        $this->busqPer = '';
-    }
+        return Period::all();
+    } 
 
+    public $search = '';
     public function consultaTabla()
     {
-        return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
-            ->join('course_details', 'course_details.id', '=', 'inscriptions.course_detail_id')
-            ->join('courses', 'courses.id', '=', 'course_details.course_id')
+        return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
+            ->when($this->search, fn ($query, $search) => $query
+                ->where('courses.nombre', 'like', "%$search%")
+                ->orWhere('groups.nombre', 'like', "%$search%")
+                ->orWhere('course_details.lugar', 'like', "%$search%")
+                )
+            ->when($this->id_per, fn ($query, $search) => $query
+                ->where('periods.id', '=', $this->id_per)
+                )
             ->select(
                 'courses.nombre as cnombre',
                 'groups.nombre as gnombre',
                 'course_details.lugar as lugar',
                 'periods.fecha_inicio as f1',
                 'periods.fecha_inicio as f2',
-                'users.name as unombre',
-                'users.apellido_paterno as ap1nombre',
-                'users.apellido_materno as ap1nombre',
+                'course_details.id as idcurdet',
             )
             ->get();
+    }
+    public $modalEdit = false;
+    public $id_per;
+    public function openModal($id){
+        $this->id_detalle_curso = $id;
+        $this->modalEdit = true;
+    }
+    public function closeModal(){
+        $this->modalEdit = false;
+    }
+    public $id_ins;
+
+    public function asignar(){
+        $this->id_instructor = $this->id_ins;
+        $this->registrar();
+        $this->closeModal();
     }
 }
