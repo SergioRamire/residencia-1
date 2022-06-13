@@ -26,6 +26,10 @@ class InscriptionsController extends Component
     public $fecha_fin_periodo1;
     public $fecha_inicio_periodo2;
     public $fecha_fin_periodo2;
+    public $valor;
+
+    public $id_arreglo=[];
+    public $id_arreglo1=[];
 
     public bool $btnContinuar = false;
     public bool $showHorario = false;
@@ -34,6 +38,30 @@ class InscriptionsController extends Component
         'perPage' => ['except' => 5, 'as' => 'p'],
         'perPage2' => ['except' => 3, 'as' => 'p2'],
     ];
+
+    public bool $valorbtn1 = false;
+    public bool $valorbtn2 = false;
+
+    public function switchbtn1(){
+        // $this->valorbtn1 - $this->alternar($this->valorbtn1);
+        $this->valorbtn1 = $this->alternar($this->valorbtn1);
+    }
+
+    public function switchbtn2(){
+        // $this->valorbtn2 - $this->alternar($this->valorbtn2);
+
+        $this->valorbtn2 = $this->alternar($this->valorbtn2);
+
+    }
+
+    public function alternar($valor){
+        if($valor){
+            $valor = false;
+        }else{
+            $valor = true;
+        }
+        return $valor;
+    }
 
     public function openShowHorario(){
 
@@ -59,6 +87,8 @@ class InscriptionsController extends Component
     }
 
     public function rangoFecha($inicio, $fin){
+        $a=$this->id_arreglo;
+        $b=$this->id_arreglo1;
         return Period::query()
             ->join('course_details', 'periods.id', '=', 'course_details.period_id')
             ->join('courses', 'course_details.course_id', '=', 'courses.id')
@@ -67,6 +97,8 @@ class InscriptionsController extends Component
                 'course_details.id as curdet','course_details.*',
                 'courses.*',
             )
+            ->whereNotIn('course_details.id',$a)
+            ->whereNotIn('course_details.id',$b)
             ->where('periods.fecha_inicio', '>=', $inicio)
             ->where('periods.fecha_fin', '<=', $fin);
     }
@@ -84,9 +116,21 @@ class InscriptionsController extends Component
                 ->selectRaw('count(*) as user_count')
                 ->first();
             if($users->user_count<$cap[0]->capacidad){
-                $this->countabla2=$this->countabla2+1;
-                array_push($this->arreglo1, $id);
-                $this-> noti('success','Curso seleccionado ');
+
+                // if(in_array($id,$this->arreglo1)){
+
+                //     $this->valor='existe';
+                //     $this-> noti('info','Curso ya seleccionado ');
+                // }else{
+                    $this->countabla2=$this->countabla2+1;
+                    array_push($this->arreglo1, $id);
+                    array_push($this->id_arreglo1, $id);
+                    // $this->id_arreglo1=$id;
+
+                    $this-> noti('success','Curso seleccionado ');
+                // }
+                // array_push($this->arreglo1, $id);
+                // $this-> noti('success','Curso seleccionado ');
             }
             else{
                 $this-> noti('danger','Capacidad llena del curso seleccionado');
@@ -113,10 +157,21 @@ class InscriptionsController extends Component
                 ->selectRaw('count(*) as user_count')
                 ->first();
             if($users->user_count<$cap[0]->capacidad){
-                $this->countabla1=$this->countabla1+1;
-                array_push($this->arreglo, $id);
 
-                $this-> noti('success','Curso seleccionado ');
+                // if(in_array($id,$this->arreglo)){
+
+                //     $this->valor='existe';
+                //     $this-> noti('info','Curso ya seleccionado ');
+                // }else{
+                    $this->countabla1=$this->countabla1+1;
+                    array_push($this->arreglo, $id);
+                    array_push($this->id_arreglo, $id);
+                    // $this->id_arreglo=$id;
+                    $this-> noti('success','Curso seleccionado ');
+                // }
+
+
+
             }
             else{
                 $this-> noti('danger','Capacidad llena del curso seleccionado');
@@ -163,36 +218,52 @@ class InscriptionsController extends Component
     public function obtenerPeriodos(){
         $fecha_actual = date("Y-m-d");
 
-        $fecha_i_1=Period::select('periods.fecha_inicio')
-                               ->where('periods.fecha_inicio','>',$fecha_actual)
-                               ->first();
+        // $fecha_i_1=Period::select('periods.fecha_inicio')
+        //                        ->where('periods.fecha_inicio','>',$fecha_actual)
+        //                        ->first();
 
-        $fecha_f_1=Period::select('periods.fecha_fin')
-                               ->where('periods.fecha_fin','>',$fecha_actual)
-                               ->first();
-        $this->fecha_inicio_periodo1= $fecha_i_1->fecha_inicio;
-        $this->fecha_fin_periodo1= $fecha_f_1->fecha_fin;
+        // $fecha_f_1=Period::select('periods.fecha_fin')
+        //                        ->where('periods.fecha_fin','>',$fecha_actual)
+        //                        ->first();
+        $this->fecha_inicio_periodo1= date("Y-m-d",strtotime($fecha_actual."+ 7 days"));
+        $this->fecha_fin_periodo1= date("Y-m-d",strtotime($fecha_actual."+ 11 days"));
         $this->fecha_inicio_periodo2=date("Y-m-d",strtotime($this->fecha_inicio_periodo1."+ 7 days"));
         $this->fecha_fin_periodo2=date("Y-m-d",strtotime($this->fecha_fin_periodo1."+ 7 days"));
 
     }
 
     public function del($id){
-        foreach ($this->arreglo as $i) {
-            if($i==$id){
-                $this->countabla1=$this->countabla1-1;
-                $indice1=array_search($id, $this->arreglo);
-                unset($this->arreglo[$indice1]);
-            }
+        if(in_array($id,$this->arreglo)){
+            $this->countabla1=$this->countabla1-1;
+            $indice1=array_search($id, $this->arreglo);
+            $indice2=array_search($id, $this->id_arreglo);
+            unset($this->arreglo[$indice1]);
+            unset($this->id_arreglo[$indice2]);
         }
+        elseif(in_array($id,$this->arreglo1)){
+            $this->countabla2=$this->countabla2-1;
+            $indice3=array_search($id, $this->arreglo1);
+            $indice4=array_search($id, $this->id_arreglo1);
+            unset($this->arreglo1[$indice3]);
+            unset($this->id_arreglo1[$indice4]);
+        }
+        // foreach ($this->arreglo as $i) {
+        //     if($i==$id){
+        //         $this->countabla1=$this->countabla1-1;
 
-        foreach ($this->arreglo1 as $j) {
-            if($j==$id){
-                $this->countabla2=$this->countabla2-1;
-                $indice2=array_search($id, $this->arreglo1);
-                unset($this->arreglo1[$indice2]);
-            }
-        }
+        //         $this->id_arreglo=-$id;
+        //         $indice1=array_search($id, $this->arreglo);
+        //         unset($this->arreglo[$indice1]);
+        //     }
+        // }
+
+        // foreach ($this->arreglo1 as $j) {
+        //     if($j==$id){
+        //         $this->countabla2=$this->countabla2-1;
+        //         $indice2=array_search($id, $this->arreglo1);
+        //         unset($this->arreglo1[$indice2]);
+        //     }
+        // }
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $this->buscar();
         $this-> noti('trash','Curso descartado');

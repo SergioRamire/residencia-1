@@ -19,7 +19,7 @@
                 <x-input.select wire:model="classification.periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
                     <option   value="" >Selecciona el periodo...</option>
                     @foreach(\App\Models\Period::all() as $period)
-                        <option value="{{ $period->id }}">{{date('d-m-Y', strtotime($period->fecha_inicio))}} a {{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
+                        <option value="{{ $period->id }}">{{$period->clave}}</option>
                     @endforeach
                 </x-input.select>
             </div>
@@ -70,6 +70,7 @@
                                     ->join('periods','periods.id','=', 'course_details.period_id')
                                     ->where('course_details.period_id','=',$classification['periodo'])
                                     ->select('course_details.course_id as id','courses.nombre')
+                                    ->distinct()
                                     ->get() as $course)
                                     <option value="{{ $course->id }}">{{$course->nombre}}</option>
                                 @endforeach
