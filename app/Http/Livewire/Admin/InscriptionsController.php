@@ -39,15 +39,17 @@ class InscriptionsController extends Component
     public bool $valorbtn2 = false;
 
     public function switchbtn1(){
-        // $this->valorbtn1 - $this->alternar($this->valorbtn1);
         $this->valorbtn1 = $this->alternar($this->valorbtn1);
+        if ($this->valorbtn2 == true) {
+            $this->valorbtn2 = $this->alternar($this->valorbtn2);
+        }
     }
 
     public function switchbtn2(){
-        // $this->valorbtn2 - $this->alternar($this->valorbtn2);
-        
         $this->valorbtn2 = $this->alternar($this->valorbtn2);
-        
+        if ($this->valorbtn1 == true) {
+            $this->valorbtn1 = $this->alternar($this->valorbtn1);
+        }
     }
 
     public function alternar($valor){
