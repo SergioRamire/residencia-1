@@ -16,6 +16,7 @@ use App\Http\Livewire\Admin\ProfileController;
 use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\PostController;
+use App\Http\Livewire\Admin\EmailController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -120,4 +121,6 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         return redirect()->back();//te retorna a la misma vista
     })->name('markNotificationone');
 
+    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+        ->get('email', EmailController::class)->name('email');
 });
