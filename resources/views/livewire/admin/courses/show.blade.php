@@ -1,6 +1,6 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="showViewModal">
     <x-slot name="title">
-        Course: <strong>{{ $course->field }}</strong>
+        Course: <strong>{{ $course->nombre }}</strong>
     </x-slot>
     <x-slot name="content">
         <!-- Clave y Periodo -->
@@ -37,10 +37,10 @@
                 <x-input.addon wire:model.defer="course.duracion" right addon="hrs" class="block mt-1 w-full" type="number" disabled/>
             </div>
             <!-- Modalidad -->
-            <div class="mt-4 sm:flex-1">
-                <x-jet-label value="Modalidad"/>
-                <x-jet-input wire:model.defer="course.modalidad" class="mt-1 w-full" type="text" disabled/>
-            </div>
+            {{-- <div class="mt-4 sm:flex-1"> --}}
+            {{--     <x-jet-label value="Modalidad"/> --}}
+            {{--     <x-jet-input wire:model.defer="course.modalidad" class="mt-1 w-full" type="text" disabled/> --}}
+            {{-- </div> --}}
         </div>
 
         <!-- Dirigido -->
