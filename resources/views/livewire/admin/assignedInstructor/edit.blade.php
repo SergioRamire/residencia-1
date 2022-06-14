@@ -7,7 +7,7 @@
 
         Ins: {{ $id_ins }}, Cur: {{ $id_detalle_curso }}
         <div wire:ignore>
-            <select id="eleccion2" model wire:model.defer='id_ins'>
+            <select id="id_cur" wire:model.defer='id_ins'>
                 <option value=''>Seleccionar un Instructor</option>
                 @foreach ($datosuser as $user)
                     <option value='{{ $user->id }}'>{{ $user->name }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }} </option>
