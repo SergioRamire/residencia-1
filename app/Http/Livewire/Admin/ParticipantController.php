@@ -118,13 +118,20 @@ class ParticipantController extends Component
             'message' => 'Participante actualizado exitosamente',
         ]);
     }
-
+    public $idper;
+    public $idcur;
     public function render()
     {
         return view('livewire.admin.participants.index', [
             'users' => User::query()
                 ->leftJoin('areas', 'areas.id', '=', 'users.area_id')
+                ->join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
+                ->join('course_details', 'course_details.id', '=', 'inscriptions.course_detail_id')
+                ->join('courses', 'courses.id', '=', 'course_details.course_id')
+                ->join('periods', 'periods.id', '=', 'course_details.period_id')
                 ->select('users.id', 'users.rfc', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', 'users.cuenta_moodle', 'users.area_id', 'areas.nombre as area_nombre')
+                ->when($this->idper, fn ($query, $b) => $query->where('periods.id', $b))
+                ->when($this->idcur, fn ($query, $b) => $query->where('courses.id', $b))
                 ->when($this->filters['area'], fn ($query, $area) => $query->where('area_id', $area))
                 ->when($this->filters['tipo'], fn ($query, $tipo) => $query->where('tipo', $tipo))
                 ->when($this->filters['sexo'], fn ($query, $sexo) => $query->where('sexo', $sexo))
@@ -133,7 +140,7 @@ class ParticipantController extends Component
                     $query->where('cuenta_moodle', $valor);
                 })
                 ->when($this->search, function ($query, $search) {
-                    $query->where('rfc', 'like', "%$search%")
+                    $query->where('courses.nombre', 'like', "%$search%")
                         ->orWhere(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%");
                 })
                 ->when($this->sortField === 'nombre_completo', function ($query) {

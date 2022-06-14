@@ -6,56 +6,6 @@
     </x-slot>
 
 
-
-    {{-- <div class="mt-4 flex-1">
-        <div class="flex flex-col space-y-2">
-            <div class="row">
-                <label class="col-md-3 col-sm-3 text-[20px] ">Periodo</label>
-                <div class="col-md-9 col-sm-9 ">
-                    <?php $datos = App\Models\Period::find($classification['periodo']); ?>
-                    <x-input.icon wire:model="busqPer" class="w-full" type="text"
-                        placeholder="Buscar Periodo (ejemplo 31-12-2022) ...">
-                        <x-icon.search solid class="h-5 w-5 text-gray-400" />
-                    </x-input.icon>
-                    <input type="checkbox" wire:click="todos" value="">Todos los registros</div>
-                    @if (strlen($busqPer) > 0)
-                        @if (count($datosPer) > 0)
-                            <ul class="list-group">
-                                @foreach ($datosPer as $period)
-                                    <li class="list-group-item list-group-item-action">
-                                        <span wire:click="selectPer({{ $period->id }})"
-                                            class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">
-                                            Del {{ date('d-m-Y', strtotime($period->fecha_inicio)) }} al
-                                            {{ date('d-m-Y', strtotime($period->fecha_fin)) }}
-                                        </span>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span
-                                        class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">
-                                        No hay Resultados
-                                    </span>
-                                </li>
-                            </ul>
-                        @endif
-                    @endif
-                    @if (!is_null($datos))
-                        <div class="pt-6">
-                            <span class="text-[20px]">Perido Elegido: </span>
-                            <span>
-                                <span class="text-[20px]">Del {{ date('d-m-Y', strtotime($datos->fecha_inicio)) }}
-                                    al
-                                    {{ date('d-m-Y', strtotime($datos->fecha_fin)) }}</span>
-                            </span>
-                        </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div> --}}
     {{ $id_per }}
     <div wire:ignore>
         <select id="eleccion" model wire:model.defer='id_per'>
@@ -227,8 +177,8 @@
         $('#eleccion').on('change', function() {
             @this.set('id_per', this.value);
         });
-        $('#eleccion2').select2();
-        $('#eleccion2').on('change', function() {
+        $('#id_cur').select2();
+        $('#id_cur').on('change', function() {
             @this.set('id_ins', this.value);
         });
     });

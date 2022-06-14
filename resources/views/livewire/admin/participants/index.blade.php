@@ -5,6 +5,27 @@
         </h2>
     </x-slot>
 
+    <div class="mt-1 md:w-2/5" wire:ignore>
+        <x-jet-label for="periodo" value="Periodo" />
+        <x-input.select wire:model.defer="idper" id="id_perio" class="text-sm block mt-1 w-full"
+            name="periodo" required>
+            <option value="">Selecciona el periodo...</option>
+            @foreach (\App\Models\Period::all() as $period)
+                <option value="{{ $period->id }}">{{ date('d-m-Y', strtotime($period->fecha_inicio)) }} a
+                    {{ date('d-m-Y', strtotime($period->fecha_fin)) }}</option>
+            @endforeach
+        </x-input.select>   
+    </div>
+    <div class="mt-1 md:w-2/5" wire:ignore>
+        <x-jet-label for="periodo" value="Curso" />
+        <x-input.select wire:model.defer="idcur" id="id_curso" class="text-sm block mt-1 w-full"
+            name="periodo" required>
+            <option value="">Selecciona el Curso...</option>
+            @foreach (\App\Models\Course::all() as $curso)
+                <option value="{{ $curso->id }}">{{ $curso->nombre}}</option>
+            @endforeach
+        </x-input.select>
+    </div>
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
 
@@ -129,7 +150,7 @@
                     </x-slot>
 
                     @forelse($users as $u)
-                        <tr wire:key="user-{{ $u->id }}" wire:loading.class.delay="opacity-50">
+                        <tr wire:key="user-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell>{{ $u->rfc }}</x-table.cell>
                             <x-table.cell>{{ $u->nombre_completo }}</x-table.cell>
                             <x-table.cell>{{ $u->area->nombre ?? '' }}</x-table.cell>
@@ -181,3 +202,16 @@
     @include('livewire.admin.participants.show')
     @include('livewire.admin.participants.confirmation')
 </div>
+
+<script>
+    document.addEventListener('livewire:load', function() {
+        $('#id_perio').select2();
+        $('#id_perio').on('change', function() {
+            @this.set('idper', this.value);
+        });
+        $('#id_curso').select2();
+        $('#id_curso').on('change', function() {
+            @this.set('idcur', this.value);
+        });
+    });
+</script>
