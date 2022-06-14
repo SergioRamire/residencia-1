@@ -23,6 +23,7 @@ class PeriodFactory extends Factory
         $fechaMasDias = rand(4, 8);
 
         return [
+            'clave' => $this->faker->unique()->randomElement(['1-JUN2022', '2-JUN2022']),
             'fecha_inicio' => $fechaInicio,
             'fecha_fin' => date('Y-m-d', strtotime($fechaInicio."+${fechaMasDias} day")),
         ];

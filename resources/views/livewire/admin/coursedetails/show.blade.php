@@ -9,10 +9,19 @@
                 <x-jet-input wire:model.defer="curso_elegido" class="block mt-1 w-full" type="text" disabled/>
             </div>
 
-            <!-- Periodo -->
-            <div class="mt-4">
-                <x-jet-label for="periodo" value="Periodo"/>
-                <x-jet-input wire:model.defer="periodo_elegido" class="block mt-1 w-full" type="text" disabled/>
+            <!-- Periodo y Hora inicio y Hora fin -->
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                <!-- Periodo -->
+                <div class="mt-4 sm:flex-1">
+                    <x-jet-label for="periodo" value="Periodo"/>
+                    <x-jet-input wire:model.defer="periodo_elegido" class="block mt-1 w-full" type="text" disabled/>
+                </div>
+
+                <!-- Modalidad -->
+                <div class="mt-4 sm:flex-1">
+                    <x-jet-label for="modalidad" value="Modalidad"/>
+                    <x-jet-input wire:model.defer="modalidad" class="block mt-1 w-full" type="text" disabled/>
+                </div>
             </div>
 
             <!-- Periodo y Hora inicio y Hora fin -->

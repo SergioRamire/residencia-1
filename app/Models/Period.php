@@ -10,6 +10,7 @@ class Period extends Model
     use HasFactory;
 
     protected $fillable = [
+        'clave',
         'fecha_inicio',
         'fecha_fin',
     ];

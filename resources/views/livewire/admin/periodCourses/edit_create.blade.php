@@ -4,15 +4,20 @@
     </x-slot>
     <x-slot name="content">
         <form id="courseForm">
+            <!-- Clave -->
+            <div class="mt-4">
+                <x-jet-label for="clave" value="Clave"/>
+                <x-input.error wire:model.defer="clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="clave" required/>
+            </div>
             <!-- Clave y Periodo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Clave -->
-                <div class="sm:flex-1">
+                <div class="mt-4 sm:flex-1">
                     <x-jet-label for="FechaInicio" value="Fecha Inicio"/>
                     <x-input.error wire:model="fecha_inicio" class="block mt-1 w-full" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required/>
                 </div>
                 <!-- Perfil -->
-                <div class="sm:flex-1">
+                <div class="mt-4 sm:flex-1">
                     <x-jet-label for="FechaFin" value="Fecha Fin"/>
                     <x-input.error wire:model="fecha_fin" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required/>
                 </div>

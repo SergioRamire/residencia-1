@@ -40,14 +40,12 @@
                                     Marcar todas las notificationes como leídas
                                 </a>
                             </div>
-                            <div class="inline-flex rounded-md bg-white text-red shadow">
+                            {{-- <div class="inline-flex rounded-md bg-white text-red shadow">
                                 <a href={{route('destroyNotificationsss')}} class="text-red-600 font-bold py-2 px-6">
                                     Eliminar todas las notificaciones
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
-                        {{-- <a href={{route('markAsRead')}} class="dropdown-item dropdown-footer">Marcar las notificationes como leídas</a>
-                        <a href={{route('destroyNotificationsss')}} class="dropdown-item dropdown-footer">Eliminar todas las notificaciones</a> --}}
                         @endif
 
                         @empty
