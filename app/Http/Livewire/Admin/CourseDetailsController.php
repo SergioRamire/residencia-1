@@ -6,6 +6,7 @@ use App\Http\Traits\WithFilters;
 use App\Http\Traits\WithSorting;
 use App\Models\Course;
 use App\Models\CourseDetail;
+use App\Rules\Time;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -91,10 +92,10 @@ class CourseDetailsController extends Component
         $this->validate([
             'curso' => ['required',  'exists:courses,id'],
             'period' => ['required',  'exists:periods,id'],
-            'hora_inicio' => 'required',
-            'hora_fin' => 'required',
+            'hora_inicio' => ['required', new Time('07:00:00', '17:00:00')],
+            'hora_fin' => ['required', new Time('08:00:00', '18:00:00')],
             'lugar' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
+            'modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
             'capacidad' => ['required', 'numeric'],
             'grupo_id' => ['required',  'exists:groups,id'],
         ]);
