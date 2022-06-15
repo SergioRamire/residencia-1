@@ -79,7 +79,28 @@ class ConstanciasController extends Component
             ->where('calificacion', '>=', 70)
             ->get();
 
-        return dd($consulta);
+        \Storage::makeDirectory('pdf');
+
+        foreach ($consulta as $item) {
+            $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $item]);
+            $pdf->save(storage_path('app/pdf')."/Constancia - $item->nombre - $item->curso - $item->grupo.pdf");
+        }
+
+        /* Comprimir archivos */
+        $zip = new \ZipArchive();
+        $zipFile = storage_path('app/').'constancias.zip';
+        $zip->open($zipFile, \ZipArchive::CREATE);
+
+        $files = \File::files(storage_path('app/pdf'));
+        foreach ($files as $file) {
+            $relativeName = $file->getBasename();
+            $zip->addFile($file, $relativeName);
+        }
+        $zip->close();
+
+        \Storage::deleteDirectory('pdf');
+
+        return response()->download($zipFile)->deleteFileAfterSend();
     }
 
     private function consultaBase($periodo = null, $curso = null)
