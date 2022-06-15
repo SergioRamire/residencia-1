@@ -9,30 +9,30 @@
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
             {{-- <div class="md:flex md:justify-between space-y-2 md:space-y-0"> --}}
-                <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                    <div class="mt-1 md:w-1/5">
-                        <x-jet-label for="periodo" value="Periodo"/>
-                        <x-input.select wire:model="classification.periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
-                            <option   value="" disabled>Selecciona el periodo...</option>
-                            @foreach(\App\Models\Period::all() as $period)
-                                    <option value="{{ $period->id }}">{{date('d-m-Y', strtotime($period->fecha_inicio))}} a {{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                <div class="mt-1 md:w-1/5">
+                    <x-jet-label for="periodo" value="Periodo"/>
+                    <x-input.select wire:model="classification.periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
+                        <option value="" disabled>Selecciona el periodo...</option>
+                        @foreach(\App\Models\Period::all() as $period)
+                            <option value="{{ $period->id }}">{{date('d-m-Y', strtotime($period->fecha_inicio))}} a {{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
+                        @endforeach
+                    </x-input.select>
+                </div>
                 <!-- Curso -->
                 <div class="mt-1 w-1/2">
-                        <x-jet-label for="curso_classification" value="Curso"/>
-                        <x-input.select wire:model="classification.curso" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
-                            <option value="">Selecciona el curso...</option>
-                            @foreach(\App\Models\CourseDetail::join('courses','courses.id','=','course_details.course_id')
-                                ->join('periods','periods.id','=', 'course_details.period_id')
-                                ->where('course_details.period_id','=',$classification['periodo'])
-                                ->select('course_details.course_id as id','courses.nombre')
-                                ->distinct()
-                                ->get() as $course)
-                                <option value="{{ $course->id }}">{{$course->nombre}}</option>
-                            @endforeach
-                        </x-input.select>
+                    <x-jet-label for="curso_classification" value="Curso"/>
+                    <x-input.select wire:model="classification.curso" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
+                        <option value="">Selecciona el curso...</option>
+                        @foreach(\App\Models\CourseDetail::join('courses','courses.id','=','course_details.course_id')
+                            ->join('periods','periods.id','=', 'course_details.period_id')
+                            ->where('course_details.period_id','=',$classification['periodo'])
+                            ->select('course_details.course_id as id','courses.nombre')
+                            ->distinct()
+                            ->get() as $course)
+                            <option value="{{ $course->id }}">{{$course->nombre}}</option>
+                        @endforeach
+                    </x-input.select>
 
                 </div>
             </div>
@@ -42,8 +42,8 @@
             <div class="md:flex md:justify-between space-y-2 md:space-y-0">
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                     <!-- Barra de búsqueda -->
-                     <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
+                    <!-- Barra de búsqueda -->
+                    <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
                         <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                     </x-input.icon>
 
@@ -78,14 +78,14 @@
                                     <x-input.select wire:model="filters.departamento" id="departamento_filter" class="text-sm block mt-1 w-full" name="departamento_filter" required>
                                         <option value="" disabled>Selecciona departamento...</option>
                                         @foreach(\App\Models\Area::all() as $area)
-                                                <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                            <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                         @endforeach
                                     </x-input.select>
                                 </div>
                             </div>
 
-                             <!-- Grupo -->
-                             <div class="block px-4 py-2 space-y-1">
+                            <!-- Grupo -->
+                            <div class="block px-4 py-2 space-y-1">
                                 <div>
                                     <x-jet-label for="grupo_filter" value="Grupo"/>
                                     <x-input.select wire:model="filters.grupo" id="grupo_filter" class="text-sm block mt-1 w-full" name="grupo_filter" required>
@@ -150,7 +150,7 @@
                     @forelse($calificaciones as $g)
                         <tr wire:key="calificaciones-{{$loop->index}}" wire:loading.class.delay="opacity-50">
                             <x-table.cell>
-                                {{ $g->name }}{{' '}}{{ $g->apellido_paterno }}{{' '}}{{ $g->apellido_materno }}
+                                {{ $g->nombre_completo }}
                             </x-table.cell>
                             <x-table.cell class="text-center">{{ $g->curso }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->grupo }}</x-table.cell>
@@ -158,7 +158,7 @@
                             <div>
                                 @if($g->calificacion > 69)
                                     <x-table.cell class="text-center">
-                                        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                        <button wire:click="descargarConstancia({{ $g->id }})" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                             <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                                 <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
                                             </svg>
@@ -192,7 +192,7 @@
                 </div>
                 <div class="text-right min-h-full">
                     @if($calificaciones->count() > 0)
-                        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        <button wire:click="descargarConstanciasZIP()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
                             </svg>
@@ -201,6 +201,7 @@
                     @endif
                 </div>
 
+            </div>
         </div>
     </div>
 </div>
