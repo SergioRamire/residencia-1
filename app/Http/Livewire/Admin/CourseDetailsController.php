@@ -138,15 +138,27 @@ class CourseDetailsController extends Component
             ->first();
         $this->coursedetail_id = $id;
         $this->grupo_id = $coursedetail->group_id;
-        $this->curso = $coursedetail->curso;
+        $this->curso_elegido = $coursedetail->curso;
         $this->period = $coursedetail->periodo;
         $this->hora_inicio = $coursedetail->hora_inicio;
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
         $this->lugar = $coursedetail->lugar;
-        $this->edit = true;
-        $this->create = false;
-        $this->openModal();
+
+        $this->emit("valorCurso");
+        // $this->edit = true;
+        // $this->create = false;
+        // $this->openModal();
+    }
+    public function save()
+    {
+        
+
+        $this->modal = false;
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'pencil',
+            'message' => 'Detaller de curso actualizado exitosamente',
+        ]);
     }
     public function deleteDetails($id)
     {
@@ -191,8 +203,9 @@ class CourseDetailsController extends Component
     public function listaBuscador(){
         return Course::all();
     }
-    public function openModal2()
+    public function openModal2($id)
     {
+        $this->edit($id);
         $this->modal = true;
     }
 }

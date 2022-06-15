@@ -1,19 +1,19 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditCreateModal">
     <x-slot name="title">
-        {{ $modo }} detalles de curso
+        Detalles de curso
     </x-slot>
     <x-slot name="content">
 
-        <div wire:ignore>
-            <select wire:model.defer="curso" id="id_cur" class="text-sm block mt-1 w-full">
+        {{-- <div wire:ignore>
+            <select id="id_cur" wire:model.defer='curso' class="text-sm block mt-1 w-full">
                 <option value="">Selecciones un Curso x...</option>
-                @foreach($busqueda as $c)
-                  <option value="{{$c->id}}">{{$c->nombre}}</option>
+                @foreach ($busqueda as $c)
+                    <option value="{{ $c->id }}">{{ $c->nombre }}</option>
                 @endforeach
             </select>
-        </div>
+        </div> --}}
 
-        <form wire:submit.prevent="updateDetails()" id="courseForm">
+        {{-- <form wire:submit.prevent="updateDetails()" id="courseForm">
             <!-- Nombre  Curso-->
             <!-- Periodo y Hora inicio y Hora fin -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
@@ -76,7 +76,7 @@
                     </x-input.select>
                 </div>
             </div>
-        </form>
+        </form> --}}
     </x-slot>
 
     <x-slot name="footer">
@@ -85,10 +85,10 @@
         </x-jet-secondary-button>
 
         <x-jet-button class="ml-3" wire:loading.attr="disabled" form="courseForm">
-            {{ $modo }} Datos
+            Datos
         </x-jet-button>
-        @if ($confirmingSaveDetails)
+        {{-- @if ($confirmingSaveDetails) --}}
             @include('livewire.admin.coursedetails.confirmation')
-        @endif
+        {{-- @endif --}}
     </x-slot>
 </x-jet-dialog-modal>

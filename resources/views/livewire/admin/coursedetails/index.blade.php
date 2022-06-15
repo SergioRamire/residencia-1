@@ -4,12 +4,12 @@
             Detalles de cursos
         </h2>
     </x-slot>
-    
+{{--     
     <div>
         <x-jet-button wire:click="openModal2">
             Modificar
         </x-jet-button>
-    </div>
+    </div> --}}
     <div class="space-y-2">
         
         <!-- Botón de nuevo -->
@@ -160,10 +160,14 @@
                                 class="text-indigo-600 hover:text-indigo-900">
                                 <x-icon.eye class="h-6 w-6" />
                             </button>
-                            <button wire:click="edit({{ $d->id }})" type="button"
-                                class="text-amber-600 hover:text-amber-900">
+                            
+                            <button wire:click="openModal2({{ $d->id }})" class="text-amber-600 hover:text-amber-900">
                                 <x-icon.pencil alt class="h-6 w-6" />
                             </button>
+                            {{-- <button wire:click="edit({{ $d->id }})" type="button"
+                                class="text-amber-600 hover:text-amber-900">
+                                <x-icon.pencil alt class="h-6 w-6" />
+                            </button> --}}
                             <button wire:click="deleteDetails('{{ $d->id }}','{{ $d->curso }}')"
                                 type="button" class="text-red-600 hover:text-red-900">
                                 <x-icon.trash class="h-6 w-6" />
@@ -213,14 +217,24 @@
 </div>
 
 <script>
+    let curso_id = null;
     document.addEventListener('livewire:load', function() {
+        /* peridodo */
         $('#periodo').select2();
         $('#periodo').on('change', function() {
             @this.set('classification.periodo', this.value);
         });
+        /* caargar curso */
+        @this.on('valorCurso', function() {
+            curso_id = @this.curso_elegido;
+        });
+        $("#id_cur").val(curso_id);
+        /* curso */
         $('#id_cur').select2();
         $('#id_cur').on('change', function() {
             @this.set('classification.curso', this.value);
         });
+
+
     });
 </script>
