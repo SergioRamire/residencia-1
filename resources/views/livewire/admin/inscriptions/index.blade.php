@@ -89,8 +89,8 @@
                     <div class="space-y-2">
                         <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                             <h5 class="text-xl font-medium text-blue-800">Cursos disponibles en la semana del
-                                {{ date('d-m-Y', strtotime($fecha_inicio_periodo1)) }} al
-                                {{ date('d-m-Y', strtotime($fecha_fin_periodo1)) }}
+                                {{-- {{ date('d-m-Y', strtotime($fecha_inicio_periodo1)) }} al
+                                {{ date('d-m-Y', strtotime($fecha_fin_periodo1)) }} --}}
                             </h5>
                             <div class="flex flex-col space-y-2">
 
@@ -106,9 +106,9 @@
                                         <x-table.header>acciones</x-table.header>
                                     </x-slot>
                                     @forelse($semana1 as $c)
-                                        <tr wire:key="semana1-{{ $c->curdet }}"
+                                        <tr wire:key="semana1-{{ $loop->index }}"
                                             wire:loading.class.delay="opacity-50">
-                                            {{-- <x-table.cell>{{ $c->curdet }} </x-table.cell> --}}
+                                            <x-table.cell>{{ $c->curdet }} </x-table.cell>
                                             {{-- <x-table.cell>{{ $c->id }} </x-table.cell> --}}
                                             <x-table.cell>{{ $c->nombre }} </x-table.cell>
                                             <x-table.cell>{{ $c->perfil }} </x-table.cell>
@@ -158,8 +158,8 @@
                     <div class="space-y-2">
                         <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                             <h5 class="text-xl font-medium text-blue-800">Cursos disponibles en la semana del
-                                {{ date('d-m-Y', strtotime($fecha_inicio_periodo2)) }} al
-                                {{ date('d-m-Y', strtotime($fecha_fin_periodo2)) }}
+                                {{-- {{ date('d-m-Y', strtotime($fecha_inicio_periodo2)) }} al
+                                {{ date('d-m-Y', strtotime($fecha_fin_periodo2)) }} --}}
                                 <div class="flex flex-col space-y-2">
                                     <x-table>
                                         <x-slot name="head">
@@ -172,9 +172,9 @@
                                             <x-table.header>acciones</x-table.header>
                                         </x-slot>
                                         @forelse($semana2 as $c)
-                                            <tr wire:key="semana2-{{ $c->id }}"
+                                            <tr wire:key="semana2-{{ $loop->index }}"
                                                 wire:loading.class.delay="opacity-50">
-                                                {{-- <x-table.cell>{{ $c->curdet }} </x-table.cell> --}}
+                                                <x-table.cell>{{ $c->curdet }} </x-table.cell>
                                                 {{-- <x-table.cell>{{ $c->id }} </x-table.cell> --}}
                                                 <x-table.cell>{{ $c->nombre }} </x-table.cell>
                                                 <x-table.cell>{{ $c->perfil }} </x-table.cell>
@@ -215,7 +215,9 @@
                 </div>
             </div>
         @endif
-        i_arreglo
+        {{-- hora:
+        {{var_dump($horas_inicio)}} --}}
+        {{-- i_arreglo
         {{var_dump($id_arreglo)}}
         ---
         valor:
@@ -223,7 +225,7 @@
 
         {{var_dump($arreglo)}}
         ok
-        {{var_dump($unionarreglos)}}
+        {{var_dump($unionarreglos)}} --}}
     </div>
     @include('livewire.admin.inscriptions.anuncio')
     @include('livewire.admin.inscriptions.horario')

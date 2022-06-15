@@ -22,11 +22,15 @@ class InscriptionsController extends Component
     public $keyCache = 'horario'; /* .auth()->user()->id; */
     public int $countabla1 = 1;
     public int $countabla2 = 1;
-    public $fecha_inicio_periodo1;
-    public $fecha_fin_periodo1;
-    public $fecha_inicio_periodo2;
-    public $fecha_fin_periodo2;
+    // public $fecha_inicio_periodo1;
+    // public $fecha_fin_periodo1;
+    // public $fecha_inicio_periodo2;
+    // public $fecha_fin_periodo2;
     public $valor;
+
+    public $horas_inicio=[];
+    public $hora_fin;
+
 
     public $id_arreglo=[];
     public $id_arreglo1=[];
@@ -43,16 +47,19 @@ class InscriptionsController extends Component
     public bool $valorbtn2 = false;
 
     public function switchbtn1(){
-        // $this->valorbtn1 - $this->alternar($this->valorbtn1);
         $this->valorbtn1 = $this->alternar($this->valorbtn1);
+        if ($this->valorbtn2 == true) {
+            $this->valorbtn2 = $this->alternar($this->valorbtn2);
+        }
     }
 
     public function switchbtn2(){
-        // $this->valorbtn2 - $this->alternar($this->valorbtn2);
-
         $this->valorbtn2 = $this->alternar($this->valorbtn2);
-
+        if ($this->valorbtn1 == true) {
+            $this->valorbtn1 = $this->alternar($this->valorbtn1);
+        }
     }
+
 
     public function alternar($valor){
         if($valor){
@@ -86,22 +93,7 @@ class InscriptionsController extends Component
         $this->reset('arreglo');
     }
 
-    public function rangoFecha($inicio, $fin){
-        $a=$this->id_arreglo;
-        $b=$this->id_arreglo1;
-        return Period::query()
-            ->join('course_details', 'periods.id', '=', 'course_details.period_id')
-            ->join('courses', 'course_details.course_id', '=', 'courses.id')
-            ->select(
-                'periods.*',
-                'course_details.id as curdet','course_details.*',
-                'courses.*',
-            )
-            ->whereNotIn('course_details.id',$a)
-            ->whereNotIn('course_details.id',$b)
-            ->where('periods.fecha_inicio', '>=', $inicio)
-            ->where('periods.fecha_fin', '<=', $fin);
-    }
+
 
     public function addTabla2($id){
 
@@ -116,6 +108,16 @@ class InscriptionsController extends Component
                 ->selectRaw('count(*) as user_count')
                 ->first();
             if($users->user_count<$cap[0]->capacidad){
+                $h=CourseDetail::select('course_details.hora_inicio')
+                            ->where('course_details.id', "=",$id)
+                            ->get();
+                $hi=$h[0]->hora_inicio;
+                // $this->horas_inicio=
+                if(in_array($hi,$this->horas_inicio)){
+                    $this-> noti('info','Ya escogiste un curso con el cual se empalma');
+                }
+                else{
+                    array_push($this->horas_inicio,$hi);
 
                 // if(in_array($id,$this->arreglo1)){
 
@@ -128,16 +130,17 @@ class InscriptionsController extends Component
                     // $this->id_arreglo1=$id;
 
                     $this-> noti('success','Curso seleccionado ');
+                }
                 // }
                 // array_push($this->arreglo1, $id);
                 // $this-> noti('success','Curso seleccionado ');
             }
             else{
-                $this-> noti('danger','Capacidad llena del curso seleccionado');
+                $this-> noti('info','Capacidad llena del curso seleccionado');
             }
         }
         elseif($this->countabla2>2){
-            $this-> noti('danger','No se pueden seleccionar más de 2 cursos por semana ',);
+            $this-> noti('info','No se pueden seleccionar más de 2 cursos por semana ',);
         }
         $this->buscar();
     }
@@ -156,7 +159,19 @@ class InscriptionsController extends Component
                 ->where('i.estatus_participante', "=",'Participante')
                 ->selectRaw('count(*) as user_count')
                 ->first();
+
             if($users->user_count<$cap[0]->capacidad){
+
+                $h=CourseDetail::select('course_details.hora_inicio')
+                            ->where('course_details.id', "=",$id)
+                            ->get();
+            $hi=$h[0]->hora_inicio;
+            if(in_array($hi,$this->horas_inicio)){
+                $this-> noti('info','Ya escogiste un curso con el cual se empalma');
+            }
+            else{
+                 // $this->horas_inicio=
+                array_push($this->horas_inicio,$hi);
 
                 // if(in_array($id,$this->arreglo)){
 
@@ -171,6 +186,9 @@ class InscriptionsController extends Component
                 // }
 
 
+            }
+
+
 
             }
             else{
@@ -178,7 +196,7 @@ class InscriptionsController extends Component
             }
         }
         elseif($this->countabla1>2){
-            $this-> noti('danger','No se pueden seleccionar más de 2 cursos por semana ');
+            $this-> noti('info','No se pueden seleccionar más de 2 cursos por semana ');
         }
         $this->buscar();
     }
@@ -201,36 +219,54 @@ class InscriptionsController extends Component
             ->get();
     }
 
+    public function rangoFecha($inicio){
+        $a=$this->id_arreglo;
+        $b=$this->id_arreglo1;
+        return Period::query()
+            ->join('course_details', 'periods.id', '=', 'course_details.period_id')
+            ->join('courses', 'course_details.course_id', '=', 'courses.id')
+            ->select(
+                'periods.*',
+                'course_details.id as curdet','course_details.*',
+                'courses.*',
+            )
+            ->where('periods.fecha_inicio', '=', $inicio)
+            ->whereNotIn('course_details.id',$a)
+            ->whereNotIn('course_details.id',$b);
+
+            // ->where('periods.fecha_fin', '=', $fin);
+    }
+
     public function render(){
         $this->tablaVacia();
 
-        $this->obtenerPeriodos();
+        // $this->obtenerPeriodos();
 
         return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
-                'semana1' => $this->rangoFecha($this->fecha_inicio_periodo1, $this->fecha_fin_periodo1)->paginate($this->perPage),
-                'semana2' => $this->rangoFecha($this->fecha_inicio_periodo2, $this->fecha_fin_periodo2)->paginate($this->perPage2),
+                'semana1' => $this->rangoFecha('2022-06-20')->paginate($this->perPage),
+                'semana2' => $this->rangoFecha('2022-06-27')->paginate($this->perPage2),
             ]
         );
     }
 
-    public function obtenerPeriodos(){
-        $fecha_actual = date("Y-m-d");
+    // public function obtenerPeriodos(){
+    //     $fecha_actual = date("Y-m-d");
 
-        // $fecha_i_1=Period::select('periods.fecha_inicio')
-        //                        ->where('periods.fecha_inicio','>',$fecha_actual)
-        //                        ->first();
+    //     // $fecha_i_1=Period::select('periods.fecha_inicio')
+    //     //                        ->where('periods.fecha_inicio','>',$fecha_actual)
+    //     //                        ->first();
 
-        // $fecha_f_1=Period::select('periods.fecha_fin')
-        //                        ->where('periods.fecha_fin','>',$fecha_actual)
-        //                        ->first();
-        $this->fecha_inicio_periodo1= date("Y-m-d",strtotime($fecha_actual."+ 7 days"));
-        $this->fecha_fin_periodo1= date("Y-m-d",strtotime($fecha_actual."+ 11 days"));
-        $this->fecha_inicio_periodo2=date("Y-m-d",strtotime($this->fecha_inicio_periodo1."+ 7 days"));
-        $this->fecha_fin_periodo2=date("Y-m-d",strtotime($this->fecha_fin_periodo1."+ 7 days"));
+    //     // $fecha_f_1=Period::select('periods.fecha_fin')
+    //     //                        ->where('periods.fecha_fin','>',$fecha_actual)
+    //     //                        ->first();
+    //     $this->fecha_inicio_periodo1= date("Y-m-d",strtotime($fecha_actual."+ 7 days"));
+    //     $this->fecha_fin_periodo1= date("Y-m-d",strtotime($fecha_actual."+ 11 days"));
+    //     $this->fecha_inicio_periodo2=date("Y-m-d",strtotime($this->fecha_inicio_periodo1."+ 7 days"));
+    //     $this->fecha_fin_periodo2=date("Y-m-d",strtotime($this->fecha_fin_periodo1."+ 7 days"));
 
-    }
+    // }
 
     public function del($id){
         if(in_array($id,$this->arreglo)){
@@ -247,6 +283,8 @@ class InscriptionsController extends Component
             unset($this->arreglo1[$indice3]);
             unset($this->id_arreglo1[$indice4]);
         }
+        $indice5=array_search($id, $this->horas_inicio);
+        unset($this->horas_inicio[$indice5]);
         // foreach ($this->arreglo as $i) {
         //     if($i==$id){
         //         $this->countabla1=$this->countabla1-1;
