@@ -62,15 +62,16 @@ class ConstanciasController extends Component
         $this->reset('filters');
     }
 
-    public function descargarConstancia($id, $periodo, $curso)
+    public function descargarConstancia($id)
     {
-        $datos = $this->consultaBase($periodo, $curso)
+        $datos = $this->consultaBase()
             ->where('inscriptions.id', '=', $id)
             ->get()->first();
         $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $datos]);
+        $pdf_file = storage_path('app/')."Constancia - $datos->nombre - $datos->curso - $datos->grupo.pdf";
+        $pdf->save($pdf_file);
 
-        return $pdf->download('Constancia.pdf');
-
+        return response()->download($pdf_file)->deleteFileAfterSend();
     }
 
     public function descargarConstanciasZIP()
@@ -83,7 +84,7 @@ class ConstanciasController extends Component
 
         foreach ($consulta as $item) {
             $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $item]);
-            $pdf->save(storage_path('app/pdf')."/Constancia - $item->nombre - $item->curso - $item->grupo.pdf");
+            $pdf->save(storage_path('app/pdf/')."Constancia - $item->nombre - $item->curso - $item->grupo.pdf");
         }
 
         /* Comprimir archivos */
@@ -103,7 +104,7 @@ class ConstanciasController extends Component
         return response()->download($zipFile)->deleteFileAfterSend();
     }
 
-    private function consultaBase($periodo = null, $curso = null)
+    private function consultaBase()
     {
         return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
             ->join('areas', 'areas.id', '=', 'users.area_id')
@@ -112,8 +113,8 @@ class ConstanciasController extends Component
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->where('inscriptions.estatus_participante', '=', 'Participante')
-            ->where('course_details.period_id', '=', $periodo ?? $this->classification['periodo'])
-            ->where('course_details.course_id', '=', $curso ?? $this->classification['curso'])
+            ->where('course_details.period_id', '=', $this->classification['periodo'])
+            ->where('course_details.course_id', '=', $this->classification['curso'])
             ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno',
                 DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
                 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion', 'areas.nombre as area']);

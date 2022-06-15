@@ -46,10 +46,6 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         ->get('constancias', ConstanciasController::class)->name('constancias');
 
     Route::middleware('can:user.show')->prefix('admin')->name('admin.')
-        ->get('descargar-constancia/{id}/{periodo}/{curso}', [ConstanciasController::class, 'descargarConstancia'])
-        ->name('descargar-constancia');
-
-    Route::middleware('can:user.show')->prefix('admin')->name('admin.')
         ->get('instructores', InstructorCurseController::class)->name('instructores');
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
