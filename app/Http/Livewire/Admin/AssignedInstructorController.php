@@ -10,6 +10,7 @@ use Livewire\Component;
 class AssignedInstructorController extends Component
 {
 
+
     protected array $cleanStringsExcept = ['search'];
     public $datos = '';
     public $lugar = '';
@@ -22,6 +23,17 @@ class AssignedInstructorController extends Component
         'periodo' => '',
         'grupo' => '',
     ];
+
+    protected $listeners = [
+        'data_send',
+        'per_send',
+    ];
+    public function data_send($valor){
+        $this->classification['curso'] = $valor;
+    }
+    public function per_send($valor){
+        $this->classification['periodo'] = $valor;
+    }
 
 
     public $id_detalle_curso;
@@ -114,9 +126,12 @@ class AssignedInstructorController extends Component
                 ->orWhere('groups.nombre', 'like', "%$search%")
                 ->orWhere('course_details.lugar', 'like', "%$search%")
                 )
-            ->when($this->id_per, fn ($query, $search) => $query
-                ->where('periods.id', '=', $this->id_per)
-                )
+            ->when($this->classification['periodo'], fn ($query, $search) => $query
+                ->where('periods.id', '=', $search))
+            ->when($this->classification['curso'], fn ($query, $search) => $query
+                ->where('course_details.id', '=', $search))
+            // ->where('periods.id',$this->classification['periodo'])
+            // ->where('course_details.id', $this->classification['curso'])
             ->select(
                 'courses.nombre as cnombre',
                 'groups.nombre as gnombre',

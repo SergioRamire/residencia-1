@@ -4,10 +4,7 @@
             Cursos con Instructores
         </h2>
     </x-slot>
-
-
-    {{ $id_per }}
-    <div wire:ignore>
+    {{-- <div wire:ignore>
         <select id="eleccion" model wire:model.defer='id_per'>
             <option value=''>Seleccionar una Periodo</option>
             @foreach ($datosPer as $per)
@@ -16,11 +13,19 @@
                 </option>
             @endforeach
         </select>
+    </div> --}}
+    {{-- Segundo componente --}}
+
+    
+    {{$classification['periodo']}}
+    <div class="flex-1 mx-20 pb-10">
+        @livewire('admin.period-select')
     </div>
 
-
-
-
+    {{$classification['curso']}}
+    <div class="flex-1 mx-20 pb-10">
+        @livewire('admin.course-details-select',['id_periodo' => $this->classification['periodo']])
+    </div>
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
@@ -119,6 +124,7 @@
             <div class="flex flex-col space-y-2">
                 <x-table>
                     <x-slot name="head">
+                        <x-table.header class="text-center">#</x-table.header>
                         <x-table.header class="text-center">Curso</x-table.header>
                         <x-table.header class="text-center">Grupo</x-table.header>
                         <x-table.header class="text-center">Horario</x-table.header>
@@ -127,7 +133,8 @@
                     </x-slot>
 
                     @forelse($datosTabla as $g)
-                        <tr wire:key="instructor-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
+                        <tr wire:key="instructor-{{ $g->idcurdet }}" wire:loading.class.delay="opacity-50">
+                            <x-table.cell class="text-center">{{ $g->idcurdet }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->cnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->gnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a
@@ -165,12 +172,8 @@
             </div>
         </div>
     </div>
-    {{-- @if ($modalEdit == true) --}}
     @include('livewire.admin.assignedInstructor.edit')
-    {{-- @endif --}}
-
 </div>
-
 <script>
     document.addEventListener('livewire:load', function() {
         $('#eleccion').select2();
