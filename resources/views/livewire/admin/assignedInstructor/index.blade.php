@@ -5,11 +5,16 @@
         </h2>
     </x-slot>
 
-    {{-- {{$classification['periodo']}} --}}
-    @livewire('admin.period-select')
-
-    {{-- {{$classification['curso']}} --}}
-    @livewire('admin.course-details-select',['id_periodo' => $this->classification['periodo']])
+    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+        <div class="mt-4 flex-1">
+            <x-jet-label value="Seleccione el periodo"/>
+            @livewire('admin.period-select')
+        </div>
+        <div class="mt-4 flex-1">
+            <x-jet-label value="Seleccione el curso"/>
+            @livewire('admin.course-details-select')
+        </div>
+    </div>
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
@@ -108,7 +113,6 @@
             <div class="flex flex-col space-y-2">
                 <x-table>
                     <x-slot name="head">
-                        <x-table.header class="text-center">#</x-table.header>
                         <x-table.header class="text-center">Curso</x-table.header>
                         <x-table.header class="text-center">Grupo</x-table.header>
                         <x-table.header class="text-center">Horario</x-table.header>
@@ -118,7 +122,6 @@
 
                     @forelse($datosTabla as $g)
                         <tr wire:key="instructor-{{ $g->idcurdet }}" wire:loading.class.delay="opacity-50">
-                            <x-table.cell class="text-center">{{ $g->idcurdet }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->cnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->gnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a

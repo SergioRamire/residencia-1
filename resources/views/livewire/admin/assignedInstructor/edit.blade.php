@@ -1,14 +1,15 @@
 <!-- Modales -->
 <x-jet-dialog-modal wire:model="modalEdit">
     <x-slot name="title">
-        Área
+        Instructor
     </x-slot>
     <x-slot name="content">
-
-        {{-- Per: {{ $classification['periodo']}}, Cur: {{ $id_detalle_curso  }}, Ins: {{$id_instructor}} --}}
-        <div id="Layer1" style="width:600px; height:500px; overflow: scroll;">
+    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+        <div id="Layer1" style="width:600px; height:500px; overflow: scroll;" class="mt-4 flex-1">
+            <x-jet-label value="Seleccione el instructor"/>
             @livewire('admin.instructor-select')
         </div>
+    </div>
 
     </x-slot>
 

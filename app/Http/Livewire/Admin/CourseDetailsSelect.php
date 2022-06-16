@@ -19,7 +19,7 @@ class CourseDetailsSelect extends Component
 /* Para resivir la variable que se envio en Emit */
     public $query;/* valor para buscar */
     public $contador;
-    public $txt = 'Buscar DetalleCurso';
+    public $txt = 'Buscar Curso';
     public function mount(){/* metodo par ainicar variables */
         $this->reset2();
     }

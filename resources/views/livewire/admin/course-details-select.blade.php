@@ -1,7 +1,7 @@
-<div class="relative border-none">
+<div class="relative border-none mt-4 flex-1">
     <input 
         type="text" 
-        class="form-input border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+        class="form-input w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
         placeholder="{{$txt}}"
         wire:click="full"
         wire:model="query"
@@ -20,11 +20,12 @@
         Seleccione una opcion
             @if (!empty($datos))
                 @foreach ($datos as $i => $data)
+                <br>
                     <a 
                         wire:click="selectCur({{ $data->id }})"
-                        class="inset-0 list-item {{$contador == $i ? 'bg-blue-100' : '' }}
-                        inline-flex items-center px-4 py-2 bg-white border border-gray-300  font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition"
-                    >{{ $data->id }} {{$data->nombre}}
+                        class="inset-0  {{$contador == $i ? 'bg-blue-100' : '' }}
+                        inline-flex items-center px-4 py-2 border-none bg-white border border-gray-300  font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition"
+                    >{{$data->nombre}}
                     </a>    
                 @endforeach
             @else
