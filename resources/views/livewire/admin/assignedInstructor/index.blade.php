@@ -18,14 +18,10 @@
 
     
     {{$classification['periodo']}}
-    <div class="flex-1 mx-20 pb-10">
-        @livewire('admin.period-select')
-    </div>
+    @livewire('admin.period-select')
 
     {{$classification['curso']}}
-    <div class="flex-1 mx-20 pb-10">
-        @livewire('admin.course-details-select',['id_periodo' => $this->classification['periodo']])
-    </div>
+    @livewire('admin.course-details-select',['id_periodo' => $this->classification['periodo']])
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
