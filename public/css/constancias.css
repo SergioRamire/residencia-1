@@ -1,0 +1,25 @@
+body {
+    font-weight: normal;
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.img-header {
+    display: block;
+    width: 70%;
+}
+
+.font-black {
+    font-weight: bold;
+    font-family: 'Montserrat-Black', sans-serif;
+}
+
+.font-medium {
+    font-weight: normal;
+    font-family: 'Montserrat', sans-serif;
+}
+
