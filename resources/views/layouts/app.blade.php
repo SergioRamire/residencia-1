@@ -11,12 +11,19 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         @livewireStyles
         @stack('styles')
         <style>[x-cloak]{display: none}</style>
 
         <!-- Scripts -->
+        {{-- Jq --}}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        {{-- S2 --}}
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
         <script src="{{ mix('js/app.js') }}" defer></script>
         @stack('scripts')
     </head>
