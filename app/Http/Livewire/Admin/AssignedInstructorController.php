@@ -23,20 +23,44 @@ class AssignedInstructorController extends Component
         'periodo' => '',
         'grupo' => '',
     ];
+    public $id_detalle_curso;
 
     protected $listeners = [
         'data_send',
         'per_send',
+        'user_send',
     ];
     public function data_send($valor){
         $this->classification['curso'] = $valor;
+        $this->id_detalle_curso = $valor;
     }
     public function per_send($valor){
         $this->classification['periodo'] = $valor;
     }
+    public function user_send($valor){
+        $this->id_instructor = $valor;
+        // dd($this->id_instructor);
+    }
 
+    public function registrar(){
+        $this->user = User::find($this->id_instructor);
+        $courseDetails = CourseDetail::find($this->id_detalle_curso);
+        $this->user->courseDetails()->attach($courseDetails, [
+            'calificacion' => 0,
+            'estatus_participante' => 'Instructor',
+            'asistencias_minimas' => 0,
+        ]);
+        $this->noti('success', 'Instructor asignado correctamente');
+    }
 
-    public $id_detalle_curso;
+    public $id_ins;
+
+    public function asignar(){
+        // $this->id_instructor = $this->id_ins;
+        $this->registrar();
+        $this->closeModal();
+    }
+
 
     public function resetFilters()
     {
@@ -86,18 +110,6 @@ class AssignedInstructorController extends Component
     }
     public function consultauser(){
         return User::all();
-    }
-
-    public function registrar()
-    {
-        $this->user = User::find($this->id_instructor);
-        $courseDetails = CourseDetail::find($this->id_detalle_curso);
-        $this->user->courseDetails()->attach($courseDetails, [
-            'calificacion' => 0,
-            'estatus_participante' => 'Instructor',
-            'asistencias_minimas' => 0,
-        ]);
-        $this->noti('success', 'Instructor asignado correctamente');
     }
 
     public function noti($icon, $txt)
@@ -150,12 +162,5 @@ class AssignedInstructorController extends Component
     }
     public function closeModal(){
         $this->modalEdit = false;
-    }
-    public $id_ins;
-
-    public function asignar(){
-        $this->id_instructor = $this->id_ins;
-        $this->registrar();
-        $this->closeModal();
     }
 }

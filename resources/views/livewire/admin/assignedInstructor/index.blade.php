@@ -1,26 +1,14 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Cursos con Instructores
+            Asignación de Instructor a Curso
         </h2>
     </x-slot>
-    {{-- <div wire:ignore>
-        <select id="eleccion" model wire:model.defer='id_per'>
-            <option value=''>Seleccionar una Periodo</option>
-            @foreach ($datosPer as $per)
-                <option value='{{ $per->id }}'>
-                    Del {{ date('d-m-Y', strtotime($per->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($per->fecha_fin)) }}
-                </option>
-            @endforeach
-        </select>
-    </div> --}}
-    {{-- Segundo componente --}}
 
-    
-    {{$classification['periodo']}}
+    {{-- {{$classification['periodo']}} --}}
     @livewire('admin.period-select')
 
-    {{$classification['curso']}}
+    {{-- {{$classification['curso']}} --}}
     @livewire('admin.course-details-select',['id_periodo' => $this->classification['periodo']])
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">
@@ -137,10 +125,12 @@
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->lugar }}</x-table.cell>
                             <x-table.cell class="text-center">
-                                <x-jet-button wire:click="openModal({{ $g->idcurdet }})" type="button"
-                                    class="bg-[#1b396a] text-#fff">
-                                    Abriri modal
-                                </x-jet-button>
+                                <button wire:click="openModal({{ $g->idcurdet }})" type="button" class="text-blue-600 hover:text-blue-900">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
+                                    </svg>
+                                </button>
+
                             </x-table.cell>
                         </tr>
                     @empty

@@ -5,15 +5,11 @@
     </x-slot>
     <x-slot name="content">
 
-        Ins: {{ $id_ins }}, Cur: {{ $id_detalle_curso }}
-        <div wire:ignore>
-            <select id="id_cur" wire:model.defer='id_ins'>
-                <option value=''>Seleccionar un Instructor</option>
-                @foreach ($datosuser as $user)
-                    <option value='{{ $user->id }}'>{{ $user->name }} {{ $user->apellido_paterno }} {{ $user->apellido_materno }} </option>
-                @endforeach
-            </select>
+        {{-- Per: {{ $classification['periodo']}}, Cur: {{ $id_detalle_curso  }}, Ins: {{$id_instructor}} --}}
+        <div id="Layer1" style="width:600px; height:500px; overflow: scroll;">
+            @livewire('admin.instructor-select')
         </div>
+
     </x-slot>
 
     <x-slot name="footer">

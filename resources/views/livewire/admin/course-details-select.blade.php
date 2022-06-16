@@ -1,8 +1,8 @@
-<div class="relative">
+<div class="relative border-none">
     <input 
         type="text" 
-        class="form-input" 
-        placeholder="Buscar DetalleCurso"
+        class="form-input border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+        placeholder="{{$txt}}"
         wire:click="full"
         wire:model="query"
         wire:keydown.escape="reset2"
@@ -10,7 +10,7 @@
         wire:keydown.arrow-up="decrementContador"
         wire:keydown.arrow-down="incrementContador"
     />
-    
+
     <div wire:loading class="absolute z-10 list-group bg-white w-full rounded-t-none shadow-lg">
         {{-- <div class="list-item">Buscando...</div> --}}
     </div>

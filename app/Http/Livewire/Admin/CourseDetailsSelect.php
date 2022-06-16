@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Livewire\Admin;
+
+use App\Models\Course;
 use App\Models\CourseDetail;
+use App\Models\User;
 use Livewire\Component;
 
 class CourseDetailsSelect extends Component
@@ -14,10 +17,9 @@ class CourseDetailsSelect extends Component
         $this->id_periodo = $valor;
     }
 /* Para resivir la variable que se envio en Emit */
-
-
     public $query;/* valor para buscar */
     public $contador;
+    public $txt = 'Buscar DetalleCurso';
     public function mount(){/* metodo par ainicar variables */
         $this->reset2();
     }
@@ -67,7 +69,8 @@ class CourseDetailsSelect extends Component
         $this->query = 'todos';
     }
     public function selectCur($valor){
-
+        $aux = Course::find($valor);
+        $this->txt = $aux->nombre;
         $this->emit('data_send',$valor);
         $this->reset2();
     }

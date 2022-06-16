@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\User;
 use Livewire\Component;
-use App\Models\Period;
 
-class PeriodSelect extends Component
+class InstructorSelect extends Component
 {
+
     public $query;/* valor para buscar */
     public $contador;
-    public $txt = 'Buscar Periodo';
+    public $txt = 'Buscar Instructor';
     public function mount(){/* metodo par ainicar variables */
         $this->reset2();
     }
@@ -32,28 +33,29 @@ class PeriodSelect extends Component
         $this->contador --;
     }
     public function render(){/* renderizacion de la vista donde regresa el arreglo para el select */
-        return view('livewire.admin.period-select',[
+        return view('livewire.admin.instructor-select',[
             'datos' => $this->consulta()
         ]);
     }
+
     public function consulta(){
         if (strcmp(strtolower($this->query), 'todos') === 0) {
-            return Period::all();
-        }else{
-            return Period::when($this->query, fn ($query2, $b) => $query2
-            ->where('periods.fecha_inicio', 'like', "%$b%")
-            ->orWhere('periods.fecha_fin', 'like', "%$b%"))
+            return User::all();
+        } else {
+            return User::when($this->query, fn ($query2, $b) => $query2
+                ->where('users.rfc', 'like', "%$b%")
+                ->orWhere('users.name', 'like', "%$b%"))
+            ->select('users.id as id', 'users.name')
             ->get();
         }
-            
     }
     public function full(){/* Muestra todos */
         $this->query = 'todos';
     }
-    public function selectPer($valor){
-        $aux = Period::find($valor);
-        $this->txt = 'De '.$aux->fecha_inicio.' al '.$aux->fecha_fin;
-        $this->emit('per_send',$valor);
+    public function selectUser($valor){
+        $aux = User::find($valor);
+        $this->txt = $aux->name.' '.$aux->apellido_paterno.' '.$aux->apellido_materno;
+        $this->emit('user_send',$valor);
         $this->reset2();
     }
 }
