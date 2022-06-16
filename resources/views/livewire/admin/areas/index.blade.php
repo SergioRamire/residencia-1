@@ -8,7 +8,7 @@
     <div class="space-y-2">
         <!-- Botón de nuevo -->
         <div>
-            <x-jet-secondary-button wire:click="create()" class="border-green-300 text-green-700 hover:text-green-500 active:text-green-800 active:bg-green-50">
+            <x-jet-secondary-button wire:click="create()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
                 <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
                 Nuevo Departamento
             </x-jet-secondary-button>
@@ -41,8 +41,8 @@
         <!-- Tabla -->
         <div class="flex flex-col space-y-2">
             <x-table>
-                <x-slot name="head">
-                    <x-table.header wire:click="sortBy('clave')" sortable :direction="$sortField === 'clave' ? $sortDirection : null">
+                <x-slot name="head" class="text-white-800">
+                    <x-table.header class="text-gray-100" wire:click="sortBy('clave')" sortable :direction="$sortField === 'clave' ? $sortDirection : null">
                         clave
                     </x-table.header>
                     <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">

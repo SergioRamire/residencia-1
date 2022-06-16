@@ -49,7 +49,6 @@ class CourseController extends Component
             'course.objetivo' => ['required', 'max:255'],
             'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
             'course.duracion' => ['required', 'integer', 'max:50'],
-            // 'course.modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
             'course.dirigido' => ['required', 'max:255'],
             'course.observaciones' => ['nullable', 'max:255'],
         ];

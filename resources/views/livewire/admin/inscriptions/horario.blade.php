@@ -46,7 +46,7 @@
             Cerrar
         </x-jet-secondary-button>
 
-        <x-jet-button wire:click.prevent="register()" form="courseForm">
+        <x-jet-button class="ml-3" wire:click.prevent="register()" form="courseForm">
             Aceptar
         </x-jet-button>
         @if($confirmingSaveInscription)

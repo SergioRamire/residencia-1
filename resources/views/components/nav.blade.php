@@ -10,7 +10,7 @@
     </button>
 
     <!-- El resto -->
-    <div class="flex-1 px-4 flex justify-between">
+    {{-- <div class="flex-1 px-4 flex justify-between">
 
         <!-- Barra búsqueda -->
         <div class="flex-1 flex">
@@ -26,8 +26,9 @@
                     <input id="search-field" class="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm" placeholder="Search" type="search" name="search">
                 </div>
             </form>
-        </div>
+        </div> --}}
 
+    <div class="flex-1 px-4 flex justify-end">
 
         <!-- Notificaciones y menú desplegable -->
         <div class="ml-4 flex items-center md:ml-6">

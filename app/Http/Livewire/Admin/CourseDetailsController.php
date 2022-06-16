@@ -56,6 +56,7 @@ class CourseDetailsController extends Component
 
     public function create()
     {
+        $this->resetErrorBag();
         $this->resetInputFields();
         $this->openModal();
         $this->edit = false;
@@ -163,6 +164,7 @@ class CourseDetailsController extends Component
 
     public function edit($id)
     {
+        $this->resetErrorBag();
         $coursedetail = CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
                                       ->join('periods', 'periods.id', 'course_details.period_id')
                                       ->select('course_details.id','course_details.group_id',
@@ -214,7 +216,6 @@ class CourseDetailsController extends Component
                 ->join('groups', 'groups.id', 'course_details.group_id')
                 ->join('periods', 'periods.id', 'course_details.period_id')
                 ->where('periods.id','=',$this->classification['periodo'])
-                // ->where('course_details.course_id','=',$this->classification['curso'])
                 ->select('course_details.id', 'course_details.lugar', 'course_details.capacidad',
                 'course_details.hora_inicio', 'course_details.hora_fin', 'courses.nombre as curso',
                 'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')

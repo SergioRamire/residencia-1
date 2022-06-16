@@ -19,19 +19,9 @@ class InscriptionsController extends Component
     public $arreglo = [];
     public $arreglo1 = [];
     public $unionarreglos = [];
-    public $keyCache = 'horario'; /* .auth()->user()->id; */
     public int $countabla1 = 1;
     public int $countabla2 = 1;
-    // public $fecha_inicio_periodo1;
-    // public $fecha_fin_periodo1;
-    // public $fecha_inicio_periodo2;
-    // public $fecha_fin_periodo2;
-    public $valor;
-
     public $horas_inicio=[];
-    public $hora_fin;
-
-
     public $id_arreglo=[];
     public $id_arreglo1=[];
 
@@ -60,7 +50,6 @@ class InscriptionsController extends Component
         }
     }
 
-
     public function alternar($valor){
         if($valor){
             $valor = false;
@@ -74,26 +63,29 @@ class InscriptionsController extends Component
 
         $this->showHorario = true;
     }
+
     public function closeShowHorario(){
         $this->showHorario = false;
 
     }
+
     public function openbtnContinuar(){
         $this->btnContinuar = true;
     }
+
     public function closeShowOneModal(){
         $this->showOneModal = false;
     }
+
     public function register()
     {
         $this->confirmingSaveInscription = true;
     }
+
     public function resetArreglo()
     {
         $this->reset('arreglo');
     }
-
-
 
     public function addTabla2($id){
 
@@ -112,28 +104,16 @@ class InscriptionsController extends Component
                             ->where('course_details.id', "=",$id)
                             ->get();
                 $hi=$h[0]->hora_inicio;
-                // $this->horas_inicio=
                 if(in_array($hi,$this->horas_inicio)){
                     $this-> noti('info','Ya escogiste un curso con el cual se empalma');
                 }
                 else{
                     array_push($this->horas_inicio,$hi);
-
-                // if(in_array($id,$this->arreglo1)){
-
-                //     $this->valor='existe';
-                //     $this-> noti('info','Curso ya seleccionado ');
-                // }else{
                     $this->countabla2=$this->countabla2+1;
                     array_push($this->arreglo1, $id);
                     array_push($this->id_arreglo1, $id);
-                    // $this->id_arreglo1=$id;
-
                     $this-> noti('success','Curso seleccionado ');
                 }
-                // }
-                // array_push($this->arreglo1, $id);
-                // $this-> noti('success','Curso seleccionado ');
             }
             else{
                 $this-> noti('info','Capacidad llena del curso seleccionado');
@@ -161,38 +141,23 @@ class InscriptionsController extends Component
                 ->first();
 
             if($users->user_count<$cap[0]->capacidad){
-
                 $h=CourseDetail::select('course_details.hora_inicio')
                             ->where('course_details.id', "=",$id)
                             ->get();
-            $hi=$h[0]->hora_inicio;
-            if(in_array($hi,$this->horas_inicio)){
-                $this-> noti('info','Ya escogiste un curso con el cual se empalma');
-            }
-            else{
-                 // $this->horas_inicio=
-                array_push($this->horas_inicio,$hi);
-
-                // if(in_array($id,$this->arreglo)){
-
-                //     $this->valor='existe';
-                //     $this-> noti('info','Curso ya seleccionado ');
-                // }else{
+                $hi=$h[0]->hora_inicio;
+                if(in_array($hi,$this->horas_inicio)){
+                    $this-> noti('info','Ya escogiste un curso con el cual se empalma');
+                }
+                else{
+                    array_push($this->horas_inicio,$hi);
                     $this->countabla1=$this->countabla1+1;
                     array_push($this->arreglo, $id);
                     array_push($this->id_arreglo, $id);
-                    // $this->id_arreglo=$id;
                     $this-> noti('success','Curso seleccionado ');
-                // }
-
-
-            }
-
-
-
+                }
             }
             else{
-                $this-> noti('danger','Capacidad llena del curso seleccionado');
+                $this-> noti('info','Capacidad llena del curso seleccionado');
             }
         }
         elseif($this->countabla1>2){
@@ -200,12 +165,14 @@ class InscriptionsController extends Component
         }
         $this->buscar();
     }
+
     public function tablaVacia(){
         if(count($this->buscar())!==0)
             $this->btnContinuar = true;
         else
             $this->btnContinuar = false;
     }
+
     public function buscar(){
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $i = array_merge($this->arreglo,$this->arreglo1);
@@ -233,15 +200,10 @@ class InscriptionsController extends Component
             ->where('periods.fecha_inicio', '=', $inicio)
             ->whereNotIn('course_details.id',$a)
             ->whereNotIn('course_details.id',$b);
-
-            // ->where('periods.fecha_fin', '=', $fin);
     }
 
     public function render(){
         $this->tablaVacia();
-
-        // $this->obtenerPeriodos();
-
         return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
@@ -250,23 +212,6 @@ class InscriptionsController extends Component
             ]
         );
     }
-
-    // public function obtenerPeriodos(){
-    //     $fecha_actual = date("Y-m-d");
-
-    //     // $fecha_i_1=Period::select('periods.fecha_inicio')
-    //     //                        ->where('periods.fecha_inicio','>',$fecha_actual)
-    //     //                        ->first();
-
-    //     // $fecha_f_1=Period::select('periods.fecha_fin')
-    //     //                        ->where('periods.fecha_fin','>',$fecha_actual)
-    //     //                        ->first();
-    //     $this->fecha_inicio_periodo1= date("Y-m-d",strtotime($fecha_actual."+ 7 days"));
-    //     $this->fecha_fin_periodo1= date("Y-m-d",strtotime($fecha_actual."+ 11 days"));
-    //     $this->fecha_inicio_periodo2=date("Y-m-d",strtotime($this->fecha_inicio_periodo1."+ 7 days"));
-    //     $this->fecha_fin_periodo2=date("Y-m-d",strtotime($this->fecha_fin_periodo1."+ 7 days"));
-
-    // }
 
     public function del($id){
         if(in_array($id,$this->arreglo)){
@@ -285,23 +230,6 @@ class InscriptionsController extends Component
         }
         $indice5=array_search($id, $this->horas_inicio);
         unset($this->horas_inicio[$indice5]);
-        // foreach ($this->arreglo as $i) {
-        //     if($i==$id){
-        //         $this->countabla1=$this->countabla1-1;
-
-        //         $this->id_arreglo=-$id;
-        //         $indice1=array_search($id, $this->arreglo);
-        //         unset($this->arreglo[$indice1]);
-        //     }
-        // }
-
-        // foreach ($this->arreglo1 as $j) {
-        //     if($j==$id){
-        //         $this->countabla2=$this->countabla2-1;
-        //         $indice2=array_search($id, $this->arreglo1);
-        //         unset($this->arreglo1[$indice2]);
-        //     }
-        // }
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $this->buscar();
         $this-> noti('trash','Curso descartado');
@@ -326,8 +254,15 @@ class InscriptionsController extends Component
                     ]);
         }
 
-        $this-> noti('success','Horario creado Exitosamente');
+        // $this-> noti('success','Horario creado Exitosamente');
     }
+
+    // public function Obtenerusuariosinscritospreviamente(){
+    //     $this->user = User::find(auth()->user()->id);
+    //     $consulta = CourseDetail::Join('inscriptions','inscriptions.user_id')
+    //                         ->select('course_details.')
+    //     if()
+    // }
 
     public function noti($icon,$txt){
         $this->dispatchBrowserEvent('notify', [

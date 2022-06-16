@@ -14,8 +14,16 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-danger-button class="ml-3" wire:click="store()" wire:loading.attr="disabled">
+        <form method="get" action="{{ route('dashboard') }}">
+            <div class="flex items-center justify-center">
+                <x-jet-button wire:click="store()" class="ml-4">
+                    Generar Inscripcion
+                </x-jet-button>
+            </div>
+        </form>
+
+        {{-- <x-jet-danger-button class="ml-3" wire:click="store()"  wire:loading.attr="disabled">
             Guardar
-        </x-jet-danger-button>
+        </x-jet-danger-button> --}}
     </x-slot>
 </x-jet-confirmation-modal>
