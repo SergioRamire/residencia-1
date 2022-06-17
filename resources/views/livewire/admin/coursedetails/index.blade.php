@@ -15,7 +15,7 @@
         <!-- Botón de nuevo -->
         <div>
             <x-jet-secondary-button wire:click="create()"
-                class="border-green-300 text-green-700 hover:text-green-500 active:text-green-800 active:bg-green-50">
+                class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
                 <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
                 Aregar detalles de curso
             </x-jet-secondary-button>

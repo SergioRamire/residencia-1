@@ -89,6 +89,7 @@
                     <div class="space-y-2">
                         <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                             <h5 class="text-xl font-medium text-blue-800">Cursos disponibles en la semana del
+                                20/junio/2022 al 24/junio/2022
                                 {{-- {{ date('d-m-Y', strtotime($fecha_inicio_periodo1)) }} al
                                 {{ date('d-m-Y', strtotime($fecha_fin_periodo1)) }} --}}
                             </h5>
@@ -108,7 +109,7 @@
                                     @forelse($semana1 as $c)
                                         <tr wire:key="semana1-{{ $loop->index }}"
                                             wire:loading.class.delay="opacity-50">
-                                            <x-table.cell>{{ $c->curdet }} </x-table.cell>
+                                            {{-- <x-table.cell>{{ $c->curdet }} </x-table.cell> --}}
                                             {{-- <x-table.cell>{{ $c->id }} </x-table.cell> --}}
                                             <x-table.cell>{{ $c->nombre }} </x-table.cell>
                                             <x-table.cell>{{ $c->perfil }} </x-table.cell>
@@ -158,6 +159,7 @@
                     <div class="space-y-2">
                         <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                             <h5 class="text-xl font-medium text-blue-800">Cursos disponibles en la semana del
+                                27/junio/2022 al 01/julio/2022
                                 {{-- {{ date('d-m-Y', strtotime($fecha_inicio_periodo2)) }} al
                                 {{ date('d-m-Y', strtotime($fecha_fin_periodo2)) }} --}}
                                 <div class="flex flex-col space-y-2">
@@ -174,7 +176,7 @@
                                         @forelse($semana2 as $c)
                                             <tr wire:key="semana2-{{ $loop->index }}"
                                                 wire:loading.class.delay="opacity-50">
-                                                <x-table.cell>{{ $c->curdet }} </x-table.cell>
+                                                {{-- <x-table.cell>{{ $c->curdet }} </x-table.cell> --}}
                                                 {{-- <x-table.cell>{{ $c->id }} </x-table.cell> --}}
                                                 <x-table.cell>{{ $c->nombre }} </x-table.cell>
                                                 <x-table.cell>{{ $c->perfil }} </x-table.cell>

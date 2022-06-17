@@ -118,7 +118,7 @@
 
                     @forelse($datosTabla as $g)
                         <tr wire:key="instructor-{{ $g->idcurdet }}" wire:loading.class.delay="opacity-50">
-                            <x-table.cell class="text-center">{{ $g->cnombre }}</x-table.cell>
+                            <x-table.cell >{{ $g->cnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->gnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
