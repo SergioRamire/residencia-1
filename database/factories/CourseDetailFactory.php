@@ -21,7 +21,7 @@ class CourseDetailFactory extends Factory
     {
         $hora_inicio = $this->faker->time('H:i');
 
-        $lugares = $this->faker->randomElement([
+        $lugar = $this->faker->randomElement([
             'Sala Audivisual, Edificio I',
             'I10','I12','F1','F2','F3','F4','F5','F6',
             'K1','K2','K3','K4','K5','K6',
@@ -33,7 +33,7 @@ class CourseDetailFactory extends Factory
         return [
             'hora_inicio' => $hora_inicio,
             'hora_fin' => date('H:i', strtotime($hora_inicio.'+1 hour')),
-            'lugar' => $lugares,
+            'lugar' => $lugar,
             'capacidad' => $this->faker->numberBetween(10, 30),
             'modalidad' => $this->faker->randomElement(['Presencial', 'Semi-presencial', 'En linea']),
             'course_id' => Course::inRandomOrder()->first()->id,

@@ -18,16 +18,16 @@ class CourseFactory extends Factory
     {
         /* Elige de 1 a 3 departamentos */
         $dirigido = $this->faker->randomElements([
-            'Departamento de Ciencias Básicas',
-            'Departamento de Metal Mecánica',
-            'Departamento de Sistemas y Computación',
-            'Departamento de Ciencias de la Tierra',
-            'Departamento de Ingeniería Química',
-            'Departamento de Ingeniería Industrial',
-            'Departamento de Ingeniería Eléctrica',
-            'Departamento de Ingeniería Electrónica',
-            'Departamento de Ciencias Económico Administrativas',
-            'Departamento de Desarrollo Académico',
+                'Departamento de Ciencias Básicas',
+                'Departamento de Metal Mecánica',
+                'Departamento de Sistemas y Computación',
+                'Departamento de Ciencias de la Tierra',
+                'Departamento de Ingeniería Química',
+                'Departamento de Ingeniería Industrial',
+                'Departamento de Ingeniería Eléctrica',
+                'Departamento de Ingeniería Electrónica',
+                'Departamento de Ciencias Económico Administrativas',
+                'Departamento de Desarrollo Académico',
         ], rand(1, 3));
         $nombres = $this->faker->randomElement([
             'Elaboración de Manuales de Practica',

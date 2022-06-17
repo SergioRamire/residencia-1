@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Notificaciones
+            Notificaciones via electrónica
         </h2>
     </x-slot>
 
@@ -24,12 +24,6 @@
                         <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                     </x-input.icon>
                 </div>
-                <div>
-                    <x-jet-secondary-button wire:click="deleteNoti()" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-red-50">
-                        <x-icon.trash d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" class="inline-block h-5 w-5"/>
-                        Eliminar notificaciones
-                    </x-jet-secondary-button>
-                </div>
 
                 <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Selección de paginación -->
@@ -50,25 +44,15 @@
                     <x-slot name="head">
                         <x-table.header>titulo</x-table.header>
                         <x-table.header>cuerpo</x-table.header>
-                        <x-table.header>Destinatario</x-table.header>
                         <x-table.header>Enviado</x-table.header>
-                        <x-table.header>Opción</x-table.header>
+                        {{-- <x-table.header>Opción</x-table.header> --}}
                     </x-slot>
 
-                    @forelse($postss as $r)
+                    @forelse($emailss as $r)
                             <tr>
                                 <x-table.cell>{{ $r->title }}</x-table.cell>
                                 <x-table.cell>{{ $r->description}}</x-table.cell>
-                                <x-table.cell>{{ $r->role}}</x-table.cell>
                                 <x-table.cell>{{ $r->created_at->diffForHumans()}}</x-table.cell>
-                                <x-table.cell>
-                                    <button wire:click="view({{$r->id}})" type="button" class="text-indigo-600 hover:text-indigo-900">
-                                        <x-icon.eye class="h-6 w-6"/>
-                                    </button>
-                                    <button  wire:click="deletePost('{{$r->id}}' , '{{$r->title}}')" type="button" class="text-red-600 hover:text-red-900">
-                                        <x-icon.trash class="h-6 w-6"/>
-                                    </button>
-                                </x-table.cell>
                             </tr>
                     @empty
                         <tr>
@@ -88,7 +72,7 @@
                     @endforelse
                 </x-table>
                 <div>
-                    {{ $postss->links() }}
+                    {{ $emailss->links() }}
                 </div>
             </div>
         </div>
@@ -96,9 +80,9 @@
 
     <!-- Modales -->
     @if($create)
-        @include('livewire.admin.notifications.edit')
+        @include('livewire.admin.emailss.edit')
     @endif
-    @if($confirmingPartDeletion)
+    {{-- @if($confirmingPartDeletion)
         @include('livewire.admin.notifications.destroy')
     @endif
     @if($confirminNotificacion)
@@ -106,5 +90,6 @@
     @endif
     @if($showViewModal)
         @include('livewire.admin.notifications.show')
-    @endif
+    @endif --}}
 </div>
+

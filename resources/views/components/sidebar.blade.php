@@ -171,6 +171,24 @@
                 </x-sidebar.link>
                 @endcan
 
+                @can('sendemail.show')
+                    <x-sidebar.dropdown title="Envio de Notificaciones" dp-id="1">
+                        <x-slot name="icon" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                        </x-slot>
+                        <x-sidebar.link class="pl-11" :href='route("admin.email")' :active='request()->route("admin.email")'>
+                            Notificaciones via email
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.post")' :active='request()->route("admin.post")'>
+                            Notificaciones en el sistema
+                        </x-sidebar.link>
+                    </x-sidebar.dropdown>
+                @endcan
+
+                <x-sidebar.link href="{{route('post.index')}}">
+                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></x-slot>
+                    Notificationes recibidas
+                </x-sidebar.link>
             </nav>
         </div>
     </div>
@@ -346,6 +364,20 @@
                 </x-sidebar.link>
                 @endcan
 
+                @can('sendemail.show')
+                    <x-sidebar.dropdown title="Envio de Notificaciones" dp-id="1">
+                        <x-slot name="icon" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+                        </x-slot>
+                        <x-sidebar.link class="pl-11" :href='route("admin.email")' :active='request()->route("admin.email")'>
+                            Notificaciones via email
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.post")' :active='request()->route("admin.post")'>
+                            Notificaciones en el sistema
+                        </x-sidebar.link>
+                    </x-sidebar.dropdown>
+                @endcan
+
                 {{-- @can('user_show')
                     <x-sidebar.dropdown title="Constancias" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
@@ -361,10 +393,10 @@
                     Reports
                 </x-sidebar.link> --}}
 
-                {{-- <x-sidebar.link href="{{route('post.index')}}">
+                <x-sidebar.link href="{{route('post.index')}}">
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></x-slot>
-                    Notifications
-                </x-sidebar.link> --}}
+                    Notificationes recibidas
+                </x-sidebar.link>
             </nav>
         </div>
     </div>

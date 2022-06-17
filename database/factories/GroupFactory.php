@@ -16,12 +16,12 @@ class GroupFactory extends Factory
      */
     public function definition()
     {
-        $nombre = [
-            'ISA','ISB','ISC','ISD',
-        ];
+        $nombre = $this->faker->randomElement([
+            'ISA','ISB','ISC','LAA','LAS','LASB','IGA','IGS', 'ICA','ICB','ICC','III','HAK'
+        ]);
         return [
-            'nombre' => rtrim($this->faker->sentence(1), '.'),
-            // 'nombre' => $this->faker->$nombre,
+            // 'nombre' => rtrim($this->faker->sentence(1), '.'),
+            'nombre'=> $nombre,
         ];
     }
 }

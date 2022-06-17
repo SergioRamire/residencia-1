@@ -32,6 +32,7 @@ class PostController extends Component
     public $confirmingPartDeletion = false;
     public $confirmingSaveParti = false;
     public $confirminNotificacion=false;
+    public $deletetodasnotifi= false;
 
     //Variables de busqueda y paginación
     public int $perPage = 5;
@@ -176,4 +177,42 @@ class PostController extends Component
         $this->confirminNotificacion= false;
     }
 
+    public function deletetodasnoti(){
+        // $this->deletetodasnotifi=true;
+        auth()->user()->Notifications->each->delete();
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'trash',
+            'message' =>  'Notificaciones eliminadas exitosamente!!!',
+        ]);
+    }
+
+    // public function deleteNotificationsleidas(){
+    //     auth()->user()->Notifications->each->delete();
+    //     $this->deletetodasnotifi= false;
+    // }
+
+    public function markAsRead(){
+        auth()->user()->unreadNotifications->markAsRead();
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'trash',
+            'message' =>  'Notificaciones marcada como leídas',
+        ]);
+    }
+
+    public function markoneAsRead($id){
+        auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'trash',
+            'message' =>  'Notificación marcada como leída',
+        ]);
+    }
+
+    public function deletfullnotifyread(){
+        auth()->user()->readNotifications->each->delete();
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'trash',
+            'message' =>  'Notificación leíadas eliminadas exitosamente...',
+        ]);
+    }
 }
+

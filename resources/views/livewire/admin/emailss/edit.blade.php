@@ -1,6 +1,6 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditModal">
     <x-slot name="title">
-       Enviar Notificación
+       Enviar notificacion
     </x-slot>
     <x-slot name="content">
         <form  id="courseForm">
@@ -19,7 +19,13 @@
                 <x-jet-input-error for="arr.description"/>
             </div>
 
-            <div class="mt-4 sm:flex-1">
+            {{-- <div class="mt-4">
+                <x-jet-label for="description" value="{{ __('Descripción') }}" />
+                <x-input.error wire:model="arr.description" class="block mt-1 w-full" type="text" id="description" name="description" for="description" required/>
+                <x-jet-input-error for="arr.description"/>
+            </div> --}}
+
+            {{-- <div class="mt-4 sm:flex-1">
                 <x-jet-label for="rol" value="Destinatario"/>
                 <x-input.select wire:model.defer="arr.role" id="rol" class="mt-1 w-full" name="rol">
                         <option value="" disabled>Selecciona</option>
@@ -28,7 +34,7 @@
                         <option value="Todos">Todos</option>
                 </x-input.select>
                 <x-jet-input-error for="arr.role"/>
-            </div>
+            </div> --}}
 
         </form>
     </x-slot>

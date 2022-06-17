@@ -11,7 +11,6 @@
 
     <!-- El resto -->
     {{-- <div class="flex-1 px-4 flex justify-between">
-
         <!-- Barra búsqueda -->
         <div class="flex-1 flex">
             <form class="w-full flex md:ml-0" action="#" method="GET">
@@ -80,9 +79,10 @@
 
                     @forelse (auth()->user()->unreadNotifications->take(5) as $notification)
                         <x-nav.link  href="{{route('post.index')}}">
-                            {{$notification->data['title']}}
+                            <p class="font-black text-left">{{$notification->data['title']}} </p>
+                            <p class="italic text-xs text-right leading-3">{{$notification->created_at->diffForHumans()}}</p>
                         </x-nav.link>
-                        <span>{{$notification->created_at->diffForHumans()}}</span>
+
                     @empty
                         <x-nav.link>Sin notificaciones por leer</x-nav.link>
                     @endforelse
@@ -93,15 +93,17 @@
                     <x-nav.separator value="Notificaciones leídas"/>
                     @forelse (auth()->user()->readNotifications->take(3) as $notification)
                         <x-nav.link  href="{{route('post.index')}}">
-                            {{$notification->data['title']}}
+                            <p class="font-black text-left">{{$notification->data['title']}}</p>
+                            <p class="italic text-xs text-right leading-3">{{$notification->created_at->diffForHumans()}}</p>
                         </x-nav.link>
-                        <span>{{$notification->created_at->diffForHumans()}}</span>
                     @empty
-                        <x-nav.link>Sin notificaciones leídas</x-nav.link>
+                        <x-nav.link disabled>Sin notificaciones leídas</x-nav.link>
                     @endforelse
 
                     <div class="border-t border-gray-200"></div>
-
+                    {{-- <div>
+                        <a href="{{route('markAsRead')}}">dddd</a>
+                    </div> --}}
                     <div>
                         <button href="{{route('markAsRead')}}" class="mt-2 mx-auto inline-flex items-center w-full py-1 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring focus:ring-indigo-300 disabled:opacity-25 transition"
                                 title="Marcar todo como leído">
@@ -118,7 +120,7 @@
 
                 <!-- Botón del desplegable e icono -->
                 <div class="flex items-center">
-                    <p class="hidden md:block mr-2 tracking-wide text-sm font-medium text-gray-500">{{ Str::words(Auth::user()->name, 1, '') }}</p>
+                    <p class="hidden md:block mr-2 tracking-wide text-sm font-medium text-gray-500">{{ Str::words(Auth::user()->name, 1,' ')}}{{ Str::words(Auth::user()->apellido_paterno,1)}}{{' '}}{{ Str::words(Auth::user()->apellido_materno) }}</p>
                     <button @click="navbarProfileOpen = !navbarProfileOpen" type="button" class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span class="sr-only">Open user menu</span>
                         <img class="h-8 w-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="Profile photo">

@@ -17,6 +17,7 @@ use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\StudyingController;
 use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\PostController;
+use App\Http\Livewire\Admin\EmailController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -87,30 +88,32 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:profile.show')->prefix('user')->name('user.')
         ->get('perfil', ProfileController::class)->name('perfil');
 
-    Route::get('post', PostController::class)->name('post');
+    Route::middleware('can:sendnotify.show')->prefix('admin')->name('admin.')
+    ->get('post', PostController::class)->name('post');
 
+    //ruta para visualizar de todas las notificaciones del usuario
     Route::resource('post', PostController::class);
 
     // Ruta para marcar como leída las notificaciones
     Route::get('markAsRead', function (){
-        auth()->user()->unreadNotifications->markAsRead();
+        app(PostController::class)->markAsRead();
         return redirect()->back();//te retorna a la misma vista
     })->name('markAsRead');
      // Ruta para eliminar todas sus notifications
     Route::get('destroyNotificationsss', function (){
-        auth()->user()->Notifications->each->delete();
+        app(PostController::class)->deletetodasnoti();
         return redirect()->back();//te retorna a la misma vista
     })->name('destroyNotificationsss');
 
     // Ruta para eliminar todas sus notifications lídas
     Route::get('destroyNotifications', function (){
-        auth()->user()->readNotifications->each->delete();
+        app(PostController::class)->deletfullnotifyread();
         return redirect()->back();//te retorna a la misma vista
     })->name('destroyNotifications');
 
     //Ruta para marcar una notificación como marcada
     Route::get('marcarunanoti/{id}', function ($id){
-        auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+        app(PostController::class)->markoneAsRead($id);
         return redirect()->back();//te retorna a la misma vista
     })->name('marcarunanoti');
 
@@ -122,4 +125,6 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         return redirect()->back();//te retorna a la misma vista
     })->name('markNotificationone');
 
+    Route::middleware('can:sendemail.show')->prefix('admin')->name('admin.')
+        ->get('email', EmailController::class)->name('email');
 });
