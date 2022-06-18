@@ -253,7 +253,9 @@ class InscriptionsController extends Component
                         'asistencias_minimas' => 0,
                     ]);
         }
+        
 
+        return redirect()->route('participant.studying');
         // $this-> noti('success','Horario creado Exitosamente');
     }
 
@@ -271,4 +273,11 @@ class InscriptionsController extends Component
         ]);
     }
 
+    public bool $flag = false;  
+
+    public function alter()
+    {
+        $this->confirmingSaveInscription = false;
+        $this->flag = true;
+    }
 }

@@ -59,9 +59,10 @@
                     </div>
                     @if ($btnContinuar)
                         <div class="mt-4 flex justify-end">
-                            <x-jet-button wire:click="addHorario" type="button" class="bg-[#1b396a] text-#fff">
-                                Continuar
-                            </x-jet-button>
+                            
+                    <x-jet-secondary-button wire:click="addHorario()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                            Continuar
+                    </x-jet-secondary-button>
                         </div>
                     @endif
                 </div>
@@ -73,12 +74,14 @@
     <div class="space-y-2 pt-8">
         <div class="grid grid-cols-2 justify-center">
             <div class="grid justify-center">
-                <x-jet-button class="bg-[#1b396a] text-#fff" wire:click="switchbtn1">Cursos de la Semana 1
-                </x-jet-button>
+                <x-jet-secondary-button wire:click="switchbtn1()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                        Cursos de la Semana 1
+                </x-jet-secondary-button>
             </div>
             <div class="grid justify-center">
-                <x-jet-button class="bg-[#1b396a] text-#fff" wire:click="switchbtn2">Cursos de la Semana 2
-                </x-jet-button>
+                <x-jet-secondary-button wire:click="switchbtn2()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                        Cursos de la Semana 2
+                </x-jet-secondary-button>
             </div>
         </div>
 
