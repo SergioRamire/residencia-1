@@ -1,5 +1,7 @@
 <div>
 
+
+@if ($disponible)
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
             Proceso de Inscripción
@@ -234,5 +236,19 @@
     </div>
     @include('livewire.admin.inscriptions.anuncio')
     @include('livewire.admin.inscriptions.horario')
+
+@endif
+    
+@if ($disponible == false)
+    <div class="flex flex-col rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+        <div class="px-4 w-full bg-gray-200  rounded-t-lg">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>
+        </div>
+        <div class="p-8 w-full bg-white rounded-b-lg">
+            <p class="font-normal text-gray-700">Aun no puedes seleccionar cursos.</p>
+        </div>
+    </div>
+        
+@endif
 
 </div>

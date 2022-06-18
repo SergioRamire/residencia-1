@@ -272,7 +272,7 @@ class InscriptionsController extends Component
             'message' => $txt,
         ]);
     }
-
+    /* Para cambiar al modal final para redirecion */
     public bool $flag = false;  
 
     public function alter()
@@ -280,4 +280,8 @@ class InscriptionsController extends Component
         $this->confirmingSaveInscription = false;
         $this->flag = true;
     }
+
+    /* Verificacion si hay cursos */
+    public $disponible = false;
+    
 }
