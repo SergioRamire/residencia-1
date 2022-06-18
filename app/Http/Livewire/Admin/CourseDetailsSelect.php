@@ -69,8 +69,11 @@ class CourseDetailsSelect extends Component
         $this->query = 'todos';
     }
     public function selectCur($valor){
-        $aux = Course::find($valor);
-        $this->txt = $aux->nombre;
+        $aux = CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
+            ->where('course_details.id', '=', $valor)
+            ->select('courses.*')
+            ->get();
+        $this->txt =  $aux[0]->nombre;
         $this->emit('data_send',$valor);
         $this->reset2();
     }
