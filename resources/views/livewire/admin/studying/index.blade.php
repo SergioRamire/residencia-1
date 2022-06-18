@@ -10,35 +10,29 @@
 
     <div class="grid grid-cols-3">
         @foreach ($datos as $data)
-            <div class="flex flex-col p-6 m-4 max-w-md bg-white rounded-lg border border-gray-200 shadow-md ">
-                <div class="flex flex-row">
-                    <div>{{-- Icono --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                        </svg>
+            <div class="flex flex-col m-2 max-w-md bg-#white rounded-lg border shadow-md ">
+                <div class="flex flex-row p-2 m-4 bg-white text-black  border shadow-md">
+                    <div class="mr-2 text-[#1b396a] h-12 w-12">{{-- Icono --}}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm2 10a1 1 0 10-2 0v3a1 1 0 102 0v-3zm2-3a1 1 0 011 1v5a1 1 0 11-2 0v-5a1 1 0 011-1zm4-1a1 1 0 10-2 0v7a1 1 0 102 0V8z" clip-rule="evenodd" />
+                          </svg>
                     </div>
                     <div>
-                        <span class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{{ $data->curso_clave }} -</span>
-                        <span class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{{ $data->curso_nombre }}</span>
-                        <span class="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">({{ $data->nombre_grupo }})
+                        <span class="mb-2 text-2xl tracking-tight ">{{ $data->curso_clave }} -</span>
+                        <span class="mb-2 text-2xl font-bold tracking-tight ">{{ $data->curso_nombre }}</span>
+                        <span class="mb-2 text-2xl tracking-tight ">({{ $data->nombre_grupo }})
                         </span>
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-center">
-                    <p class="mb-3 font-normal text-gray-700 ">Instructor: Here are the biggest enterprise</p>
-                    <p class="mb-3 font-normal text-gray-700 ">Califiacion Final: {{ $data->califi }}</p>
+                <div class="flex flex-col justify-center  px-6 mx-4 mb-">
+                    <p class="mb-3 font-normal ">Instructor: Here are the biggest enterprise</p>
+                    <p class="mb-3 font-normal ">Califiacion Final: {{ $data->califi }}</p>
+                </div>
+                    
+                <div class="flex flex-col justify-center  px-6 mx-4 mb-2 text-white bg-[#1b396a]">
                     <p>{{ $data->f1 }} - {{ $data->f2 }}</p>
                     <p>{{ $data->h1 }} - {{ $data->h2 }}</p>
-                </div>
-
-                <div class="flex flex-col justify-end">
-                    <x-jet-secondary-button wire:click=""
-                        class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
-                        <x-icon.info solid alt="sm" class="inline-block h-5 w-5" /> Ver Programa
-                    </x-jet-secondary-button>
                 </div>
             </div>
         @endforeach
