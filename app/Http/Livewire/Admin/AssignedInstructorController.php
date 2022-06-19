@@ -133,6 +133,7 @@ class AssignedInstructorController extends Component
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
+            // ->join('inscriptions','inscriptions.course_detail_id','=','course_details.id')
             ->when($this->search, fn ($query, $search) => $query
                 ->where('courses.nombre', 'like', "%$search%")
                 ->orWhere('groups.nombre', 'like', "%$search%")

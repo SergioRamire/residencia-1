@@ -60,8 +60,8 @@
                     <x-slot name="trigger">
                         <button
                             class="inline-flex justify-center w-full rounded-md border hover:border-gray-400 shadow-sm px-2.5 py-2.5 bg-white font-medium focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                            :class="open ? 'text-indigo-400 hover:text-indigo-500 border-indigo-500' :
-                                'text-gray-400 hover:text-gray-500 border-gray-300'">
+                            :class="open ? 'text-indigo-400 hover:text-indigo-500 border-sky-800' :
+                                'text-gray-400 hover:text-gray-500 border-sky-800'">
                             @if (in_array(true, $filters))
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                     fill="currentColor">
