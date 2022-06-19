@@ -129,7 +129,7 @@
                     </x-slot>
 
                     @forelse($users as $u)
-                        <tr wire:key="user-{{ $u->id }}" wire:loading.class.delay="opacity-50">
+                        <tr wire:key="user-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell>{{ $u->rfc }}</x-table.cell>
                             <x-table.cell>{{ $u->nombre_completo }}</x-table.cell>
                             <x-table.cell>{{ $u->area->nombre ?? '' }}</x-table.cell>

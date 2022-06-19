@@ -67,6 +67,7 @@ class AreaController extends Component
 
     public function create()
     {
+        $this->resetErrorBag();
         $this->resetInputFields();
         $this->openModal();
         $this->edit = false;
@@ -129,6 +130,7 @@ class AreaController extends Component
 
     public function edit($id)
     {
+        $this->resetErrorBag();
         $area = Area::findOrFail($id);
         $this->area_id = $id;
         $this->clave = $area->clave;

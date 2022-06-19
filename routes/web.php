@@ -14,6 +14,7 @@ use App\Http\Livewire\Admin\ParticipantListsController;
 use App\Http\Livewire\Admin\PeriodCoursesController;
 use App\Http\Livewire\Admin\ProfileController;
 use App\Http\Livewire\Admin\RoleController;
+use App\Http\Livewire\Admin\StudyingController;
 use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\PostController;
 use App\Http\Livewire\Admin\EmailController;
@@ -45,28 +46,31 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:user.show')->prefix('admin')->name('admin.')
         ->get('usuarios', UserController::class)->name('usuarios');
 
-    Route::middleware('can:user.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:constancy.show')->prefix('admin')->name('admin.')
         ->get('constancias', ConstanciasController::class)->name('constancias');
 
-    Route::middleware('can:user.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:instructor.show')->prefix('admin')->name('admin.')
         ->get('instructores', InstructorCurseController::class)->name('instructores');
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('roles', RoleController::class)->name('roles');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:studying.show')->prefix('participat')->name('participant.')
+        ->get('mis-cursos', StudyingController::class)->name('studying');
+
+    Route::middleware('can:area.show')->prefix('admin')->name('admin.')
         ->get('areas', AreaController::class)->name('area');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:group.show')->prefix('admin')->name('admin.')
         ->get('grupos', GroupController::class)->name('group');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:qualification.edit')->prefix('instructor')->name('instr.')
         ->get('Asignar-calificacion', GradeController::class)->name('grades');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:period.show')->prefix('admin')->name('admin.')
         ->get('periodos-cursos', PeriodCoursesController::class)->name('periods-courses');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:coursedetails.show')->prefix('admin')->name('admin.')
         ->get('detalles-cursos', CourseDetailsController::class)->name('coursedetail');
 
     Route::middleware('can:course.show')->prefix('admin')->name('admin.')
@@ -75,20 +79,20 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
 
-    Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:inscription.create')->prefix('participant')->name('part.')
         ->get('inscription', InscriptionsController::class)->name('inscription');
 
-    Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
-        ->get('asig', AssignedInstructorController::class)->name('asig');
+    Route::middleware('can:assigninstructor.show')->prefix('admin')->name('admin.')
+        ->get('asignar-instructor', AssignedInstructorController::class)->name('asignarinstructor');
 
-    Route::get('Listaparticipantes', ParticipantListsController::class)->name('participantLists');
+    Route::middleware('can:participantlists.show')->prefix('admin')->name('admin.')
+        ->get('lista-participantes', ParticipantListsController::class)->name('participantLists');
 
-    Route::get('perfil', ProfileController::class)->name('perfil');
+    Route::middleware('can:profile.show')->prefix('user')->name('user.')
+        ->get('perfil', ProfileController::class)->name('perfil');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:sendnotify.show')->prefix('admin')->name('admin.')
     ->get('post', PostController::class)->name('post');
-
-    Route::get('post', PostController::class)->name('post');
 
     //ruta para visualizar de todas las notificaciones del usuario
     Route::resource('post', PostController::class);
@@ -124,7 +128,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         return redirect()->back();//te retorna a la misma vista
     })->name('markNotificationone');
 
-    Route::middleware('can:role.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:sendemail.show')->prefix('admin')->name('admin.')
         ->get('email', EmailController::class)->name('email');
 
     Route::get('/algo', function (UserExport $userExport) {

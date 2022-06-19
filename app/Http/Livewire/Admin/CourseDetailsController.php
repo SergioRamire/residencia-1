@@ -19,7 +19,7 @@ class CourseDetailsController extends Component
     public CourseDetail $coursedetail;
     public $perPage = '5';
     public $search = '';
-    public $curso;
+    public $curso ;
     public $curso_elegido;
     public $periodo_elegido;
     public $grupo_elegido;
@@ -34,6 +34,7 @@ class CourseDetailsController extends Component
     public $busq;
     public $edit = false;
     public $create = false;
+    public $modal = false;
 
     public array $classification = [
         'curso' => '',
@@ -56,6 +57,7 @@ class CourseDetailsController extends Component
 
     public function create()
     {
+        $this->resetErrorBag();
         $this->resetInputFields();
         $this->openModal();
         $this->edit = false;
@@ -163,34 +165,47 @@ class CourseDetailsController extends Component
 
     public function edit($id)
     {
+        $this->resetErrorBag();
         $coursedetail = CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
-                                      ->join('periods', 'periods.id', 'course_details.period_id')
-                                      ->select('course_details.id','course_details.group_id',
-                                                'course_details.hora_inicio','course_details.hora_fin',
-                                                'course_details.capacidad','course_details.lugar',
-                                                'course_details.modalidad','courses.id as curso','periods.id as periodo')
-                                      ->where('course_details.id', '=', $id)
-                                      ->first();
+            ->join('periods', 'periods.id', 'course_details.period_id')
+            ->select('course_details.id','course_details.group_id',
+                    'course_details.hora_inicio','course_details.hora_fin',
+                    'course_details.capacidad','course_details.lugar',
+                    'courses.id as curso','periods.id as periodo')
+            ->where('course_details.id', '=', $id)
+            ->first();
         $this->coursedetail_id = $id;
         $this->grupo_id = $coursedetail->group_id;
-        $this->curso = $coursedetail->curso;
+        $this->curso_elegido = $coursedetail->curso;
         $this->period = $coursedetail->periodo;
         $this->hora_inicio = $coursedetail->hora_inicio;
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
         $this->modalidad = $coursedetail->modalidad;
         $this->lugar = $coursedetail->lugar;
-        $this->edit = true;
-        $this->create = false;
-        $this->openModal();
+
+        $this->emit("valorCurso");
+        // $this->edit = true;
+        // $this->create = false;
+        // $this->openModal();
+    }
+    public function save()
+    {
+
+
+        $this->modal = false;
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'pencil',
+            'message' => 'Detaller de curso actualizado exitosamente',
+        ]);
     }
     public function deleteDetails($id)
     {
         $this->coursedetail = CourseDetail::findOrFail($id);
         $course=CourseDetail::join('courses','courses.id','course_details.course_id')
-                    ->select('courses.nombre as curso')
-                    ->where('course_details.id','=',$id)
-                    ->first();
+            ->select('courses.nombre as curso')
+            ->where('course_details.id','=',$id)
+            ->first();
         $this->curso_elegido=$course->curso;
         $this->confirmingDetailsDeletion = true;
     }
@@ -214,7 +229,6 @@ class CourseDetailsController extends Component
                 ->join('groups', 'groups.id', 'course_details.group_id')
                 ->join('periods', 'periods.id', 'course_details.period_id')
                 ->where('periods.id','=',$this->classification['periodo'])
-                // ->where('course_details.course_id','=',$this->classification['curso'])
                 ->select('course_details.id', 'course_details.lugar', 'course_details.capacidad',
                 'course_details.hora_inicio', 'course_details.hora_fin', 'courses.nombre as curso',
                 'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
@@ -226,8 +240,11 @@ class CourseDetailsController extends Component
         ]);
     }
     public function listaBuscador(){
-        return Course::when($this->busq, fn ($query, $b) => $query
-        ->where('courses.nombre', 'like', "%$b%"))
-        ->get();
+        return Course::all();
+    }
+    public function openModal2($id)
+    {
+        $this->edit($id);
+        $this->modal = true;
     }
 }

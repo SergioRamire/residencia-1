@@ -25,8 +25,8 @@
                                 </span>
                             </h2>
                         </div>
-                        <div class="flex justify-center py-12 px-2">
-                            <form method="get" action="{{ route('admin.inscription') }}">
+                        {{-- <div class="flex justify-center py-12 px-2">
+                            <form method="get" action="{{ route('part.inscription') }}">
                                 <div class="flex items-center justify-center">
                                     <x-jet-button class="ml-4">
                                         Iniciar Inscripcion
@@ -34,9 +34,9 @@
                                 </div>
                             </form>
                             <div class="flex items-center justify-center">
-                                <a href="{{ route('perfil') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">Revisar Informacion</a>
+                                <a href="{{ route('user.perfil') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">Revisar Informacion</a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 

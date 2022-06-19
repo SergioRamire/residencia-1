@@ -13,7 +13,7 @@
                                 <br>
                                 <span class="text-gray-400">Curso: </span>{{ $c->nombre }}
                                 <br>
-                                <span class="text-gray-400">Horario: </span>{{ $c->hora_inicio }} a {{ $c->hora_fin }}
+                                <span class="text-gray-400">Horario: </span> De {{ date("g:i a", strtotime($c->hora_inicio))}} a {{ date("g:i a", strtotime($c->hora_fin))}}
                                 <br>
                                 <span class="text-gray-400">Lugar: </span>{{ $c->lugar }}
                                 <br>
@@ -46,7 +46,7 @@
             Cerrar
         </x-jet-secondary-button>
 
-        <x-jet-button wire:click.prevent="register()" form="courseForm">
+        <x-jet-button class="ml-3" wire:click.prevent="register()" form="courseForm">
             Aceptar
         </x-jet-button>
         @if($confirmingSaveInscription)
