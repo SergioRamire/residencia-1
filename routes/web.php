@@ -20,6 +20,9 @@ use App\Http\Livewire\Admin\EmailController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
+use App\Exports\UserExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 // Use App\Models\User;
 /*
 |--------------------------------------------------------------------------
@@ -123,4 +126,12 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('email', EmailController::class)->name('email');
+
+    Route::get('/algo', function (UserExport $userExport) {
+        // return Excel::download(new UserExport, 'users.xlsx');
+        return $userExport;
+    });
+    Route::get('/xxx', function (Request $request){
+        return $request;
+    });
 });
