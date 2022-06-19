@@ -25,6 +25,7 @@ class UserExport implements FromView
     private $fileName='users.xlsx';
     public $periodo, $curso;
     private $data, $ins;
+    private $imagen ='https://d2jnbxtr5v4vqu.cloudfront.net/images/12-2017_10_19_19_43_18.jpg';
     // private $logo =drawings();
     // private $x;
     /**
@@ -47,6 +48,7 @@ class UserExport implements FromView
         return view('livewire.admin.excel.viewexcel',[
             'data' => $this->data,
             'instructor' => $this->ins,
+            'ima'=>$this->imagen,
         ]);
     }
 

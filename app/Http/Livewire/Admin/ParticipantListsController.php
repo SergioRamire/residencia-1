@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 // use Maatwebsite\Excel\Concerns\FromView;
 use App\Exports\UserExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Invoice;
 
 class ParticipantListsController extends Component
 {
@@ -90,6 +91,7 @@ class ParticipantListsController extends Component
         // $name=$data[0]->curso;
         // return (new UserExport($data))->download('subject.xlsx');
         return Excel::download(new UserExport($data, $ins), 'Lista_Asistencia.xlsx');
+        // return (new UserExport($data, $ins))->download('invoices.csv', Excel::xlsx, ['Content-Type' => 'text/csv']);
     }
 
     public function participants($periodo, $curso, $user)
@@ -106,6 +108,6 @@ class ParticipantListsController extends Component
         ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,
         ' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.rfc as rfc','users.sexo as sex','courses.clave as clave','courses.duracion as duracion'
          ,'courses.nombre as curso','groups.nombre as grupo','course_details.modalidad as modalidad',
-         'areas.nombre as area', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff')->get();
+        'areas.nombre as area', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','course_details.hora_inicio as hi','course_details.hora_fin as hf')->get();
     }
 }

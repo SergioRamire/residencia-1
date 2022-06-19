@@ -1,20 +1,44 @@
 <table>
 
     <thead>
-        <th>
-            {{-- <img src="{{URL::asset('public\img\ico.png')}}" /> --}}
-            {{-- <img src="{{asset('public\img\ico.png')}}"> --}}
-        </th>
-        <th></th>
-        <th></th>
+        <tr>
+            <td rowspan="6"></td>
+            <td style="text-align:center; font-weight: 500;  border: 1px solid # 000000;" rowspan="6">
+                {{-- <img src="{{ public_path().'/img/ico.png' }}" width="100" height="100"/> --}}
+                <img src="{{ public_path().'/img/tecnm.png' }}" width="100" height="100"/>
+            </td>
+            <td style="text-align:center; vertical-align: bottom; font-weight: 500;  border: 1px solid # 000000;" rowspan="3" colspan="7">
+                TECNOLÓGICO NACIONAL DE MÉXICO <br>
+                Instituto Tecnológico de Oaxaca <br>
+
+            </td>
+            <td style="text-align:center; font-weight: 500;  border: 1px solid # 000000;" rowspan="6" colspan="2">
+                <img src="{{ public_path().'/img/ito2.png' }}" width="100" height="100"/>
+            </td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td style="text-align:center; vertical-align: middle; font-size: 16px; font-weight: 500;  border: 1px solid # 000000;" rowspan="3" colspan="7">
+                Lista de Asistencia<br>
+                                   REG-7200-05  Rev.01
+            </td>
+        </tr>
+
     </thead>
     <thead>
-        {{-- <link href="style.css" rel="stylesheet" type="text/css"> --}}
+        {{-- Parte de los titulos del excel --}}
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
         <tr>
             <th></th>
             <th style="text-align:right;">CLAVE DEL CURSO:</th>
             <th style="text-align:left; font-weight: 500;  border-bottom: 1px solid #000000;">{{$data[0]->clave}}</th>
-            {{-- <i>{{$data[0]->clave}}</i> --}}
+            <th></th>
+            <th style="text-align:center; font-weight: 500;" colspan="2">FOLIO:</th>
+            <th style="text-align:center; font-weight: 500; border-bottom: 1px solid #000000;" colspan="2"></th>
         </tr>
         <tr>
             <th></th>
@@ -33,15 +57,19 @@
             $startdate = new \Carbon\Carbon($data[0]->fi);
             $enddate = new \Carbon\Carbon($data[0]->ff);
             @endphp
-            <th>"Del {{$startdate->format('d/m/Y')}} al {{$enddate->format('d/m/Y')}}"</th>
+            <th style="font-weight: 500;  border-bottom: 1px solid #000000;" colspan="2">Del {{$startdate->format('d/m/Y')}} al {{$enddate->format('d/m/Y')}}</th>
             <th></th>
             <th tyle="text-align:right;" colspan="2">DURACIÓN:</th>
             <th style="text-align:center; font-weight: 500;  border-bottom: 1px solid #000000;" colspan="2">{{$data[0]->duracion}} horas</th>
         </tr>
         <tr>
+            @php
+            $starthour= new \Carbon\Carbon($data[0]->hi);
+            $endhour = new \Carbon\Carbon($data[0]->hf);
+            @endphp
             <td></td>
             <th style="text-align:right;">HORARIO:</th>
-            <th>"      "</th>
+            <th style="font-weight: 500;  border-bottom: 1px solid #000000;" colspan="2">{{$starthour->format('H:i')}} A {{$endhour->format('H:i')}} HORAS</th>
         </tr>
         <tr>
             <td></td>
@@ -50,31 +78,30 @@
         </tr>
     </thead>
     <thead>
+        {{-- encabezados de la tabla --}}
     <tr style = "border: 1px solid # 000000;">
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000; height: 30px;">No.</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000;">NOMBRE DEL PARTICIPE:</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000;">R.F.C</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000;">ÁREA DE ADSCRIPCIÓN</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000;" colspan="5">ASISTENCIA</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000; width: 100px;">CALIFICACION</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000; width: 50px;">F</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000; width: 50px;">M</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; height: 20px;" rowspan="2">No.</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">NOMBRE DEL PARTICIPE:</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">R.F.C</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">ÁREA DE ADSCRIPCIÓN</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;" colspan="5">ASISTENCIA</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 100px;">CALIFICACION</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;" rowspan="2">F</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;" rowspan="2">M</th>
     </tr>
     <tr>
         <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
         <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
         <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
-        <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000; width: 45px;" >L</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">M</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">M</th>
-        <th style="text-align:center; background: #c5c3c3; font-weight: 500;border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 45px;">J</th>
-        <th style="text-align:center; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">V</th>
-        <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
-        <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
-        <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;" >L</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">M</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">M</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">J</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">V</th>
+        <th style="background: #c5c3c3;  border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
     </tr>
     </thead>
+    {{-- cuerpo de la tabla --}}
     <tbody>
         @php
         $k = 0;
@@ -84,10 +111,10 @@
         $k++;
         @endphp
         <tr>
-            <td style="text-align:center; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 55px;">{{$k}}</td>
-            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border: 1px solid # 000000; width: 250px;">{{ $invoice->nombre}}</td>
-            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 100px;">{{ $invoice->rfc}}</td>
-            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 300px;">{{ $invoice->area}}</td>
+            <td style="text-align:center; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 45px;">{{$k}}</td>
+            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border: 1px solid # 000000; width: 235px;">{{ $invoice->nombre}}</td>
+            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 110px;">{{ $invoice->rfc}}</td>
+            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 285px;">{{ $invoice->area}}</td>
             <td style="text-align:center; background: #ebebeb; border: 1px solid # 000000;"> </td>
             <td style="text-align:center; background: #ebebeb; border: 1px solid # 000000;"> </td>
             <td style="text-align:center; background: #ebebeb; border: 1px solid # 000000;"> </td>
