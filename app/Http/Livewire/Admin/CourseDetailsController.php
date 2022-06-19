@@ -228,7 +228,11 @@ class CourseDetailsController extends Component
             'detalles'=>CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
                 ->join('groups', 'groups.id', 'course_details.group_id')
                 ->join('periods', 'periods.id', 'course_details.period_id')
+                // ->when($this->classification['curso'], fn ($query, $search) => $query
+                //     ->where('courses.id', $search)
+                //     )
                 ->where('periods.id','=',$this->classification['periodo'])
+                ->where('courses.id','=',$this->classification['curso'])
                 ->select('course_details.id', 'course_details.lugar', 'course_details.capacidad',
                 'course_details.hora_inicio', 'course_details.hora_fin', 'courses.nombre as curso',
                 'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
@@ -246,5 +250,18 @@ class CourseDetailsController extends Component
     {
         $this->edit($id);
         $this->modal = true;
+    }
+
+    
+    protected $listeners = [
+        'per_send',
+        'data_send',
+    ];
+    public function per_send($valor){
+        $this->classification['periodo'] = $valor;
+    }
+    public function data_send($valor){
+        $this->classification['curso'] = $valor;
+        $this->id_detalle_curso = $valor;
     }
 }

@@ -30,9 +30,9 @@ class ParticipantListsController extends Component
         'departamento' => '',
     ];
     public bool $consulta = false;
-    // public $peri;
+    public $peri;
     // public $grupo;
-    // public $curso;
+    public $curso;
     // public $periodo;
     protected $queryString = [
         'perPage' => ['except' => 5, 'as' => 'p'],
@@ -53,6 +53,7 @@ class ParticipantListsController extends Component
         ' ', users.apellido_materno) as nombre"),'users.name','users.apellido_paterno','users.apellido_materno'
          ,'courses.nombre as curso','groups.nombre as grupo',
          'areas.nombre as area', 'periods.fecha_inicio', 'periods.fecha_fin')
+        //  ->when($curso, fn ($query, $search) => $query->where('courses.id', $search))
          ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
          ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
          ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,
@@ -72,5 +73,17 @@ class ParticipantListsController extends Component
             ->paginate($this->perPage),
         ]);
         $this->resetFilters();
+    }
+
+
+    protected $listeners = [
+        'per_send',
+        'data_send',
+    ];
+    public function per_send($valor){
+        $this->classification['periodo'] = $valor;
+    }
+    public function data_send($valor){
+        $this->classification['curso'] = $valor;
     }
 }

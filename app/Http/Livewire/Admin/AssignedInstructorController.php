@@ -5,11 +5,14 @@ namespace App\Http\Livewire\Admin;
 use App\Models\CourseDetail;
 use App\Models\User;
 use App\Models\Period;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class AssignedInstructorController extends Component
 {
 
+    use WithPagination;
 
     protected array $cleanStringsExcept = ['search'];
     public $datos = '';
@@ -17,7 +20,12 @@ class AssignedInstructorController extends Component
     public $horai;
     public $horaf;
     public $id_instructor;
+    
     public int $perPage = 5;
+    protected $queryString = [
+        'perPage' => ['except' => 5, 'as' => 'p'],
+    ];
+
     public array $classification = [
         'curso' => '',
         'periodo' => '',
@@ -73,12 +81,14 @@ class AssignedInstructorController extends Component
 
     public function render()
     {
+        
         $this->valores();
         return view('livewire.admin.assignedInstructor.index', [
             'datoscurso' => $this->consultacurso($this->classification['periodo'], $this->classification['curso'], $this->classification['grupo']),
             'datosuser' => $this->consultauser(),
-            'datosTabla' => $this->consultaTabla(),
+            'datosTabla' => $this->consultaTabla()->paginate($this->perPage),
             'datosPer' => $this->consultaper(),
+            'listaIns' => $this->consultaDocentes(),
         ]);
     }
 
@@ -106,7 +116,8 @@ class AssignedInstructorController extends Component
             ->where('course_details.period_id', '=', $idp)
             ->where('course_details.course_id', '=', $idc)
             ->where('course_details.group_id', '=', $idg)
-            ->get();
+            ->get()
+            ;
     }
     public function consultauser(){
         return User::all();
@@ -128,22 +139,23 @@ class AssignedInstructorController extends Component
     }
 
     public $search = '';
-    public function consultaTabla()
-    {
+    public function consultaTabla(){
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
+            ->join('inscriptions','inscriptions.course_detail_id','course_details.id')
+            ->where('inscriptions.estatus_participante','like','Instructor')
             ->when($this->search, fn ($query, $search) => $query
                 ->where('courses.nombre', 'like', "%$search%")
                 ->orWhere('groups.nombre', 'like', "%$search%")
                 ->orWhere('course_details.lugar', 'like', "%$search%")
                 )
-            ->when($this->classification['periodo'], fn ($query, $search) => $query
-                ->where('periods.id', '=', $search))
-            ->when($this->classification['curso'], fn ($query, $search) => $query
-                ->where('course_details.id', '=', $search))
-            // ->where('periods.id',$this->classification['periodo'])
-            // ->where('course_details.id', $this->classification['curso'])
+            // ->when($this->classification['periodo'], fn ($query, $search) => $query
+            //     ->where('periods.id', '=', $search))
+            // ->when($this->classification['curso'], fn ($query, $search) => $query
+            //     ->where('courses.id', '=', $search))
+            ->where('periods.id',$this->classification['periodo'])
+            ->where('courses.id', $this->classification['curso'])
             ->select(
                 'courses.nombre as cnombre',
                 'groups.nombre as gnombre',
@@ -151,16 +163,76 @@ class AssignedInstructorController extends Component
                 'periods.fecha_inicio as f1',
                 'periods.fecha_inicio as f2',
                 'course_details.id as idcurdet',
-            )
-            ->get();
+            ) 
+            ->distinct()
+            // ->get()
+            ;
     }
     public $modalEdit = false;
     public $id_per;
-    public function openModal($id){
+    public $create = false;
+    public $show = false;
+    public $delet = false;
+
+
+    public $id_detalle_curso2;
+
+    public function openModalCreate($id){
         $this->id_detalle_curso = $id;
         $this->modalEdit = true;
+        $this->create = true;
+        $this->show = false;
+        $this->delet = false;
+    }
+    public function openModalShow($id){
+        $this->id_detalle_curso2 = $id;
+        $this->modalEdit = true;
+        $this->create = false;
+        $this->show = true;
+        $this->delet = false;
+    }
+    public function openModalDelete($id){
+        $this->id_detalle_curso2 = $id;
+        $this->modalEdit = true;
+        $this->create = false;
+        $this->show = false;
+        $this->delet = true;
     }
     public function closeModal(){
         $this->modalEdit = false;
+        $this->create = false;
+        $this->show = false;
+        $this->delet = false;
+    }
+
+    public function consultaDocentes(){
+        return User::join('inscriptions','inscriptions.user_id','users.id')
+        ->join('course_details','course_details.id','inscriptions.course_detail_id')
+        ->where('course_details.id',$this->id_detalle_curso2)
+        ->where('inscriptions.estatus_participante','like','Instructor')
+        ->select('users.id as idu', 'users.name as n', 'users.apellido_paterno as ap1', 'users.apellido_materno as ap2',
+            'inscriptions.id as idi',)
+        ->get();
+    }
+    public $id_ins_delete;
+    public $modaldelete = false;
+
+    public function delete(){
+        $this->modaldelete = true;
+    }  
+    public function delete2($id){
+        $this->id_ins_delete = $id;
+        $this->modaldelete = true;
+    }   
+    public function destroy()
+    {
+        DB::table('inscriptions')
+            ->delete($this->id_ins_delete);
+        $this->id_ins_delete = null;
+        $this->modaldelete = false;
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'trash',
+            'message' =>  'Instructor eliminado exitosamente',
+        ]);
     }
 }

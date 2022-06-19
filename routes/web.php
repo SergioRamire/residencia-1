@@ -7,6 +7,7 @@ use App\Http\Livewire\Admin\CourseController;
 use App\Http\Livewire\Admin\CourseDetailsController;
 use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
+use App\Http\Livewire\Admin\HistoryCourse;
 use App\Http\Livewire\Admin\InscriptionsController;
 use App\Http\Livewire\Admin\InstructorCurseController;
 use App\Http\Livewire\Admin\ParticipantController;
@@ -121,5 +122,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         ->where('id', $request)->markAsRead();
         return redirect()->back();//te retorna a la misma vista
     })->name('markNotificationone');
-
+    
+    Route::middleware('can:historycourse.show')->prefix('admin')->name('admin.')
+        ->get('historial-cursos', HistoryCourse::class)->name('historycourse');
 });

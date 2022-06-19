@@ -141,6 +141,9 @@
                         <x-sidebar.link class="pl-11" :href='route("admin.asignarinstructor")' :active='request()->route("admin.asignarinstructor")'>
                             Asignar Instructor
                         </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active='request()->route("admin.historycourse")'>
+                            Historial de Cursos
+                        </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan
 
@@ -294,6 +297,9 @@
                         </x-sidebar.link>
                         <x-sidebar.link class="pl-11" :href='route("admin.asignarinstructor")' :active='request()->route("admin.asignarinstructor")'>
                             Asignar Instructor
+                        </x-sidebar.link>
+                        <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active='request()->route("admin.historycourse")'>
+                            Historial de Cursos
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan

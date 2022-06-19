@@ -52,7 +52,8 @@ class CourseDetailsSelect extends Component
             return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->where('course_details.period_id', '=', $this->id_periodo )
-            ->select('course_details.id as id', 'courses.nombre', 'courses.clave')
+            ->select('courses.id as idc', 'courses.nombre', 'courses.clave')
+            ->distinct()
             ->get();
         } else {
             return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
@@ -61,7 +62,8 @@ class CourseDetailsSelect extends Component
             ->when($this->valor, fn ($query2, $b) => $query2
                 ->where('courses.nombre', 'like', "%$b%")
                 ->orWhere('courses.clave', 'like', "%$b%"))
-            ->select('course_details.id as id', 'courses.nombre', 'courses.clave')
+            ->select('courses.id as idc', 'courses.nombre', 'courses.clave')
+            ->distinct()
             ->get();
         }
     }
@@ -69,11 +71,10 @@ class CourseDetailsSelect extends Component
         $this->query = 'todos';
     }
     public function selectCur($valor){
-        $aux = CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
-            ->where('course_details.id', '=', $valor)
-            ->select('courses.*')
-            ->get();
-        $this->txt =  $aux[0]->nombre;
+        $aux = Course::where('courses.id', '=', $valor)
+        ->select('courses.nombre as name')
+        ->get();
+        $this->txt =  $aux[0]->name;
         $this->emit('data_send',$valor);
         $this->reset2();
     }

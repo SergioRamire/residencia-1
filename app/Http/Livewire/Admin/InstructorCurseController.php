@@ -22,6 +22,7 @@ class InstructorCurseController extends Component
         'filtro_calificacion'=>'',
         'fecha_inicio' => '',
         'fecha_fin' => '',
+        'fecha' => '',
     ];
 
     protected $queryString = [
@@ -68,24 +69,40 @@ class InstructorCurseController extends Component
                       ->orWhere('groups.nombre', 'like', '%'.$this->search.'%');
                 });
             })
-            ->when($this->filters['filtro_curso'], function ($query, $b) {
-                return $query->where(function ($q) {
-                    $q->where('courses.nombre', 'like', '%'.$this->filters['filtro_curso'].'%')
-                    ->where('inscriptions.estatus_participante', '=', 'Instructor');
-                });
-            })
-            ->when($this->filters['fecha_inicio'], function ($query, $b) {
-                return $query->where(function ($q) {
-                    $q->where('periods.fecha_inicio', 'like', '%'.$this->filters['fecha_inicio'].'%');
-                });
-            })
-            ->when($this->filters['fecha_fin'], function ($query, $b) {
-                return $query->where(function ($q) {
-                    $q->where('periods.fecha_fin', 'like', '%'.$this->filters['fecha_fin'].'%');
-                });
-            })
+            // ->when($this->filters['filtro_curso'], function ($query, $b) {
+            //     return $query->where(function ($q) {
+            //         $q->where('courses.nombre', 'like', '%'.$this->filters['filtro_curso'].'%')
+            //         ->where('inscriptions.estatus_participante', '=', 'Instructor');
+            //     });
+            // })
+            // ->when($this->filters['fecha_inicio'], function ($query, $b) {
+            //     return $query->where(function ($q) {
+            //         $q->where('periods.fecha_inicio', 'like', '%'.$this->filters['fecha_inicio'].'%');
+            //     });
+            // })
+            // ->when($this->filters['fecha_fin'], function ($query, $b) {
+            //     return $query->where(function ($q) {
+            //         $q->where('periods.fecha_fin', 'like', '%'.$this->filters['fecha_fin'].'%');
+            //     });
+            // })
+            ->where('periods.id', '=', $this->filters['fecha'])
+            // ->where('course_details.course_id', '=', $this->filters['filtro_curso'])
             ->orderBy('users.name', 'asc')
             ->paginate($this->perPage),
         ]);
     }
+
+
+    protected $listeners = [
+        'data_send',
+        'per_send',
+    ];
+    public function per_send($valor){
+        $this->filters['fecha']= $valor;
+    }
+    public function data_send($valor){
+        $this->filters['filtro_curso'] = $valor;
+    }
+
+
 }

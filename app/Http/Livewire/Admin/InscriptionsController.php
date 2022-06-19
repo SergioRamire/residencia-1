@@ -282,6 +282,6 @@ class InscriptionsController extends Component
     }
 
     /* Verificacion si hay cursos */
-    public $disponible = false;
+    public $disponible = true;
     
 }
