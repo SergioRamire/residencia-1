@@ -142,7 +142,7 @@ class PeriodCoursesController extends Component
         $this->period = Period::findOrFail($id);
         $this->fecha_inicio = $fi;
         $this->fecha_fin = $ff;
-        $this->confirmingAreaDeletion = true;
+        $this->confirmingPeriodDeletion = true;
     }
 
     public function delete()
@@ -173,5 +173,30 @@ class PeriodCoursesController extends Component
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
         ]);
+    }
+    
+    public $modalConfirmacion;
+    public bool $estadox = false;
+    public $color = 'red';
+
+    public function act($id){        
+        $this->modalConfirmacion = true;
+        $this->estadox = true;
+        $this->color = 'green';
+    }
+
+    public function des($id){
+        $this->modalConfirmacion = true;
+        $this->estadox = false;
+        $this->color = 'red';
+    }
+
+    public function confirmar(){
+        if ($this->estadox) {
+            $this->estadox = false;
+        }else {
+            $this->estadox = true;
+        }
+        $this->modalConfirmacion = false;
     }
 }
