@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Asignación de Instructor a Curso
+            ASIGNACIÓN DE INSTRUCTORES A CURSO
         </h2>
     </x-slot>
 

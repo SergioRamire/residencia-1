@@ -27,11 +27,13 @@ class PeriodCoursesController extends Component
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
 
-    public $edit = false;
-    public $create = false;
-    public $showEditCreateModal = false;
-    public $confirmingPeriodDeletion = false;
-    public $confirmingSavePeriod = false;
+    public bool $edit = false;
+    public bool $create = false;
+    public bool $showEditCreateModal = false;
+    public bool $confirmingPeriodDeletion = false;
+    public bool $confirmingSavePeriod = false;
+    public bool $confirmingPeriodActive =false;
+    public bool $confirmingPeriodInactive =false;
 
     public function updatingSearch()
     {
@@ -142,7 +144,7 @@ class PeriodCoursesController extends Component
         $this->period = Period::findOrFail($id);
         $this->fecha_inicio = $fi;
         $this->fecha_fin = $ff;
-        $this->confirmingAreaDeletion = true;
+        $this->confirmingPeriodDeletion = true;
     }
 
     public function delete()
@@ -154,6 +156,30 @@ class PeriodCoursesController extends Component
             'message' =>  'Periodo eliminado exitosamente',
         ]);
         $this->resetInputFields();
+    }
+
+    public function periodoActivar($id){
+        $period = Period::findOrFail($id);
+        $this->periodo_id = $id;
+        $this->confirmingPeriodActive=true;
+    }
+    public function periodoDesactivar($id){
+        $period = Period::findOrFail($id);
+        $this->periodo_id = $id;
+        $this->confirmingPeriodInactive=true;
+    }
+
+    public function activar(){
+        Period::updateOrCreate(['id' => $this->periodo_id], [
+            'estado' => 1,
+        ]);
+        $this->confirmingPeriodActive=false;
+    }
+    public function desactivar(){
+        Period::updateOrCreate(['id' => $this->periodo_id], [
+            'estado' => 0,
+        ]);
+        $this->confirmingPeriodInactive=false;
     }
 
     public function render()

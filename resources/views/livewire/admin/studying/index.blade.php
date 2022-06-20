@@ -1,3 +1,3 @@
 <div>
- Mis cursos
+ MIS CURSOS
 </div>

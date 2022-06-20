@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- <x-jet-welcome /> --}}
-                <div class="mt-4 bg-gray-50  overflow-hidden shadow sm:rounded-lg">
+                <div class="mt-4 bg-sky-50  overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-1">
                         <div>
                             <img src="{{ asset('img/imagen.png') }}">

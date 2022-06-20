@@ -184,7 +184,7 @@
 <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
 
     <!-- Menú -->
-    <div class="flex flex-col flex-grow border-r border-sky-800 pt-5 bg-white overflow-y-auto">
+    <div class="flex flex-col flex-grow border-r border-gray-200 pt-5 bg-white overflow-y-auto">
 
         <!-- Logotipo -->
         <div class="flex items-center flex-shrink-0 px-4">

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('clave')->unique();
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
+            $table->boolean('estado')->nullable();
             $table->timestamps();
         });
     }

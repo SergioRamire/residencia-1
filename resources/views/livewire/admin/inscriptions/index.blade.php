@@ -2,7 +2,7 @@
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Proceso de Inscripción
+            PROCESO DE INSCRIPCIÓN
         </h2>
     </x-slot>
     {{-- @if ($tabla->count()) --}}
@@ -73,11 +73,11 @@
     <div class="space-y-2 pt-8">
         <div class="grid grid-cols-2 justify-center">
             <div class="grid justify-center">
-                <x-jet-button class="bg-[#1b396a] text-#fff" wire:click="switchbtn1">Cursos de la Semana 1
+                <x-jet-button class="bg-sky-800 text-#fff" wire:click="switchbtn1">Cursos de la Semana 1
                 </x-jet-button>
             </div>
             <div class="grid justify-center">
-                <x-jet-button class="bg-[#1b396a] text-#fff" wire:click="switchbtn2">Cursos de la Semana 2
+                <x-jet-button class="bg-sky-800 text-#fff" wire:click="switchbtn2">Cursos de la Semana 2
                 </x-jet-button>
             </div>
         </div>

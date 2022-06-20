@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea guardar cambios del periodo de  <strong> {{$fecha_inicio}} a {{$fecha_fin}} </strong>?
+        ¿Seguro que desea guardar cambios del periodo de  <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
     </x-slot>
 
     {{-- botones --}}
