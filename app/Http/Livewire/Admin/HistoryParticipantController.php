@@ -7,7 +7,7 @@ use Livewire\WithPagination;
 use App\Http\Traits\WithSorting;
 use App\Models\User;
 
-class HistoryParticipant extends Component{
+class HistoryParticipantController extends Component{
 
     use WithPagination;
     use WithSorting;
