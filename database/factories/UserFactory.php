@@ -48,9 +48,9 @@ class UserFactory extends Factory
             'Vázquez','Reyes','Torres','Jiménez','Díaz','Gutiérrez','Mendoza','Ruíz','Ortiz','Aguilar','Moreno','Castillo','Álvarez','Zarate', 'Anaya','Juárez','Suarez','Domínguez','Ramos','Herrera','Medina','Castro','Guzmán'
         ]);
 
-        $correo_id = strtolower("{$nombre1}{$nombre2}_$apellido_paterno");
+        $correo_id = strtolower($this->faker->randomNumber(8));
         $correoito=$this->faker->randomElement([
-            'itoaxaca.edu.mx','gmail.com',
+            'itoaxaca.edu.mx',
         ]);
         $carrera=$this->faker->randomElement([
                 'Ingeniería Electrónica',
@@ -91,7 +91,7 @@ class UserFactory extends Factory
             'name' =>"$nombre1 $nombre2",
             'email' => "$correo_id@$correoito",
             'email_verified_at' => now(),
-            'password' => '$2y$10$8iSktfH9.QnYrwARdz9DGOVQw9CD0Gub06RpQOfARENujzShxMnw2', // password
+            'password' => '$2y$10$8iSktfH9.QnYrwARdz9DGOVQw9CD0Gub06RpQOfARENujzShxMnw2', // 12345678
             'remember_token' => Str::random(10),
             'apellido_materno' => $apellido_materno,
             'apellido_paterno'=> $apellido_paterno,

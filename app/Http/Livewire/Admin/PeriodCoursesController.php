@@ -200,4 +200,29 @@ class PeriodCoursesController extends Component
                 ->paginate($this->perPage),
         ]);
     }
+    
+    public $modalConfirmacion;
+    public bool $estadox = false;
+    public $color = 'red';
+
+    public function act($id){        
+        $this->modalConfirmacion = true;
+        $this->estadox = true;
+        $this->color = 'green';
+    }
+
+    public function des($id){
+        $this->modalConfirmacion = true;
+        $this->estadox = false;
+        $this->color = 'red';
+    }
+
+    public function confirmar(){
+        if ($this->estadox) {
+            $this->estadox = false;
+        }else {
+            $this->estadox = true;
+        }
+        $this->modalConfirmacion = false;
+    }
 }

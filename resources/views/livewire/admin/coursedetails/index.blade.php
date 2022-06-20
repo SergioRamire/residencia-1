@@ -4,12 +4,7 @@
             DETALLES DE CURSOS
         </h2>
     </x-slot>
-{{--
-    <div>
-        <x-jet-button wire:click="openModal2">
-            Modificar
-        </x-jet-button>
-    </div> --}}
+
     <div class="space-y-2">
 
         <!-- Botón de nuevo -->
@@ -21,28 +16,17 @@
             </x-jet-secondary-button>
         </div>
 
-        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-            <div class="mt-1 md:w-2/5" wire:ignore>
-                <x-jet-label for="periodo" value="Periodo" />
-                <x-input.select wire:model.defer="classification.periodo" id="periodo" class="text-sm block mt-1 w-full"
-                    name="periodo" required>
-                    <option value="">Selecciona el periodo...</option>
-                    @foreach (\App\Models\Period::all() as $period)
-                        <option value="{{ $period->id }}">{{ date('d-m-Y', strtotime($period->fecha_inicio)) }} a
-                            {{ date('d-m-Y', strtotime($period->fecha_fin)) }}</option>
-                    @endforeach
-                </x-input.select>
-            </div>
+    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+        <div class="mt-4 flex-1">
+            <x-jet-label value="Seleccione el periodo"/>
+            @livewire('admin.period-select')
         </div>
-{{--
-        <div wire:ignore>
-            <select wire:model.defer="curso" id="id_cur" class="text-sm block mt-1 w-full">
-                <option value="">Selecciones un Curso x...</option>
-                @foreach($busqueda as $c)
-                  <option value="{{$c->id}}">{{$c->nombre}}</option>
-                @endforeach
-            </select>
-        </div> --}}
+        <div class="mt-4 flex-1">
+            <x-jet-label value="Seleccione el curso"/>
+            @livewire('admin.course-details-select')
+        </div>
+    </div>
+
 
 
         <!-- Opciones de tabla -->
@@ -216,25 +200,3 @@
     {{-- @endif --}}
 </div>
 
-<script>
-    let curso_id = null;
-    document.addEventListener('livewire:load', function() {
-        /* peridodo */
-        $('#periodo').select2();
-        $('#periodo').on('change', function() {
-            @this.set('classification.periodo', this.value);
-        });
-        /* caargar curso */
-        @this.on('valorCurso', function() {
-            curso_id = @this.curso_elegido;
-        });
-        $("#id_cur").val(curso_id);
-        /* curso */
-        $('#id_cur').select2();
-        $('#id_cur').on('change', function() {
-            @this.set('classification.curso', this.value);
-        });
-
-
-    });
-</script>

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Http\Traits\WithSorting;
 use App\Models\Area;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,6 +25,9 @@ class AreaController extends Component
     public $edit = false;
     public $create = false;
 
+    // public $date;
+    // public $data2 = date('Y-m-d H:i:s');
+
     protected $queryString = [
         'search' => ['except' => '', 'as' => 's'],
         'perPage' => ['except' => 1, 'as' => 'p'],
@@ -33,6 +37,10 @@ class AreaController extends Component
     public $confirmingAreaDeletion = false;
     public $confirmingSaveArea = false;
 
+    public function mount()
+    {
+        // $this->date  = Carbon::now();
+    }
     public function updatingSearch()
     {
         $this->resetPage();

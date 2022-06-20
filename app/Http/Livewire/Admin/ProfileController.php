@@ -63,11 +63,11 @@ class ProfileController extends Component
     }
     public function closeM(){
         $this->showEditModal = false;
-        return redirect()->route('perfil');
+        return redirect()->route('user.perfil');
     }
     public function closeM2(){
         $this->showConfirmationModal = false;
-        return redirect()->route('perfil');
+        return redirect()->route('user.perfil');
     }
     public function save(){
         $this->user->save();
@@ -80,6 +80,6 @@ class ProfileController extends Component
             'message' => 'Datos actualizado exitosamente. Nota: Es necesario recargar para actualizar Datos de la barra',
         ]);
 
-        return redirect()->route('perfil');
+        return redirect()->route('user.perfil');
     }
 }

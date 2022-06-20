@@ -122,11 +122,15 @@
             @if ($confirmingPeriodDeletion)
                 @include('livewire.admin.periodCourses.destroy')
             @endif
+<<<<<<< HEAD
             @if ($confirmingPeriodActive)
                 @include('livewire.admin.periodCourses.confirmationActive')
             @elseif($confirmingPeriodInactive)
                 @include('livewire.admin.periodCourses.confirmationInactive')
             @endif
+=======
+            @include('livewire.admin.periodCourses.destroy2')
+>>>>>>> origin/correcciones
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:click.prevent="save()" wire:loading.attr="disabled">
+        <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="save()" wire:loading.attr="disabled">
             Confirmar
         </x-jet-button>
     </x-slot>

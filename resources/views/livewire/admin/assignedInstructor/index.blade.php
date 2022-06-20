@@ -111,23 +111,29 @@
                     <x-slot name="head">
                         <x-table.header class="text-center">Curso</x-table.header>
                         <x-table.header class="text-center">Grupo</x-table.header>
-                        <x-table.header class="text-center">Horario</x-table.header>
                         <x-table.header class="text-center">Lugar</x-table.header>
+                        <x-table.header class="text-center">Horario</x-table.header>
                         <x-table.header class="text-center">Accion</x-table.header>
                     </x-slot>
 
                     @forelse($datosTabla as $g)
-                        <tr wire:key="instructor-{{ $g->idcurdet }}" wire:loading.class.delay="opacity-50">
+                        <tr wire:key="instructor-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell >{{ $g->cnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->gnombre }}</x-table.cell>
+                            <x-table.cell class="text-center">{{ $g->lugar }}</x-table.cell>
                             <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
-                            <x-table.cell class="text-center">{{ $g->lugar }}</x-table.cell>
                             <x-table.cell class="text-center">
-                                <button wire:click="openModal({{ $g->idcurdet }})" type="button" title="Añadir instructor" class="text-blue-600 hover:text-blue-900">
+                                <button wire:click="openModalCreate({{ $g->idcurdet }})" type="button" class="text-green-600 hover:text-green-900">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
                                     </svg>
+                                </button>
+                                <button wire:click="openModalShow({{ $g->idcurdet }})" type="button" class="text-blue-600 hover:text-blue-900">
+                                    <x-icon.eye alt class="h-6 w-6"/>
+                                </button>
+                                <button wire:click="openModalDelete({{ $g->idcurdet }})" type="button" class="text-red-600 hover:text-red-900">
+                                    <x-icon.trash class="h-6 w-6"/>
                                 </button>
 
                             </x-table.cell>
@@ -159,15 +165,3 @@
     </div>
     @include('livewire.admin.assignedInstructor.edit')
 </div>
-<script>
-    document.addEventListener('livewire:load', function() {
-        $('#eleccion').select2();
-        $('#eleccion').on('change', function() {
-            @this.set('id_per', this.value);
-        });
-        $('#id_cur').select2();
-        $('#id_cur').on('change', function() {
-            @this.set('id_ins', this.value);
-        });
-    });
-</script>

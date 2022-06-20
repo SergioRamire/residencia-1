@@ -46,7 +46,7 @@ class ConstanciasController extends Component
         ->where('inscriptions.estatus_participante', '=', 'Participante')
         ->where('course_details.period_id', '=', $periodo)
         ->where('course_details.course_id', '=', $curso)
-        ->select('inscriptions.id','users.name','users.apellido_paterno','users.apellido_materno',DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'courses.nombre as curso','groups.nombre as grupo','inscriptions.calificacion','areas.nombre as area')
+        // ->when($curso, fn ($query, $search) => $query->where('courses.id', $search))
         ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,
          ' ', users.apellido_materno)"), 'like', "%$search%"))
         ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
@@ -60,6 +60,7 @@ class ConstanciasController extends Component
                 }
             });
         })
+        ->select('inscriptions.id','users.name','users.apellido_paterno','users.apellido_materno',DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'courses.nombre as curso','groups.nombre as grupo','inscriptions.calificacion','areas.nombre as area')
         ->orderBy($this->sortField, $this->sortDirection);
     }
 
@@ -75,5 +76,17 @@ class ConstanciasController extends Component
     public function resetFilters2()
     {
         $this->reset('filters');
+    }
+
+
+    protected $listeners = [
+        'per_send',
+        'data_send',
+    ];
+    public function per_send($valor){
+        $this->classification['periodo'] = $valor;
+    }
+    public function data_send($valor){
+        $this->classification['curso'] = $valor;
     }
 }

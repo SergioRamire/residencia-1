@@ -1,5 +1,6 @@
-<div>
 
+
+@if ($disponible)
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
             PROCESO DE INSCRIPCIÓN
@@ -59,9 +60,10 @@
                     </div>
                     @if ($btnContinuar)
                         <div class="mt-4 flex justify-end">
-                            <x-jet-button wire:click="addHorario" type="button" class="bg-[#1b396a] text-#fff">
-                                Continuar
-                            </x-jet-button>
+
+                    <x-jet-secondary-button wire:click="addHorario()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                            Continuar
+                    </x-jet-secondary-button>
                         </div>
                     @endif
                 </div>
@@ -73,12 +75,14 @@
     <div class="space-y-2 pt-8">
         <div class="grid grid-cols-2 justify-center">
             <div class="grid justify-center">
-                <x-jet-button class="bg-sky-800 text-#fff" wire:click="switchbtn1">Cursos de la Semana 1
-                </x-jet-button>
+                <x-jet-secondary-button wire:click="switchbtn1()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                        Cursos de la Semana 1
+                </x-jet-secondary-button>
             </div>
             <div class="grid justify-center">
-                <x-jet-button class="bg-sky-800 text-#fff" wire:click="switchbtn2">Cursos de la Semana 2
-                </x-jet-button>
+                <x-jet-secondary-button wire:click="switchbtn2()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                        Cursos de la Semana 2
+                </x-jet-secondary-button>
             </div>
         </div>
 
@@ -232,4 +236,17 @@
     @include('livewire.admin.inscriptions.anuncio')
     @include('livewire.admin.inscriptions.horario')
 
-</div>
+@endif
+
+@if ($disponible == false)
+    <div class="flex flex-col rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+        <div class="px-4 w-full bg-gray-200  rounded-t-lg">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>
+        </div>
+        <div class="p-8 w-full bg-white rounded-b-lg">
+            <p class="font-normal text-gray-700">Aun no puedes seleccionar cursos.</p>
+        </div>
+    </div>
+
+@endif
+
