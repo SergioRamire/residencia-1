@@ -2,26 +2,31 @@
 
     <thead>
         <tr>
-            <td rowspan="6"></td>
-            <td style="text-align:center; font-weight: 500;  border: 1px solid # 000000;" rowspan="6">
-                {{-- <img src="{{ public_path().'/img/ico.png' }}" width="100" height="100"/> --}}
-                <img src="{{ public_path().'/img/tecnm.png' }}" width="100" height="100"/>
+            {{-- <td rowspan="6"></td> --}}
+            <td style="text-align:center; font-weight: 500;  border: 1px solid # 000000;" rowspan="6" colspan="2">
+                {{-- <img src="{{ public_path().'/img/sep.png' }}" width="60" height="80" align="left"/> --}}
+                <img src="{{ public_path().'/img/sep-tecnm.png' }}" width="100" height="57" align="rigth"/>
             </td>
             <td style="text-align:center; vertical-align: bottom; font-weight: 500;  border: 1px solid # 000000;" rowspan="3" colspan="7">
                 TECNOLÓGICO NACIONAL DE MÉXICO <br>
                 Instituto Tecnológico de Oaxaca <br>
 
             </td>
-            <td style="text-align:center; font-weight: 500;  border: 1px solid # 000000;" rowspan="6" colspan="2">
-                <img src="{{ public_path().'/img/ito2.png' }}" width="100" height="100"/>
+            <td style="text-align:center; font-weight: 500;  border: 1px solid # 000000;" rowspan="6" colspan="3">
+                <img src="{{ public_path().'/img/ito2.png' }}" width="100" height="100" align="center"/>
             </td>
         </tr>
         <tr></tr>
         <tr></tr>
         <tr>
-            <td style="text-align:center; vertical-align: middle; font-size: 16px; font-weight: 500;  border: 1px solid # 000000;" rowspan="3" colspan="7">
-                Lista de Asistencia<br>
-                                   REG-7200-05  Rev.01
+            <td style="text-align:center; font-size: 16px; font-weight: 500;" rowspan="2" colspan="7">
+                Lista de Asistencia
+            </td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td style="text-align:right;  border-bottom: 1px solid #000000;" colspan="7">
+                REG-7200-05  Rev.01
             </td>
         </tr>
 
@@ -30,8 +35,7 @@
         {{-- Parte de los titulos del excel --}}
         <tr></tr>
         <tr></tr>
-        <tr></tr>
-        <tr></tr>
+
         <tr>
             <th></th>
             <th style="text-align:right;">CLAVE DEL CURSO:</th>
