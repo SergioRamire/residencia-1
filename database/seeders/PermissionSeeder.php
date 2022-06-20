@@ -94,6 +94,8 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'constancy.show', 'human_name' => 'Consultar constancias'])->assignRole(['Administrador']);
         
         Permission::create(['name' => 'historycourse.show', 'human_name' => 'Historial cursos'])->assignRole(['Administrador']);
+        
+        Permission::create(['name' => 'activeperido.show', 'human_name' => 'Activar periodo'])->assignRole(['Administrador']);
         /*
         |--------------------------------------------------------------------------
         | Asignación de roles a usuarios (Primeros 9)

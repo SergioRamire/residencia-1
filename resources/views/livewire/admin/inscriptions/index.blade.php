@@ -1,4 +1,3 @@
-<div>
 
 
 @if ($disponible)
@@ -251,4 +250,3 @@
         
 @endif
 
-</div>
