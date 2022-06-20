@@ -54,16 +54,18 @@ class InstructorCurseController extends Component
         return view('livewire.admin.instructor.index', [
             'instructor' =>  CourseDetail::query()
             ->join('courses', 'courses.id', '=', 'course_details.course_id')
+            ->join('groups', 'groups.id', '=', 'course_details.group_id')
             ->join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
             ->join('users', 'users.id', '=', 'inscriptions.user_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
-            ->select('users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.estatus_participante', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff')
+            ->select('users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.estatus_participante', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','groups.nombre as nombregrupo')
             ->where('inscriptions.estatus_participante', '=', 'Instructor')
             ->when($this->search, function ($query, $b) {
                 return $query->where(function ($q) {
                     $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
                       ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%')
-                      ->orWhere('courses.nombre', 'like', '%'.$this->search.'%');
+                      ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
+                      ->orWhere('groups.nombre', 'like', '%'.$this->search.'%');
                 });
             })
             ->when($this->filters['filtro_curso'], function ($query, $b) {

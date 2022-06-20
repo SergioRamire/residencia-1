@@ -10,8 +10,7 @@
     </button>
 
     <!-- El resto -->
-    <div class="flex-1 px-4 flex justify-between">
-
+    {{-- <div class="flex-1 px-4 flex justify-between">
         <!-- Barra búsqueda -->
         <div class="flex-1 flex">
             <form class="w-full flex md:ml-0" action="#" method="GET">
@@ -26,8 +25,9 @@
                     <input id="search-field" class="block w-full h-full pl-8 pr-3 py-2 border-transparent text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm" placeholder="Search" type="search" name="search">
                 </div>
             </form>
-        </div>
+        </div> --}}
 
+    <div class="flex-1 px-4 flex justify-end">
 
         <!-- Notificaciones y menú desplegable -->
         <div class="ml-4 flex items-center md:ml-6">
@@ -120,7 +120,7 @@
 
                 <!-- Botón del desplegable e icono -->
                 <div class="flex items-center">
-                    <p class="hidden md:block mr-2 tracking-wide text-sm font-medium text-gray-500">{{ Str::words(Auth::user()->name, 1, '') }}</p>
+                    <p class="hidden md:block mr-2 tracking-wide text-sm font-medium text-gray-500">{{ Str::words(Auth::user()->name, 1,' ')}}{{ Str::words(Auth::user()->apellido_paterno,1)}}{{' '}}{{ Str::words(Auth::user()->apellido_materno) }}</p>
                     <button @click="navbarProfileOpen = !navbarProfileOpen" type="button" class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span class="sr-only">Open user menu</span>
                         <img class="h-8 w-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="Profile photo">

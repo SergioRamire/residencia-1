@@ -19,12 +19,10 @@ class GroupController extends Component
     public $search = '';
     public $group_id;
     public $nombre;
-    // public $curso='Atque pariatur eveniet.',$grupo=24;
 
     public $edit = false;
     public $create = false;
 
-    // variable para confimacion de eliminacion de registro
     public $isOpen = false;
     public $confirmingGroupDeletion = false;
     public $confirmingSaveGroup = false;
@@ -38,12 +36,12 @@ class GroupController extends Component
     {
         if ($this->create == true) {
             $this->validate([
-                'nombre' => ['required', 'alpha_num', 'unique:groups'],
+                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'unique:groups'],
             ]);
         }
         if ($this->edit == true) {
             $this->validate([
-                'nombre' => ['required', 'alpha_num'],
+                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
             ]);
         }
     }
@@ -60,6 +58,7 @@ class GroupController extends Component
 
     public function create()
     {
+        $this->resetErrorBag();
         $this->resetInputFields();
         $this->openModal();
         $this->edit = false;
@@ -115,6 +114,7 @@ class GroupController extends Component
 
     public function edit($id)
     {
+        $this->resetErrorBag();
         $group = Group::findOrFail($id);
         $this->group_id = $id;
         $this->nombre = $group->nombre;

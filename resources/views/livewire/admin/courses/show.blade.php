@@ -29,18 +29,10 @@
             <x-input.textarea wire:model.defer="course.objetivo" class="block mt-1 w-full" disabled/>
         </div>
 
-        <!-- Duración y Modalidad -->
-        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-            <!-- Duración -->
-            <div class="mt-4 sm:flex-1">
-                <x-jet-label value="Duración"/>
-                <x-input.addon wire:model.defer="course.duracion" right addon="hrs" class="block mt-1 w-full" type="number" disabled/>
-            </div>
-            <!-- Modalidad -->
-            <div class="mt-4 sm:flex-1">
-                <x-jet-label value="Modalidad"/>
-                <x-jet-input wire:model.defer="course.modalidad" class="mt-1 w-full" type="text" disabled/>
-            </div>
+        <!-- Duración -->
+        <div class="mt-4 ">
+            <x-jet-label value="Duración"/>
+            <x-input.addon wire:model.defer="course.duracion" right addon="hrs" class="block mt-1 w-full" type="number" disabled/>
         </div>
 
         <!-- Dirigido -->

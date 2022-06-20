@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Listas de participantes por curso
+            Listas de participantes
         </h2>
     </x-slot>
 
@@ -14,7 +14,7 @@
                         <x-input.select wire:model="classification.periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
                             <option   value="" disabled>Selecciona el periodo...</option>
                             @foreach(\App\Models\Period::all() as $period)
-                                    <option value="{{ $period->id }}">{{date('d-m-Y', strtotime($period->fecha_inicio))}} a {{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
+                                    <option value="{{ $period->id }}">{{$period->clave}}</option>
                             @endforeach
                         </x-input.select>
                     </div>
