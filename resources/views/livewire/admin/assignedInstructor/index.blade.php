@@ -165,15 +165,3 @@
     </div>
     @include('livewire.admin.assignedInstructor.edit')
 </div>
-<script>
-    document.addEventListener('livewire:load', function() {
-        $('#eleccion').select2();
-        $('#eleccion').on('change', function() {
-            @this.set('id_per', this.value);
-        });
-        $('#id_cur').select2();
-        $('#id_cur').on('change', function() {
-            @this.set('id_ins', this.value);
-        });
-    });
-</script>

@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Admin;
 
 use App\Http\Traits\WithSorting;
 use App\Models\Course;
-use App\Models\Period;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -32,19 +31,19 @@ class HistoryCourse extends Component{
 
     public function render(){
         return view('livewire.admin.historycourse.index', [
-            'history' => 
-                Course::join('course_details','course_details.course_id','courses.id')
-                    ->join('periods', 'periods.id', '=', 'course_details.period_id')
-                    ->when($this->filters, fn ($query, $b) => $query
-                        ->where('periods.fecha_inicio', '>=', $b))
-                    ->when($this->filters2, fn ($query, $b) => $query
-                        ->where('periods.fecha_fin', '<=', $b))
-                    ->select(
-                        'courses.clave as cl','courses.nombre as nom','courses.perfil as per',
-                        'periods.fecha_inicio as f1','periods.fecha_fin as f2','periods.clave',
-                    ) 
-                    ->orderBy('courses.id', $this->sortDirection)
-                    ->paginate($this->perPage),
+            'history' => $this->consulta()->orderBy('courses.id', $this->sortDirection)->paginate($this->perPage),
         ]);
+    }
+    public function consulta(){
+        return Course::join('course_details','course_details.course_id','courses.id')
+        ->join('periods', 'periods.id', '=', 'course_details.period_id')
+        ->when($this->filters, fn ($query, $b) => $query
+            ->where('periods.fecha_inicio', '>=', $b))
+        ->when($this->filters2, fn ($query, $b) => $query
+            ->where('periods.fecha_fin', '<=', $b))
+        ->select(
+            'courses.clave as cl','courses.nombre as nom','courses.perfil as per',
+            'periods.fecha_inicio as f1','periods.fecha_fin as f2','periods.clave',
+        );
     }
 }

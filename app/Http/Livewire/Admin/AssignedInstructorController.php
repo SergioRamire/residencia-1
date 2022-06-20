@@ -34,16 +34,16 @@ class AssignedInstructorController extends Component
     public $id_detalle_curso;
 
     protected $listeners = [
-        'data_send',
         'per_send',
+        'data_send',
         'user_send',
     ];
+    public function per_send($valor){
+        $this->classification['periodo'] = $valor;
+    }
     public function data_send($valor){
         $this->classification['curso'] = $valor;
         $this->id_detalle_curso = $valor;
-    }
-    public function per_send($valor){
-        $this->classification['periodo'] = $valor;
     }
     public function user_send($valor){
         $this->id_instructor = $valor;

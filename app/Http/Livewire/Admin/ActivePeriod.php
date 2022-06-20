@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire\Admin;
 
+use DateTime;
 use Livewire\Component;
 
 class ActivePeriod extends Component
 {   
 
     public $id_periodo;
+
+
     public function render()
     {
         return view('livewire.admin.activeperiod.index');
@@ -26,5 +29,8 @@ class ActivePeriod extends Component
     public function desactivar()
     {
         dd('DEsactivaste curso');
+    }
+    public $fecha_actual ;
+    public function fechas(){
     }
 }
