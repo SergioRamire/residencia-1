@@ -21,6 +21,7 @@ use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\StudyingController;
 use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\PostController;
+use App\Http\Livewire\Admin\TeachingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -137,4 +138,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:activeinscription.show')->prefix('admin')->name('admin.')
         ->get('active-inscripction', ActiveInscriptionController ::class)->name('activeinscription');
+
+    Route::middleware('can:teaching.show')->prefix('admin')->name('admin.')
+        ->get('teaching', TeachingController::class)->name('teaching');
 });
