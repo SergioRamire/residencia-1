@@ -1,4 +1,6 @@
+
 <div>
+
 @if ($disponible)
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
@@ -60,7 +62,7 @@
                     @if ($btnContinuar)
                         <div class="mt-4 flex justify-end">
 
-                    <x-jet-secondary-button wire:click="addHorario()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                    <x-jet-secondary-button wire:click="addHorario()" class="border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
                             Continuar
                     </x-jet-secondary-button>
                         </div>
@@ -74,12 +76,12 @@
     <div class="space-y-2 pt-8">
         <div class="grid grid-cols-2 justify-center">
             <div class="grid justify-center">
-                <x-jet-secondary-button wire:click="switchbtn1()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                <x-jet-secondary-button wire:click="switchbtn1()" class="border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
                         Cursos de la Semana 1
                 </x-jet-secondary-button>
             </div>
             <div class="grid justify-center">
-                <x-jet-secondary-button wire:click="switchbtn2()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                <x-jet-secondary-button wire:click="switchbtn2()" class="border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
                         Cursos de la Semana 2
                 </x-jet-secondary-button>
             </div>

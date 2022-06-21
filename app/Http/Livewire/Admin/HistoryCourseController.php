@@ -7,7 +7,7 @@ use App\Models\Course;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class HistoryCourse extends Component{
+class HistoryCourseController extends Component{
     
     use WithPagination;
     use WithSorting;

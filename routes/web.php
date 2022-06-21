@@ -9,9 +9,9 @@ use App\Http\Livewire\Admin\CourseController;
 use App\Http\Livewire\Admin\CourseDetailsController;
 use App\Http\Livewire\Admin\GradeController;
 use App\Http\Livewire\Admin\GroupController;
-use App\Http\Livewire\Admin\HistoryCourse;
-use App\Http\Livewire\Admin\HistoryInstructor;
-use App\Http\Livewire\Admin\HistoryParticipant;
+use App\Http\Livewire\Admin\HistoryCourseController;
+use App\Http\Livewire\Admin\HistoryInstructorController;
+use App\Http\Livewire\Admin\HistoryParticipantController;
 use App\Http\Livewire\Admin\InscriptionsController;
 use App\Http\Livewire\Admin\InstructorCurseController;
 use App\Http\Livewire\Admin\ParticipantController;
@@ -22,6 +22,7 @@ use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\StudyingController;
 use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\PostController;
+use App\Http\Livewire\Admin\TeachingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -134,14 +135,17 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     })->name('markNotificationone');
 
     Route::middleware('can:historycourse.show')->prefix('admin')->name('admin.')
-        ->get('historial-cursos', HistoryCourse::class)->name('historycourse');
+        ->get('historial-cursos', HistoryCourseController::class)->name('historycourse');
 
     Route::middleware('can:historyparticipant.show')->prefix('admin')->name('admin.')
-        ->get('historial-participant', HistoryParticipant::class)->name('historyparticipant');
+        ->get('historial-participant', HistoryParticipantController::class)->name('historyparticipant');
 
     Route::middleware('can:historyinstructor.show')->prefix('admin')->name('admin.')
-        ->get('historial-instructor', HistoryInstructor::class)->name('historyinstructor');
+        ->get('historial-instructor', HistoryInstructorController::class)->name('historyinstructor');
 
-    Route::middleware('can:activeperido.show')->prefix('admin')->name('admin.')
-        ->get('activar-inscripciones', ActiveInscriptionController::class)->name('activeperido');
+    Route::middleware('can:activeinscription.show')->prefix('admin')->name('admin.')
+        ->get('activar-inscripciones', ActiveInscriptionController ::class)->name('activeinscription');
+
+    Route::middleware('can:teaching.show')->prefix('admin')->name('admin.')
+        ->get('teaching', TeachingController::class)->name('teaching');
 });

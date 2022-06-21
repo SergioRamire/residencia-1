@@ -3,13 +3,12 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\CourseDetail;
-use App\Models\User;
 use Livewire\Component;
 
-class StudyingController extends Component
-{
+class TeachingController extends Component{
+    
     public $user;
-    public $estatus = 'Participante';/* Participante */ /* Instructor */
+    public $estatus = 'Instructor';/* Participante */ /* Instructor */
     public function mount(){
         $this->user = auth()->user();
         // $this->estatus = User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
@@ -20,7 +19,7 @@ class StudyingController extends Component
     }
     public function render()
     {
-        return view('livewire.admin.studying.index', [
+        return view('livewire.admin.teaching.index', [
             'datos' => $this->consulta(),
         ]);
     }

@@ -18,11 +18,11 @@
             <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
                 <div>
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
-                    <x-input.error wire:model="filters" class="block mt-1 w-full" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required />
+                    <x-input.error wire:model="filters" class="block mt-1 w-full border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required />
                 </div>
                 <div>
                     <x-jet-label for="hasta" value="Hasta" class="text-lg" />
-                    <x-input.error wire:model="filters2" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required />
+                    <x-input.error wire:model="filters2" class="block mt-1 w-full border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required />
                 </div>
                 <div class="flex items-end">
                     <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">

@@ -8,6 +8,7 @@ use App\Models\Period;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use Illuminate\Support\Carbon;
 use Livewire\WithPagination;
 
 class InscriptionsController extends Component
@@ -24,6 +25,7 @@ class InscriptionsController extends Component
     public $horas_inicio=[];
     public $id_arreglo=[];
     public $id_arreglo1=[];
+    public $con;
 
     public bool $btnContinuar = false;
     public bool $showHorario = false;
@@ -204,6 +206,7 @@ class InscriptionsController extends Component
 
     public function render(){
         $this->tablaVacia();
+        // $this->verificarInscripciones();
         return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
@@ -212,6 +215,11 @@ class InscriptionsController extends Component
             ]
         );
     }
+    // public function verificarInscripciones(){
+    //     $this->con= Period::select('periods.fecha_inicio')
+    //             ->where( 'periods.fecha_inicio', '<', Carbon::now()->subDays(30))
+    //             ->get();
+    // }
 
     public function del($id){
         if(in_array($id,$this->arreglo)){
@@ -253,7 +261,7 @@ class InscriptionsController extends Component
                         'asistencias_minimas' => 0,
                     ]);
         }
-        
+
 
         return redirect()->route('participant.studying');
         // $this-> noti('success','Horario creado Exitosamente');
@@ -273,7 +281,7 @@ class InscriptionsController extends Component
         ]);
     }
     /* Para cambiar al modal final para redirecion */
-    public bool $flag = false;  
+    public bool $flag = false;
 
     public function alter()
     {
@@ -283,5 +291,5 @@ class InscriptionsController extends Component
 
     /* Verificacion si hay cursos */
     public $disponible = true;
-    
+
 }
