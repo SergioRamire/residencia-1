@@ -1,0 +1,94 @@
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+@page {
+    margin-left: 2.5cm;
+    margin-right: 2.5cm;
+}
+
+body {
+    font-weight: normal;
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+    font-size: 1.05rem;
+}
+
+#img-header {
+    display: block;
+    width: 70%;
+    margin-bottom: 2rem;
+}
+
+#titulo-tec-1 {
+    font-family: 'Montserrat-Black', sans-serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    letter-spacing: 0.025em;
+    margin: 0;
+}
+
+#titulo-tec-2 {
+    font-family: 'Montserrat-Black', sans-serif;
+    font-weight: bold;
+    /*font-size: 1.05rem;*/
+    letter-spacing: 0.025em;
+    margin: 0;
+}
+
+#otorga {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#constancia {
+    font-family: 'Montserrat-Black', sans-serif;
+    font-weight: bold;
+    font-size: 1.7rem;
+    letter-spacing: 0.025em;
+}
+
+#a {
+    font-size: 1.7rem;
+}
+
+#nombre {
+    font-family: 'Montserrat-Black', sans-serif;
+    font-weight: bold;
+    font-size: 1.7rem;
+    margin-bottom: 5rem;
+}
+
+#texto-principal {
+    font-size: 0.85rem;
+    text-align: justify;
+    margin-bottom: 5rem;
+}
+
+#fecha {
+    font-size: 0.85rem;
+    margin-bottom: 5rem;
+}
+
+.m-0 {
+    margin: 0;
+}
+.p-0 {
+    padding: 0;
+}
+
+#director-nombre {
+    font-family: 'Montserrat-Black', sans-serif;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+#director {
+    font-family: 'Montserrat-Black', sans-serif;
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin: 0;
+}
