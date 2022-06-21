@@ -67,6 +67,7 @@ class AssignedInstructorController extends Component
         // $this->id_instructor = $this->id_ins;
         $this->registrar();
         $this->closeModal();
+        $this->modalConfirmacion = false;
     }
 
 
@@ -234,5 +235,11 @@ class AssignedInstructorController extends Component
             'icon' => 'trash',
             'message' =>  'Instructor eliminado exitosamente',
         ]);
+    }
+
+    
+    public bool $modalConfirmacion;
+    public function openConfirmacion(){
+        $this->modalConfirmacion = true;
     }
 }

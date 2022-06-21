@@ -57,9 +57,6 @@
                                     </tr>
                                 @endforelse
                             </x-table>
-                            <div>
-                                {{ $listaIns->links() }}
-                            </div>
                         {{-- </div> --}}
                     @endif
                     @if ($delet)
@@ -86,7 +83,7 @@
             </x-jet-secondary-button>
             
             @if ($create)
-                <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="asignar()" wire:loading.attr="disabled" form="courseForm">
+                <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="openConfirmacion()" wire:loading.attr="disabled" form="courseForm">
                     Asignar
                 </x-jet-button>
             @endif
