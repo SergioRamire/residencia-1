@@ -1,7 +1,7 @@
 <div class="relative border-none mt-4 flex-1">
     <input 
         type="text" 
-        class="w-full form-input border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+        class="w-full form-input border-sky-800 text-sky-700  focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
         placeholder="{{$txt}}"
         wire:click="full"
         wire:model="query"
