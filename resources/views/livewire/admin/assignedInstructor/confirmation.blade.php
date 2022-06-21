@@ -1,11 +1,11 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
 <x-jet-confirmation-modal wire:model="modalConfirmacion">
     <x-slot name="title">
-        Confirmación de acción
+        Confirmación de agregación
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea agregar ?
+        ¿Seguro que desea agregar el insctructor?
     </x-slot>
 
     {{-- botones --}}

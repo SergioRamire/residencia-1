@@ -5,14 +5,13 @@
         </div>
         <div class="m-4">
             <p class="text-xl mx=4">Fecha de hoy <span class="font-bold">{{ date('d-m-Y', strtotime($hoy)) }}</span></p>
-            <p class="text-xl mx=4">Periodo mas cercano: <span class="font-bold">
-                    {{ date('d-m-Y', strtotime($fecha->fecha_inicio)) }}
-                    -  
-                    {{ date('d-m-Y', strtotime($fecha->fecha_fin)) }}
-                </span>
+            <p class="text-xl mx=4">Periodo mas cercanos: 
+                @foreach ($fecha as $f)
+                    <span class="font-bold">{{ date('d-m-Y', strtotime($f->fecha_inicio)) }} - {{ date('d-m-Y', strtotime($f->fecha_fin)) }}</span>
+                    <br>
+                @endforeach
             </p>
         </div>
-
         <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
             <div class="flex justify-center ">
                 <x-jet-secondary-button wire:click="activar()"
