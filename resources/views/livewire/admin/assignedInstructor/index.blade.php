@@ -162,4 +162,5 @@
         </div>
     </div>
     @include('livewire.admin.assignedInstructor.edit')
+    @include('livewire.admin.assignedInstructor.confirmation')
 </div>
