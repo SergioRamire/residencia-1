@@ -21,27 +21,24 @@
 <body>
 
 <div>
-    <img class="img-header" src="{{ public_path('img/part1.jpg') }}" alt="logo__header"/>
+    <img id="img-header" src="{{ public_path('img/part1.jpg') }}" alt="logo__header"/>
 </div>
 
-<p class="font-black">EL TECNOLÓGICO NACIONAL DE MÉXICO</p>
-<p class="font-black">A TRAVÉS DEL INSTITUTO TECNOLÓGICO DE OAXACA</p>
+<p id="titulo-tec-1">EL TECNOLÓGICO NACIONAL DE MÉXICO</p>
+<p id="titulo-tec-2">A TRAVÉS DEL INSTITUTO TECNOLÓGICO DE OAXACA</p>
 
-<p>OTROGA LA PRESENTE</p>
+<p id="otorga">OTORGA LA PRESENTE</p>
 
-<p class="font-black">CONSTANCIA</p>
-<p>A</p>
-<p class="font-black">{{ strtoupper($datos->nombre) }}</p>
+<p id="constancia">CONSTANCIA</p>
+<p id="a">A</p>
+<p id="nombre">{{ strtoupper($datos->nombre) }}</p>
 
-<p class="main-text">
-    POR SU PARTICIPACION EN EL CURSO "{{ strtoupper($datos->curso) }}" CON EL NUMERO DE REGISTRO:
-    "TECNM-135-42-2021/001", LLEVADO A CABO EN LINEA DEL 31 AL 17 DE SEPTIEMBRE DE 2021, CON UNA DURACIÓN DE 30 HORAS.
-</p>
+<p id="texto-principal">POR SU PARTICIPACIÓN EN EL CURSO "{{ strtoupper($datos->curso) }}" CON EL NÚMERO DE REGISTRO: "TECNM-135-42-2021/001", LLEVADO A CABO EN LINEA DEL 31 AL 17 DE SEPTIEMBRE DE 2021, CON UNA DURACIÓN DE 30 HORAS.</p>
 
-<p>OAXACA DE JUÁREZ, OAX, A 17 DE SEPTIEMBRE DE 2021</p>
+<p id="fecha">OAXACA DE JUÁREZ, OAX, A 17 DE SEPTIEMBRE DE 2021</p>
 
-<p class="font-black">FERNANDO TOLEDO TOLEDO</p>
-<p class="font-black">DIRECTOR</p>
+<p id="director-nombre">FERNANDO TOLEDO TOLEDO</p>
+<p id="director">DIRECTOR</p>
 </body>
 </html>
 
