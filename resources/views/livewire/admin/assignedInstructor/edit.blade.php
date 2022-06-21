@@ -30,7 +30,7 @@
                                     <x-table.header class="text-center">Instructores</x-table.header>
                                     <x-table.header class="text-center">Accion</x-table.header>
                                 </x-slot>
-                                
+
                                 @forelse($listaIns as $item)
                                     <tr wire:key="instructor-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                                         <x-table.cell >{{ $item->n }} {{ $item->ap1 }} {{ $item->ap2 }}</x-table.cell>
@@ -57,9 +57,9 @@
                                     </tr>
                                 @endforelse
                             </x-table>
-                            <div>
+                            {{-- <div>
                                 {{ $listaIns->links() }}
-                            </div>
+                            </div> --}}
                         {{-- </div> --}}
                     @endif
                     @if ($delet)
@@ -84,7 +84,7 @@
             <x-jet-secondary-button wire:click="closeModal()" wire:loading.attr="disabled">
                 Cancelar
             </x-jet-secondary-button>
-            
+
             @if ($create)
                 <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="asignar()" wire:loading.attr="disabled" form="courseForm">
                     Asignar

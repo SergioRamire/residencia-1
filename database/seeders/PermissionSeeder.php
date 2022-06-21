@@ -92,11 +92,11 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'qualification.edit', 'human_name' => 'Editar calificaciones'])->assignRole(['Instructor']);
 
         Permission::create(['name' => 'constancy.show', 'human_name' => 'Consultar constancias'])->assignRole(['Administrador']);
-        
+
         Permission::create(['name' => 'historycourse.show', 'human_name' => 'Historial cursos'])->assignRole(['Administrador']);
         Permission::create(['name' => 'historyparticipant.show', 'human_name' => 'Historial Participantes'])->assignRole(['Administrador']);
         Permission::create(['name' => 'historyinstructor.show', 'human_name' => 'Historial Instructores'])->assignRole(['historyinstructor']);
-        
+
         Permission::create(['name' => 'activeperido.show', 'human_name' => 'Activar periodo'])->assignRole(['Administrador']);
         /*
         |--------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            ASIGNACIÓN DE INSTRUCTORES A CURSO
+            ASIGNACIÓN DE INSTRUCTORES A CURSOS
         </h2>
     </x-slot>
 
@@ -124,17 +124,15 @@
                             <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
                             <x-table.cell class="text-center">
-                                <button wire:click="openModalCreate({{ $g->idcurdet }})" type="button" class="text-green-600 hover:text-green-900">
+                                <button wire:click="openModalCreate({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="text-green-600 hover:text-green-900">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
                                     </svg>
                                 </button>
-                                <button wire:click="openModalShow({{ $g->idcurdet }})" type="button" class="text-blue-600 hover:text-blue-900">
+                                <button wire:click="openModalShow({{ $g->idcurdet }})" type="button" title="Ver instructor" class="text-blue-600 hover:text-blue-900">
                                     <x-icon.eye alt class="h-6 w-6"/>
                                 </button>
-                                <button wire:click="openModalDelete({{ $g->idcurdet }})" type="button" class="text-red-600 hover:text-red-900">
-                                    <x-icon.trash class="h-6 w-6"/>
-                                </button>
+
 
                             </x-table.cell>
                         </tr>
@@ -157,9 +155,9 @@
                         </tr>
                     @endforelse
                 </x-table>
-                {{-- <div>
+                <div>
                     {{ $datosTabla->links() }}
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>

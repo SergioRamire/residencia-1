@@ -1,9 +1,9 @@
 <div>
     <x-slot name="header">
-        <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-[#1b396a] rounded-lg border shadow-md sm:p-8">
+        <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-white border-sky-800 rounded-lg border shadow-md sm:p-8">
             <div class="flex flex-col items-center">
                 <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="{{ Auth::user()->profile_photo_url }} " alt="Bonnie image" />
-                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" > 
+                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" >
                     {{ auth()->user()->name }}
                     {{ auth()->user()->apellido_paterno }}
                     {{ auth()->user()->apellido_materno }}
@@ -15,19 +15,19 @@
 
     <div class="max-w-7xl mx-auto pt-5 pb-5">
         <div class="space-y-2">
-            <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
+            <div class="p-4 bg-white rounded-lg border border-sky-800 shadow-md sm:p-6 lg:p-8 ">
                 <h5 class="text-xl font-medium text-gray-800 ">Datos Personales</h5>
                 <form id="courseForm">
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                        
+
                         {{-- Nombre --}}
                         <div class="mt-4 flex-1">
-                            <div class="bg-gray-50 px-2 py-3 grid grid-cols-2 gap-2"> 
+                            <div class="bg-gray-50 px-2 py-3 grid grid-cols-2 gap-2">
                                 <dt class="text-base font-bold text-gray-900">Nombre: </dt>
                                 <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{$user->name}}</dd>
                             </div>
                         </div>
-                        
+
 
                        <!-- paterno -->
                         <div class="mt-4 flex-1">
@@ -121,7 +121,7 @@
     @if (!is_null($user->area))
         <div class="max-w-7xl mx-auto pt-5 pb-5">
             <div class="space-y-2">
-                <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
+                <div class="p-4 bg-white rounded-lg border border-sky-800 shadow-md sm:p-6 lg:p-8 ">
                     <h5 class="text-xl font-medium text-gray-800 ">Datos Laborales</h5>
                     <form id="courseForm">
                         <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> 
+                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                             {{-- jefe --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-gray-50 px-2 py-3 grid grid-cols-2 gap-2">
@@ -163,7 +163,7 @@
                                     <dt class="text-base font-bold text-gray-900">Puesto en Area: </dt>
                                     <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{$user->puesto_en_area}}</dd>
                                 </div>
-                            </div>       
+                            </div>
                             {{-- hora_entrada --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-gray-50 px-2 py-3 grid grid-cols-2 gap-2">

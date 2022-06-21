@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Livewire\Admin\ActivePeriod;
+use App\Http\Livewire\Admin\ActivatePeriodController;
+use App\Http\Livewire\Admin\ActiveInscriptionController;
 use App\Http\Livewire\Admin\AreaController;
 use App\Http\Livewire\Admin\AssignedInstructorController;
 use App\Http\Livewire\Admin\ConstanciasController;
@@ -142,5 +143,5 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         ->get('historial-instructor', HistoryInstructor::class)->name('historyinstructor');
 
     Route::middleware('can:activeperido.show')->prefix('admin')->name('admin.')
-        ->get('active-perido', ActivePeriod::class)->name('activeperido');
+        ->get('activar-inscripciones', ActiveInscriptionController::class)->name('activeperido');
 });

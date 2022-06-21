@@ -5,7 +5,9 @@ namespace App\Http\Livewire\Admin;
 use App\Http\Traits\WithSorting;
 use App\Models\Period;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
+use App\Models\User;
 
 class PeriodCoursesController extends Component
 {
@@ -34,6 +36,11 @@ class PeriodCoursesController extends Component
     public bool $confirmingSavePeriod = false;
     public bool $confirmingPeriodActive =false;
     public bool $confirmingPeriodInactive =false;
+
+    public $f_i;
+    public $f_f;
+    public $arreglo_id=[];
+    public $arreglo_estatus=[];
 
     public function updatingSearch()
     {
@@ -119,6 +126,7 @@ class PeriodCoursesController extends Component
             'clave' => $this->clave,
             'fecha_inicio' => $this->fecha_inicio,
             'fecha_fin' => $this->fecha_fin,
+            'estado' => 0,
         ]);
 
         $this->edit = false;
@@ -162,6 +170,7 @@ class PeriodCoursesController extends Component
         $period = Period::findOrFail($id);
         $this->periodo_id = $id;
         $this->confirmingPeriodActive=true;
+        $this->desactivarTodos();
     }
     public function periodoDesactivar($id){
         $period = Period::findOrFail($id);
@@ -169,17 +178,70 @@ class PeriodCoursesController extends Component
         $this->confirmingPeriodInactive=true;
     }
 
+    public function desactivarTodos(){
+        DB::table('periods')
+            ->update(['estado' => 0]);
+    }
+
     public function activar(){
-        Period::updateOrCreate(['id' => $this->periodo_id], [
-            'estado' => 1,
-        ]);
+        DB::table('periods')
+            ->where('periods.id','=',$this->periodo_id)
+            ->update(['estado' => 1]);
+        // Period::updateOrCreate(['id' => $this->periodo_id], [
+        //     'estado' => 1,
+        // ]);
         $this->confirmingPeriodActive=false;
+        // $this->cambiodeRol();
     }
     public function desactivar(){
-        Period::updateOrCreate(['id' => $this->periodo_id], [
-            'estado' => 0,
-        ]);
+        DB::table('periods')
+            ->where('periods.id','=',$this->periodo_id)
+            ->update(['estado' => 0]);
+        // Period::updateOrCreate(['id' => $this->periodo_id], [
+        //     'estado' => 0,
+        // ]);
         $this->confirmingPeriodInactive=false;
+    }
+
+    public function obtenerFechasActivas(){
+        $fecha_i_1=Period::select('periods.fecha_inicio')
+                               ->where('periods.estado','=',1)
+                               ->first();
+
+        $fecha_f_1=Period::select('periods.fecha_fin')
+                                ->where('periods.estado','=',1)
+                               ->first();
+        $this->f_i= $fecha_i_1->fecha_inicio;
+        $this->f_f= $fecha_f_1->fecha_fin;
+    }
+
+    public function obteneUsuariosPeriodoActivo(){
+        return User::join('inscriptions','inscriptions.user_id','users.id')
+        ->join('course_details','course_details.id','inscriptions.course_detail_id')
+        ->join('periods','periods.id','course_details.period_id')
+        ->select('inscriptions.user_id','inscriptions.estatus_participante')
+        ->where('periods.estado','=',1)
+        ->get();
+    }
+    public function cambiodeRol(){
+        $this-> obtenerFechasActivas();
+        $fecha_actual = date("Y-m-d");
+        $consulta=$this->obteneUsuariosPeriodoActivo();
+        foreach($consulta as $co){
+            array_push($this->arreglo_id,$co->user_id);
+        }
+
+        foreach($consulta as $co){
+            array_push($this->arreglo_estatus,$co->estatus_participante);
+        }
+
+        if(($fecha_actual >= $this->f_i) && ($fecha_actual <= $this->f_f)) {
+
+            for($i=0;$i<count($consulta);$i++){
+                $user = User::findOrFail($this->arreglo_id[$i]);
+                $user->syncRoles($this->arreglo_estatus[$i]);
+            }
+        }
     }
 
     public function render()
@@ -200,12 +262,12 @@ class PeriodCoursesController extends Component
                 ->paginate($this->perPage),
         ]);
     }
-    
+
     public $modalConfirmacion;
     public bool $estadox = false;
     public $color = 'red';
 
-    public function act($id){        
+    public function act($id){
         $this->modalConfirmacion = true;
         $this->estadox = true;
         $this->color = 'green';
