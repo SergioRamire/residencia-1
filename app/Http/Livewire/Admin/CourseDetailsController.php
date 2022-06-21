@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Http\Livewire\Admin;
-
+use Illuminate\Support\Facades\DB;
 use App\Http\Traits\WithFilters;
 use App\Http\Traits\WithSorting;
 use App\Models\Course;
 use App\Models\CourseDetail;
 use Livewire\Component;
 use Livewire\WithPagination;
+// use Barryvdh\DomPDF\Facades as PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 
 class CourseDetailsController extends Component
@@ -246,5 +249,26 @@ class CourseDetailsController extends Component
     {
         $this->edit($id);
         $this->modal = true;
+    }
+
+    public function downloadPdf()
+    {
+        $coursesdetails = CourseDetail::join('courses', 'courses.id','=', 'course_details.course_id')
+        ->join('groups', 'groups.id', '=','course_details.group_id')
+        ->join('periods', 'periods.id','=', 'course_details.period_id')
+        ->join('inscriptions', 'inscriptions.course_detail_id','=','course_details.id')
+        ->join('users', 'users.id','=','inscriptions.user_id')
+        ->where('inscriptions.estatus_participante', '=', 'Instructor')
+        ->where('periods.id','=',$this->classification['periodo'])
+        ->select('courses.nombre as curso','courses.objetivo as objetivo','courses.perfil as per', 'courses.duracion as duracion','course_details.lugar as lugar','courses.dirigido as dirigido','courses.observaciones as obs', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','periods.clave as claves', DB::raw("concat(users.name,' ',users.apellido_paterno,
+        ' ', users.apellido_materno) as nombre"),'users.estudio_maximo')
+        ->get();
+
+        $pdf = Pdf::loadView('livewire.admin.coursedetails.dowlandlistcourse', ['courses' => $coursesdetails]);
+        // $pdf_file = storage_path('app/')."ListadoCursos-$coursesdetails->claves.pdf";
+        $pdf_file = storage_path('app/')."Listado de cursos.pdf";
+        $pdf->setPaper("A4",'landscape');
+        $pdf->save($pdf_file);
+        return response()->download($pdf_file)->deleteFileAfterSend();
     }
 }
