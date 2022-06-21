@@ -33,7 +33,7 @@
                 <!-- Modalidad -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="modalidad" value="Modalidad"/>
-                    <x-input.select wire:model.defer="course.modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
+                    <x-input.select wire:model.defer="modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
                         <option value="" disabled>Selecciona modalidad...</option>
                         <option value="Presencial" selected>Presencial</option>
                         <option value="Semi-presencial">Semi-presencial</option>
