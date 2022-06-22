@@ -102,6 +102,17 @@ class UserController extends Component
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
+        /* cargar valores en apellido */
+        if (empty($user->apellido_paterno)) {
+            $this->no_ap1 = true;
+        }else {
+            $this->no_ap1 = false;
+        }
+        if (empty($user->apellido_materno)) {
+            $this->no_ap2 = true;
+        }else {
+            $this->no_ap2 = false;
+        }
 
         $this->user = $user;
         $this->reset(['password', 'password_confirmation']);
@@ -190,9 +201,5 @@ class UserController extends Component
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
         }
         return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255','required'];
-    }
-    public function activaDes()
-    {
-        
     }
 }

@@ -19,11 +19,13 @@
                 <div class="mt-4 flex-1">
                     <x-jet-label for="apellido_paterno" value="Apellido Paterno" />
                     <x-input.error wire:model.defer="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno" required />
+                    <input type="checkbox" wire:model.defer="no_ap1"> No Aplica
                 </div>
                 {{-- materno --}}
                 <div class="mt-4 flex-1">
                     <x-jet-label for="apellido_materno" value="Apellido Materno" />
                     <x-input.error wire:model.defer="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno" required />
+                    <input type="checkbox" wire:model.defer="no_ap2"> No Aplica
                 </div>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
