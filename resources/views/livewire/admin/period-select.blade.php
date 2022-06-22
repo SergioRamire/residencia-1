@@ -24,7 +24,7 @@
                         class="inset-x-0 {{$contador == $i ? 'bg-blue-100' : '' }}
                         inline-flex items-center px-4 py-2 border-none bg-white border border-gray-300  font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition"
                     >
-                        Del {{$data->fecha_inicio}} al {{$data->fecha_fin}}
+                        {{$data->clave}}
                 </a>
                 @endforeach
             @else
