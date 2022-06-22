@@ -31,6 +31,7 @@ class EmailController extends Component
     public $confirmingSaveParti = false;
     public $confirminNotificacion=false;
     public $deletetodasnotifi= false;
+    public $confirmingSaveEmail=false;
     public $perPage = '5';
     public $arreglo=[];
     // public $search = '';
@@ -99,6 +100,10 @@ class EmailController extends Component
     public function resetInputFields()
     {
         $this->reset('arr');
+    }
+
+    public function confirmation(){
+        $this->confirmingSaveEmail=true;
     }
 
     public function store()

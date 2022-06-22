@@ -48,6 +48,9 @@
                     <x-jet-label for="hora_inicio" value="Hora inicio" />
                     <x-jet-input wire:model.defer="hora_inicio" class="block mt-1 w-full" type="time" id="hora_inicio"
                         name="hora_inicio" />
+                        {{-- <input type="time" id="liveTimeStr" value="16:32"> --}}
+                        {{-- <input  wire:model.defer="hora_inicio" id = "hora_inicio"  type = "time"  nombre = "hora_inicio"
+                         min="12:00"  max = "18:00"  patrón requerido="[0-24]{2}:[0-9]{2}" > --}}
                     <x-jet-input-error for="hora_inicio" />
                 </div>
 

@@ -44,11 +44,11 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:click.prevent="store()" wire:loading.attr="disabled" form="courseForm">
+        <x-jet-button class="ml-3" wire:click.prevent="confirmation()" wire:loading.attr="disabled" form="courseForm">
             enviar
         </x-jet-button>
-        {{-- @if($confirmingSaveParti)
-                @include('livewire.admin.participante.confirCreate')
-        @endif --}}
+        @if($confirmingSaveEmail)
+                @include('livewire.admin.emailss.confirSend')
+        @endif
     </x-slot>
 </x-jet-dialog-modal>

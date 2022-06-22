@@ -33,6 +33,7 @@ class PostController extends Component
     public $confirmingSaveParti = false;
     public $confirminNotificacion=false;
     public $deletetodasnotifi= false;
+    public $confirmingSaveNotificacion=false;
 
     //Variables de busqueda y paginación
     public int $perPage = 5;
@@ -141,6 +142,10 @@ class PostController extends Component
             'message' =>  'Mensaje eliminado exitosamente',
         ]);
         $this->resetInputFields();
+    }
+
+    public function confirmation(){
+        $this->confirmingSaveNotificacion=true;
     }
 
     public function store()
