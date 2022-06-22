@@ -12,7 +12,7 @@
                 <div class="mt-4 bg-sky-50  overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-1">
                         <div>
-                            <img src="{{ asset('img/imagen.png') }}">
+                            <img class="mt-10" src="{{ asset('img/imagen.png') }}">
                         </div>
                         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
                             <h2 class="text-justify text-xl font-extrabold tracking-tight text-gray-900">

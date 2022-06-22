@@ -1,6 +1,6 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditModal">
     <x-slot name="title">
-       Crear post
+       Enviar Notificación
     </x-slot>
     <x-slot name="content">
         <form  id="courseForm">
@@ -19,12 +19,6 @@
                 <x-jet-input-error for="arr.description"/>
             </div>
 
-            {{-- <div class="mt-4">
-                <x-jet-label for="description" value="{{ __('Descripción') }}" />
-                <x-input.error wire:model="arr.description" class="block mt-1 w-full" type="text" id="description" name="description" for="description" required/>
-                <x-jet-input-error for="arr.description"/>
-            </div> --}}
-
             <div class="mt-4 sm:flex-1">
                 <x-jet-label for="rol" value="Destinatario"/>
                 <x-input.select wire:model.defer="arr.role" id="rol" class="mt-1 w-full" name="rol">
@@ -32,15 +26,9 @@
                         <option value="Participante">Participantes</option>
                         <option value="Instructor">Instructores</option>
                         <option value="Todos">Todos</option>
-                        {{-- @foreach(\Spatie\Permission\Models\Role::all() as $role)
-                            <option value="{{ $role->name }}">{{ ucwords($role->name) }}</option>
-                        @endforeach --}}
                 </x-input.select>
                 <x-jet-input-error for="arr.role"/>
             </div>
-            {{-- <div class="mt-4 sm:flex-1">
-                <textarea class="resize-x rounded-md"></textarea>
-            </div> --}}
 
         </form>
     </x-slot>

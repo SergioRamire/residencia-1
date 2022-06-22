@@ -4,16 +4,16 @@
     </x-slot>
     <x-slot name="content">
 
-        {{-- <div wire:ignore>
+        <div wire:ignore>
             <select id="id_cur" wire:model.defer='curso' class="text-sm block mt-1 w-full">
                 <option value="">Selecciones un Curso x...</option>
                 @foreach ($busqueda as $c)
                     <option value="{{ $c->id }}">{{ $c->nombre }}</option>
                 @endforeach
             </select>
-        </div> --}}
+        </div>
 
-        {{-- <form wire:submit.prevent="updateDetails()" id="courseForm">
+        <form wire:submit.prevent="updateDetails()" id="courseForm">
             <!-- Nombre  Curso-->
             <!-- Periodo y Hora inicio y Hora fin -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
@@ -33,7 +33,7 @@
                 <!-- Modalidad -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="modalidad" value="Modalidad"/>
-                    <x-input.select wire:model.defer="course.modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
+                    <x-input.select wire:model.defer="modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
                         <option value="" disabled>Selecciona modalidad...</option>
                         <option value="Presencial" selected>Presencial</option>
                         <option value="Semi-presencial">Semi-presencial</option>
@@ -89,7 +89,7 @@
                     </x-input.select>
                 </div>
             </div>
-        </form> --}}
+        </form>
     </x-slot>
 
     <x-slot name="footer">
@@ -100,8 +100,8 @@
         <x-jet-button class="ml-3" wire:loading.attr="disabled" form="courseForm">
             Datos
         </x-jet-button>
-        {{-- @if ($confirmingSaveDetails) --}}
+        @if ($confirmingSaveDetails)
             @include('livewire.admin.coursedetails.confirmation')
-        {{-- @endif --}}
+        @endif
     </x-slot>
 </x-jet-dialog-modal>

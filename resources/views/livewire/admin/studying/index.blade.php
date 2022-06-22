@@ -1,5 +1,7 @@
 <div>
-    Mis cursos seleccionados
+    <span class="mb-2 text-2xl font-bold tracking-tight ">
+    Mis cursos
+    </span>
         <div class="grid grid-flow-row xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
             {{-- <div class="grid grid-cols-3 md:grid-cols-max"> --}}
             @foreach ($datos as $data)

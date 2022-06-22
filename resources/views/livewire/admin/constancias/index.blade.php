@@ -33,10 +33,9 @@
                                 <option value="{{ $course->id }}">{{$course->nombre}}</option>
                             @endforeach
                         </x-input.select>
-
                 </div> --}}
 
-                
+
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <div class="mt-4 flex-1">
                     <x-jet-label value="Seleccione el periodo"/>
@@ -170,7 +169,7 @@
                             <div>
                                 @if($g->calificacion > 69)
                                     <x-table.cell class="text-center">
-                                        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                        <button wire:click="descargarConstancia({{ $g->id }})" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                             <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                                 <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
                                             </svg>
@@ -201,6 +200,16 @@
                 </x-table>
                 <div>
                     {{ $calificaciones->links()}}
+                </div>
+                <div class="text-right min-h-full">
+                    @if($calificaciones->count() > 0)
+                        <button wire:click="descargarConstanciasZIP()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
+                            </svg>
+                            <span>Todas</span>
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>

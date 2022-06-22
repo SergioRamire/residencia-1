@@ -11,6 +11,11 @@ use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Livewire\WithPagination;
 
+use App\Http\Livewire\Admin\EmailController;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EnviarEmailCurso;
+
+
 class InscriptionsController extends Component
 {
     use WithPagination;
@@ -211,7 +216,9 @@ class InscriptionsController extends Component
             [
                 'tabla' => $this->buscar(),
                 'semana1' => $this->rangoFecha('2022-06-20')->paginate($this->perPage),
-                'semana2' => $this->rangoFecha('2022-06-27')->paginate($this->perPage2),
+                'semana2' => $this->rangoFecha('2022-06-27')->paginate($this->perPage),
+                // 'semana1' => $this->rangoFecha($this->fecha_inicio_periodo1, $this->fecha_fin_periodo1)->paginate($this->perPage),
+                // 'semana2' => $this->rangoFecha($this->fecha_inicio_periodo2, $this->fecha_fin_periodo2)->paginate($this->perPage2),
             ]
         );
     }
@@ -262,9 +269,11 @@ class InscriptionsController extends Component
                     ]);
         }
 
-
+        app(EmailController::class)->cursos($this->user, $this->unionarreglos);
+        $this-> noti('success','Horario creado Exitosamente');
         return redirect()->route('participant.studying');
         // $this-> noti('success','Horario creado Exitosamente');
+
     }
 
     // public function Obtenerusuariosinscritospreviamente(){
@@ -291,5 +300,7 @@ class InscriptionsController extends Component
 
     /* Verificacion si hay cursos */
     public $disponible = true;
+
+
 
 }

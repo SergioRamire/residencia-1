@@ -25,27 +25,30 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        // $nombre = $this->faker->firstName();
+        // $apellido_paterno = $this->faker->lastName();
+
         $hora_entrada = $this->faker->time('H:i');
 
         $nombre1 = $this->faker->randomElement([
-            'Daniel','Ricardo','Valentina','Regina','Camila','María','Fernanda','María','Valeria','Renata','Victoria','Maria','Expropiasión', 'Juana','Arturo','Alexis','Carmen','Alejandro','Alejandra','Mareli','Natali',
-            'Concha','Natalia', 'Mareli', 'MariaBD','Mateo','Sebastián','Emiliano','Diego','Miguel','Ángel','Daniel','Daniela',
-            'Jesús', 'Pedro','Emiliano','Gael', 'David', 'Marco','Felipe', 'Erik', 'Pablo','Santiago','Leonardo','Victoria', 'André','Manuel', 'Martín', 'Perla', 'Rebecca','Izmucaneth', 'Abimael','Maricela', 'Francisco',
+            'Sergio','Saul','Valentina','Regina','Camila','Maria','Fernanda','Maria','Valeria','Renata','Victoria','Maria','Expropiasion', 'Juana','Arturo','Alexis','Carmen','Alejandro','Alejandra','Mareli','Natali',
+            'Concha','Natalia', 'Mareli', 'MariaBD','Mateo','Sebastian','Emiliano','Diego','Miguel','angel','Daniel','Daniela',
+            'Jesus', 'Pedro','Emiliano','Gael', 'David', 'Marco','Farid', 'Erik', 'Pablo','Santiago','Leonardo','Victoria', 'Andre','Manuel', 'Martin', 'Perla', 'Rebecca','Izmucaneth', 'Abimael','Maricela', 'Francisco',
         ]);
         $nombre2 = $this->faker->randomElement([
-            'Gustavo','Federico','Valentina','Regina','Camila','María','Fernanda','María','Valeria','Renata','Victoria','Maria','Expropiasión', 'Juana','Arturo','Alexis','Carmen','Alejandro','Alejandra','Mareli','Natali',
-            'Concha','Natalia', 'Mareli', 'MariaBD','Mateo','Sebastián','Emiliano','Diego','Miguel','Ángel','Daniel','Daniela',
-            'Jesús', 'Pedro','Emiliano','Gael', 'David', 'Marco','Felipe', 'Erik', 'Pablo','Santiago','Leonardo','Victoria', 'André','Manuel', 'Martín', 'Perla', 'Rebecca','Izmucaneth', 'Abimael','Maricela', 'Francisco',
+            'Sergio','Saul','Valentina','Regina','Camila','Maria','Fernanda','Maria','Valeria','Renata','Victoria','Maria','Expropiasion', 'Juana','Arturo','Alexis','Carmen','Alejandro','Alejandra','Mareli','Natali',
+            'Concha','Natalia', 'Mareli', 'MariaBD','Mateo','Sebastian','Emiliano','Diego','Miguel','angel','Daniel','Daniela',
+            'Jesus', 'Pedro','Emiliano','Gael', 'David', 'Marco','Farid', 'Erik', 'Pablo','Santiago','Leonardo','Victoria', 'Andre','Manuel', 'Martin', 'Perla', 'Rebecca','Izmucaneth', 'Abimael','Maricela', 'Francisco',
         ]);
 
         $apellido_paterno = $this->faker->randomElement([
-            'López','García','Hernández','González','Pérez','Rodríguez', 'Sánchez','Ramírez','Cruz','Gómez','Flores','Morales',
-            'Vázquez','Reyes','Torres','Jiménez','Díaz','Gutiérrez','Mendoza','Ruíz','Ortiz','Aguilar','Moreno','Castillo','Álvarez','Zarate', 'Anaya','Juárez','Suarez','Domínguez','Ramos','Herrera','Medina','Castro','Guzmán'
+            'Lopez','Garcia','Hernandez','Gonzalez','Perez','Rodriguez', 'Sanchez','Ramirez','Cruz','Gomez','Flores','Morales',
+            'Vazquez','Reyes','Torres','Jimenez','Diaz','Gutierrez','Mendoza','Ruiz','Ortiz','Aguilar','Moreno','Castillo','alvarez','Zarate', 'Anaya','Juarez','Suarez','Dominguez','Ramos','Herrera','Medina','Castro','Guzman'
         ]);
 
         $apellido_materno = $this->faker->randomElement([
-            'López','García','Hernández','González','Pérez','Rodríguez', 'Sánchez','Ramírez','Cruz','Gómez','Flores','Morales',
-            'Vázquez','Reyes','Torres','Jiménez','Díaz','Gutiérrez','Mendoza','Ruíz','Ortiz','Aguilar','Moreno','Castillo','Álvarez','Zarate', 'Anaya','Juárez','Suarez','Domínguez','Ramos','Herrera','Medina','Castro','Guzmán'
+            'Lopez','Garcia','Hernandez','Gonzalez','Perez','Rodriguez', 'Sanchez','Ramirez','Cruz','Gomez','Flores','Morales',
+            'Vazquez','Reyes','Torres','Jimenez','Diaz','Gutierrez','Mendoza','Ruiz','Ortiz','Aguilar','Moreno','Castillo','alvarez','Zarate', 'Anaya','Juarez','Suarez','Dominguez','Ramos','Herrera','Medina','Castro','Guzman'
         ]);
 
         $correo_id = strtolower($this->faker->randomNumber(8));
@@ -53,37 +56,37 @@ class UserFactory extends Factory
             'itoaxaca.edu.mx',
         ]);
         $carrera=$this->faker->randomElement([
-                'Ingeniería Electrónica',
+                'Ingeniería Electronica',
                 'Ingeniería Civil',
-                'Ingeniería Mecánica',
+                'Ingeniería Mécanica',
                 'Ingeniería Industrial',
                 'Ingeniería Química',
-                'Ingeniería Eléctrica',
+                'Ingeniería Electrica',
                 'Ingeniería en Gestión Empresarial',
                 'Ingeniería en Sistemas Computacionales',
-                'Ingeniería en Administración','Licenciando en Administración','Contador publico','Fisico matematico',
+                'Ingeniería en Administración','Licenciando en Administracion','Contador publico','Fisico matematico',
         ]);
 
         $organizacion=$this->faker->randomElement([
-            'Tecnológico de oaxaca',
-            'Cisco','Fundación Carlos Slim'
+            'Tecnologico de oaxaca',
+            'Cisco','Fundacion Carlos Slim'
         ]);
 
         $jefein=$this->faker->randomElement([
-            'Dr. Rubén Doroteo Castillejos',
-            'M.A. Efrén Normando Enríquez Porras',
+            'Dr. Ruben Doroteo Castillejos',
+            'M.A. Efren Normando Enriquez Porras',
             'M.C. Maricela Morales Hernández',
-            'M.A. Edgar Alberto Cortes Jiménez',
-            'M.C. Minerva Donají Méndez López',
-            'M.C. Martha Hilaria Bartolo Alemán',
-            'Ing. Adrián Gómez Ordaz',
+            'M.A. Edgar Alberto Cortes Jimenez',
+            'M.C. Minerva Donají Mendez López',
+            'M.C. Martha Hilaria Bartolo Aleman',
+            'Ing. Adrian Gómez Ordaz',
             'Ing. Roberto Tamar Castellanos Baltazar',
             'José Alfredo Reyes Juárez',
-            'L.I. Virginia Ortíz Méndez',
+            'L.I. Virginia Ortíz Mendez',
         ]);
 
         $estudiosmax=$this->faker->randomElement([
-            'Licenciatura', 'Maestría','Doctorado',
+            'Licenciatura', 'Maestria','Doctorado',
         ]);
 
 

@@ -126,7 +126,7 @@ class GradeController extends Component
                     ->join('periods','periods.id','course_details.period_id')
                     ->where('users.id','=',$this->user->id)
                     ->where('inscriptions.estatus_participante','=','Instructor')
-                    ->where('periods.fecha_inicio','>',$fecha_actual)
+                    ->where('periods.estado','=',1)
                     ->select('course_details.id','courses.nombre')
                     ->get();
     }
