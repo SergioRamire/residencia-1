@@ -32,18 +32,22 @@ class GroupController extends Component
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
 
-    private function validateInputs()
+    public function rules(): array
     {
-        if ($this->create == true) {
-            $this->validate([
-                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'unique:groups'],
-            ]);
-        }
-        if ($this->edit == true) {
-            $this->validate([
+        if ($this->edit) {
+            return [
                 'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-            ]);
+            ];
         }
+
+        return [
+            'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'unique:groups'],
+        ];
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function updatingSearch()
@@ -84,7 +88,7 @@ class GroupController extends Component
 
     public function store()
     {
-        $this->validateInputs();
+        $this->validate();
 
         Group::updateOrCreate(['id' => $this->group_id], [
             'nombre' => $this->nombre,
@@ -108,7 +112,7 @@ class GroupController extends Component
 
     public function updateGroup()
     {
-        $this->validateInputs();
+        $this->validate();
         $this->confirmingSaveGroup = true;
     }
 
@@ -122,7 +126,7 @@ class GroupController extends Component
         $this->create = false;
         $this->openModal();
         $this->confirmingSaveGroup = false;
-        $this->validateInputs();
+        $this->validate();
     }
 
     public function deleteGroup($id)
