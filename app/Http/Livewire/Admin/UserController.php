@@ -63,6 +63,11 @@ class UserController extends Component
         ];
     }
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function mount()
     {
         $this->blankUser();
@@ -185,7 +190,7 @@ class UserController extends Component
 
     public $no_ap1 = false;
     public $no_ap2 = false;
-    public function valiAp($valor){   
+    public function valiAp($valor){
         if ($valor) {
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
         }
@@ -193,6 +198,6 @@ class UserController extends Component
     }
     public function activaDes()
     {
-        
+
     }
 }

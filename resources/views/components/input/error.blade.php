@@ -21,8 +21,10 @@
         </div>
     </div>
     @error($for)
-        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+        <div><p class="mt-2 text-sm text-red-600">{{ $message }}</p></div>
     @enderror
 @else
-    <x-jet-input {{ $attributes->merge() }}/>
+    <div>
+        <x-jet-input {{ $attributes->merge() }}/>
+    </div>
 @endif
