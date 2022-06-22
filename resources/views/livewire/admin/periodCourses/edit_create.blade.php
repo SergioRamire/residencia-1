@@ -7,7 +7,7 @@
             <!-- Clave -->
             <div class="mt-4">
                 <x-jet-label for="clave" value="Clave"/>
-                <x-input.error wire:model.defer="clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="clave" required/>
+                <x-input.error wire:model="clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="clave" required/>
             </div>
             <!-- Clave y Periodo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">

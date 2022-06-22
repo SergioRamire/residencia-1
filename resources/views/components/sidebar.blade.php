@@ -188,13 +188,13 @@
                         </x-slot>
 
                         <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active='request()->route("admin.historycourse")'>
-                            Historial de Cursos
+                            Cursos
                         </x-sidebar.link>
                         <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active='request()->route("admin.historyparticipant")'>
-                            Historial de Participantes
+                            Participantes
                         </x-sidebar.link>
                         <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active='request()->route("admin.historyinstructor")'>
-                            Historial de Instructores
+                            Instructores
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan
@@ -409,13 +409,13 @@
                         </x-slot>
 
                         <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active='request()->route("admin.historycourse")'>
-                            Historial de Cursos
+                            Cursos
                         </x-sidebar.link>
                         <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active='request()->route("admin.historyparticipant")'>
-                            Historial de Participantes
+                            Participantes
                         </x-sidebar.link>
                         <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active='request()->route("admin.historyinstructor")'>
-                            Historial de Instructores
+                            Instructores
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan

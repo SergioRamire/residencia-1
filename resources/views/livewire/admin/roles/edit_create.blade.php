@@ -8,9 +8,9 @@
             <div>
                 <x-jet-label for="nombre" value="Nombre"/>
                 @unless(in_array($role->name, ['Super admin', 'Administrador', 'Participante', 'Instructor']))
-                    <x-input.error wire:model.defer="role.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="role.name" required/>
+                    <x-input.error wire:model="role.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="role.name" required/>
                 @else
-                    <x-input.error wire:model.defer="role.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="role.name" readonly/>
+                    <x-input.error wire:model="role.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="role.name" readonly/>
                 @endunless
             </div>
 

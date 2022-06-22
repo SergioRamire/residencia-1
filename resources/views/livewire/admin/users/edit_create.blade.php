@@ -9,19 +9,21 @@
                 <!-- Nombre -->
                 <div class="sm:flex-1">
                     <x-jet-label for="nombre" value="Nombre"/>
-                    <x-input.error wire:model.defer="user.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="user.name" required/>
+                    <x-input.error wire:model="user.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="user.name" required/>
                 </div>
 
                 <!-- Apellido paterno -->
                 <div class="mt-4 sm:mt-0 sm:flex-1">
                     <x-jet-label for="apellido_paterno" value="Apellido paterno"/>
-                    <x-input.error wire:model.defer="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno"/>
+                    <x-input.error wire:model="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno" />
+                    <input type="checkbox" wire:model="no_ap1"> No Aplica
                 </div>
 
                 <!-- Apellido materno -->
                 <div class="mt-4 sm:mt-0 sm:flex-1">
                     <x-jet-label for="apellido_materno" value="Apellido materno"/>
-                    <x-input.error wire:model.defer="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno"/>
+                    <x-input.error wire:model="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno"/>
+                    <input type="checkbox" wire:model="no_ap2"> No Aplica
                 </div>
             </div>
 
@@ -30,13 +32,13 @@
                 <!-- Correo -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="email" value="Correo"/>
-                    <x-input.error wire:model.defer="user.email" class="block mt-1 w-full" type="email" id="email" name="email" for="user.email" required/>
+                    <x-input.error wire:model="user.email" class="block mt-1 w-full" type="email" id="email" name="email" for="user.email" required/>
                 </div>
 
                 <!-- Rol -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="rol" value="Rol"/>
-                    <x-input.select wire:model.defer="role" id="rol" class="mt-1 w-full" name="rol">
+                    <x-input.select wire:model="role" id="rol" class="mt-1 w-full" name="rol">
                         <option value="" disabled>Selecciona rol...</option>
                         @foreach(\Spatie\Permission\Models\Role::all() as $role)
                             <option value="{{ $role->name }}">{{ ucwords($role->name) }}</option>
@@ -50,13 +52,13 @@
                 <!-- Contraseña -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="contraseña" :value="$edit ? 'Contraseña nueva' : 'Contraseña'"/>
-                    <x-input.error wire:model.defer="password" class="block mt-1 w-full" type="password" id="contraseña" name="contraseña" for="password"/>
+                    <x-input.error wire:model="password" class="block mt-1 w-full" type="password" id="contraseña" name="contraseña" for="password"/>
                 </div>
 
                 <!-- Confirmación de contraseña -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="contraseña_confirmation" value="Confirmación de contraseña"/>
-                    <x-input.error wire:model.defer="password_confirmation" class="block mt-1 w-full" type="password" id="contraseña_confirmation" name="contraseña_confirmation" for="password_confirmation"/>
+                    <x-input.error wire:model="password_confirmation" class="block mt-1 w-full" type="password" id="contraseña_confirmation" name="contraseña_confirmation" for="password_confirmation"/>
                 </div>
             </div>
         </form>

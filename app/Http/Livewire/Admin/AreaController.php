@@ -37,10 +37,37 @@ class AreaController extends Component
     public $confirmingAreaDeletion = false;
     public $confirmingSaveArea = false;
 
+    public function rules(): array
+    {
+        if ($this->edit) {
+            return [
+                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'extension' => ['required', 'numeric'],
+                'clave' => ['required', 'alpha_num'],
+                'telefono' => ['required', 'numeric'],
+            ];
+        }
+
+        return [
+            'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'unique:areas'],
+            'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'extension' => ['required', 'numeric'],
+            'clave' => ['required', 'alpha_num', 'unique:areas'],
+            'telefono' => ['required', 'numeric'],
+        ];
+    }
+
     public function mount()
     {
         // $this->date  = Carbon::now();
     }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -49,28 +76,6 @@ class AreaController extends Component
     public function resetFilters()
     {
         $this->reset('search');
-    }
-
-    private function validateInputs()
-    {
-        if ($this->edit == true) {
-            $this->validate([
-                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-                'jefe_area' => ['required', 'regex:/^[\pL\pM\s].+$/u'],
-                'extension' => ['required', 'numeric'],
-                'clave' => ['required', 'alpha_num'],
-                'telefono' => ['required', 'numeric'],
-            ]);
-        }
-        if ($this->create == true) {
-            $this->validate([
-                'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'unique:areas'],
-                'jefe_area' => ['required', 'regex:/^[\pL\pM\s].+$/u'],
-                'extension' => ['required', 'numeric'],
-                'clave' => ['required', 'alpha_num', 'unique:areas'],
-                'telefono' => ['required', 'numeric'],
-            ]);
-        }
     }
 
     public function create()
@@ -104,7 +109,7 @@ class AreaController extends Component
 
     public function store()
     {
-        $this->validateInputs();
+        $this->validate();
 
         Area::updateOrCreate(['id' => $this->area_id], [
             'clave' => $this->clave,
@@ -132,7 +137,7 @@ class AreaController extends Component
 
     public function updateArea()
     {
-        $this->validateInputs();
+        $this->validate();
         $this->confirmingSaveArea = true;
     }
 

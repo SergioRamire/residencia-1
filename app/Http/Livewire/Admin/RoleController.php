@@ -36,6 +36,11 @@ class RoleController extends Component
         'role.name' => ['required'],
     ];
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function mount()
     {
         $this->blankRole();

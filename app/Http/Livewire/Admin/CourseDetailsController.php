@@ -232,16 +232,22 @@ class CourseDetailsController extends Component
             'detalles'=>CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
                 ->join('groups', 'groups.id', 'course_details.group_id')
                 ->join('periods', 'periods.id', 'course_details.period_id')
-                // ->when($this->classification['curso'], fn ($query, $search) => $query
-                //     ->where('courses.id', $search)
-                //     )
                 ->where('periods.id','=',$this->classification['periodo'])
-                ->where('courses.id','=',$this->classification['curso'])
                 ->select('course_details.id', 'course_details.lugar', 'course_details.capacidad',
                 'course_details.hora_inicio', 'course_details.hora_fin', 'courses.nombre as curso',
                 'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
-                ->when($this->filters['curso'], fn ($query, $curso) => $query->where('course_details.course_id', '=', $curso))
-                ->when($this->filters['modalidad'], fn ($query, $modalidad) => $query->where('course_details.modalidad', $modalidad))
+                ->when($this->search, function ($query, $b) {
+                    $query->where('courses.nombre', 'like', "%$b%")
+                    ->orWhere('course_details.modalidad', 'like', "%$b%")
+                    ->orWhere('periods.fecha_inicio', 'like', "%$b%")
+                    ->orWhere('periods.fecha_fin', 'like', "%$b%")
+                    ->orWhere('course_details.hora_inicio', 'like', "%$b%")
+                    ->orWhere('course_details.hora_fin', 'like', "%$b%")
+                    ->orWhere('course_details.lugar', 'like', "%$b%")
+                    ->orWhere('course_details.capacidad', 'like', "%$b%")
+                    ->orWhere('groups.nombre', 'like', "%$b%")
+                    ;
+                })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
             'busqueda'=>$this->listaBuscador(),
