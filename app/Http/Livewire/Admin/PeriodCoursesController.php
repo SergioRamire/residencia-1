@@ -42,6 +42,28 @@ class PeriodCoursesController extends Component
     public $arreglo_id=[];
     public $arreglo_estatus=[];
 
+    public function rules(): array
+    {
+        if ($this->edit) {
+            return [
+                'clave' => ['required', 'unique:periods'],
+                'fecha_inicio' => ['required', 'date'],
+                'fecha_fin' => ['required', 'date'],
+            ];
+        }
+
+        return [
+            'clave' => ['required', 'unique:periods'],
+            'fecha_inicio' => ['required', 'date', 'unique:periods'],
+            'fecha_fin' => ['required', 'date', 'unique:periods'],
+        ];
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -52,24 +74,6 @@ class PeriodCoursesController extends Component
         $this->reset('search');
         $this->reset('filters');
         $this->reset('filters2');
-    }
-
-    private function validateInputs()
-    {
-        if ($this->edit == true) {
-            $this->validate([
-                'clave' => ['required', 'unique:periods'],
-                'fecha_inicio' => ['required', 'date'],
-                'fecha_fin' => ['required', 'date'],
-            ]);
-        }
-        if ($this->create == true) {
-            $this->validate([
-                'clave' => ['required', 'unique:periods'],
-                'fecha_inicio' => ['required', 'date', 'unique:periods'],
-                'fecha_fin' => ['required', 'date', 'unique:periods'],
-            ]);
-        }
     }
 
     public function create()
@@ -102,7 +106,7 @@ class PeriodCoursesController extends Component
 
     public function updatePeriod()
     {
-        $this->validateInputs();
+        $this->validate();
         $this->confirmingSavePeriod = true;
     }
 
