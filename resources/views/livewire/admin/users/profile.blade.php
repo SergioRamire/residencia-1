@@ -128,7 +128,7 @@
                             {{-- Nombre de area --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Nombre de Area: </dt>
+                                    <dt class="text-base font-bold text-gray-900">Nombre de Área: </dt>
                                     <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{$user->area->nombre ?? ''}}</dd>
                                 </div>
                             </div>
@@ -144,14 +144,14 @@
                             {{-- jefe --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Nombre del Jefe inmediato: </dt>
+                                    <dt class="text-base font-bold text-gray-900">Nombre del jefe inmediato: </dt>
                                     <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{$user->jefe_inmediato}}</dd>
                                 </div>
                             </div>
                             {{-- telefono --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Telefono: </dt>
+                                    <dt class="text-base font-bold text-gray-900">Teléfono: </dt>
                                     <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{$area->telefono}}</dd>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                             <!-- puesto_en_area -->
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Puesto en Area: </dt>
+                                    <dt class="text-base font-bold text-gray-900">Puesto en Área: </dt>
                                     <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{$user->puesto_en_area}}</dd>
                                 </div>
                             </div>
@@ -190,7 +190,7 @@
                             {{-- organizacion_origen --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Organizacion de Origen: </dt>
+                                    <dt class="text-base font-bold text-gray-900">Organización origen: </dt>
                                     <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{$user->organizacion_origen}}</dd>
                                 </div>
                             </div>

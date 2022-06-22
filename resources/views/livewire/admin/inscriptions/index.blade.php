@@ -119,7 +119,8 @@
                                             <x-table.cell>{{ $c->nombre }} </x-table.cell>
                                             <x-table.cell>{{ $c->perfil }} </x-table.cell>
                                             <x-table.cell>{{ $c->dirigido }} </x-table.cell>
-                                            <x-table.cell>{{ $c->hora_inicio }} a {{ $c->hora_fin }}
+                                            <x-table.cell>{{ date("g:i a", strtotime($c->hora_inicio)) }} a
+                                                {{ date("g:i a", strtotime($c->hora_fin)) }}
                                             </x-table.cell>
                                             <x-table.cell>
 

@@ -120,7 +120,7 @@
 
                 <!-- Botón del desplegable e icono -->
                 <div class="flex items-center">
-                    <p class="hidden md:block mr-2 tracking-wide text-sm font-medium text-gray-500">{{ Str::words(Auth::user()->name, 1,' ')}}{{ Str::words(Auth::user()->apellido_paterno,1)}}{{' '}}{{ Str::words(Auth::user()->apellido_materno) }}</p>
+                    <p class="hidden md:block mr-2 tracking-wide text-sm font-bold text-sky-800">{{ Str::words(Auth::user()->name, 1,' ')}}{{ Str::words(Auth::user()->apellido_paterno,1)}}{{' '}}{{ Str::words(Auth::user()->apellido_materno) }}</p>
                     <button @click="navbarProfileOpen = !navbarProfileOpen" type="button" class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span class="sr-only">Open user menu</span>
                         <img class="h-8 w-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="Profile photo">

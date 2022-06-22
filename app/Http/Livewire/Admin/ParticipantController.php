@@ -63,7 +63,7 @@ class ParticipantController extends Component
             'user.hora_salida' => 'required',
             'user.cuenta_moodle' => ['required',  'in:0,1'],
             'user.organizacion_origen' => ['required', 'max:255'],
-            'user.jefe_inmediato' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.jefe_inmediato' => ['required', 'regex:/^[\pL\pM\s.]+$/u', 'max:255'],
             'user.area_id' => ['required',  'exists:areas,id'],
         ];
     }

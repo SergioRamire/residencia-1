@@ -19,7 +19,7 @@
                                 Los cursos intersemestrales son una
                                 opción que se ofrecerá fuera del
                                 periodo escolar regular para poder entrar a cursos
-                                los cuales ayudan a agregar o refuerzar
+                                los cuales ayudan a agregar o reforzar
                                 conocimientos de los docentes.
                                 <span class=" text-lg block text-gray-900">Pueden ser de Actualizacion o Formacion
                                 </span>

@@ -56,7 +56,7 @@ class AreaController extends Component
         if ($this->edit == true) {
             $this->validate([
                 'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
-                'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'jefe_area' => ['required', 'regex:/^[\pL\pM\s].+$/u'],
                 'extension' => ['required', 'numeric'],
                 'clave' => ['required', 'alpha_num'],
                 'telefono' => ['required', 'numeric'],
@@ -65,7 +65,7 @@ class AreaController extends Component
         if ($this->create == true) {
             $this->validate([
                 'nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'unique:areas'],
-                'jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'jefe_area' => ['required', 'regex:/^[\pL\pM\s].+$/u'],
                 'extension' => ['required', 'numeric'],
                 'clave' => ['required', 'alpha_num', 'unique:areas'],
                 'telefono' => ['required', 'numeric'],
@@ -138,7 +138,10 @@ class AreaController extends Component
 
     public function edit($id)
     {
-        $this->resetErrorBag();
+         /* Reinicia los errores */
+         $this->resetErrorBag();
+         $this->resetValidation();
+
         $area = Area::findOrFail($id);
         $this->area_id = $id;
         $this->clave = $area->clave;
