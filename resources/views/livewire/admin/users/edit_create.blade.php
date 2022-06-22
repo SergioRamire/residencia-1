@@ -15,13 +15,15 @@
                 <!-- Apellido paterno -->
                 <div class="mt-4 sm:mt-0 sm:flex-1">
                     <x-jet-label for="apellido_paterno" value="Apellido paterno"/>
-                    <x-input.error wire:model.defer="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno"/>
+                    <x-input.error wire:model.defer="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno" />
+                    <input type="checkbox" wire:model.defer="no_ap1"> No Aplica
                 </div>
 
                 <!-- Apellido materno -->
                 <div class="mt-4 sm:mt-0 sm:flex-1">
                     <x-jet-label for="apellido_materno" value="Apellido materno"/>
                     <x-input.error wire:model.defer="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno"/>
+                    <input type="checkbox" wire:model.defer="no_ap2"> No Aplica
                 </div>
             </div>
 

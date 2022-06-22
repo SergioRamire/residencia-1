@@ -45,8 +45,8 @@ class UserController extends Component
         if ($this->edit) {
             return [
                 'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-                'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+                'user.apellido_paterno' => $this->valiAp($this->no_ap1),
+                'user.apellido_materno' => $this->valiAp($this->no_ap2),
                 'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
                 'password' => ['present', 'string', 'min:8', 'confirmed'],
                 'password_confirmation' => ['present'],
@@ -55,8 +55,8 @@ class UserController extends Component
 
         return [
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.apellido_paterno' => $this->valiAp($this->no_ap1),
+            'user.apellido_materno' => $this->valiAp($this->no_ap2),
             'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required'],
@@ -181,5 +181,18 @@ class UserController extends Component
                 })
                 ->paginate($this->perPage),
         ]);
+    }
+
+    public $no_ap1 = false;
+    public $no_ap2 = false;
+    public function valiAp($valor){   
+        if ($valor) {
+            return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
+        }
+        return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255','required'];
+    }
+    public function activaDes()
+    {
+        
     }
 }
