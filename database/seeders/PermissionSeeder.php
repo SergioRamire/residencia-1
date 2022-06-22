@@ -30,6 +30,7 @@ class PermissionSeeder extends Seeder
         $superAdminRole = Role::create(['name' => 'Super admin']);
 
         $adminRole = Role::create(['name' => 'Administrador']);
+        $jefadepto = Role::create(['name' => 'Jefa de departamento']);
         $instructorRole = Role::create(['name' => 'Instructor']);
         $participantRole = Role::create(['name' => 'Participante']);
 
@@ -43,7 +44,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'role.edit', 'human_name' => 'Editar roles'])->assignRole(['Administrador']);
         Permission::create(['name' => 'role.delete', 'human_name' => 'Eliminar roles'])->assignRole(['Administrador']);
 
-        Permission::create(['name' => 'profile.show', 'human_name' => 'Visualizar Perfil'])->assignRole(['Administrador','Instructor','Participante']);
+        Permission::create(['name' => 'profile.show', 'human_name' => 'Visualizar Perfil'])->assignRole(['Administrador','Instructor','Participante', 'Jefa de departamento']);
 
         Permission::create(['name' => 'user.show', 'human_name' => 'Visualizar usuarios'])->assignRole(['Administrador']);
         Permission::create(['name' => 'user.create', 'human_name' => 'Crear usuarios'])->assignRole(['Administrador']);
@@ -58,20 +59,20 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'area.edit', 'human_name' => 'Editar areas'])->assignRole(['Administrador']);
         Permission::create(['name' => 'area.delete', 'human_name' => 'Eliminar areas'])->assignRole(['Administrador']);
 
-        Permission::create(['name' => 'course.show', 'human_name' => 'Visualizar cursos'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'course.create', 'human_name' => 'Crear cursos'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'course.edit', 'human_name' => 'Editar cursos'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'course.delete', 'human_name' => 'Eliminar cursos'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'course.show', 'human_name' => 'Visualizar cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'course.create', 'human_name' => 'Crear cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'course.edit', 'human_name' => 'Editar cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'course.delete', 'human_name' => 'Eliminar cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
 
         Permission::create(['name' => 'participant.show', 'human_name' => 'Visualizar participantes'])->assignRole(['Administrador']);
         Permission::create(['name' => 'participant.edit', 'human_name' => 'Editar participantes'])->assignRole(['Administrador']);
 
         Permission::create(['name' => 'instructor.show', 'human_name' => 'Visualizar instructores'])->assignRole(['Administrador']);
 
-        Permission::create(['name' => 'coursedetails.show', 'human_name' => 'Visualizar detalles cursos'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'coursedetails.create', 'human_name' => 'Crear detalles cursos'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'coursedetails.edit', 'human_name' => 'Editar detalles cursos'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'coursedetails.delete', 'human_name' => 'Eliminar detalles cursos'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'coursedetails.show', 'human_name' => 'Visualizar detalles cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'coursedetails.create', 'human_name' => 'Crear detalles cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'coursedetails.edit', 'human_name' => 'Editar detalles cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'coursedetails.delete', 'human_name' => 'Eliminar detalles cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
 
         Permission::create(['name' => 'inscription.create', 'human_name' => 'Inscribirse'])->assignRole(['Participante']);
 
@@ -88,24 +89,25 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'assigninstructor.show', 'human_name' => 'Visualizar detalles a asignar'])->assignRole(['Administrador']);
         Permission::create(['name' => 'assigninstructor.assign', 'human_name' => 'Asignar instructor'])->assignRole(['Administrador']);
 
-        Permission::create(['name' => 'participantlists.show', 'human_name' => 'Visualizar listas'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'participantlists.show', 'human_name' => 'Visualizar listas'])->assignRole(['Administrador', 'Jefa de departamento']);
 
         Permission::create(['name' => 'qualification.edit', 'human_name' => 'Editar calificaciones'])->assignRole(['Instructor']);
 
-        Permission::create(['name' => 'constancy.show', 'human_name' => 'Consultar constancias'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'constancy.show', 'human_name' => 'Consultar constancias'])->assignRole(['Administrador', 'Jefa de departamento']);
 
-        Permission::create(['name' => 'historycourse.show', 'human_name' => 'Historial cursos'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'historyparticipant.show', 'human_name' => 'Historial Participantes'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'historyinstructor.show', 'human_name' => 'Historial Instructores'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'historycourse.show', 'human_name' => 'Historial cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'historyparticipant.show', 'human_name' => 'Historial Participantes'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'historyinstructor.show', 'human_name' => 'Historial Instructores'])->assignRole(['Administrador', 'Jefa de departamento']);
 
-        Permission::create(['name' => 'activeinscription.show', 'human_name' => 'Activar Inscripcion'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'activeinscription.show', 'human_name' => 'Activar Inscripcion'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'sendemail.show', 'human_name' => 'Visualizar emails'])->assignRole(['Administrador']);
-        Permission::create(['name' => 'sendnotify.show', 'human_name' => 'Visualizar notificaciones'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'sendnotify.show', 'human_name' => 'Visualizar notificaciones'])->assignRole(['Administrador', 'Jefa de departamento']);
         /*
         |--------------------------------------------------------------------------
         | Asignación de roles a usuarios (Primeros 9)
         |--------------------------------------------------------------------------
         */
+
         $users = User::all();
         $users->get(0)->assignRole($superAdminRole);
         $users->get(1)->assignRole($instructorRole);
