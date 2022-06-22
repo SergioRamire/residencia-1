@@ -52,7 +52,7 @@ class ProfileController extends Component
     }
 
     public function editInfo(){
-        $this->validate();
+        // $this->validate();
         $this->showEditModal = true;
     }   
     

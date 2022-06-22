@@ -1,14 +1,14 @@
 <div>
     <x-slot name="header">
-        <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-orange-200  border-sky-800 rounded-lg border shadow-md sm:p-8">
+        <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-orange-200 border-sky-800 rounded-lg border shadow-md sm:p-8">
             <div class="flex flex-col items-center">
                 <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="{{ Auth::user()->profile_photo_url }} " alt="Bonnie image" />
-                <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white" >
+                <h5 class="mb-1 text-2xl font-medium text-gray-900" >
                     {{ auth()->user()->name }}
                     {{ auth()->user()->apellido_paterno }}
                     {{ auth()->user()->apellido_materno }}
                 </h5>
-                <span class="text-sm text-gray-500 dark:text-gray-400">{{ auth()->user()->email }}</span>
+                <span class="text-xl text-black">{{ auth()->user()->email }}</span>
             </div>
         </div>
     </x-slot>
