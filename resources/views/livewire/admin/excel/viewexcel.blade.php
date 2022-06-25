@@ -34,8 +34,12 @@
     <thead>
         {{-- Parte de los titulos del excel --}}
         <tr></tr>
-        <tr></tr>
 
+        <tr>
+            <th></th>
+            <th style="text-align:right;">INSTITUTO TECNOLÓGICO O CENTRO DE TRABAJO:</th>
+            <th style="text-align:left; font-weight: 500;  border-bottom: 1px solid #000000;">DE OAXACA</th>
+        </tr>
         <tr>
             <th></th>
             <th style="text-align:right;">CLAVE DEL CURSO:</th>
@@ -85,7 +89,7 @@
         {{-- encabezados de la tabla --}}
     <tr style = "border: 1px solid # 000000;">
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; height: 20px;" rowspan="2">No.</th>
-        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">NOMBRE DEL PARTICIPE:</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">NOMBRE DEL PARTICIPANTE:</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">R.F.C</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">ÁREA DE ADSCRIPCIÓN</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;" colspan="5">ASISTENCIA</th>
@@ -97,7 +101,7 @@
         <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
         <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
         <th style="background: #c5c3c3; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000;"></th>
-        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;" >L</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">L</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">M</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">M</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;">J</th>
@@ -117,8 +121,9 @@
         <tr>
             <td style="text-align:center; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 45px;">{{$k}}</td>
             <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border: 1px solid # 000000; width: 235px;">{{ $invoice->nombre}}</td>
-            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 110px;">{{ $invoice->rfc}}</td>
-            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 285px;">{{ $invoice->area}}</td>
+            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 110px;">{{$invoice->rfc}}</td>
+            {{-- <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 285px;">{{ $invoice->area}}</td> --}}
+            <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 285px;">{{mb_strtoupper(Str::of($invoice->area)->after('Departamento de'),'utf-8')}}</td>
             <td style="text-align:center; background: #ebebeb; border: 1px solid # 000000;"> </td>
             <td style="text-align:center; background: #ebebeb; border: 1px solid # 000000;"> </td>
             <td style="text-align:center; background: #ebebeb; border: 1px solid # 000000;"> </td>
@@ -148,10 +153,10 @@
     </tr>
     <tr>
         <td></td>
-        <td style="text-decoration: underline; text-align:center; font-weight: 500;">{{$instructor[0]->nombre}}</td>
+        <td style="text-decoration: underline; text-align:center; font-weight: 500;">{{mb_strtoupper($instructor[0]->nombre,'utf-8')}}</td>
         <td></td>
         <td></td>
-        <td style="text-decoration: underline; text-align:center; font-weight: 500;" colspan="6">M.C.I.Q. MARÍA DE JESÚS GIL GALLEGOS</td>
+        <td style="text-decoration: underline; text-align:center; font-weight: 500;" colspan="6">{{mb_strtoupper(Str::words($cordinador[0]->estudio_maximo,1,' '))}}{{mb_strtoupper($cordinador[0]->name,'utf-8')}} {{mb_strtoupper($cordinador[0]->apellido_paterno,'utf-8')}} {{mb_strtoupper($cordinador[0]->apellido_materno,'utf-8')}}</td>
     </tr>
     <tr>
         <td></td>
@@ -162,10 +167,17 @@
     </tr>
     <tr>
         <td style="text-align:right;">R.F.C:</td>
-        <td>{{$instructor[0]->rfc}}</td>
+        <td>{{strtoupper($instructor[0]->rfc)}}</td>
         <td></td>
         <td style="text-align:right;">R.F.C</td>
-        <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">GIGJ691025I13</td>
+        <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">{{strtoupper($cordinador[0]->rfc)}}</td>
+    </tr>
+    <tr>
+        <td style="text-align:right;">C.U.R.P:</td>
+        <td>{{strtoupper($instructor[0]->curp)}}</td>
+        <td></td>
+        <td style="text-align:right;">C.U.R.P:</td>
+        <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">{{strtoupper($cordinador[0]->curp)}}</td>
     </tr>
     </tbody>
 </table>

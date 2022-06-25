@@ -22,6 +22,10 @@ class EmailController extends Component
 
     public Email $correo;
 
+    public $posts;
+    // public $title='hola';
+    // public $description;
+
     public $post;
     public $edit = false;
     public $create = false;
@@ -104,6 +108,14 @@ class EmailController extends Component
 
     public function confirmation(){
         $this->confirmingSaveEmail=true;
+    }
+
+    public function view(Email $email)
+    {
+        $this->title= $email->title;
+        $this->description= $email->description;
+        // $this->role= $post->role;
+        $this->showViewModal = true;
     }
 
     public function store()
