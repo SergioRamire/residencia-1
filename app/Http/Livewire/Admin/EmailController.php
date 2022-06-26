@@ -68,7 +68,7 @@ class EmailController extends Component
             $algo= CourseDetail::join('courses','courses.id','=','course_details.course_id')
                     ->join('groups', 'groups.id', '=', 'course_details.group_id')
                     ->join('periods','periods.id','=','course_details.period_id')
-                    ->select('courses.nombre as name', 'course_details.hora_inicio as horaini', 'course_details.hora_fin as horafin','groups.nombre as grupo', 'periods.fecha_inicio as fi','periods.fecha_fin as ff')
+                    ->select('courses.nombre as name', 'course_details.hora_inicio as horaini','course_details.lugar as lugar', 'course_details.hora_fin as horafin','groups.nombre as grupo', 'periods.clave as clave','periods.fecha_inicio as fi','periods.fecha_fin as ff')
                     ->where('course_details.id','=',$curso)->get();
             $this->arreglo[$count]=$algo;
             $count++;
@@ -146,6 +146,21 @@ class EmailController extends Component
         $this->create = false;
         $this->closeModal();
         $this->resetInputFields();
+    }
+
+    //eliminar todas las notificaciones enviadas
+    public function deleteNoti()
+    {
+        $this->confirminNotificacion= true;
+    }
+
+    public function deleteNotifications(){
+        Email::all()->each->delete();
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'trash',
+            'message' =>  'Notificaciones eliminadas exitosamente!!!',
+        ]);
+        $this->confirminNotificacion= false;
     }
 
     public function render()

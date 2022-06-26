@@ -4,10 +4,10 @@
     </x-slot>
     <x-slot name="content">
         <form id="courseForm">
-            <!-- Clave -->
+            <!-- Clave 1-ENE/JUL2022 -->
             <div class="mt-4">
                 <x-jet-label for="clave" value="Clave"/>
-                <x-input.error wire:model="clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="clave" required/>
+                <x-input.error wire:model="clave" placeholder="Sugerencia: 1-ENE/JUL2022, 2-ENE/AGO/2022" class="block mt-1 w-full" type="text" id="clave" name="clave" for="clave" required/>
             </div>
             <!-- Clave y Periodo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">

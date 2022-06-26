@@ -7,7 +7,7 @@
 
             <!-- Nombre -->
             <div class="mt-4">
-                <x-jet-label for="title"  value="{{ __('Titulo') }}" />
+                <x-jet-label for="title"  value="{{ __('Título') }}" />
                 <x-input.error wire:model="arr.title" class="block mt-1 w-full" type="text" id="title" name="title" for="title" required/>
                 <x-jet-input-error for="arr.title"/>
             </div>

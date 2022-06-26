@@ -24,6 +24,12 @@
                         <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                     </x-input.icon>
                 </div>
+                <div>
+                    <x-jet-secondary-button wire:click="deleteNoti()" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-red-50">
+                        <x-icon.trash d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" class="inline-block h-5 w-5"/>
+                        Eliminar notificaciones
+                    </x-jet-secondary-button>
+                </div>
 
                 <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Selección de paginación -->
@@ -92,10 +98,10 @@
     @endif
     {{-- @if($confirmingPartDeletion)
         @include('livewire.admin.notifications.destroy')
-    @endif
-    @if($confirminNotificacion)
-        @include('livewire.admin.notifications.deletenotifi')
     @endif --}}
+    @if($confirminNotificacion)
+        @include('livewire.admin.emailss.deletenotifi')
+    @endif
     @if($showViewModal)
         @include('livewire.admin.emailss.ver')
     @endif
