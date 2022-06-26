@@ -3,19 +3,12 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Course;
-use App\Models\CourseDetail;
-use App\Models\User;
 use Livewire\Component;
 
-class CourseDetailsSelect extends Component
-{   
-    public $id_periodo;/* Dependiente del periodo */
-    protected $listeners = [
-        'per_send',
-    ];
-    public function per_send($valor){
-        $this->id_periodo = $valor;
-    }
+class CourseSelect  extends Component{
+
+    public $period;
+
 /* Para resivir la variable que se envio en Emit */
     public $query;/* valor para buscar */
     public $contador;
@@ -42,29 +35,20 @@ class CourseDetailsSelect extends Component
         $this->contador --;
     }
     public function render(){/* renderizacion de la vista donde regresa el arreglo para el select */
-        return view('livewire.admin.course-details-select',[
+        return view('livewire.admin.course-select',[
             'datos' => $this->consulta()
         ]);
     }
     public function consulta(){
         $this->valor = $this->query;/* cambio de valor en segunda variable, no afecta por el momento */
         if (strcmp(strtolower($this->valor), 'todos') === 0) {
-            return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
-            ->join('periods', 'periods.id', '=', 'course_details.period_id')
-            ->where('course_details.period_id', '=', $this->id_periodo )
-            ->select('courses.id as idc', 'courses.nombre', 'courses.clave as clav')
-            ->distinct()
-            ->get();
+            return Course::query()->select('courses.id as idc', 'courses.nombre', 'courses.clave')->get();
         } else {
-            return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
-            ->join('periods', 'periods.id', '=', 'course_details.period_id')
-            ->where('course_details.period_id', '=', $this->id_periodo )
+            return Course::query()->select('courses.id as idc', 'courses.nombre', 'courses.clave')
             ->when($this->valor, fn ($query2, $b) => $query2
                 ->where('courses.nombre', 'like', "%$b%")
                 ->orWhere('courses.clave', 'like', "%$b%"))
-            ->select('courses.id as idc', 'courses.nombre', 'courses.clave  as clav')
-            ->distinct()
-            ->get();
+                ->get();
         }
     }
     public function full(){/* Muestra todos */
@@ -75,7 +59,22 @@ class CourseDetailsSelect extends Component
         ->select('courses.nombre as name','courses.clave as clav')
         ->get();
         $this->txt =  $aux[0]->clav.' '.$aux[0]->name;
-        $this->emit('data_send',$valor);
+        $this->emit('send_curso',$valor);
         $this->reset2();
+    }
+    
+    protected $listeners = [
+        'valorCurso',
+    ];
+    public $id_escojido;
+    public function valorCurso($valor){
+        $aux = Course::where('courses.id', '=', $valor)
+            ->select('courses.nombre as name','courses.clave as clav')
+            ->get();
+        $this->txt = 'Buscar Curso';
+        if (!empty($valor)) {
+            $this->txt = $aux[0]->clav.' '.$aux[0]->name;
+        }
+        $this->id_escojido = $valor;
     }
 }

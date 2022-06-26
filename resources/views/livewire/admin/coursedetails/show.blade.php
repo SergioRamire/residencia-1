@@ -1,6 +1,6 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="showViewModal">
     <x-slot name="title">
-        Detalles del curso:  <strong>{{$curso_elegido}} </strong>
+        Detalles del curso:
     </x-slot>
     <x-slot name="content">
             <!-- Nombre  Curso-->

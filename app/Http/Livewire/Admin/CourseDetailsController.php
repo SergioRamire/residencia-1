@@ -23,11 +23,11 @@ class CourseDetailsController extends Component
     public CourseDetail $coursedetail;
     public $perPage = '5';
     public $search = '';
-    public $curso ;
+    public $coursedetail_id;
     public $curso_elegido;
+    public $curso;
     public $periodo_elegido;
     public $grupo_elegido;
-    public $coursedetail_id;
     public $grupo_id;
     public $period;
     public $hora_inicio;
@@ -59,27 +59,25 @@ class CourseDetailsController extends Component
     public $confirmingSaveDetails = false;
     public bool $showViewModal = false;
 
-    public function create()
-    {
+    public function create(){
         $this->resetErrorBag();
         $this->resetInputFields();
+        $this->emit('valorCurso','');
+        $this->emit('valorPerio','');
         $this->openModal();
         $this->edit = false;
         $this->create = true;
     }
 
-    public function openModal()
-    {
+    public function openModal(){
         $this->showEditCreateModal = true;
     }
 
-    public function closeModal()
-    {
+    public function closeModal(){
         $this->showEditCreateModal = false;
     }
 
-    private function resetInputFields()
-    {
+    private function resetInputFields(){
         $this->curso = '';
         $this->curso_elegido = '';
         $this->grupo_id = '';
@@ -92,8 +90,7 @@ class CourseDetailsController extends Component
         $this->busq = '';
     }
 
-    private function validateInputs()
-    {
+    private function validateInputs(){
         $this->validate([
             'curso' => ['required',  'exists:courses,id'],
             'period' => ['required',  'exists:periods,id'],
@@ -106,26 +103,14 @@ class CourseDetailsController extends Component
         ]);
     }
 
-
-    public function updateDetails()
-    {
+    public function updateDetails(){
         $this->validateInputs();
         $this->confirmingSaveDetails = true;
     }
 
-    public function view($id)
-    {
-        $coursedetail = CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
-                                      ->join('periods', 'periods.id', 'course_details.period_id')
-                                      ->join('groups', 'groups.id', 'course_details.group_id')
-                                      ->select('courses.nombre as curso',
-                                                'course_details.hora_inicio','course_details.hora_fin',
-                                                'course_details.capacidad','course_details.lugar',
-                                                'course_details.modalidad','groups.nombre as grupo',
-                                                'periods.fecha_inicio as fi','periods.fecha_fin as ff')
-                                      ->where('course_details.id', '=', $id)
-                                      ->first();
-        $this->curso_elegido = $coursedetail->curso;
+    public function view($id){
+        $coursedetail = CourseDetail::find($id);
+        $this->curso = $coursedetail->curso;
         $this->grupo_elegido = $coursedetail->grupo;
         $this->periodo_elegido = $coursedetail->fi.' a '.$coursedetail->ff;
         $this->hora_inicio = $coursedetail->hora_inicio;
@@ -136,10 +121,8 @@ class CourseDetailsController extends Component
         $this->showViewModal = true;
     }
 
-    public function store()
-    {
+    public function store(){
         $this->validateInputs();
-
         CourseDetail::updateOrCreate(['id' => $this->coursedetail_id], [
             'hora_inicio'=>$this->hora_inicio,
             'hora_fin'=>$this->hora_fin,
@@ -150,12 +133,6 @@ class CourseDetailsController extends Component
             'group_id'=>$this->grupo_id,
             'period_id'=>$this->period,
         ]);
-
-        $this->dispatchBrowserEvent('notify', [
-            'icon' => $this->edit ? 'pencil' : 'success',
-            'message' =>  $this->edit ? 'Detalles actualizados exitosamente' : 'Detalles creados exitosamente',
-        ]);
-
         $this->edit = false;
         $this->create = false;
         $this->confirmingSaveDetails = false;
@@ -165,48 +142,37 @@ class CourseDetailsController extends Component
 
         $this->closeModal();
         $this->resetInputFields();
+
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $this->edit ? 'pencil' : 'success',
+            'message' =>  $this->edit ? 'Detalles actualizados exitosamente' : 'Detalles creados exitosamente',
+        ]);
     }
 
-    public function edit($id)
-    {
+    public function edit($id){
         $this->resetErrorBag();
-        $coursedetail = CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
-            ->join('periods', 'periods.id', 'course_details.period_id')
-            ->select('course_details.id','course_details.group_id',
-                    'course_details.hora_inicio','course_details.hora_fin',
-                    'course_details.capacidad','course_details.lugar',
-                    'courses.id as curso','periods.id as periodo')
-            ->where('course_details.id', '=', $id)
-            ->first();
+        $this->resetInputFields();
+        $coursedetail = CourseDetail::find($id);
         $this->coursedetail_id = $id;
         $this->grupo_id = $coursedetail->group_id;
-        $this->curso_elegido = $coursedetail->curso;
-        $this->period = $coursedetail->periodo;
+        $this->curso = $coursedetail->course_id;
+        $this->period = $coursedetail->period_id;
         $this->hora_inicio = $coursedetail->hora_inicio;
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
         $this->modalidad = $coursedetail->modalidad;
         $this->lugar = $coursedetail->lugar;
-
-        $this->emit("valorCurso");
-        // $this->edit = true;
-        // $this->create = false;
-        // $this->openModal();
+        $this->emit('valorCurso',$this->curso);
+        $this->emit('valorPerio',$this->period);
+        $this->edit = true;
+        $this->create = false;
+        $this->openModal();
+        
     }
-    public function save()
-    {
 
-
-        $this->modal = false;
-        $this->dispatchBrowserEvent('notify', [
-            'icon' => 'pencil',
-            'message' => 'Detaller de curso actualizado exitosamente',
-        ]);
-    }
-    public function deleteDetails($id)
-    {
+    public function deleteDetails($id){
         $this->coursedetail = CourseDetail::findOrFail($id);
-        $course=CourseDetail::join('courses','courses.id','course_details.course_id')
+        $course = CourseDetail::join('courses','courses.id','course_details.course_id')
             ->select('courses.nombre as curso')
             ->where('course_details.id','=',$id)
             ->first();
@@ -214,12 +180,9 @@ class CourseDetailsController extends Component
         $this->confirmingDetailsDeletion = true;
     }
 
-    public function delete()
-    {
+    public function delete(){
         $this->coursedetail->delete();
-
         $this->confirmingDetailsDeletion= false;
-
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Los detalles se han eliminado exitosamente',
@@ -250,30 +213,29 @@ class CourseDetailsController extends Component
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
-            'busqueda'=>$this->listaBuscador(),
         ]);
     }
-    public function listaBuscador(){
-        return Course::all();
-    }
-    public function openModal2($id)
-    {
-        $this->edit($id);
-        $this->modal = true;
-    }
-
 
     protected $listeners = [
         'per_send',
+        'per_send2',
         'data_send',
+        'send_curso',
     ];
     public function per_send($valor){
         $this->classification['periodo'] = $valor;
+    }
+    public function per_send2($valor){
+        $this->period = $valor;
     }
     public function data_send($valor){
         $this->classification['curso'] = $valor;
         $this->id_detalle_curso = $valor;
     }
+    public function send_curso($valor){
+        $this->curso = $valor;
+    }
+
     public function downloadPdf()
     {
         $coursesdetails = CourseDetail::join('courses', 'courses.id','=', 'course_details.course_id')

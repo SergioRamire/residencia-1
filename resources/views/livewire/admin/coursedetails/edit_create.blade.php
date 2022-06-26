@@ -3,14 +3,9 @@
         Detalles de curso
     </x-slot>
     <x-slot name="content">
-
-        <div wire:ignore>
-            <select id="id_cur" wire:model.defer='curso' class="text-sm block mt-1 w-full">
-                <option value="">Selecciones un Curso x...</option>
-                @foreach ($busqueda as $c)
-                    <option value="{{ $c->id }}">{{ $c->nombre }}</option>
-                @endforeach
-            </select>
+        <div class="mt-4 flex-1">
+            <x-jet-label value="Seleccione el Curso"/>
+            @livewire('admin.course-select')
         </div>
 
         <form wire:submit.prevent="updateDetails()" id="courseForm">
@@ -20,16 +15,8 @@
                 <!-- Periodo -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="periodo" value="Periodo" />
-                    <x-input.select wire:model.defer="period" name="fecha_inicio" id="fecha_inicio"
-                        class="text-sm block mt-1 w-full" required>
-                        <option value="" disabled>Periodos</option>
-                        @foreach (\App\Models\Period::all() as $period)
-                            <option value="{{ $period->id }}">{{ date('d/m/Y', strtotime($period->fecha_inicio)) }} a
-                                {{ date('d/m/Y', strtotime($period->fecha_fin)) }}</option>
-                        @endforeach
-                    </x-input.select>
+                    @livewire('admin.period-select2')
                 </div>
-
                 <!-- Modalidad -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="modalidad" value="Modalidad"/>

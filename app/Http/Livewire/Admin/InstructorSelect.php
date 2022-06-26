@@ -54,7 +54,7 @@ class InstructorSelect extends Component
     }
     public function selectUser($valor){
         $aux = User::find($valor);
-        $this->txt = $aux->name.' '.$aux->apellido_paterno.' '.$aux->apellido_materno;
+        $this->txt = $aux->rfc.' '.$aux->name.' '.$aux->apellido_paterno.' '.$aux->apellido_materno;
         $this->emit('user_send',$valor);
         $this->reset2();
     }

@@ -26,7 +26,8 @@
                 <!-- Calificación -->
                 <div class="mt-4">
                     <x-jet-label for="calificacion" value="Calificación" />
-                    <x-input.error wire:model.defer="calificacion" class="block mt-1 w-full" type="number" id="calificacion" name="calificacion" for="calificacion" required/>
+                    <x-input.error wire:model.defer="calificacion" class="block mt-1 w-full" type="number" id="calificacion" 
+                    name="calificacion" for="calificacion" min="0" max="100" required/>
                 </div>
 
                 </form>

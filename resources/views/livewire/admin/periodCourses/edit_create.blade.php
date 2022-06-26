@@ -6,7 +6,12 @@
         <form id="courseForm">
             <!-- Clave -->
             <div class="mt-4">
-                <x-jet-label for="clave" value="Clave"/>
+                @if (!$edit)
+                <x-jet-label for="clave" value="Clave Ejemplo 1-ENE2022"/>
+                <x-jet-label for="clave" value="[Semana]-[3 Letras del mes][Año]"/>
+                @else
+                    <x-jet-label for="clave" value="Clave"/>
+                @endif
                 <x-input.error wire:model="clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="clave" required/>
             </div>
             <!-- Clave y Periodo -->
