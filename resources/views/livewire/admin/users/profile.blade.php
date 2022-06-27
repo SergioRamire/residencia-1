@@ -168,14 +168,14 @@
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
                                     <dt class="text-base font-bold text-gray-900">Hora de Entrada: </dt>
-                                    <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{ date("g:i a", strtotime($user->hora_entrada)) }}</dd>
+                                    <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{ date("H:i", strtotime($user->hora_entrada)) }} hrs.</dd>
                                 </div>
                             </div>
                             {{-- hora_salida --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
                                     <dt class="text-base font-bold text-gray-900">Hora de Salida: </dt>
-                                    <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{ date("g:i a", strtotime($user->hora_salida)) }}</dd>
+                                    <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{ date("H:i", strtotime($user->hora_salida)) }} hrs.</dd>
                                 </div>
                             </div>
                         </div>

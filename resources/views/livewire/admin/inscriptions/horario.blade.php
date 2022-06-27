@@ -45,9 +45,7 @@
                                     <br>
                                     <span class="text-gray-400">Curso: </span>{{ $c->nombre }}
                                     <br>
-                                    <span class="text-gray-400">Horario: </span> De
-                                    {{ date('g:i a', strtotime($c->hora_inicio)) }} a
-                                    {{ date('g:i a', strtotime($c->hora_fin)) }}
+                                    <span class="text-gray-400">Horario: </span>{{ date('H:i', strtotime($c->hora_inicio)) }} hrs. - {{ date('H:i', strtotime($c->hora_fin)) }} hrs.
                                     <br>
                                     <span class="text-gray-400">Lugar: </span>{{ $c->lugar }}
                                     <br>
