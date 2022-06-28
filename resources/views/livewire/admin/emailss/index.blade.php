@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Notificaciones via electrónica
+            NOTIFICACIONES VÍA ELECTRONICA
         </h2>
     </x-slot>
 

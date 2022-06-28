@@ -85,7 +85,7 @@ class EmailController extends Component
 
     public function create()
     {
-        // $this->resetInputFields();
+        $this->resetInputFields();
         $this->openModal();
         $this->edit = false;
         $this->create = true;
@@ -118,14 +118,19 @@ class EmailController extends Component
         $this->showViewModal = true;
     }
 
+    protected $rules = [
+        'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+        'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function store()
     {
-        // $this->validateInputs();
-        $this->validate([
-            'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú.!]+$/', 'max:40'],
-            'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú,!]+$/', 'max:100'],
-        ]);
-
+        $this->validate();
         $users=User::all();
         $iduser=Auth::id();
         $correo=Email::create($this->arr);

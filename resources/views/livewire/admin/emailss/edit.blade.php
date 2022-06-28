@@ -1,21 +1,23 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditModal">
     <x-slot name="title">
-       Enviar notificacion
+       Enviar notificación
     </x-slot>
     <x-slot name="content">
+        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" />
+
         <form  id="courseForm">
 
             <!-- Nombre -->
             <div class="mt-4">
-                <x-jet-label for="title"  value="{{ __('Titulo') }}" />
+                <x-jet-label for="title"  value="{{ __('Título*') }}" />
                 <x-input.error wire:model="arr.title" class="block mt-1 w-full" type="text" id="title" name="title" for="title" required/>
                 <x-jet-input-error for="arr.title"/>
             </div>
 
             <!-- Descripcion -->
             <div class="mt-4">
-                <x-jet-label for="description" value="{{ __('Descripción') }}"/>
-                <x-input.textarea wire:model.defer="arr.description" id="arr.description" class="block mt-1 w-full" name="arr.description" required/>
+                <x-jet-label for="description" value="{{ __('Descripción*') }}"/>
+                <x-input.textarea wire:model="arr.description" id="arr.description" class="block mt-1 w-full" name="arr.description" required/>
                 <x-jet-input-error for="arr.description"/>
             </div>
 

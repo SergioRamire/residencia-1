@@ -3,7 +3,7 @@
         Detalles de curso
     </x-slot>
     <x-slot name="content">
-
+        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" /><br>
         <div wire:ignore>
             <select id="id_cur" wire:model.defer='curso' class="text-sm block mt-1 w-full">
                 <option value="">Selecciones un Curso x...</option>
@@ -19,7 +19,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Periodo -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="periodo" value="Periodo" />
+                    <x-jet-label for="periodo" value="Periodo*" />
                     <x-input.select wire:model.defer="period" name="fecha_inicio" id="fecha_inicio"
                         class="text-sm block mt-1 w-full" required>
                         <option value="" disabled>Periodos</option>
@@ -32,7 +32,7 @@
 
                 <!-- Modalidad -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="modalidad" value="Modalidad"/>
+                    <x-jet-label for="modalidad" value="Modalidad*"/>
                     <x-input.select wire:model.defer="modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
                         <option value="" disabled>Selecciona modalidad...</option>
                         <option value="Presencial" selected>Presencial</option>
@@ -45,7 +45,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Hora inicio -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_inicio" value="Hora inicio" />
+                    <x-jet-label for="hora_inicio" value="Hora inicio*" />
                     <x-jet-input wire:model.defer="hora_inicio" class="block mt-1 w-full" type="time" id="hora_inicio"
                         name="hora_inicio" />
                         {{-- <input type="time" id="liveTimeStr" value="16:32"> --}}
@@ -56,7 +56,7 @@
 
                 <!-- Hora fin -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_fin" value="Hora fin" />
+                    <x-jet-label for="hora_fin" value="Hora fin*" />
                     <x-jet-input wire:model.defer="hora_fin" class="block mt-1 w-full" type="time" id="hora_fin"
                         name="hora_fin" />
                     <x-jet-input-error for="hora_fin" />
@@ -65,7 +65,7 @@
 
             <!-- Lugar -->
             <div class="mt-4">
-                <x-jet-label for="lugar" value="Lugar" />
+                <x-jet-label for="lugar" value="Lugar*" />
                 <x-input.error wire:model.defer="lugar" class="block mt-1 w-full" type="text" id="lugar" name="lugar"
                     for="lugar" required />
             </div>
@@ -75,14 +75,14 @@
 
                 <!-- Capacidad -->
                 <div class="mt-4">
-                    <x-jet-label for="capacidad" value="Capacidad" />
+                    <x-jet-label for="capacidad" value="Capacidad*" />
                     <x-input.error wire:model.defer="capacidad" class="block mt-1 w-full" type="number" id="capacidad"
                         name="capacidad" for="capacidad" maxlength="2" required />
                 </div>
 
                 <!-- Grupo -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="grupo" value="Grupo" />
+                    <x-jet-label for="grupo" value="Grupo*" />
                     <x-input.select wire:model.defer="grupo_id" class="mt-1 w-full" id="grupo_id" name="grupo_id"
                         required>
                         <option value="" disabled>Selecciona el grupo</option>

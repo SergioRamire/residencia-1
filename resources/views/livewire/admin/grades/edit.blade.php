@@ -3,6 +3,7 @@
         Actualizar Calificación
     </x-slot>
     <x-slot name="content">
+        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" />
         <form  id="courseForm">
             <!-- Clave y Grupo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
@@ -25,7 +26,7 @@
 
                 <!-- Calificación -->
                 <div class="mt-4">
-                    <x-jet-label for="calificacion" value="Calificación" />
+                    <x-jet-label for="calificacion" value="Calificación*" />
                     <x-input.error wire:model.defer="calificacion" class="block mt-1 w-full" type="number" id="calificacion" name="calificacion" for="calificacion" required/>
                 </div>
 

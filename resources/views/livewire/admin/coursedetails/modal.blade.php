@@ -3,6 +3,7 @@
         Detalles de Curso
     </x-slot>
     <x-slot name="content">
+        {{-- <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" /><br>     --}}
         <x-jet-label for="periodo" value="Curso" />
         {{ $curso_elegido }}
         <?php $datos = App\Models\Course::find($curso_elegido); ?>
