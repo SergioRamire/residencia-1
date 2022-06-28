@@ -11,12 +11,15 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+use App\Exports\ListExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class GradeController extends Component
 {
     use WithPagination;
     use WithSorting;
 
-    public Inscription $grade;
+    // public Inscription $grade;
     public $perPage = '5';
     public $search = '';
     public $calificacion;
@@ -207,4 +210,29 @@ class GradeController extends Component
             'groups' => $this->consultargrupos()
         ]);
     }
+
+    public function descarga(){
+        $data=$this->participants();
+
+        return Excel::download(new ListExport($data), 'Lista_Asistencia.xlsx');
+    }
+
+    public function participants()
+    {
+        return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
+        ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
+        ->join('courses', 'courses.id', '=', 'course_details.course_id')
+        ->join('groups', 'groups.id', '=', 'course_details.group_id')
+        ->join('areas', 'areas.id', '=', 'users.area_id')
+        ->join('periods', 'periods.id', '=', 'course_details.period_id')
+        ->where('inscriptions.estatus_participante', '=','Participante')
+        ->where('course_details.id', '=',$this->id_course)
+        ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,
+        ' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.rfc as rfc','users.curp as curp','users.sexo as sex','courses.clave as clave','courses.duracion as duracion','courses.nombre as curso','groups.nombre as grupo','course_details.modalidad as modalidad',
+        'areas.nombre as area', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','course_details.hora_inicio as hi','course_details.hora_fin as hf')->get();
+
+        // 'courses' => $this->consultarcursos(),
+        // 'groups' => $this->consultargrupos()->get();
+    }
+
 }

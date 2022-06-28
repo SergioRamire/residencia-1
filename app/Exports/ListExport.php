@@ -2,38 +2,35 @@
 
 namespace App\Exports;
 
+// use Maatwebsite\Excel\Concerns\FromCollection;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
 
-
-class UserExport implements FromView
+class ListExport implements FromView
 {
     use Exportable;
 
     private $fileName='users.xlsx';
-    private $data, $ins;
+    private $data, $user;
 
     /**
     * @return \Illuminate\Support\Collection
     */
 
-    public function __construct($data, $ins)
+    public function __construct($data)
     {
         $this->data=$data;
-        $this->ins=$ins;
     }
-
 
     public function view(): View
     {
 
-        return view('livewire.admin.excel.viewexcel',[
+        return view('livewire.admin.excel.listinst',[
             'data' => $this->data,
-            'instructor' => $this->ins,
+            'instructor'=>User::find(auth()->user()->id),
             'cordinador' => User::whereRelation('roles', 'name', '=', 'Coordinador')->get(),
         ]);
     }
-
 }
