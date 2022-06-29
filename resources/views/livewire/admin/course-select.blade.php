@@ -20,7 +20,7 @@
         height:200px; 
         overflow-y: scroll;
     ">
-        Buscar pot Clave y nombre del curso
+        Buscar por "clave" o "nombre del curso"
             @if (!empty($datos))
                 @foreach ($datos as $i => $data)
                 <br>

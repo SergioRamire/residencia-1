@@ -13,17 +13,22 @@ class HistoryInstructorController extends Component
     use WithSorting;
 
     public $perPage = 5;
-    public $filters = '';
+    public $filters1 = '';
     public $filters2 = '';
     public $per_id = '';
     public $cur_id = '';
 
+    public $filters = [
+        'filtro_curso' => '',
+        'filtro_perfil'=>'',
+    ];
 
     protected $queryString = [
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
     public function resetFilters(){
         $this->reset('filters');
+        $this->reset('filters1');
         $this->reset('filters2');
         $this->reset('per_id');
         $this->reset('cur_id');
@@ -31,7 +36,7 @@ class HistoryInstructorController extends Component
     private function resetInputFields(){
         $this->per_id = '';
         $this->cur_id = '';
-        $this->filters = '';
+        $this->filters1 = '';
         $this->filters2 = '';
     }
 
@@ -47,18 +52,23 @@ class HistoryInstructorController extends Component
         ->join('periods', 'periods.id', '=', 'course_details.period_id')
         ->join('courses', 'courses.id', '=', 'course_details.course_id')
         ->join('groups', 'groups.id', '=', 'course_details.group_id')
-        ->when($this->filters, fn ($query, $b) => $query
+        ->when($this->filters1, fn ($query, $b) => $query
             ->where('periods.fecha_inicio', '>=', $b))
-            ->when($this->filters2, fn ($query, $b) => $query
-                ->where('periods.fecha_fin', '<=', $b))
-            ->when($this->cur_id, fn ($query, $b) => $query
-                ->where('courses.id', '=', $b))
-            ->when($this->per_id, fn ($query, $b) => $query
-                ->where('periods.id', '=', $b))
+        ->when($this->filters2, fn ($query, $b) => $query
+            ->where('periods.fecha_fin', '<=', $b))
+
+        ->when($this->filters['filtro_curso'], fn ($query, $b) => $query
+            ->where('course_details.course_id', '=', $b))
+
+        ->when($this->filters['filtro_perfil'], fn ($query, $b) => $query
+            ->where('courses.perfil', 'like', '%'.$b.'%'))
             // ->when($this->estatus, fn ($query, $b) => $query
             //     ->where('inscriptions.estatus_participante', 'like', '$'.$b.'$'))
         // ->where('periods.id','=',$this->per_id )
         // ->where('courses.id','=',$this->cur_id )
+        // ->where('courses.id', '=', $this->filters['filtro_curso'])
+        // ->where('courses.perfil', 'like', $this->filters['filtro_perfil'])
+
         ->where('inscriptions.estatus_participante','like','Instructor')
         ->select(
             'users.name','users.rfc','users.apellido_paterno as ap1','users.apellido_materno as ap2',
@@ -68,13 +78,11 @@ class HistoryInstructorController extends Component
         );
     }
     protected $listeners = [
-        'per_send',
-        'data_send',
+        'send_curso',
     ];
-    public function per_send($valor){
-        $this->per_id = $valor;
+
+    public function send_curso($valor){
+        $this->filters['filtro_curso'] = $valor;
     }
-    public function data_send($valor){
-        $this->cur_id = $valor;
-    }
+
 }
