@@ -48,10 +48,15 @@ class CourseController extends Component
             'course.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'course.objetivo' => ['required', 'max:255'],
             'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
-            'course.duracion' => ['required', 'integer', 'max:50'],
+            'course.duracion' => ['required', 'integer', 'min:30', 'max:50'],
             'course.dirigido' => ['required', 'max:255'],
             'course.observaciones' => ['nullable', 'max:255'],
         ];
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function mount()
@@ -65,6 +70,7 @@ class CourseController extends Component
         $this->course = Course::make([
             'perfil' => '',
             // 'modalidad' => '',
+            'duracion' => 30,
         ]);
     }
 
