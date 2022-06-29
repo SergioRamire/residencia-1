@@ -48,8 +48,8 @@ class UserController extends Component
                 'user.apellido_paterno' => $this->valiAp($this->no_ap1),
                 'user.apellido_materno' => $this->valiAp($this->no_ap2),
                 'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
-                'password' => ['present', 'string', 'min:8', 'confirmed'],
-                'password_confirmation' => ['present'],
+                'password_confirmation' => ['present', 'string', 'min:8'],
+                'password' => ['present', 'confirmed'],
             ];
         }
 
@@ -58,10 +58,15 @@ class UserController extends Component
             'user.apellido_paterno' => $this->valiAp($this->no_ap1),
             'user.apellido_materno' => $this->valiAp($this->no_ap2),
             'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required'],
+            'password_confirmation' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'confirmed'],
         ];
     }
+
+    protected $validationAttributes = [
+        'password_confirmation' => 'contraseña',
+        'password' => 'contraseña',
+    ];
 
     public function updated($propertyName)
     {

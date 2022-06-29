@@ -59,8 +59,7 @@ class GradeController extends Component
     private function validateInputs()
     {
         $this->validate([
-            'calificacion' => ['required', 'numeric'],
-
+            'calificacion' => ['required', 'numeric', 'min:1', 'max:100'],
         ]);
     }
 
