@@ -6,6 +6,8 @@ use App\Http\Traits\WithFilters;
 use App\Http\Traits\WithSorting;
 use App\Models\Course;
 use App\Models\CourseDetail;
+use App\Models\Group;
+use App\Models\Period;
 use App\Rules\Time;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -110,13 +112,29 @@ class CourseDetailsController extends Component
 
     public function view($id){
         $coursedetail = CourseDetail::find($id);
-        $this->curso = $coursedetail->curso;
-        $this->grupo_elegido = $coursedetail->grupo;
-        $this->periodo_elegido = $coursedetail->fi.' a '.$coursedetail->ff;
+        // $this->curso = $coursedetail->curso;
+        // $this->grupo_elegido = $coursedetail->grupo;
+        // $this->periodo_elegido = $coursedetail->fi.' a '.$coursedetail->ff;
+        // $this->hora_inicio = $coursedetail->hora_inicio;
+        // $this->hora_fin = $coursedetail->hora_fin;
+        // $this->capacidad = $coursedetail->capacidad;
+        // $this->modalidad = $coursedetail->modalidad;
+
+        $this->coursedetail_id = $id;
+        // $this->grupo_id = $coursedetail->group_id;
+        // $this->curso = $coursedetail->course_id;
+        // $this->period = $coursedetail->period_id;
         $this->hora_inicio = $coursedetail->hora_inicio;
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
         $this->modalidad = $coursedetail->modalidad;
+        $this->lugar = $coursedetail->lugar;
+
+        $this->curso = Course::find($coursedetail->course_id)->nombre;
+        $this->period = Period::find($coursedetail->period_id)->clave;
+        $this->grupo_id = Group::find($coursedetail->group_id)->nombre;
+
+
         $this->lugar = $coursedetail->lugar;
         $this->showViewModal = true;
     }

@@ -2,7 +2,7 @@
     <div>
         {{ $logo }}
     </div>
-    <div class="justify-start">
+    <div class="justify-start mt-8">
         {{ $boton }}
     </div>
 

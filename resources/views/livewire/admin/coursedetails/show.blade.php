@@ -6,7 +6,7 @@
             <!-- Nombre  Curso-->
             <div class="mt-4">
                 <x-jet-label for="nombrec" value="Curso"/>
-                <x-jet-input wire:model.defer="curso_elegido" class="block mt-1 w-full" type="text" disabled/>
+                <x-jet-input wire:model.defer="curso" class="block mt-1 w-full" type="text" disabled/>
             </div>
 
             <!-- Periodo y Hora inicio y Hora fin -->
@@ -14,7 +14,7 @@
                 <!-- Periodo -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="periodo" value="Periodo"/>
-                    <x-jet-input wire:model.defer="periodo_elegido" class="block mt-1 w-full" type="text" disabled/>
+                    <x-jet-input wire:model.defer="period" class="block mt-1 w-full" type="text" disabled/>
                 </div>
 
                 <!-- Modalidad -->
@@ -58,7 +58,7 @@
                 <!-- Grupo -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="grupo" value="Grupo"/>
-                    <x-jet-input wire:model.defer="grupo_elegido" class="block mt-1 w-full" type="text" disabled/>
+                    <x-jet-input wire:model.defer="grupo_id" class="block mt-1 w-full" type="text" disabled/>
                 </div>
             </div>
     </x-slot>

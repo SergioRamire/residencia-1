@@ -19,7 +19,7 @@
         height:200px; 
         overflow-y: scroll;
     ">
-        Buscar pot RFC y nombre del Instructor
+        Buscar por el "RFC" o "nombre del instructor"
             @if (!empty($datos))
                 @foreach ($datos as $i => $data)
                     <br><a 
