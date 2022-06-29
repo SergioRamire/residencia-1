@@ -52,13 +52,13 @@
                 <!-- Contraseña -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="contraseña" :value="$edit ? 'Contraseña nueva' : 'Contraseña'"/>
-                    <x-input.error wire:model="password" class="block mt-1 w-full" type="password" id="contraseña" name="contraseña" for="password"/>
+                    <x-input.error wire:model="password_confirmation" class="block mt-1 w-full" type="password" id="contraseña" name="contraseña" for="password_confirmation"/>
                 </div>
 
                 <!-- Confirmación de contraseña -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="contraseña_confirmation" value="Confirmación de contraseña"/>
-                    <x-input.error wire:model="password_confirmation" class="block mt-1 w-full" type="password" id="contraseña_confirmation" name="contraseña_confirmation" for="password_confirmation"/>
+                    <x-input.error wire:model="password" class="block mt-1 w-full" type="password" id="contraseña_confirmation" name="contraseña_confirmation" for="password"/>
                 </div>
             </div>
         </form>
