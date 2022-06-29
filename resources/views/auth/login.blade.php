@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        
+
         <x-slot name="logo">
             <h2 class="justify-center text-justify text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                 Cursos Intersemestrales
@@ -10,24 +10,7 @@
             </div>
         </x-slot>
 
-        <x-slot name="boton">
-            <button wire:click="" 
-            class="inline-flex items-center px-4 py-2 bg-white 
-            rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm 
-            focus:outline-none focus:ring 
-            focus:ring-blue-200 disabled:opacity-25 transition
-            text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
-                Participantes
-            </button>
-            <button wire:click="" 
-            class="inline-flex items-center px-4 py-2 bg-white 
-            rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm 
-            focus:outline-none focus:ring 
-            focus:ring-blue-200 disabled:opacity-25 transition
-            text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
-            Instructor
-            </button>
-        </x-slot>
+
 
 
         <x-jet-validation-errors class="mb-4" />
@@ -39,6 +22,24 @@
         @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
+            <x-slot name="boton">
+                <button
+                class="inline-flex onclick items-center px-4 py-2 bg-white
+                rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm
+                focus:outline-none focus:ring
+                focus:ring-blue-200 disabled:opacity-25 transition
+                text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+                    Participantes
+                </button>
+                <button wire:click=""
+                class="inline-flex items-center px-4 py-2 bg-white
+                rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm
+                focus:outline-none focus:ring
+                focus:ring-blue-200 disabled:opacity-25 transition
+                text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+                Instructor
+                </button>
+            </x-slot>
             <div class="mt-2">
                 <img src="{{ asset('img/ico.png') }}">
             </div>
