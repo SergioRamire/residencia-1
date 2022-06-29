@@ -43,7 +43,7 @@ class HistoryCourseController extends Component{
             ->where('periods.fecha_fin', '<=', $b))
         ->select(
             'courses.clave as cl','courses.nombre as nom','courses.perfil as per',
-            'periods.fecha_inicio as f1','periods.fecha_fin as f2','periods.clave',
+            'periods.fecha_inicio as f1','periods.fecha_fin as f2','periods.clave as percla',
         );
     }
 }

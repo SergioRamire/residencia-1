@@ -50,14 +50,8 @@
                     <x-table.header wire:click="sortBy('perfil')" sortable :direction="$sortField === 'perfil' ? $sortDirection : null">
                         perfil
                     </x-table.header>
-                    <x-table.header wire:click="sortBy('clave')" sortable :direction="$sortField === 'clave' ? $sortDirection : null">
-                        clave
-                    </x-table.header>
-                    <x-table.header wire:click="sortBy('fecha_inicio')" sortable :direction="$sortField === 'fecha_inicio' ? $sortDirection : null">
-                        Fecha de inicio
-                    </x-table.header>
-                    <x-table.header wire:click="sortBy('fecha_fin')" sortable :direction="$sortField === 'fecha_fin' ? $sortDirection : null">
-                        Fecha de finalización
+                    <x-table.header wire:click="sortBy('percla')" sortable :direction="$sortField === 'percla' ? $sortDirection : null">
+                        Periodo
                     </x-table.header>
 
                 </x-slot>
@@ -68,9 +62,7 @@
                         <x-table.cell>{{ $h->cl }}</x-table.cell>
                         <x-table.cell>{{ $h->nom }}</x-table.cell>
                         <x-table.cell>{{ $h->per }}</x-table.cell>
-                        <x-table.cell>{{ $h->clave }}</x-table.cell>
-                        <x-table.cell>{{ date('d-m-Y', strtotime($h->f1)) }}</x-table.cell>
-                        <x-table.cell>{{ date('d-m-Y', strtotime($h->f2)) }}</x-table.cell>
+                        <x-table.cell>{{ $h->percla }}</x-table.cell>
 
                     </tr>
                 @empty
