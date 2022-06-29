@@ -80,14 +80,19 @@ class InscriptionsController extends Component
         $this->btnContinuar = true;
     }
 
-    public function closeShowOneModal(){
-        $this->showOneModal = false;
-    }
+    public $showOneModal = false;
 
     public function register()
     {
+        //Agregar modal de informacion Uwu
+        $this->showHorario = false;
+        $this->showOneModal = true;
+
+    }
+    public function openConfir(){
         $this->confirmingSaveInscription = true;
     }
+
 
     public function resetArreglo()
     {
@@ -258,6 +263,7 @@ class InscriptionsController extends Component
     public function store(){
         $this->confirmingSaveInscription = false;
         $this->showHorario = false;
+        $this->flag = false;
 
         $this->user = User::find(auth()->user()->id);
         foreach ($this->unionarreglos as $id) {
@@ -294,7 +300,9 @@ class InscriptionsController extends Component
 
     public function alter()
     {
+        $this->showOneModal = false;
         $this->confirmingSaveInscription = false;
+        $this->showHorario = true;
         $this->flag = true;
     }
 

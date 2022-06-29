@@ -1,34 +1,17 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="showOneModal">
     <x-slot name="title">
-        Ventana Emergente
-        {{-- {{ $edit ? 'Editar curso' : 'Crear curso' }} --}}
+        AVISO
     </x-slot>
     <x-slot name="content">
-        <form wire:submit.prevent="confirmSave()" id="courseForm">
 
-            <h5 class="text-xl font-medium text-blue-600">Reinscripción del periodo Febrero - Junio 2022</h5>
-
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-
-                <div class="sm:flex-1">
-                    <div>
-                        <span>Horario de selección de materias:</span>
-                    </div>
-                    <div>
-                        <span>11 de Febrero de 2022 a las 18:32 hrs.</span>
+            <h5 class="text-xl font-medium text-blue-600"></h5>
+                <div class="m-4">
+                    <div class="p-2 bg-white rounded-lg border border-gray-200 shadow-md sm:p-3 lg:p-4 ">
+                        <p class="text-justify"><strong>Recuerde que,</strong> para aprobar y obtener la constancia de cada curso debes de, cumplir con el <strong>mínimo de asistencias</strong>
+                            y tener una <strong>calificación mayor a 70,</strong> para <strong>obtener la constancia del curso.</strong></p>
                     </div>
                 </div>
-                <div class="sm:flex-1">
-                    <div>
-                        <span>Datos del pago</span>
-                    </div>
-                    <div>
-                        <span>Tu pago ya se encuentra registrado.</span>
-                    </div>
-                </div>
-            </div>
 
-        </form>
     </x-slot>
 
     <x-slot name="footer">
@@ -36,9 +19,9 @@
             Cerrar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:loading.attr="disabled" form="courseForm">
+        <x-jet-button class="ml-3" wire:click="openConfir()" wire:loading.attr="disabled">
             Aceptar
-            {{-- {{ $edit ? 'Editar' : 'Crear' }} --}}
         </x-jet-button>
+        @include('livewire.admin.inscriptions.confirmation')
     </x-slot>
 </x-jet-dialog-modal>

@@ -84,7 +84,6 @@
                 Aceptar
             </x-jet-button>
             {{-- @if ($confirmingSaveInscription) --}}
-                @include('livewire.admin.inscriptions.confirmation')
             {{-- @endif --}}
         @endif
     </x-slot>
