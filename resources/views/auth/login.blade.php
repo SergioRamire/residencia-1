@@ -23,7 +23,7 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <x-slot name="boton">
-                <button
+                <button id="parti"
                 class="inline-flex onclick items-center px-4 py-2 bg-white
                 rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm
                 focus:outline-none focus:ring
@@ -31,7 +31,7 @@
                 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
                     Participantes
                 </button>
-                <button wire:click=""
+                <button id="instruc" wire:click=""
                 class="inline-flex items-center px-4 py-2 bg-white
                 rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm
                 focus:outline-none focus:ring

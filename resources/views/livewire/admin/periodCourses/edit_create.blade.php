@@ -8,7 +8,8 @@
             <div class="mt-4">
                 @if (!$edit)
                 <p>Clave: </p>
-                <p class="text-red-700">[Semana] [-] [3 primeras letras del mes] [Año] <strong> -> 1-ENE2022</strong></p>
+                <p class="text-red-700">[Semana] [-] [3 primeras letras del mes] [/] [3 primeras letras del mes] [Año] </p>
+                <p class="text-red-700">  <strong> Ejemplo: 1-ENE/AGO2022</strong> </p>
                 @else
                     <x-jet-label for="clave" value="Clave"/>
                 @endif
