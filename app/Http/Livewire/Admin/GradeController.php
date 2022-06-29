@@ -16,7 +16,7 @@ class GradeController extends Component
     use WithPagination;
     use WithSorting;
 
-    public Inscription $grade;
+    public InscriptionsController $grade;
     public $perPage = '5';
     public $search = '';
     public $calificacion;
@@ -128,8 +128,8 @@ class GradeController extends Component
                     ->join('courses','courses.id','course_details.course_id')
                     ->join('periods','periods.id','course_details.period_id')
                     ->where('users.id','=',$this->user->id)
-                    ->where('inscriptions.estatus_participante','=','Instructor')
-                    ->where('periods.estado','=',1)
+                    // ->where('inscriptions.estatus_participante','=','Instructor')
+                    // ->where('periods.estado','=',1)
                     ->select('course_details.id','courses.nombre')
                     ->get();
     }

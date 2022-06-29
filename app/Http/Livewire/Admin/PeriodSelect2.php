@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Admin;
 use Livewire\Component;
 use App\Models\Period;
 
-class PeriodSelect extends Component
+class PeriodSelect2 extends Component
 {
     public $query;/* valor para buscar */
     public $contador;
@@ -32,10 +32,11 @@ class PeriodSelect extends Component
         $this->contador --;
     }
     public function render(){/* renderizacion de la vista donde regresa el arreglo para el select */
-        return view('livewire.admin.period-select',[
+        return view('livewire.admin.period-select2',[
             'datos' => $this->consulta()
         ]);
     }
+    
     public function consulta(){
         if (strcmp(strtolower($this->query), 'todos') === 0) {
             return Period::all();
@@ -53,7 +54,18 @@ class PeriodSelect extends Component
     public function selectPer($valor){
         $aux = Period::find($valor);
         $this->txt = $aux->clave;
-        $this->emit('per_send',$valor);
+        $this->emit('per_send2',$valor);
         $this->reset2();
+    }
+    protected $listeners = [
+        'valorPerio',
+    ];
+    public $id_escojido;
+    public function valorPerio($valor){
+        $this->txt = 'Buscar Curso';
+        if (!empty($valor)) {
+            $this->txt = Period::where('periods.id', '=', $valor)->get()[0]->clave;
+        }
+        $this->id_escojido = $valor;
     }
 }

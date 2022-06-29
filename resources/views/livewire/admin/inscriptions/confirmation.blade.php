@@ -14,14 +14,6 @@
             Cancelar
         </x-jet-secondary-button>
 
-        {{-- <form method="get" action="{{ route('participant.studying') }}">
-            <div class="flex items-center justify-center">
-                <x-jet-button wire:click="store()" class="ml-4">
-                    Generar Inscripcion
-                </x-jet-button>
-            </div>
-        </form> --}}
-
         <x-jet-danger-button class="ml-3" wire:click="alter"  wire:loading.attr="disabled">
              Generar Inscripcion
         </x-jet-danger-button>

@@ -22,13 +22,8 @@
             @livewire('admin.period-select')
         </div>
         <div class="mt-4 flex-1">
-            {{-- <x-jet-label value="Seleccione el curso"/>
-            @livewire('admin.course-details-select') --}}
         </div>
     </div>
-
-
-
         <!-- Opciones de tabla -->
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
             <!-- Parte izquierda -->
@@ -37,7 +32,6 @@
                 <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar curso...">
                     <x-icon.search solid class="h-5 w-5 text-gray-400" />
                 </x-input.icon>
-
             </div>
 
             <!-- Parte derecha -->
@@ -94,14 +88,9 @@
                                 class="text-indigo-600 hover:text-indigo-900">
                                 <x-icon.eye class="h-6 w-6" />
                             </button>
-
-                            <button wire:click="openModal2({{ $d->id }})" class="text-amber-600 hover:text-amber-900">
+                            <button wire:click="edit({{ $d->id }})" class="text-amber-600 hover:text-amber-900">
                                 <x-icon.pencil alt class="h-6 w-6" />
                             </button>
-                            {{-- <button wire:click="edit({{ $d->id }})" type="button"
-                                class="text-amber-600 hover:text-amber-900">
-                                <x-icon.pencil alt class="h-6 w-6" />
-                            </button> --}}
                             <button wire:click="deleteDetails('{{ $d->id }}','{{ $d->curso }}')"
                                 type="button" class="text-red-600 hover:text-red-900">
                                 <x-icon.trash class="h-6 w-6" />
@@ -155,8 +144,5 @@
             @endif
         </div>
     </div>
-    {{-- @if ($modal == true) --}}
-        @include('livewire.admin.coursedetails.modal')
-    {{-- @endif --}}
 </div>
 

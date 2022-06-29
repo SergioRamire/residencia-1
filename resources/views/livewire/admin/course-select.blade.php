@@ -1,4 +1,4 @@
-<div class="relative border-none flex-1">
+<div class="relative border-none mt-4 flex-1">
     <input 
         type="text" 
         class="form-input w-full border-sky-800 text-sky-700 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
@@ -16,7 +16,7 @@
     </div>
     @if (!empty($query))
     <div class="fixed top-0 right-0 bottom-0 left-0" wire:click="reset2"></div>
-    <div class="absolute z-20 bg-white shadow-lg w-full rounded-lg" style="
+    <div class="absolute z-10  bg-white rounded-t-none shadow-lg w-full rounded-lg"  style="
         height:200px; 
         overflow-y: scroll;
     ">
@@ -31,7 +31,7 @@
                         tracking-widest shadow-sm hover:text-white hover:bg-blue-600
                         focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200
                         active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">
-                        {{$data->clav}} {{$data->nombre}}
+                        {{$data->clave}} {{$data->nombre}}
                     </a>    
                 @endforeach
             @else
