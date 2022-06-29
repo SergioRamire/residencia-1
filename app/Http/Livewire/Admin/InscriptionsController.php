@@ -31,6 +31,7 @@ class InscriptionsController extends Component
     public $id_arreglo=[];
     public $id_arreglo1=[];
     public $con;
+    public $c=[1,1,1,1,1];
 
     public bool $btnContinuar = false;
     public bool $showHorario = false;
@@ -173,6 +174,16 @@ class InscriptionsController extends Component
         $this->buscar();
     }
 
+    public function cantidades($id){
+        $users = CourseDetail::
+                join('inscriptions as i', 'i.course_detail_id', '=', 'course_details.id')
+                ->where('i.course_detail_id', "=",$id)
+                ->where('i.estatus_participante', "=",'Participante')
+                ->selectRaw('count(*) as user_count')
+                ->first();
+        return $users->user_count;
+    }
+
     public function tablaVacia(){
         if(count($this->buscar())!==0)
             $this->btnContinuar = true;
@@ -199,14 +210,17 @@ class InscriptionsController extends Component
         return Period::query()
             ->join('course_details', 'periods.id', '=', 'course_details.period_id')
             ->join('courses', 'course_details.course_id', '=', 'courses.id')
+            // ->join('inscriptions','inscriptions.course_detail_id','=','course_details.id')
             ->select(
-                'periods.*',
+                'periods.fecha_inicio','periods.fecha_fin',
                 'course_details.id as curdet','course_details.*',
-                'courses.*',
+                'courses.nombre','courses.dirigido','courses.perfil'
             )
             ->where('periods.fecha_inicio', '=', $inicio)
+            // ->distinct()
             ->whereNotIn('course_details.id',$a)
-            ->whereNotIn('course_details.id',$b);
+            ->whereNotIn('course_details.id',$b)
+            ;
     }
 
     public function render(){

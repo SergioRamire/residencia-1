@@ -20,6 +20,7 @@ class GradeController extends Component
     public $perPage = '5';
     public $search = '';
     public $calificacion;
+    public $asistencias_minimas;
     public $participante;
     public $grad;
     public $curso;
@@ -77,7 +78,7 @@ class GradeController extends Component
     {
         $this->validateInputs();
         $user = User::find($this->grade_id);
-        $user->courseDetails()->syncWithPivotValues($this->course_details_id, ['calificacion' => $this->calificacion]);
+        $user->courseDetails()->syncWithPivotValues($this->course_details_id, ['calificacion' => $this->calificacion, 'asistencias_minimas'=>$this->asistencias_minimas]);
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'pencil',
             'message' => 'Calificación actualizada exitosamente',
@@ -94,7 +95,8 @@ class GradeController extends Component
                 ->join('groups', 'groups.id', '=', 'course_details.group_id')
                 ->where('users.id', '=', $id)
                 ->where('course_details.id', '=', $this->id_course)
-                ->select('users.id', 'course_details.id as course_details_id', DB::raw("concat(users.name,' ',users.apellido_paterno)as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion')
+                ->select('users.id', 'course_details.id as course_details_id', DB::raw("concat(users.name,' ',users.apellido_paterno)as nombre"),
+                'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.asistencias_minimas','inscriptions.calificacion')
                 ->first();
         $this->grade_id = $id;
         $this->course_details_id = $grade->course_details_id;
@@ -102,6 +104,7 @@ class GradeController extends Component
         $this->curso = $grade->curso;
         $this->grupo = $grade->grupo;
         $this->calificacion = $grade->calificacion;
+        $this->asistencias_minimas=$grade->asistencias_minimas;
         $this->validateInputs();
         $this->openModal();
     }
@@ -193,7 +196,7 @@ class GradeController extends Component
             ->where('inscriptions.estatus_participante', '=','Participante')
             ->where('course_details.id', '=',$this->id_course)
             ->select('users.id','users.name', 'users.apellido_paterno', 'users.apellido_materno'
-                    ,'inscriptions.calificacion','courses.nombre as curso','groups.nombre as grupo',
+                    ,'inscriptions.calificacion','inscriptions.asistencias_minimas','courses.nombre as curso','groups.nombre as grupo',
                     'periods.fecha_inicio', 'periods.fecha_fin')
             ->when($this->search, function ($query) {
                 return $query->where(function ($q) {

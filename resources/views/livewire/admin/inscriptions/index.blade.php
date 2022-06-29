@@ -107,8 +107,9 @@
                                         {{-- <x-table.header>course_id</x-table.header> --}}
                                         <x-table.header>Curso</x-table.header>
                                         <x-table.header>Perfil</x-table.header>
-                                        <x-table.header>Departamento dirigido</x-table.header>
+                                        <x-table.header class="w-1/4">Departamento dirigido</x-table.header>
                                         <x-table.header>Horario</x-table.header>
+                                        <x-table.header>Capacidad</x-table.header>
                                         <x-table.header>acciones</x-table.header>
                                     </x-slot>
                                     @forelse($semana1 as $c)
@@ -122,6 +123,12 @@
                                             <x-table.cell>{{ date("g:i a", strtotime($c->hora_inicio)) }} a
                                                 {{ date("g:i a", strtotime($c->hora_fin)) }}
                                             </x-table.cell>
+
+                                            <x-table.cell>
+                                                {{$this->cantidades($c->curdet)}}
+                                                / {{ $c->capacidad }}
+                                            </x-table.cell>
+
                                             <x-table.cell>
 
                                                 <button wire:click="add({{ $c->curdet }})" type="button"
@@ -177,6 +184,7 @@
                                             <x-table.header>Perfil</x-table.header>
                                             <x-table.header>Departamento dirigido</x-table.header>
                                             <x-table.header>Horario</x-table.header>
+                                            <x-table.header>Capacidad</x-table.header>
                                             <x-table.header>acciones</x-table.header>
                                         </x-slot>
                                         @forelse($semana2 as $c)
@@ -188,6 +196,10 @@
                                                 <x-table.cell>{{ $c->perfil }} </x-table.cell>
                                                 <x-table.cell>{{ $c->dirigido }} </x-table.cell>
                                                 <x-table.cell>{{ $c->hora_inicio }} a {{ $c->hora_fin }}
+                                                </x-table.cell>
+                                                <x-table.cell>
+                                                    {{$this->cantidades($c->curdet)}}
+                                                    / {{ $c->capacidad }}
                                                 </x-table.cell>
                                                 <x-table.cell>
                                                     <button wire:click="addTabla2({{ $c->curdet }})" type="button"

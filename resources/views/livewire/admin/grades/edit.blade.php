@@ -29,7 +29,14 @@
                     <x-input.error wire:model.defer="calificacion" class="block mt-1 w-full" type="number" id="calificacion" name="calificacion" for="calificacion" required/>
                 </div>
 
-                </form>
+                <!-- Calificación -->
+                <div class="mt-4">
+                    <x-jet-label for="asistencia" value="¿Cumple con el número de asistencias mínimas?" />
+                    <label for="asistencias">Sí</label>
+                    <input type="radio" wire:model="asistencias_minimas" value="1" id="opcion" name="opcion" required>
+                    <label for="asistencias">No</label>
+                    <input type="radio" wire:model="asistencias_minimas" value="0" id="opcion" name="opcion" required>
+                </div>
     </x-slot>
 
     <x-slot name="footer">
@@ -38,7 +45,7 @@
         </x-jet-secondary-button>
 
         <x-jet-button wire:click.prevent="updateGrade()" class="ml-3"  wire:loading.attr="disabled" form="courseForm">
-           Actualizar Calificación
+           Actualizar Datos
         </x-jet-button>
         @if($confirmingSaveGrade)
                     @include('livewire.admin.grades.confirmation')

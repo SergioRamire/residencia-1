@@ -69,6 +69,8 @@
                         Grupo</x-table.header>
                     <x-table.header wire:click="sortBy('calificacion')" sortable :direction="$sortField === 'calificacion' ? $sortDirection : null">
                         Calificación</x-table.header>
+                    <x-table.header wire:click="sortBy('asistencias_minimas')" sortable :direction="$sortField === 'asistencias_minimas' ? $sortDirection : null">
+                        Asistencias Mínimas</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
@@ -80,7 +82,14 @@
                         <x-table.cell>{{ $g->grupo }}</x-table.cell>
                         <x-table.cell>{{ $g->calificacion }}</x-table.cell>
                         <x-table.cell>
-                            <button wire:click="edit( {{$g->id }})" type="button" class="text-amber-600 hover:text-amber-900">
+                            @if($g->asistencias_minimas === 1)
+                                <x-badge.basic value="Tiene" color="green" large/>
+                            @elseif($g->asistencias_minimas === 0)
+                                <x-badge.basic value="No tiene" color="red" large/>
+                            @endif
+                        </x-table.cell>
+                        <x-table.cell>
+                            <button wire:click="edit( {{$g->id }})" type="button" title="editar datos" class="text-amber-600 hover:text-amber-900">
                                 <x-icon.pencil alt class="h-6 w-6"/>
                             </button>
                         </x-table.cell>

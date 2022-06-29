@@ -37,7 +37,7 @@ class StudyingController extends Component
                 'courses.clave as curso_clave',
                 'courses.nombre as curso_nombre',
                 'groups.nombre as nombre_grupo',
-                // 
+                //
                 'inscriptions.calificacion as califi',
                 'periods.fecha_inicio as f1',
                 'periods.fecha_fin as f2',
