@@ -45,18 +45,21 @@ class ActiveInscriptionController extends Component
             $user->syncRoles('Participante');
         }
     }
-    public function render()
-    {
+    public function render(){
         return view('livewire.admin.activeinscription.index');
     }
-
-
-    public function activar()
-    {
+    public function activar(){
         $this->restablecerRoles();
+        $this-> noti('success','Inscripciones Activadas');
     }
-    public function desactivar()
-    {
-        dd('DEsactivaste curso');
+    public function desactivar(){
+        // dd('DEsactivaste curso');
+        $this-> noti('close','Inscripciones Desactivadas');
+    }
+    public function noti($icon,$txt){
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $icon,
+            'message' => $txt,
+        ]);
     }
 }

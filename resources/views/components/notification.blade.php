@@ -1,5 +1,7 @@
 <div class="max-w-sm w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden"
-     :class="icon === 'pencil' ? 'border border-yellow-600' : (icon === 'success' ? 'border border-green-600' : (icon === 'trash' ? 'border border-red-600' : ''))"
+     :class="icon === 'pencil' ? 'border border-yellow-600' : 
+     (icon === 'success' ? 'border border-green-600' : 
+     (icon === 'trash' ? 'border border-red-600' : (icon === 'close' ? 'border border-red-600' : (icon === 'info' ? 'border border-blue-600' : ''))))"
      x-cloak x-data="{ show: false, icon: '', message: '' }"
      @notify.window="show = true; icon = $event.detail.icon; message = $event.detail.message; setTimeout(() => show = false, 3200)"
      x-show="show"
@@ -24,6 +26,9 @@
                 </template>
                 <template x-if="icon == 'info'">
                     <x-icon.info class="h-6 w-6 text-blue-600"/>
+                </template>
+                <template x-if="icon == 'close'">
+                    <x-icon.close class="h-6 w-6 text-red-600"/>
                 </template>
             </div>
 
