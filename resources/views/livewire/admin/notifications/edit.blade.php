@@ -8,14 +8,14 @@
 
             <!-- Nombre -->
             <div class="mt-4">
-                <x-jet-label for="title"  value="{{ __('Título*') }}" />
+                <x-jet-label for="title"  value="{{ __('Asunto*') }}" />
                 <x-input.error wire:model="arr.title" class="block mt-1 w-full" type="text" id="title" name="title" for="title" required/>
                 <x-jet-input-error for="arr.title"/>
             </div>
 
             <!-- Descripcion -->
             <div class="mt-4">
-                <x-jet-label for="description" value="{{ __('Descripción*') }}"/>
+                <x-jet-label for="description" value="{{ __('Cuerpo*') }}"/>
                 <x-input.textarea wire:model="arr.description" id="arr.description" class="block mt-1 w-full" name="arr.description" required/>
                 <x-jet-input-error for="arr.description"/>
             </div>

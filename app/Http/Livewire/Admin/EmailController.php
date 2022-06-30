@@ -149,6 +149,7 @@ class EmailController extends Component
 
         $this->edit = false;
         $this->create = false;
+        $this->confirmingSaveEmail = false;
         $this->closeModal();
         $this->resetInputFields();
     }

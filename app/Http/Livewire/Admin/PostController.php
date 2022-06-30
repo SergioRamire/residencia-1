@@ -177,6 +177,7 @@ class PostController extends Component
 
         $this->edit = false;
         $this->create = false;
+        $this->confirmingSaveNotificacion= false;
         $this->closeModal();
         $this->resetInputFields();
     }
