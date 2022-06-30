@@ -17,12 +17,7 @@
                         <span class="mb-2 text-xl tracking-tight ">({{ $data->nombre_grupo }})
                         </span>
                     </div>
-                </div>
-                
-                <div class="flex flex-col justify-center  px-6 mx-4 mb-">
-                    <p class="mb-3 font-normal "> <a class="flex items-center p-2 bg-white rounded font-semibold text-xs uppercase tracking-widest shadow-sm disabled:opacity-25 transition text-sky-700 hover:bg-[#1b396a] hover:text-white" href="">Asignar calificaciones</a></p>
-                </div>
-                    
+                </div>                   
                 <div class="flex flex-col justify-center  px-6 mx-4 mb-2 text-black bg-white shadow-md rounded-lg border border-[#1b396a]">
                     <p><span class="font-bold">Lugar: </span>{{$data->lugar}}</p>
                     <p><span class="font-bold">Periodo: </span>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
