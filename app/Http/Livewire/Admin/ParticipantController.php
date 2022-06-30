@@ -129,9 +129,12 @@ class ParticipantController extends Component
                 ->when($this->search, function ($query) {
                     return $query->where(function ($q) {
                         $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
-                          ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%');
+                          ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%')
+                          ->orWhere('users.rfc', 'like', '%'.$this->search.'%')
+                          ->orWhere('areas.nombre', 'like', '%'.$this->search.'%');
                     });
                 })
+                
                 ->when($this->filters['area'], fn ($query, $area) => $query->where('area_id', $area))
                 ->when($this->filters['tipo'], fn ($query, $tipo) => $query->where('tipo', $tipo))
                 ->when($this->filters['sexo'], fn ($query, $sexo) => $query->where('sexo', $sexo))

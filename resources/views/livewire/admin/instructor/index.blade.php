@@ -6,23 +6,12 @@
     </x-slot>
 
     {{-- <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> --}}
-        <div>
-            <div class="mt-4 w-1/2">
-                <x-jet-label value="Seleccione el periodo"/>
-                @livewire('admin.period-select')
-            </div>
+    <div>
+        <div class="mt-4 w-1/2">
+            <x-jet-label value="Seleccione el periodo"/>
+            @livewire('admin.period-select')
         </div>
-        {{-- <div class="mt-4 flex-1">
-        </div> --}}
-    {{-- </div> --}}
-    {{-- <div wire:ignore>
-        <x-input.select wire:model="filters.fecha_inicio" id="periodo_id" class="text-sm block mt-1 w-full" required>
-            <option value="">Todas las Fechas</option>
-            @foreach(\App\Models\Period::all() as $period)
-              <option value="{{$period->fecha_inicio}}">{{date('d-m-Y', strtotime($period->fecha_inicio))}}</option>
-            @endforeach
-        </x-input.select>
-    </div> --}}
+    </div>
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
             <!-- Opciones de tabla -->
@@ -30,10 +19,13 @@
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Barra de búsqueda -->
-                    <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar...">
-                        <x-icon.search solid class="h-5 w-5 text-gray-400"/>
-                    </x-input.icon>
 
+                    <div class="w-full">
+                        <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar...">
+                            <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                        </x-input.icon>
+                        <label><p class="text-xs font-bold">Buscar por: Nombre, curso o grupo</p></label>
+                    </div>
 
                     <!-- Filtros -->
                     <x-dropdown width="w-full" align="right" dropdownClasses="md:w-72" content-classes="py-4 bg-white divide-y">
@@ -72,32 +64,6 @@
                                     </x-input.select>
                                 </div>
                             </div>
-
-                            <!-- fecha inicio -->
-                            {{-- <div class="block px-4 py-2 space-y-1">
-                                <div>
-                                    <x-jet-label for="fecha_inicio" value="Fecha Inicio"/>
-                                    <x-input.select wire:model="filters.fecha_inicio" name="fecha_inicio" id="fecha_inicio" class="text-sm block mt-1 w-full" required>
-                                        <option value="">Todas las Fechas</option>
-                                        @foreach(\App\Models\Period::all() as $period)
-                                          <option value="{{$period->fecha_inicio}}">{{date('d-m-Y', strtotime($period->fecha_inicio))}}</option>
-                                        @endforeach
-                                    </x-input.select>
-                                </div>
-                            </div> --}}
-
-                            <!-- fehc fin -->
-                            {{-- <div class="block px-4 py-2 space-y-1">
-                                <div>
-                                    <x-jet-label for="fecha_fin" value="Fecha Fin"/>
-                                    <x-input.select wire:model="filters.fecha_fin" name="fecha_fin" id="fecha_fin" class="text-sm block mt-1 w-full" required>
-                                        <option value="">Todas las Fechas</option>
-                                        @foreach(\App\Models\Period::all() as $period)
-                                          <option value="{{$period->fecha_fin}}">{{date('d-m-Y', strtotime($period->fecha_fin))}}</option>
-                                        @endforeach
-                                    </x-input.select>
-                                </div>
-                            </div> --}}
 
                         </x-slot>
                     </x-dropdown>

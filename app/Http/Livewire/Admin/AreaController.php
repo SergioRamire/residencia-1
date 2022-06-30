@@ -183,6 +183,8 @@ class AreaController extends Component
             'areas' => Area::where('nombre', 'like', '%'.$this->search.'%')
                             ->orWhere('jefe_area', 'like', '%'.$this->search.'%')
                             ->orWhere('clave', 'like', '%'.$this->search.'%')
+                            ->orWhere('telefono', 'like', '%'.$this->search.'%')
+                            ->orWhere('extension', 'like', '%'.$this->search.'%')
                             ->orderBy($this->sortField, $this->sortDirection)
                             ->paginate($this->perPage),
         ]);

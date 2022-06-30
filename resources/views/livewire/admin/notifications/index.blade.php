@@ -8,7 +8,7 @@
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
             <!-- Botón de nuevo -->
-            <div>
+            <div class="pb-6">
                 <x-jet-secondary-button wire:click="create()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
                     <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
                     Nueva Notificación
@@ -20,9 +20,12 @@
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Barra de búsqueda -->
-                    <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar Notificaciones...">
-                        <x-icon.search solid class="h-5 w-5 text-gray-400"/>
-                    </x-input.icon>
+                    <div class="w-full">
+                        <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar Notificaciones...">
+                            <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                        </x-input.icon>
+                        <label><p class="text-xs font-bold">Buscar por: Asunto, cuerpo o destinatario</p></label>
+                    </div>
                 </div>
                 <div>
                     <x-jet-secondary-button wire:click="deleteNoti()" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-red-50">

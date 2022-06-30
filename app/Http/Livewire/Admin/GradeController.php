@@ -200,7 +200,9 @@ class GradeController extends Component
             ->when($this->search, function ($query) {
                 return $query->where(function ($q) {
                     $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
-                      ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%');
+                      ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%')
+                      ->orWhere('groups.nombre', 'like', '%'.$this->search.'%')
+                      ->orWhere('inscriptions.calificacion', 'like', '%'.$this->search.'%');
                 });
             })
             ->orderBy($this->sortField, $this->sortDirection)

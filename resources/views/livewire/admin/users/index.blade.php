@@ -8,7 +8,7 @@
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
             <!-- Botón de nuevo -->
-            <div>
+            <div class=" mb-6">
                 <x-jet-secondary-button wire:click="create()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
                     <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
                     Nuevo usuario
@@ -20,11 +20,13 @@
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Barra de búsqueda -->
-                    <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar usuario...">
-                        <x-icon.search solid class="h-5 w-5 text-gray-400"/>
-                    </x-input.icon>
+                    <div class="w-full">
+                        <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar usuario...">
+                            <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                        </x-input.icon>
+                        <label><p class="text-xs font-bold">Buscar por: Nombre o Correo</p></label>
+                    </div>
                 </div>
-
                 <!-- Parte derecha -->
                 <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Selección de paginación -->
