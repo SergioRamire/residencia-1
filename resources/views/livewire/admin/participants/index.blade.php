@@ -13,9 +13,12 @@
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Barra de búsqueda -->
-                    <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
-                        <x-icon.search solid class="h-5 w-5 text-gray-400"/>
-                    </x-input.icon>
+                    <div class="w-full">
+                        <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
+                            <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                        </x-input.icon>
+                        <label><p class="text-xs font-bold">Buscar por: Nombre, rfc o area</p></label>
+                    </div>
 
                     <!-- Filtros -->
                     <x-dropdown width="w-full" align="right" dropdownClasses="md:w-72" content-classes="py-1 bg-white divide-y">

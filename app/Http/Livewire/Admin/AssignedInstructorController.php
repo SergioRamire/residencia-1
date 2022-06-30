@@ -150,6 +150,8 @@ class AssignedInstructorController extends Component
                 ->where('courses.nombre', 'like', "%$search%")
                 ->orWhere('groups.nombre', 'like', "%$search%")
                 ->orWhere('course_details.lugar', 'like', "%$search%")
+                ->orWhere('course_details.hora_inicio', 'like', "%$search%")
+                ->orWhere('course_details.hora_fin', 'like', "%$search%")
                 )
             // ->when($this->classification['periodo'], fn ($query, $search) => $query
             //     ->where('periods.id', '=', $search))

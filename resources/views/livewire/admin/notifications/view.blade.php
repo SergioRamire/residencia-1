@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">
-        <div class="p-6 sm:px-20  bg-opacity-25 bg-white border-b bg-gray-200">
+        <div class="p-6 sm:px-20  bg-opacity-25 border-b bg-gray-200">
 
             <div class="mt-8 text-2xl leading-9 font-bold tracking-tight text-blcak sm:text-1xl sm:leading-10">
                 Notificaciones sin leer...
@@ -15,7 +15,7 @@
             <div class="mt-6 text-gray-600">
                 @if (auth()->user())
                     @forelse ($postNotifications as $notification)
-                        <div class="max-w-screen border rounded-lg mx-auto text-left py-4 mx-8">
+                        <div class="max-w-screen border rounded-lg text-left py-4 mx-8">
                             <h2 class="text-2xl leading-9 font-bold tracking-tight text-blcak sm:text-1xl sm:leading-10">
                                 {{'Titulo: '}}{{ $notification->data['title'] }}
                             </h2>
@@ -70,7 +70,7 @@
                   {{-- <span class="dropdown-header">Read Notifications</span> --}}
                 @if(auth()->user())
                     @forelse (auth()->user()->readNotifications as $notification)
-                        <div class="max-w-screen border rounded-lg mx-auto text-left py-4 mx-8">
+                        <div class="max-w-screen border rounded-lg text-left py-4 mx-8">
                             <h2 class="text-2xl leading-9 font-bold tracking-tight text-blcak sm:text-1xl sm:leading-10">
                                 {{'Titulo: '}}{{ $notification->data['title'] }}
                             </h2>

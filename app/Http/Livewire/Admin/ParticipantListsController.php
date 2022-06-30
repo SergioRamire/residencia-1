@@ -64,7 +64,10 @@ class ParticipantListsController extends Component
          ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
          ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
          ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,
-         ' ', users.apellido_materno)"), 'like', "%$search%"))
+         ' ', users.apellido_materno)"), 'like', "%$search%")
+            ->orWhere('areas.nombre', 'like', '%'.$this->search.'%')
+            ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
+            ->orWhere('groups.nombre', 'like', '%'.$this->search.'%'))
          ->orderBy($this->sortField, $this->sortDirection);
     }
 

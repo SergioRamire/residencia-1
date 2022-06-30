@@ -172,9 +172,10 @@ class CourseController extends Component
     {
         return view('livewire.admin.courses.index', [
             'courses' => Course::query()
-                // ->when($this->filters['modalidad'], fn ($query, $modalidad) => $query->where('modalidad', $modalidad))
                 ->when($this->filters['perfil'], fn ($query, $perfil) => $query->where('perfil', $perfil))
-                ->when($this->search, fn ($query, $search) => $query->where('nombre', 'like', "%$search%"))
+                ->when($this->search, fn ($query, $search) => $query->where('nombre', 'like', "%$search%")
+                    ->orWhere('clave', 'like', '%'.$this->search.'%')
+                    ->orWhere('perfil', 'like', '%'.$this->search.'%'))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
         ]);

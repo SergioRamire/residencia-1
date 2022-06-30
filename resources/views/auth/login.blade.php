@@ -33,6 +33,9 @@
         @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
+
+
+            
             <div class="mt-2">
                 <img src="{{ asset('img/ico.png') }}">
             </div>

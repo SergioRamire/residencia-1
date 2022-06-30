@@ -60,7 +60,8 @@ class PostController extends Component
             ->when($this->search, function ($query, $b) {
                 return $query->where(function ($q) {
                     $q->Where('posts.title', 'like', '%'.$this->search.'%')
-                      ->orWhere('posts.description', 'like', '%'.$this->search.'%');
+                    ->orWhere('posts.description', 'like', '%'.$this->search.'%')
+                    ->orWhere('posts.role', 'like', '%'.$this->search.'%');
                 });
             })
             ->orderBy('posts.created_at', 'DESC')

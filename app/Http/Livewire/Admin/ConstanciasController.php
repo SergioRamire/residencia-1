@@ -39,8 +39,13 @@ class ConstanciasController extends Component
     {
         return view('livewire.admin.constancias.index', [
             'calificaciones' => $this->consultaBase()
-                ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"), 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion', 'areas.nombre as area'])
-                ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)"), 'like', "%$search%"))
+                ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"), 
+                'courses.nombre as curso', 'groups.nombre as grupo', 
+                'inscriptions.calificacion', 'areas.nombre as area'])
+                ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)"), 'like', "%$search%")
+                    ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
+                    ->orWhere('groups.nombre', 'like', '%'.$this->search.'%')
+                    ->orWhere('inscriptions.calificacion', 'like', '%'.$this->search.'%'))
                 ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
                 ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
                 ->when($this->filters['filtro_calificacion'], function ($query) {

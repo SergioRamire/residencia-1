@@ -9,34 +9,7 @@
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
 
-                {{-- <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                    <div class="mt-1 md:w-1/5">
-                        <x-jet-label for="periodo" value="Periodo"/>
-                        <x-input.select wire:model="classification.periodo" id="periodo" class="text-sm block mt-1 w-full" name="periodo" required>
-                            <option   value="" disabled>Selecciona el periodo...</option>
-                            @foreach(\App\Models\Period::all() as $period)
-                                <option value="{{ $period->id }}">{{$period->clave}}</option>
-                            @endforeach
-                        </x-input.select>
-                    </div>
-                </div>
-                <div class="mt-1 w-1/2">
-                        <x-jet-label for="curso_classification" value="Curso"/>
-                        <x-input.select wire:model="classification.curso" id="curso" class="text-sm block mt-1 w-full" name="curso" required>
-                            <option value="">Selecciona el curso...</option>
-                            @foreach(\App\Models\CourseDetail::join('courses','courses.id','=','course_details.course_id')
-                                ->join('periods','periods.id','=', 'course_details.period_id')
-                                ->where('course_details.period_id','=',$classification['periodo'])
-                                ->select('course_details.course_id as id','courses.nombre')
-                                ->distinct()
-                                ->get() as $course)
-                                <option value="{{ $course->id }}">{{$course->nombre}}</option>
-                            @endforeach
-                        </x-input.select>
-                </div> --}}
-
-
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5 pb-6">
                 <div class="mt-4 flex-1">
                     <x-jet-label value="Seleccione el periodo"/>
                     @livewire('admin.period-select')
@@ -54,9 +27,12 @@
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
                      <!-- Barra de búsqueda -->
-                     <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
-                        <x-icon.search solid class="h-5 w-5 text-gray-400"/>
-                    </x-input.icon>
+                    <div class="w-full">
+                        <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
+                           <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                       </x-input.icon>
+                        <label><p class="text-xs font-bold">Buscar por: Nombre, curso, grupo o calificacion</p></label>
+                    </div>
 
                     <!-- Filtros -->
                     <x-dropdown width="w-full" align="right" dropdownClasses="md:w-72" content-classes="py-4 bg-white divide-y">
