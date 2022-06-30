@@ -21,7 +21,7 @@ class ActiveInscriptionController extends Component
     }
     public function consulta(){
         return Period::where('periods.fecha_inicio','>',$this->hoy)
-        ->where('periods.fecha_inicio' , '<', Carbon::now()->addDays(90))
+        ->where('periods.fecha_inicio' , '<', Carbon::now()->addDays(60))
             ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
     }
@@ -54,7 +54,6 @@ class ActiveInscriptionController extends Component
     public function activar()
     {
         $this->restablecerRoles();
-        // dd('Activaste curso');
     }
     public function desactivar()
     {
