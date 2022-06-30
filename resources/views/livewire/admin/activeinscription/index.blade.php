@@ -1,12 +1,12 @@
 <div>
+
     <div class="p-6 w-full bg-white rounded-lg border border-sky-600 shadow-md shadow-sky-800">
         
         <div class="py-4 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="lg:text-center">
-                    <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Activación</h2>
-                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Ofertar Cursos Para las Inscripciones</p>
-                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">Periodo mas cercanos:</p>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-3xl">Ofertar cursos para las inscripciones</p>
+                    <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">Periodos próximos:</p>
                 </div>
                 @if (!empty($fecha))
                     <div class="mt-10">
@@ -16,8 +16,8 @@
                                     <dt>
                                         <p class="flex items-center justify-center ml-16 text-lg leading-6 font-medium text-gray-900">{{ $f->clave }}</p>
                                     </dt>
-                                    <dd class="flex items-center justify-center mt-2 ml-16 text-base text-gray-500">{{ date('d-m-Y', strtotime($f->fecha_inicio)) }} - {{ date('d-m-Y', strtotime($f->fecha_fin)) }}</dd>
-                                    <dd class="flex items-center justify-center mt-2 ml-16 text-base text-gray-500">
+                                    <dd class="flex items-center justify-center mt-2 ml-16 font-bold text-lg text-black">{{ date('d-m-Y', strtotime($f->fecha_inicio)) }} - {{ date('d-m-Y', strtotime($f->fecha_fin)) }}</dd>
+                                    <dd class="flex items-center justify-center mt-2 ml-16 font-bold text-base text-black">
                                         @if($f->estado === 1)
                                             <x-badge.basic value="Activo" color="green" large/>
                                         @elseif($f->estado === 0)
@@ -48,7 +48,7 @@
         @else
         <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
             <div class="flex justify-center ">
-                <span> Aun no hay periodos sercanos.</span>
+                <span class="text-black font-bold text-lg">No se encuentra ninguno.</span>
             </div>
         </div>
         @endif
