@@ -123,7 +123,7 @@
                             nombre completo
                         </x-table.header>
                         <x-table.header wire:click="sortBy('area_nombre')" sortable :direction="$sortField === 'area_nombre' ? $sortDirection : null">
-                            area
+                            área
                         </x-table.header>
                         <x-table.header wire:click="sortBy('cuenta_moodle')" sortable :direction="$sortField === 'cuenta_moodle' ? $sortDirection : null">
                             cuenta moodle

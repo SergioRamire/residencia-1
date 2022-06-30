@@ -150,8 +150,9 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:activeinscription.show')->prefix('admin')->name('admin.')
         ->get('activar-inscripciones', ActiveInscriptionController ::class)->name('activeinscription');
 
-    Route::middleware('can:teaching.show')->prefix('admin')->name('admin.')
+    Route::middleware('can:teaching.show')->prefix('admin')->name('instructor.')
         ->get('teaching', TeachingController::class)->name('teaching');
+
     Route::middleware('can:sendemail.show')->prefix('admin')->name('admin.')
         ->get('email', EmailController::class)->name('email');
 

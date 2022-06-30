@@ -51,8 +51,8 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'user.edit', 'human_name' => 'Editar usuarios'])->assignRole(['Administrador']);
         Permission::create(['name' => 'user.delete', 'human_name' => 'Eliminar usuarios'])->assignRole(['Administrador']);
 
-        Permission::create(['name' => 'studying.show', 'human_name' => 'Visualizar cursos seleccionados'])->assignRole(['Instructor','Participante']);
-        Permission::create(['name' => 'teaching.show', 'human_name' => 'Visualizar cursos a impartir'])->assignRole(['Instructor','Participante']);
+        Permission::create(['name' => 'studying.show', 'human_name' => 'Visualizar cursos seleccionados'])->assignRole(['Participante']);
+        Permission::create(['name' => 'teaching.show', 'human_name' => 'Visualizar cursos a impartir'])->assignRole(['Instructor']);
 
         Permission::create(['name' => 'area.show', 'human_name' => 'Visualizar areas'])->assignRole(['Administrador']);
         Permission::create(['name' => 'area.create', 'human_name' => 'Crear areas'])->assignRole(['Administrador']);

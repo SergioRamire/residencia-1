@@ -1,5 +1,7 @@
 <div>
-    Cursos a impartir
+    <span class="mb-2 text-2xl font-bold tracking-tight ">
+        Cursos a impartir
+        </span>
 
     <div class="grid grid-flow-row xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
         {{-- <div class="grid grid-cols-3 md:grid-cols-max"> --}}
@@ -21,12 +23,12 @@
 
                 {{-- <div class="flex flex-col justify-center  px-6 mx-4 mb-">
                 </div> --}}
-                    
+
                 <div class="flex flex-col justify-center  px-6 mx-4 mb-2 text-black bg-white shadow-md rounded-lg border border-[#1b396a]">
                     <p>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
                     <p>{{ date("g:i a", strtotime($data->h1))}} - {{ date("g:i a", strtotime($data->h2))}} </p>
                 </div>
-                
+
             </div>
         @endforeach
     </div>

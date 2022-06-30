@@ -56,10 +56,16 @@ class JetstreamServiceProvider extends ServiceProvider
                         $user->syncRoles('Participante');
                         // alert("Ha ocurrido un error en la peticion!");
                         echo "<script> alert('no se puede'); </script>";
-                    }else{
+                    }
+                    if($request->rol=='Participante'){
                         $user->syncRoles($request->rol);
                         return $user;
                     }
+                    if($request->rol=='Instructor' and $estatus!==null){
+                        $user->syncRoles($request->rol);
+                        return $user;
+                    }
+
                 }
                 if($rol=='Super admin' or $rol=='Administrador'){
                     return $user;
