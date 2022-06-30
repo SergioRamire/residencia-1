@@ -22,7 +22,7 @@
                     <x-input.icon wire:model="search" class="w-full " type="text" placeholder="Buscar departamentos...">
                         <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                     </x-input.icon>
-                    <label><p class="text-xs font-bold">Buscar por: Area, jefe, telefono o extensión</p></label>
+                    <label><p class="text-xs font-bold">Buscar por: Área, jefe, telefono o extensión</p></label>
                 </div>
             </div>
 
