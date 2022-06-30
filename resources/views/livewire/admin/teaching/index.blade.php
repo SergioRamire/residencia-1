@@ -18,13 +18,15 @@
                         </span>
                     </div>
                 </div>
-
-                {{-- <div class="flex flex-col justify-center  px-6 mx-4 mb-">
-                </div> --}}
+                
+                <div class="flex flex-col justify-center  px-6 mx-4 mb-">
+                    <p class="mb-3 font-normal "> <a class="flex items-center p-2 bg-white rounded font-semibold text-xs uppercase tracking-widest shadow-sm disabled:opacity-25 transition text-sky-700 hover:bg-[#1b396a] hover:text-white" href="">Asignar calificaciones</a></p>
+                </div>
                     
                 <div class="flex flex-col justify-center  px-6 mx-4 mb-2 text-black bg-white shadow-md rounded-lg border border-[#1b396a]">
-                    <p>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
-                    <p>{{ date("g:i a", strtotime($data->h1))}} - {{ date("g:i a", strtotime($data->h2))}} </p>
+                    <p><span class="font-bold">Lugar: </span>{{$data->lugar}}</p>
+                    <p><span class="font-bold">Periodo: </span>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
+                    <p><span class="font-bold">Horaio: </span>{{ date("H:i", strtotime($data->h1))}} - {{ date("H:i", strtotime($data->h2))}} </p>
                 </div>
                 
             </div>

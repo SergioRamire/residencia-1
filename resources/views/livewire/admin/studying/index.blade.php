@@ -21,20 +21,14 @@
                     </div>
 
                     <div class="flex flex-col justify-center  px-6 mx-4 mb-">
-                        <p class="mb-3 font-normal "><span class="font-bold">Instructor: </span> Here are the biggest enterprise</p>
-                        <p class="mb-3 font-normal "><span class="font-bold">Califiacion Final: </span>
-                            @if ($data->califi == 0)
-                                Sin asignar
-                            @else
-                                {{ $data->califi }}
-                            @endif
-                        </p>
+                        <p class="mb-3 font-normal "><span class="font-bold">Instructor: </span> Esta en proceso la consulta</p>
+                        <p class="mb-3 font-normal "><span class="font-bold">Califiacion Final: </span>@if ($data->califi == 0)Sin asignar @else{{ $data->califi }}@endif</p>
                     </div>
 
                     <div class="flex flex-col justify-center  px-6 mx-4 mb-2 text-black bg-white shadow-md rounded-lg border border-[#1b396a]">
-                        <p>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
-                        <p>{{ date("g:i a", strtotime($data->h1))}} - {{ date("g:i a", strtotime($data->h2))}} </p>
-                    </div>
+                        <p><span class="font-bold">Lugar: </span>{{$data->lugar}}</p>
+                        <p><span class="font-bold">Periodo: </span>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
+                        <p><span class="font-bold">Horaio: </span>{{ date("H:i", strtotime($data->h1))}} hrs. - {{ date("H:i", strtotime($data->h2))}} hrs.</p>                    </div>
 
                 </div>
             @endforeach

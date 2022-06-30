@@ -43,6 +43,7 @@ class StudyingController extends Component
                 'periods.fecha_fin as f2',
                 'course_details.hora_inicio as h1',
                 'course_details.hora_fin as h2',
+                'course_details.lugar',
             )
             ->where("users.id", $this->user->id)
             ->where("inscriptions.estatus_participante", $this->estatus)
