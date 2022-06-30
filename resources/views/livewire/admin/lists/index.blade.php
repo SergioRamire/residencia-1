@@ -8,6 +8,13 @@
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
 
+            <div class="w-full">
+                <x-jet-secondary-button wire:click="create()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                    <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
+                    Registrar participante
+                </x-jet-secondary-button>
+            </div>
+
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5 pb-6">
                 <div class="mt-4 flex-1">
                     <x-jet-label value="Seleccione el periodo"/>
@@ -24,6 +31,7 @@
 
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
+
                     <!-- Barra de búsqueda -->
                     <div class="w-full">
                         <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
@@ -112,6 +120,9 @@
             <div class="flex flex-col space-y-2">
                 <x-table>
                     <x-slot name="head">
+                        <x-table.header wire:click="sortBy('rfc')" sortable :direction="$sortField === 'rfc' ? $sortDirection : null">
+                            RFC
+                        </x-table.header>
                         <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">
                             Participante
                         </x-table.header>
@@ -124,16 +135,29 @@
                         <x-table.header wire:click="sortBy('grupo')" sortable :direction="$sortField === 'grupo' ? $sortDirection : null">
                             Grupo
                         </x-table.header>
+                        <x-table.header>
+                            Acción
+                        </x-table.header>
                     </x-slot>
 
                     @forelse($lists as $l)
                         <tr wire:key="list-{{ $l->id }}" wire:loading.class.delay="opacity-50">
+                            <x-table.cell>{{ $l->rfc}} </x-table.cell>
                             <x-table.cell>{{ $l->name }}
                                           {{ $l->apellido_paterno }}
                                           {{ $l->apellido_materno }}</x-table.cell>
                             <x-table.cell>{{ $l->area }} </x-table.cell>
                             <x-table.cell>{{ $l->curso }} </x-table.cell>
                             <x-table.cell>{{ $l->grupo }} </x-table.cell>
+                            <x-table.cell>
+                                <button  wire:click="edit({{ $l->id }})" type="button" class="px-4 bg-amber-100  hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                    {{-- <x-icon.pencil alt class="h-6 w-6"/> --}}Editar
+                                </button>
+                                <button type="button" class="px-4 bg-red-200  hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                    Eliminar
+                                </button>
+
+                            </x-table.cell>
                         </tr>
                     @empty
                         <tr>
@@ -166,6 +190,14 @@
                         </button>
                     @endif
                 </div>
+                @if ($create)
+                @include('livewire.admin.lists.edit_create', ['modo' => 'Crear'])
+                @elseif($edit)
+                    @include('livewire.admin.lists.edit_create', [ 'modo' => 'Actualizar', ])
+                @endif
+                @if ($confirmingParticipantDeletion)
+                    @include('livewire.admin.lists.destroy')
+                @endif
 
             </div>
         </div>

@@ -45,6 +45,12 @@ class ParticipantListsController extends Component
         'perPage' => ['except' => 5, 'as' => 'p'],
     ];
 
+    public bool $edit = false;
+    public bool $create = false;
+    public bool $showEditCreateModal = false;
+    public bool $confirmingParticipantDeletion = false;
+    public bool $confirmingSaveParticipant = false;
+
     public function mostrar($periodo, $curso)
     {
         return  User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
@@ -58,17 +64,53 @@ class ParticipantListsController extends Component
         ->where('course_details.course_id', '=', $curso)
         ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,
         ' ', users.apellido_materno) as nombre"),'users.name','users.apellido_paterno','users.apellido_materno'
-         ,'courses.nombre as curso','groups.nombre as grupo',
+         ,'users.rfc','courses.nombre as curso','groups.nombre as grupo',
          'areas.nombre as area', 'periods.fecha_inicio', 'periods.fecha_fin')
         //  ->when($curso, fn ($query, $search) => $query->where('courses.id', $search))
          ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
          ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
          ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,
          ' ', users.apellido_materno)"), 'like', "%$search%")
+            ->orWhere('users.rfc', 'like', "%$search%")
             ->orWhere('areas.nombre', 'like', '%'.$this->search.'%')
             ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
             ->orWhere('groups.nombre', 'like', '%'.$this->search.'%'))
          ->orderBy($this->sortField, $this->sortDirection);
+    }
+
+    private function resetInputFields()
+    {
+        $this->nombre = '';
+        $this->rfc = '';
+    }
+
+    public function create()
+    {
+        $this->resetInputFields();
+        $this->showEditCreateModal = true;
+        $this->confirmingParticipantDeletion = false;
+        $this->confirmingSaveParticipant = false;
+        $this->edit = false;
+        $this->create = true;
+    }
+
+    public function edit($id)
+    {
+        $participante = User::join('inscriptions','inscriptions.user_id','=','users.id')
+                        ->where('inscriptions.id','=',$id)
+                        ->first();
+        $this->inscripcion_id = $id;
+        $this->nombre = $participante->name;
+        $this->rfc = $participante->rfc;
+        $this->edit = true;
+        $this->create = false;
+        $this->showEditCreateModal = true;
+    }
+
+    public function updateParticipant()
+    {
+        $this->validate();
+        $this->confirmingSaveParticipant = true;
     }
 
     public function consultar()
