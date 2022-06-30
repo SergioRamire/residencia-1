@@ -21,7 +21,7 @@ class ActiveInscriptionController extends Component
     }
     public function consulta(){
         return Period::where('periods.fecha_inicio','>',$this->hoy)
-        ->where('periods.fecha_inicio' , '<', Carbon::now()->addDays(90))
+        ->where('periods.fecha_inicio' , '<', Carbon::now()->addDays(60))
             ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
     }
@@ -45,19 +45,21 @@ class ActiveInscriptionController extends Component
             $user->syncRoles('Participante');
         }
     }
-    public function render()
-    {
+    public function render(){
         return view('livewire.admin.activeinscription.index');
     }
-
-
-    public function activar()
-    {
+    public function activar(){
         $this->restablecerRoles();
-        // dd('Activaste curso');
+        $this-> noti('success','Inscripciones Activadas');
     }
-    public function desactivar()
-    {
-        dd('DEsactivaste curso');
+    public function desactivar(){
+        // dd('DEsactivaste curso');
+        $this-> noti('close','Inscripciones Desactivadas');
+    }
+    public function noti($icon,$txt){
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $icon,
+            'message' => $txt,
+        ]);
     }
 }

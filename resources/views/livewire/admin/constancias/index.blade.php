@@ -31,7 +31,7 @@
                         <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
                            <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                        </x-input.icon>
-                        <label><p class="text-xs font-bold">Buscar por: Nombre, curso, grupo o calificacion</p></label>
+                        <label><p class="text-xs font-bold">Buscar por: Nombre, curso, grupo o calificación</p></label>
                     </div>
 
                     <!-- Filtros -->
