@@ -21,16 +21,21 @@
             @csrf
             <x-slot name="boton">
                 <div class="flex flex-wrap">
-                    <div class="flex items-center p-2 bg-white rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 transition text-sky-700 ">
-                        <input checked name="rol-radio" value="Participante" id="par-radio" type="radio"  class="w-4 h-4 text-sky-800 bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
-                        <label for="rol-radio" class="ml-2 text-sm font-medium text-gray-900 ">Participante</label>
-                    </div>
-                    <div class="flex items-center p-2 bg-white rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 transition text-sky-700 ">
-                        <input name="rol-radio" value="Instructor" id="ins-radio" type="radio" class="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2">
-                        <label for="rol-radio" class="ml-2 text-sm font-medium text-gray-900 ">Instructor</label>
-                    </div>
+                    {{-- <div class="flex items-center p-2 bg-white rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 transition text-sky-700 ">
+                        <input  name="rol" value="Participante" id="rol" type="radio"  class="w-4 h-4 text-sky-800 bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
+                        <label for="rol" class="ml-2 text-sm font-medium text-gray-900 ">Participante</label>
+                    </div> --}}
+
                 </div>
             </x-slot>
+            <div class="flex items-center p-2 bg-white rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 transition text-sky-700 ">
+                <input  checked name="rol" value="Participante" id="rol" type="radio"  class="w-4 h-4 text-sky-800 bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
+                <label class="ml-2 text-sm font-medium text-gray-900 ">Participante</label>
+            </div>
+            <div class="flex items-center p-2 bg-white rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 transition text-sky-700 ">
+                <input  name="rol" value="Instructor" id="rol" type="radio" class="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2">
+                <label class="ml-2 text-sm font-medium text-gray-900 ">Instructor</label>
+            </div>
             <div class="mt-2">
                 <img src="{{ asset('img/ico.png') }}">
             </div>
