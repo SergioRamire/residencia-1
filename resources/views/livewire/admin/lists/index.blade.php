@@ -150,10 +150,10 @@
                             <x-table.cell>{{ $l->curso }} </x-table.cell>
                             <x-table.cell>{{ $l->grupo }} </x-table.cell>
                             <x-table.cell>
-                                <button  wire:click="edit({{ $l->id }})" type="button" class="px-4 bg-amber-100  hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                    {{-- <x-icon.pencil alt class="h-6 w-6"/> --}}Editar
+                                <button  wire:click="edit({{ $l->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                    Editar
                                 </button>
-                                <button type="button" class="px-4 bg-red-200  hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                <button type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                     Eliminar
                                 </button>
 
@@ -183,10 +183,7 @@
                 <div class="text-right min-h-full">
                     @if($lists->count() > 0)
                         <button wire:click="descarga()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
-                            </svg>
-                            <span>Lista</span>
+                            Descargar lista
                         </button>
                     @endif
                 </div>

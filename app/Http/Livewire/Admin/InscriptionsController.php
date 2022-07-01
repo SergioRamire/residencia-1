@@ -234,8 +234,8 @@ class InscriptionsController extends Component
         return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
-                'semana1' => $this->rangoFecha('2022-06-20')->paginate($this->perPage),
-                'semana2' => $this->rangoFecha('2022-06-27')->paginate($this->perPage),
+                'semana1' => $this->rangoFecha('2022-07-04')->paginate($this->perPage),
+                'semana2' => $this->rangoFecha('2022-07-11')->paginate($this->perPage),
                 // 'semana1' => $this->rangoFecha($this->fecha_inicio_periodo1, $this->fecha_fin_periodo1)->paginate($this->perPage),
                 // 'semana2' => $this->rangoFecha($this->fecha_inicio_periodo2, $this->fecha_fin_periodo2)->paginate($this->perPage2),
             ]

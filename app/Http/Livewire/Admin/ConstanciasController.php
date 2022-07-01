@@ -39,9 +39,10 @@ class ConstanciasController extends Component
     {
         return view('livewire.admin.constancias.index', [
             'calificaciones' => $this->consultaBase()
-                ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"), 
-                'courses.nombre as curso', 'groups.nombre as grupo', 
-                'inscriptions.calificacion', 'areas.nombre as area'])
+                ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
+                'courses.nombre as curso', 'groups.nombre as grupo',
+                'inscriptions.calificacion','inscriptions.estatus_participante','inscriptions.asistencias_minimas', 'areas.nombre as area'])
+                ->where('inscriptions.estatus_participante','=','Participante')
                 ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)"), 'like', "%$search%")
                     ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
                     ->orWhere('groups.nombre', 'like', '%'.$this->search.'%')
@@ -50,10 +51,13 @@ class ConstanciasController extends Component
                 ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
                 ->when($this->filters['filtro_calificacion'], function ($query) {
                     return $query->where(function ($q) {
-                        if ($this->filters['filtro_calificacion'] == 69) {
+                        if ($this->filters['filtro_calificacion'] == 70) {
                             $q->where('inscriptions.calificacion', '>', 69);
-                        } elseif ($this->filters['filtro_calificacion'] == 70) {
-                            $q->where('inscriptions.calificacion', '<', 70);
+                            $q->where('inscriptions.asistencias_minimas', '=', 1);
+                            // $q->where('inscriptions.calificacion', '>', 69);
+                        } elseif ($this->filters['filtro_calificacion'] == 69) {
+                            $q->where('inscriptions.asistencias_minimas', '=', 0);
+                            $q->orwhere('inscriptions.calificacion', '<', 70);
                         }
                     });
                 })

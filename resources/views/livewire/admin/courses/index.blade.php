@@ -117,14 +117,14 @@
                             <x-table.cell>{{ $c->nombre }}</x-table.cell>
                             <x-table.cell>{{ $c->perfil }}</x-table.cell>
                             <x-table.cell>
-                                <button wire:click="view({{ $c->id }})" type="button" class="text-indigo-600 hover:text-indigo-900">
-                                    <x-icon.eye class="h-6 w-6"/>
+                                <button  wire:click="view({{ $c->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-sky-800 text-black font-bold border border-sky-400 rounded shadow" >
+                                    Ver
                                 </button>
-                                <button wire:click="edit({{ $c->id }})" type="button" class="text-amber-600 hover:text-amber-900">
-                                    <x-icon.pencil alt class="h-6 w-6"/>
+                                <button  wire:click="edit({{ $c->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                    Editar
                                 </button>
-                                <button wire:click="delete({{ $c->id }})" type="button" class="text-red-600 hover:text-red-900">
-                                    <x-icon.trash class="h-6 w-6"/>
+                                <button wire:click="delete({{ $c->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                    Eliminar
                                 </button>
                             </x-table.cell>
                         </tr>

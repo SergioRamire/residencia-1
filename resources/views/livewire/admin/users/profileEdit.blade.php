@@ -13,7 +13,7 @@
                     <x-input.error wire:model.defer="user.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="user.name" required />
                 </div>
             </div>
-                
+
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- paterno -->
                 <div class="mt-4 flex-1">
@@ -28,18 +28,18 @@
                     <input type="checkbox" wire:model.defer="no_ap2"> No Aplica
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+            {{-- <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> --}}
                 <!-- rfc -->
-                <div class="mt-4 flex-1">
+                {{-- <div class="mt-4 flex-1">
                     <x-jet-label for="rfc" value="RFC" />
                     <x-input.error wire:model.defer="user.rfc" class="block mt-1 w-full" type="text" id="rfc" name="rfc" for="user.rfc" required />
-                </div>
+                </div> --}}
                 {{-- Curp --}}
-                <div class="mt-4 flex-1">
+                {{-- <div class="mt-4 flex-1">
                     <x-jet-label for="curp" value="CURP" />
                     <x-input.error wire:model.defer="user.curp" class="block mt-1 w-full" type="text" id="curp" name="curp" for="user.curp" required />
                 </div>
-            </div>
+            </div> --}}
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 {{-- ito --}}
                 <div class="mt-4 flex-1">

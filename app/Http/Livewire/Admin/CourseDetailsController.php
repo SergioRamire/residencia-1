@@ -185,7 +185,7 @@ class CourseDetailsController extends Component
         $this->edit = true;
         $this->create = false;
         $this->openModal();
-        
+
     }
 
     public function deleteDetails($id){
@@ -215,7 +215,7 @@ class CourseDetailsController extends Component
                 ->join('periods', 'periods.id', 'course_details.period_id')
                 ->where('periods.id','=',$this->classification['periodo'])
                 ->select('course_details.id', 'course_details.lugar', 'course_details.capacidad',
-                'course_details.hora_inicio', 'course_details.hora_fin', 'courses.nombre as curso',
+                'course_details.hora_inicio', 'course_details.hora_fin', 'courses.clave', 'courses.nombre as curso',
                 'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
                 ->when($this->search, function ($query, $b) {
                     $query->where('courses.nombre', 'like', "%$b%")

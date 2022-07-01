@@ -97,8 +97,8 @@
                                     <x-jet-label for="filtro_calificacion" value="Estatus"/>
                                     <x-input.select wire:model="filters.filtro_calificacion" name="filtro_calificacion" id="filtro_calificacion" class="text-sm block mt-1 w-full" required>
                                         <option value="" disabled>Selecciona estatus</option>
-                                        <option value='69'>Aprobados</option>
-                                        <option value='70'>No Aprobados</option>
+                                        <option value='70'>Aprobados</option>
+                                        <option value='69'>No Aprobados</option>
                                     </x-input.select>
                                 </div>
                             </div>
@@ -131,7 +131,8 @@
                         <x-table.header class="text-center">curso</x-table.header>
                         <x-table.header class="text-center">grupo</x-table.header>
                         <x-table.header class="text-center">Calificación</x-table.header>
-                        <x-table.header class="text-center">Opcion</x-table.header>
+                        <x-table.header class="text-center">Asistencias minimas</x-table.header>
+                        <x-table.header class="text-center">Acción</x-table.header>
                     </x-slot>
 
                     @forelse($calificaciones as $g)
@@ -142,14 +143,18 @@
                             <x-table.cell class="text-center">{{ $g->curso }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->grupo }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->calificacion }}</x-table.cell>
+                            <x-table.cell class="text-center"
+                            >@if($g->asistencias_minimas === 1)
+                                <x-badge.basic value="Tiene" color="green" large/>
+                            @elseif($g->asistencias_minimas === 0)
+                                <x-badge.basic value="No tiene" color="red" large/>
+                            @endif
+                            </x-table.cell>
                             <div>
-                                @if($g->calificacion > 69)
+                                @if($g->calificacion > 69 and $g->asistencias_minimas==1)
                                     <x-table.cell class="text-center">
-                                        <button wire:click="descargarConstancia({{ $g->id }})" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
-                                            </svg>
-                                            <span>Download</span>
+                                        <button wire:click="descargarConstancia({{ $g->id }})" title="Descargar constancia" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                            Descargar
                                         </button>
                                     </x-table.cell>
                                 @else
@@ -179,11 +184,8 @@
                 </div>
                 <div class="text-right min-h-full">
                     @if($calificaciones->count() > 0)
-                        <button wire:click="descargarConstanciasZIP()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
-                            </svg>
-                            <span>Todas</span>
+                        <button wire:click="descargarConstanciasZIP()" title="Descargar todas las constancias" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                            Descagar todas
                         </button>
                     @endif
                 </div>

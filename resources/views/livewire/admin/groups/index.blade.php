@@ -57,11 +57,11 @@
                     <tr wire:key="group-{{ $g->id }}" wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $g->nombre }}</x-table.cell>
                         <x-table.cell>
-                            <button  wire:click="edit({{ $g->id }})" type="button" class="text-amber-600 hover:text-amber-900">
-                                <x-icon.pencil alt class="h-6 w-6"/>
+                            <button  wire:click="edit({{ $g->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                Editar
                             </button>
-                            <button wire:click="deleteGroup({{ $g->id }})" type="button" class="text-red-600 hover:text-red-900">
-                                <x-icon.trash class="h-6 w-6"/>
+                            <button wire:click="deleteGroup({{ $g->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                Eliminar
                             </button>
                         </x-table.cell>
                     </tr>

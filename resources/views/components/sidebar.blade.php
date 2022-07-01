@@ -47,7 +47,7 @@
         <!-- Logotipo -->
         <div class="flex-shrink-0 flex items-center px-4">
             {{-- SCI --}}
-            <img class="h-8 w-4" src="{{asset("img/logo.jpg")}}" alt="Workflow">
+            <img class="w-30" src="{{asset("img/logo.png")}}" alt="Workflow">
         </div>
 
         <!-- Enlaces de navegación -->
@@ -86,14 +86,14 @@
                 </x-sidebar.link>
                 @endcan
 
-                @can('activeinscription.show')
+                {{-- @can('activeinscription.show')
                     <x-sidebar.link :href='route("admin.activeinscription")' :active="request()->routeIs('admin.activeinscription')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </x-slot>
                         Activar Inscripciones
                     </x-sidebar.link>
-                @endcan
+                @endcan --}}
 
                 @can('inscription.create')
                     <x-sidebar.link :href='route("part.inscription")' :active="request()->routeIs('part.inscription')">
@@ -243,7 +243,7 @@
         <!-- Logotipo -->
         <div class="flex text-center justify-center flex-shrink-0 px-4">
             {{-- {-- SCI --} --}}
-            <img class="w-26" src="{{asset("img/logo.jpg")}}" alt="Workflow">
+            <img class="w-30" src="{{asset("img/logo.png")}}" alt="Workflow">
     </div>
 
         <!-- Enlaces de navegación -->
@@ -273,14 +273,14 @@
                     </x-sidebar.link>
                 @endcan
 
-                @can('activeinscription.show')
+                {{-- @can('activeinscription.show')
                     <x-sidebar.link :href='route("admin.activeinscription")' :active="request()->routeIs('admin.activeinscription')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </x-slot>
                         Activar Inscripciones
                     </x-sidebar.link>
-                @endcan
+                @endcan --}}
 
                 @can('teaching.show')
                 <x-sidebar.link :href='route("instructor.teaching")' :active="request()->routeIs('instructor.teaching')">

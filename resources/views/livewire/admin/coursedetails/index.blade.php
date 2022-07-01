@@ -54,20 +54,17 @@
         <div class="flex flex-col space-y-2">
             <x-table>
                 <x-slot name="head">
+                    <x-table.header wire:click="sortBy('clave')" sortable :direction="$sortField === 'clave' ? $sortDirection : null">
+                        Clave del curso
+                    </x-table.header>
                     <x-table.header wire:click="sortBy('curso')" sortable :direction="$sortField === 'curso' ? $sortDirection : null">
                         Curso
-                    </x-table.header>
-                    <x-table.header wire:click="sortBy('fecha_inicio')" sortable :direction="$sortField === 'fecha_inicio' ? $sortDirection : null">
-                        Periodo
                     </x-table.header>
                     <x-table.header wire:click="sortBy('hora_inicio')" sortable :direction="$sortField === 'hora_inicio' ? $sortDirection : null">
                         Horario
                     </x-table.header>
                     <x-table.header wire:click="sortBy('lugar')" sortable :direction="$sortField === 'lugar' ? $sortDirection : null">
                         Lugar
-                    </x-table.header>
-                    <x-table.header wire:click="sortBy('capacidad')" sortable :direction="$sortField === 'capacidad' ? $sortDirection : null">
-                        Capacidad
                     </x-table.header>
                     <x-table.header wire:click="sortBy('grupo')" sortable :direction="$sortField === 'grupo' ? $sortDirection : null">
                         Grupo
@@ -77,25 +74,21 @@
 
                 @forelse($detalles as $d)
                     <tr wire:key="detalles-{{ $d->id }}" wire:loading.class.delay="opacity-50">
+                        <x-table.cell>{{ $d->clave }}</x-table.cell>
                         <x-table.cell>{{ $d->curso }}</x-table.cell>
-                        <x-table.cell>{{ date('d-m-Y', strtotime($d->fecha_inicio)) }} -
-                            {{ date('d-m-Y', strtotime($d->fecha_fin)) }} </x-table.cell>
                         <x-table.cell>{{ $d->hora_inicio }} -
                             {{ $d->hora_fin }}</x-table.cell>
                         <x-table.cell>{{ $d->lugar }}</x-table.cell>
-                        <x-table.cell>{{ $d->capacidad }}</x-table.cell>
                         <x-table.cell>{{ $d->grupo }}</x-table.cell>
                         <x-table.cell>
-                            <button wire:click="view({{ $d->id }})" type="button"
-                                class="text-indigo-600 hover:text-indigo-900">
-                                <x-icon.eye class="h-6 w-6" />
+                            <button  wire:click="view({{ $d->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-sky-800 text-black font-bold border border-sky-400 rounded shadow" >
+                                Ver
                             </button>
-                            <button wire:click="edit({{ $d->id }})" class="text-amber-600 hover:text-amber-900">
-                                <x-icon.pencil alt class="h-6 w-6" />
+                            <button  wire:click="edit({{ $d->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                Editar
                             </button>
-                            <button wire:click="deleteDetails('{{ $d->id }}','{{ $d->curso }}')"
-                                type="button" class="text-red-600 hover:text-red-900">
-                                <x-icon.trash class="h-6 w-6" />
+                            <button wire:click="deleteDetails('{{ $d->id }}','{{ $d->curso }}')" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                Eliminar
                             </button>
                         </x-table.cell>
                     </tr>

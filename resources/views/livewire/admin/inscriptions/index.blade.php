@@ -130,9 +130,7 @@
                                             </x-table.cell>
 
                                             <x-table.cell>
-
-                                                <button wire:click="add({{ $c->curdet }})" type="button"
-                                                    class="text-indigo-600 hover:text-indigo-900">
+                                                <button  wire:click="add({{ $c->curdet }})" type="button" class="px-4 bg-white hover:bg-sky-200 text-black font-bold border border-sky-400 rounded shadow" >
                                                     Seleccionar
                                                 </button>
                                             </x-table.cell>
@@ -202,8 +200,7 @@
                                                     / {{ $c->capacidad }}
                                                 </x-table.cell>
                                                 <x-table.cell>
-                                                    <button wire:click="addTabla2({{ $c->curdet }})" type="button"
-                                                        class="text-indigo-600 hover:text-indigo-900">
+                                                    <button  wire:click="addTabla2({{ $c->curdet }})" type="button" class="px-4 bg-white hover:bg-sky-200 text-black font-bold border border-sky-400 rounded shadow" >
                                                         Seleccionar
                                                     </button>
                                                 </x-table.cell>

@@ -76,12 +76,11 @@
                             @endif
                         </x-table.cell>
                         <x-table.cell>
-                            <button wire:click="edit({{ $p->id }})" type="button" title="Editar Periodo" class="text-amber-600 hover:text-amber-900">
-                                <x-icon.pencil alt class="h-6 w-6" />
+                            <button  wire:click="edit({{ $p->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                Editar
                             </button>
-                            <button
-                                wire:click="deletePeriod('{{ $p->id }}','{{ $p->fecha_inicio }}','{{ $p->fecha_fip }}')" type="button" title="Eliminar Periodo" class="text-red-600 hover:text-red-900">
-                                <x-icon.trash class="h-6 w-6" />
+                            <button wire:click="deletePeriod('{{ $p->id }}','{{ $p->fecha_inicio }}','{{ $p->fecha_fip }}')" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                Eliminar
                             </button>
                             <button wire:click="periodoActivar({{ $p->id }})" type="button" title="Activar Periodo" class="text-green-900 hover:text-sky-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

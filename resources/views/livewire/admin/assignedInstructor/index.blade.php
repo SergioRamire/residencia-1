@@ -30,7 +30,7 @@
                         <label><p class="text-xs font-bold">Buscar por: Curso, grupo, lugar y horario</p></label>
                     </div>
 
-                
+
                 </div>
 
                 <!-- Parte derecha -->
@@ -67,13 +67,11 @@
                             <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
                             <x-table.cell class="text-center">
-                                <button wire:click="openModalCreate({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="text-green-600 hover:text-green-900">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
-                                    </svg>
+                                <button  wire:click="openModalCreate({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
+                                    Añadir
                                 </button>
-                                <button wire:click="openModalShow({{ $g->idcurdet }})" type="button" title="Ver instructor" class="text-blue-600 hover:text-blue-900">
-                                    <x-icon.eye alt class="h-6 w-6"/>
+                                <button  wire:click="openModalShow({{ $g->idcurdet }})" type="button" title="Ver instructor" class="px-4 bg-white hover:text-white hover:bg-sky-800 text-black font-bold border border-sky-400 rounded shadow" >
+                                    Ver
                                 </button>
 
 

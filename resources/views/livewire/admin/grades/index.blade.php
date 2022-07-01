@@ -92,8 +92,8 @@
                             @endif
                         </x-table.cell>
                         <x-table.cell>
-                            <button wire:click="edit( {{$g->id }})" type="button" title="editar datos" class="text-amber-600 hover:text-amber-900">
-                                <x-icon.pencil alt class="h-6 w-6"/>
+                            <button  wire:click="edit( {{$g->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                Editar
                             </button>
                         </x-table.cell>
                     </tr>
