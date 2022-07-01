@@ -3,18 +3,24 @@
         {{$modo}} Participante
     </x-slot>
     <x-slot name="content">
-        <form id="courseForm">
-            <!-- Nombre -->
-            <div class="mt-4">
-                <x-jet-label for="nombre" value="Nombre"/>
-                <x-input.error wire:model.defer="nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="nombre" required/>
+        <div style="height: 400px">
+
+            {{$id_usuario}}
+            <div class="mt-4 flex-1">
+                <x-jet-label value="Seleccione el participante"/>
+                @livewire('admin.participante-select')
             </div>
-            <!-- RFC -->
-            <div class="sm:flex-1">
-                <x-jet-label for="rfc" value="RFC"/>
-                <x-input.error wire:model.defer="rfc" class="block mt-1 w-full" type="text" id="rfc" name="rfc" for="rfc" required/>
+            {{$id_per_}}
+            <div class="mt-4 flex-1">
+                <x-jet-label value="Seleccione el periodo"/>
+                @livewire('admin.period-select2')
             </div>
-        </form>
+            {{$id_curso_grupo}}
+            <div class="mt-4 flex-1">
+                <x-jet-label value="Seleccione el Curso"/>
+                @livewire('admin.course-grupo-select')
+            </div>
+        </div>
     </x-slot>
 
     <x-slot name="footer">
