@@ -4,18 +4,14 @@
     </x-slot>
     <x-slot name="content">
         <div style="height: 400px">
-
-            {{$id_usuario}}
             <div class="mt-4 flex-1">
                 <x-jet-label value="Seleccione el participante"/>
                 @livewire('admin.participante-select')
             </div>
-            {{$id_per_}}
             <div class="mt-4 flex-1">
                 <x-jet-label value="Seleccione el periodo"/>
                 @livewire('admin.period-select2')
             </div>
-            {{$id_curso_grupo}}
             <div class="mt-4 flex-1">
                 <x-jet-label value="Seleccione el Curso"/>
                 @livewire('admin.course-grupo-select')
