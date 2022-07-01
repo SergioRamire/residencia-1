@@ -37,8 +37,10 @@ class ParticipantListsController extends Component
         'departamento' => '',
     ];
     public bool $consulta = false;
+    public $id_usuario;
+    public $id_curso_grupo;
+    public $id_per_;
     public $peri;
-    // public $grupo;
     public $curso;
     // public $periodo;
     protected $queryString = [
@@ -62,10 +64,10 @@ class ParticipantListsController extends Component
         ->where('inscriptions.estatus_participante', '=', 'Participante')
         ->where('course_details.period_id', '=', $periodo)
         ->where('course_details.course_id', '=', $curso)
-        ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,
-        ' ', users.apellido_materno) as nombre"),'users.name','users.apellido_paterno','users.apellido_materno'
-         ,'users.rfc','courses.nombre as curso','groups.nombre as grupo',
-         'areas.nombre as area', 'periods.fecha_inicio', 'periods.fecha_fin')
+        ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
+            'users.id as id_user','users.name','users.apellido_paterno','users.apellido_materno','users.rfc',
+            'courses.nombre as curso','courses.id as id_curso','groups.nombre as grupo','course_details.id as id_detallecurso',
+            'areas.nombre as area', 'periods.fecha_inicio', 'periods.fecha_fin', 'periods.id as id_per')
         //  ->when($curso, fn ($query, $search) => $query->where('courses.id', $search))
          ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
          ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
@@ -84,9 +86,11 @@ class ParticipantListsController extends Component
         $this->rfc = '';
     }
 
-    public function create()
-    {
+    public function create(){
         $this->resetInputFields();
+        $this->emit('valorParticipante','');
+        $this->emit('valorPerio','');
+        $this->emit('valorCursoGrupo','');
         $this->showEditCreateModal = true;
         $this->confirmingParticipantDeletion = false;
         $this->confirmingSaveParticipant = false;
@@ -94,14 +98,14 @@ class ParticipantListsController extends Component
         $this->create = true;
     }
 
-    public function edit($id)
-    {
-        $participante = User::join('inscriptions','inscriptions.user_id','=','users.id')
-                        ->where('inscriptions.id','=',$id)
-                        ->first();
-        $this->inscripcion_id = $id;
-        $this->nombre = $participante->name;
-        $this->rfc = $participante->rfc;
+    public function edit($id,$id_per,$id_detallecurso){
+        $this->id_usuario = $id; 
+        $this->id_curso_grupo = $id_per; 
+        $this->id_per_ = $id_detallecurso; 
+        $this->emit('valorParticipante',$id);
+        $this->emit('valorPerio',$id_per);
+        $this->emit('valorCursoGrupo',$id_detallecurso);
+        
         $this->edit = true;
         $this->create = false;
         $this->showEditCreateModal = true;
@@ -113,6 +117,10 @@ class ParticipantListsController extends Component
         $this->confirmingSaveParticipant = true;
     }
 
+    public function store(){
+        
+    }
+
     public function consultar()
     {
         $this->consulta = true;
@@ -120,23 +128,12 @@ class ParticipantListsController extends Component
 
     public function render()
     {
+        $this->emit('valueInstitutoOrigen','Tecnologico de oaxaca');
         return view('livewire.admin.lists.index', [
             'lists'=>$this->mostrar($this->classification['periodo'], $this->classification['curso'])
             ->paginate($this->perPage),
         ]);
         $this->resetFilters();
-    }
-
-
-    protected $listeners = [
-        'per_send',
-        'data_send',
-    ];
-    public function per_send($valor){
-        $this->classification['periodo'] = $valor;
-    }
-    public function data_send($valor){
-        $this->classification['curso'] = $valor;
     }
     public function descarga(){
         $data=$this->participants($this->classification['periodo'], $this->classification['curso'],'Participante');
@@ -155,9 +152,34 @@ class ParticipantListsController extends Component
         ->where('inscriptions.estatus_participante', '=', $user)
         ->where('course_details.period_id', '=', $periodo)
         ->where('course_details.course_id', '=', $curso)
-        ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,
-        ' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.rfc as rfc','users.sexo as sex','courses.clave as clave','courses.duracion as duracion'
-         ,'courses.nombre as curso','groups.nombre as grupo','course_details.modalidad as modalidad',
+        ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
+        'users.id as id_user','users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.rfc as rfc','users.sexo as sex',
+        'courses.clave as clave','courses.clave as clave','courses.duracion as duracion',
+        'courses.nombre as curso','groups.nombre as grupo','course_details.modalidad as modalidad','course_details.id as id_detallecurso',
         'areas.nombre as area', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','course_details.hora_inicio as hi','course_details.hora_fin as hf')->get();
+    }
+
+
+    protected $listeners = [
+        'per_send',
+        'data_send',
+        'user_id_participante',
+        'send_curso_grupo',
+        'per_send2',
+    ];
+    public function per_send($valor){
+        $this->classification['periodo'] = $valor;
+    }
+    public function data_send($valor){
+        $this->classification['curso'] = $valor;
+    }
+    public function user_id_participante($valor){
+        $this->id_usuario = $valor;
+    }
+    public function per_send2($valor){
+        $this->id_per_ = $valor;
+    }
+    public function send_curso_grupo($valor){
+        $this->id_curso_grupo = $valor;
     }
 }

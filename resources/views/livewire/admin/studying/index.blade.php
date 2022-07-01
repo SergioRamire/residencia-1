@@ -5,7 +5,7 @@
 
     <div class="grid grid-flow-row xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
         @foreach ($datos as $data)
-            <div class="flex flex-col justify-between m-2 max-w-md bg-#white rounded-lg border shadow-md transition ease-in-out bg-white hover:-translate-y-1 hover:scale-105 hover:bg-blue-50 duration-300" style="height: 350px">
+            <div class="flex flex-col  m-2 max-w-md bg-#white rounded-lg border shadow-md transition ease-in-out bg-white hover:-translate-y-1 hover:scale-105 hover:bg-blue-50 duration-300" >
 
                 <div class="flex flex-row p-2 m-4 bg-white text-black border shadow-md rounded-lg">
                     <div class="mr-2 text-[#1b396a] h-12 w-12">{{-- Icono --}}
