@@ -107,7 +107,10 @@
                         </div>
                     </div>
 
-                    <div class="mt-4 flex justify-end">
+                    <div class="my-4 flex justify-end">
+                        @if ($vali)
+                            <p class="mr-10 text-red-600">* Recuerda reller su informacion faltante.</p>
+                        @endif
                         <x-jet-button wire:click="editInfo()" type="button" class="bg-[#1b396a]">
                             Editar Informacion
                         </x-jet-button>

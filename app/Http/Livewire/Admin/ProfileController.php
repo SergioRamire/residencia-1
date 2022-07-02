@@ -23,13 +23,13 @@ class ProfileController extends Component
 
     public function rules(){
         return [
-            'user.rfc' =>  ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
-            'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
+            // 'user.rfc' =>  ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
+            // 'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.apellido_paterno' => $this->valiAp($this->no_ap1),
             'user.apellido_materno' => $this->valiAp($this->no_ap2),
-            'user.sexo' => ['required', 'regex:/^[F|M]$/u', 'max:1'],
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
+            'user.sexo' => ['required', 'regex:/^[F|M]$/u', 'max:1'],
             'user.correo_tecnm' => ['required', 'email', 'ends_with:@oaxaca.tecnm.mx', Rule::unique('users', 'correo_tecnm')->ignore($this->user)],
             'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
@@ -46,7 +46,16 @@ class ProfileController extends Component
             'user.cuenta_moodle'  => '',
         ];
     }
+    public $vali = false;
     public function render(){
+        if (
+            empty($this->user->sexo) ||
+            empty($this->user->correo_tecnm) ||
+            empty($this->user->estudio_maximo) ||
+            empty($this->user->carrera)
+        ){
+            $this->vali = true;
+        }
         return view('livewire.admin.users.profile');
     }
 
