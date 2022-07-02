@@ -35,18 +35,17 @@ class ProfileController extends Component
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
 
             'user.area_id' => '',
-            'user.clave_presupuestal'  => 'required',
-            'user.puesto_en_area'  => 'required',
+            'user.clave_presupuestal'  => '',
+            'user.puesto_en_area'  => '',
             'area.telefono' => '',
-            'user.jefe_inmediato'  => 'required',
-            'user.hora_entrada' => 'required',
-            'user.hora_salida' => 'required',
-            'user.tipo'  => 'required',
-            'user.organizacion_origen'  => 'required',
-            'user.cuenta_moodle'  => 'required',
+            'user.jefe_inmediato'  => '',
+            'user.hora_entrada' => '',
+            'user.hora_salida' => '',
+            'user.tipo'  => '',
+            'user.organizacion_origen'  => '',
+            'user.cuenta_moodle'  => '',
         ];
     }
-
     public function render(){
         return view('livewire.admin.users.profile');
     }
@@ -87,7 +86,7 @@ class ProfileController extends Component
         $this->showConfirmationModal = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'success',
-            'message' => 'Datos actualizado exitosamente. Nota: Es necesario recargar para actualizar Datos de la barra',
+            'message' => 'Datos actualizado exitosamente.',
         ]);
         return redirect()->route('user.perfil');
     }
