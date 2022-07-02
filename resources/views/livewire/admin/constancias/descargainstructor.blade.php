@@ -51,7 +51,7 @@
         <img src="{{ public_path().'/img/ito2.jpg' }}" width="70" height="70" align="left"/>
     </div>
     <div>
-        <img src="{{ public_path().'/img/ito2.jpg' }}" width="70" height="70" align="right"/>
+        <img src="{{ public_path().'/img/Certificacion.jpg' }}" width="90" height="75" align="right"/>
     </div>
 </footer>
 </body>
