@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea guardar cambios del participant <strong> </strong>?
+        ¿Seguro que desea guardar cambios del participante?
     </x-slot>
 
     {{-- botones --}}
@@ -13,9 +13,15 @@
         <x-jet-secondary-button wire:click="$toggle('confirmingSaveParticipant')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
-
-        <x-jet-danger-button class="ml-3" wire:click="store" wire:loading.attr="disabled">
-            Guardar
-        </x-jet-danger-button>
+        @if ($edit)
+            <x-jet-danger-button class="ml-3" wire:click="update" wire:loading.attr="disabled">
+                Actualizar
+            </x-jet-danger-button>
+        @else
+            <x-jet-danger-button class="ml-3" wire:click="store" wire:loading.attr="disabled">
+                Guardar
+            </x-jet-danger-button>
+        @endif
+        
     </x-slot>
 </x-jet-confirmation-modal>
