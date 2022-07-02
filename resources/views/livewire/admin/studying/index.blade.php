@@ -34,6 +34,14 @@
                     <div class="flex flex-col justify-center  px-6 mx-4 mb-2 text-black bg-white shadow-md rounded-lg border border-[#1b396a]">
                         <p>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
                         <p>{{ date("g:i a", strtotime($data->h1))}} - {{ date("g:i a", strtotime($data->h2))}} </p>
+                        <div class="text-center">
+                            <button wire:click="downloadPdf({{$data->iduser}},{{$data->idcurso}})" title="Descargar cédula sin firma" class=" font-bold py-2 px-4 rounded inline-flex items-center">
+                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
+                                </svg>
+                                <span>Cédula de inscripción</span>
+                            </button>
+                         </div>
                     </div>
 
                 </div>

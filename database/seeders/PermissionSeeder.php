@@ -96,6 +96,8 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'constancy.show', 'human_name' => 'Consultar constancias'])->assignRole(['Administrador', 'Jefa de departamento']);
 
+        Permission::create(['name' => 'constancyInstructor.show', 'human_name' => 'Consultar constancias instructor'])->assignRole(['Administrador', 'Jefa de departamento']);
+
         Permission::create(['name' => 'historycourse.show', 'human_name' => 'Historial cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'historyparticipant.show', 'human_name' => 'Historial Participantes'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'historyinstructor.show', 'human_name' => 'Historial Instructores'])->assignRole(['Administrador', 'Jefa de departamento']);
@@ -103,6 +105,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'activeinscription.show', 'human_name' => 'Activar Inscripcion'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'sendemail.show', 'human_name' => 'Visualizar emails'])->assignRole(['Administrador']);
         Permission::create(['name' => 'sendnotify.show', 'human_name' => 'Visualizar notificaciones'])->assignRole(['Administrador', 'Jefa de departamento']);
+
         /*
         |--------------------------------------------------------------------------
         | Asignación de roles a usuarios (Primeros 9)

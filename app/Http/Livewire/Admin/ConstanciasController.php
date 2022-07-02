@@ -78,7 +78,14 @@ class ConstanciasController extends Component
         $datos = $this->consultaBase()
             ->where('inscriptions.id', '=', $id)
             ->get()->first();
-        $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $datos]);
+        setlocale(LC_TIME, "spanish");
+        $newDate = date("d-m-Y", strtotime($datos->fi));
+        $fechaini = strftime("%d de %B", strtotime($newDate));
+        $newDate2 = date("d-m-Y", strtotime($datos->ff));
+        $fechafin = strftime("%d de %B de %Y", strtotime($newDate2));
+        $newDate3 = date("d-m-Y", strtotime(date('d-m-Y')));
+        $diaactual = strftime("%d de %B de %Y", strtotime($newDate3));
+        $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $datos,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
         $pdf_file = storage_path('app/')."Constancia - $datos->nombre - $datos->curso - $datos->grupo.pdf";
         $pdf->save($pdf_file);
 
@@ -126,8 +133,7 @@ class ConstanciasController extends Component
             ->where('inscriptions.estatus_participante', '=', 'Participante')
             ->where('course_details.period_id', '=', $this->classification['periodo'])
             ->where('course_details.course_id', '=', $this->classification['curso'])
-            ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno',
-                DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
-                'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion', 'areas.nombre as area']);
+            ->select(['inscriptions.id',  DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name', 'users.apellido_paterno', 'users.apellido_materno',
+                'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
     }
 }
