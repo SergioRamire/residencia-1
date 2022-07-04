@@ -38,9 +38,11 @@ class JetstreamServiceProvider extends ServiceProvider
 
             if ($user &&
                 Hash::check($request->password, $user->password)) {
-                    // dd($request->rol);
+
                 $rol = $user->getRoleNames()->first();
                 $id_user=$user->id;
+
+                $organizacion_origen=$user->organizacion_origen;
 
                 $estatus = User::join('inscriptions','inscriptions.user_id','users.id')
                 ->join('course_details','course_details.id','inscriptions.course_detail_id')
@@ -53,25 +55,37 @@ class JetstreamServiceProvider extends ServiceProvider
                 // dd($estatus);
                 if($rol!=='Super admin' and $rol!=='Administrador'){
                     if($request->rol=='Instructor' and $estatus==null){
-                        $user->syncRoles('Participante');
-                        // alert("Ha ocurrido un error en la peticion!");
-                        // echo "<script> alert('no se puede'); </script>";
+                        if($organizacion_origen=='Tecnologico de oaxaca' and $rol == 'Instructor'){
+                            $user->syncRoles('Participante');
+                        }
+                        if($organizacion_origen!=='Tecnologico de oaxaca' and $rol == 'Participante'){
+                            $user->syncRoles('Instructor');
+                            return $user;
+                        }
+                        if($organizacion_origen!=='Tecnologico de oaxaca'){
+                            return $user;
+                        }
                     }
                     if($request->rol=='Participante'){
+                        if($rol !== 'Participante'){
+                            $user->syncRoles($request->rol);
+                            return $user;
+                        }
+                        else{
+                            return $user;
+                        }
+                    }
+                    if($request->rol=='Instructor' and $estatus!==null and $rol == 'Participante'){
                         $user->syncRoles($request->rol);
                         return $user;
                     }
-                    if($request->rol=='Instructor' and $estatus!==null){
-                        $user->syncRoles($request->rol);
+                    if($request->rol=='Instructor' and $rol == 'Instructor'){
                         return $user;
                     }
-
                 }
                 if($rol=='Super admin' or $rol=='Administrador'){
                     return $user;
                 }
-
-                // return $user;
             }
 
         });
