@@ -1,12 +1,13 @@
 
 <div>
 
-@if ($disponible)
+@if ($disponible==true and $permiso==true)
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
             PROCESO DE INSCRIPCIÓN
         </h2>
     </x-slot>
+    {{-- {{dd($arreglo_fecha)}} --}}
     {{-- @if ($tabla->count()) --}}
     <div class="mt-4 flex-1">
         {{-- Tabala de cursos SEMANA 1 --}}
@@ -94,7 +95,8 @@
                     <div class="space-y-2">
                         <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                             <h5 class="text-xl font-medium text-blue-800">Cursos disponibles en la semana del
-                                20/junio/2022 al 24/junio/2022
+                                <strong> {{date('d-m-Y', strtotime($arreglo_fecha[0]))}}</strong> al
+                                <strong>{{date('d-m-Y', strtotime($arreglo_fecha[1]))}}</strong>
                                 {{-- {{ date('d-m-Y', strtotime($fecha_inicio_periodo1)) }} al
                                 {{ date('d-m-Y', strtotime($fecha_fin_periodo1)) }} --}}
                             </h5>
@@ -170,7 +172,8 @@
                     <div class="space-y-2">
                         <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                             <h5 class="text-xl font-medium text-blue-800">Cursos disponibles en la semana del
-                                27/junio/2022 al 01/julio/2022
+                                <strong> {{date('d-m-Y', strtotime($arreglo_fecha[2]))}} </strong> al
+                                <strong>{{date('d-m-Y', strtotime($arreglo_fecha[3]))}} </strong>
                                 {{-- {{ date('d-m-Y', strtotime($fecha_inicio_periodo2)) }} al
                                 {{ date('d-m-Y', strtotime($fecha_fin_periodo2)) }} --}}
                                 <div class="flex flex-col space-y-2">
@@ -249,7 +252,7 @@
 
 @endif
 
-@if ($disponible == false)
+@if ($disponible == false and $permiso==true)
     <div class="flex flex-col rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
         <div class="px-4 w-full bg-gray-200  rounded-t-lg">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>
@@ -258,7 +261,16 @@
             <p class="font-normal text-gray-700">Aun no se registran cursos.</p>
         </div>
     </div>
-
+@endif
+@if ($permiso == false)
+    <div class="flex flex-col rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+        <div class="px-4 w-full bg-gray-200  rounded-t-lg">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>
+        </div>
+        <div class="p-8 w-full bg-white rounded-b-lg">
+            <p class="font-normal text-gray-700">Ya tiene cursos registrados</p>
+        </div>
+    </div>
 @endif
 </div>
 

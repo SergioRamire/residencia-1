@@ -53,6 +53,21 @@ class ParticipantListsController extends Component
     public bool $confirmingParticipantDeletion = false;
     public bool $confirmingSaveParticipant = false;
 
+    public function rules(): array
+    {
+        if ($this->edit) {
+            return [
+                'id_usuario' => ['required', 'numeric'],
+                'id_curso_grupo' => ['required', 'numeric'],
+            ];
+        }
+
+        return [
+            'id_usuario' => ['required', 'numeric'],
+            'id_curso_grupo' => ['required', 'numeric'],
+        ];
+    }
+
     public function mostrar($periodo, $curso)
     {
         return  User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
@@ -99,13 +114,13 @@ class ParticipantListsController extends Component
     }
 
     public function edit($id,$id_per,$id_detallecurso){
-        $this->id_usuario = $id; 
-        $this->id_curso_grupo = $id_per; 
-        $this->id_per_ = $id_detallecurso; 
+        $this->id_usuario = $id;
+        $this->id_curso_grupo = $id_per;
+        $this->id_per_ = $id_detallecurso;
         $this->emit('valorParticipante',$id);
         $this->emit('valorPerio',$id_per);
         $this->emit('valorCursoGrupo',$id_detallecurso);
-        
+
         $this->edit = true;
         $this->create = false;
         $this->showEditCreateModal = true;
@@ -118,7 +133,7 @@ class ParticipantListsController extends Component
     }
 
     public function store(){
-        
+
     }
 
     public function consultar()

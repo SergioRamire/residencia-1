@@ -32,6 +32,10 @@ class InscriptionsController extends Component
     public $id_arreglo1=[];
     public $con;
     public $c=[1,1,1,1,1];
+    public $arreglo_fecha=[];
+    public $permiso = true;
+
+
 
     public bool $btnContinuar = false;
     public bool $showHorario = false;
@@ -217,9 +221,9 @@ class InscriptionsController extends Component
             ->join('courses', 'course_details.course_id', '=', 'courses.id')
             // ->join('inscriptions','inscriptions.course_detail_id','=','course_details.id')
             ->select(
-                'periods.fecha_inicio','periods.fecha_fin',
                 'course_details.id as curdet','course_details.*',
-                'courses.nombre','courses.dirigido','courses.perfil'
+                'courses.nombre','courses.dirigido','courses.perfil',
+
             )
             ->where('periods.fecha_inicio', '=', $inicio)
             // ->distinct()
@@ -230,22 +234,64 @@ class InscriptionsController extends Component
 
     public function render(){
         $this->tablaVacia();
-        // $this->verificarInscripciones();
-        return view('livewire.admin.inscriptions.index',
+        $this->consulta_periodos_actuales();
+        $this->verificarInscripciones();
+        if(count($this->arreglo_fecha)>0){
+            return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->buscar(),
-                'semana1' => $this->rangoFecha('2022-07-04')->paginate($this->perPage),
-                'semana2' => $this->rangoFecha('2022-07-11')->paginate($this->perPage),
-                // 'semana1' => $this->rangoFecha($this->fecha_inicio_periodo1, $this->fecha_fin_periodo1)->paginate($this->perPage),
-                // 'semana2' => $this->rangoFecha($this->fecha_inicio_periodo2, $this->fecha_fin_periodo2)->paginate($this->perPage2),
+                'semana1' => $this->rangoFecha($this->arreglo_fecha[0])->paginate($this->perPage),
+                'semana2' => $this->rangoFecha($this->arreglo_fecha[2])->paginate($this->perPage),
             ]
         );
+        }
+        if(count($this->arreglo_fecha)==0){
+            $this->disponible =false;
+            return view('livewire.admin.inscriptions.index');
+        }
+
     }
-    // public function verificarInscripciones(){
-    //     $this->con= Period::select('periods.fecha_inicio')
-    //             ->where( 'periods.fecha_inicio', '<', Carbon::now()->subDays(30))
-    //             ->get();
-    // }
+
+    public function verificarInscripciones(){
+        // $this->user = User::find(auth()->user()->id);
+        $inscripciones = User::select('inscriptions.course_detail_id')
+                        ->join('inscriptions','inscriptions.user_id','=','users.id')
+                        ->join('course_details','course_details.id','=','inscriptions.course_detail_id')
+                        ->join('periods','periods.id','=','course_details.period_id')
+                        ->where('users.id','=',auth()->user()->id)
+                        ->where('inscriptions.estatus_participante','=','Participante')
+                        ->where('periods.id','=',1)
+                        // ->orwhere('periods.id','=',2)
+                        ->get();
+        // dd(count($inscripciones));
+        if(count($inscripciones)!==0){
+            $this->permiso=false;
+        }
+
+        // if(count($inscripciones)==0){
+        //     $this->permiso=false;
+        // }
+        else{
+            $this->permiso=true;
+        }
+    }
+
+    public function consulta_periodos_actuales(){
+        $periodos = Period::select('periods.fecha_inicio','periods.fecha_fin')
+        ->where('periods.fecha_inicio' , '<', Carbon::now()->addDays(60))
+        // ->orwhere('periods.fecha_inicio' , '=',date('y-m-d'))
+            ->orderBy('periods.fecha_inicio', 'asc')
+            ->get();
+        $count=0;
+        foreach($periodos as $p){
+            $this->arreglo_fecha[$count] = $p->fecha_inicio;
+            $count = $count + 1;
+            $this->arreglo_fecha[$count] = $p->fecha_fin;
+            $count = $count + 1;
+        }
+
+
+    }
 
     public function del($id){
         if(in_array($id,$this->arreglo)){

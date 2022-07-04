@@ -291,6 +291,11 @@
                 </x-sidebar.link>
                 @endcan
 
+                {{-- @php
+                $consulta =
+                @endphp --}}
+
+
                 @can('inscription.create')
                     <x-sidebar.link :href='route("part.inscription")' :active="request()->routeIs('part.inscription')">
                         <x-slot name="icon">
