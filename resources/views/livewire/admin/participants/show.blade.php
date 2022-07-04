@@ -43,7 +43,7 @@
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
             <!-- Sexo -->
             <div class="mt-4">
-                <x-jet-label value="Sexo"/>
+                <x-jet-label value="Género"/>
                 <x-jet-input :value="$user->sexo === 'F' ? 'Femenino' : 'Masculino'" class="mt-1 w-full" type="text" disabled/>
             </div>
 

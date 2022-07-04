@@ -47,7 +47,7 @@
                 <div class="mt-4">
                     <x-jet-label for="sexo" value="Género*"/>
                     <x-input.select wire:model.defer="user.sexo" class="mt-1 w-full" id="sexo" name="sexo" required>
-                        <option value="" disabled>Selecciona el sexo</option>
+                        <option value="" disabled>Selecciona el género</option>
                         <option value="F">Femenino</option>
                         <option value="M">Masculino</option>
                     </x-input.select>

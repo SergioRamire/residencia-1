@@ -101,10 +101,8 @@ class StudyingController extends Component
         $fechaini = strftime("%d de %B", strtotime($newDate));
         $newDate2 = date("d-m-Y", strtotime($coursesdetails[0]->f2));
         $fechafin = strftime("%d de %B de %Y", strtotime($newDate2));
-        // $newDate3 = date("d-m-Y", strtotime(date('d-m-Y')));
-        // $diaactual = strftime("%d de %B de %Y", strtotime($newDate3));
 
-        $pdf = Pdf::loadView('livewire.admin.studying.dowlandlcedulaincription', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fechaini,'fecha_f'=> $fechafin]);
+        $pdf = Pdf::loadView('livewire.admin.studying.descargarcedula', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fechaini,'fecha_f'=> $fechafin]);
         $pdf_file = storage_path('app/')."Cedula de Inscipcion.pdf";
         $pdf->setPaper("A4",'landscape');
         $pdf->save($pdf_file);

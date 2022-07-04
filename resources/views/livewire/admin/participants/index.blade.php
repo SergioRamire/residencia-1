@@ -45,9 +45,9 @@
                             <!-- Areas -->
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
-                                    <x-jet-label for="area_filter" value="Area"/>
+                                    <x-jet-label for="area_filter" value="Área"/>
                                     <x-input.select wire:model="filters.area" id="area_filter" class="text-sm block mt-1 w-full" name="area_filter" required>
-                                        <option value="" disabled>Selecciona el área</option>
+                                        <option value="" disabled>Selecciona la área</option>
                                         @foreach(\App\Models\Area::all() as $area)
                                             <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                         @endforeach
@@ -71,9 +71,9 @@
                             <!-- Sexo -->
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
-                                    <x-jet-label for="sexo_filter" value="Sexo"/>
+                                    <x-jet-label for="sexo_filter" value="Género"/>
                                     <x-input.select wire:model="filters.sexo" id="sexo_filter" class="text-sm block mt-1 w-full" name="sexo_filter" required>
-                                        <option value="" disabled>Selecciona el sexo</option>
+                                        <option value="" disabled>Selecciona el género</option>
                                         <option value="F">Femenino</option>
                                         <option value="M">Masculino</option>
                                     </x-input.select>
