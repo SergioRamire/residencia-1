@@ -154,7 +154,7 @@
                                 @if($g->calificacion > 69 and $g->asistencias_minimas==1)
                                     <x-table.cell class="text-center">
                                         <button wire:click="descargarConstancia({{ $g->id }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                            Descargar
+                                            Constancia
                                         </button>
                                     </x-table.cell>
                                 @else
@@ -185,7 +185,7 @@
                 <div class="text-right min-h-full">
                     @if($calificaciones->count() > 1)
                         <button wire:click="descargarConstanciasZIP()" title="Descargar todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            Descagar todas
+                            Zip de constancias
                         </button>
                     @endif
                 </div>

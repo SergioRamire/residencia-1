@@ -109,11 +109,8 @@
                             <x-table.cell class="text-center">{{ $g->nombregrupo }}</x-table.cell>
                             <x-table.cell class="text-center">{{date('d-m-Y', strtotime($g->fi))}} a {{date('d-m-Y', strtotime($g->ff))}}</x-table.cell>
                             <x-table.cell class="text-center">
-                                <button wire:click="descargarConstancia({{ $g->iduser }})" title="Descarga constancia en pdf" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
-                                    </svg>
-                                    <span>Constancia</span>
+                                <button wire:click="descargarConstancia({{ $g->iduser }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                    Constancia
                                 </button>
                             </x-table.cell>
                         </tr>
@@ -139,11 +136,8 @@
                 </div>
                 <div class="text-right min-h-full">
                     @if($instructor->count() > 1)
-                        <button wire:click="descargarConstanciasZIP()" title="Descarga todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
-                            </svg>
-                            <span>Zip de constancias</span>
+                        <button wire:click="descargarConstanciasZIP()" title="Descargar todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                            Zip de constancias
                         </button>
                     @endif
                 </div>
