@@ -28,26 +28,34 @@ class ProfileController extends Component
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.apellido_paterno' => $this->valiAp($this->no_ap1),
             'user.apellido_materno' => $this->valiAp($this->no_ap2),
-            'user.sexo' => ['required', 'regex:/^[F|M]$/u', 'max:1'],
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
+            'user.sexo' => ['required', 'regex:/^[F|M]$/u', 'max:1'],
             'user.correo_tecnm' => ['required', 'email', 'ends_with:@oaxaca.tecnm.mx', Rule::unique('users', 'correo_tecnm')->ignore($this->user)],
             'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
 
             'user.area_id' => '',
-            'user.clave_presupuestal'  => 'required',
-            'user.puesto_en_area'  => 'required',
+            'user.clave_presupuestal'  => '',
+            'user.puesto_en_area'  => '',
             'area.telefono' => '',
-            'user.jefe_inmediato'  => 'required',
-            'user.hora_entrada' => 'required',
-            'user.hora_salida' => 'required',
-            'user.tipo'  => 'required',
-            'user.organizacion_origen'  => 'required',
-            'user.cuenta_moodle'  => 'required',
+            'user.jefe_inmediato'  => '',
+            'user.hora_entrada' => '',
+            'user.hora_salida' => '',
+            'user.tipo'  => '',
+            'user.organizacion_origen'  => '',
+            'user.cuenta_moodle'  => '',
         ];
     }
-
+    public $vali = false;
     public function render(){
+        if (
+            empty($this->user->sexo) ||
+            empty($this->user->correo_tecnm) ||
+            empty($this->user->estudio_maximo) ||
+            empty($this->user->carrera)
+        ){
+            $this->vali = true;
+        }
         return view('livewire.admin.users.profile');
     }
 
@@ -87,7 +95,7 @@ class ProfileController extends Component
         $this->showConfirmationModal = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'success',
-            'message' => 'Datos actualizado exitosamente. Nota: Es necesario recargar para actualizar Datos de la barra',
+            'message' => 'Datos actualizado exitosamente.',
         ]);
         return redirect()->route('user.perfil');
     }

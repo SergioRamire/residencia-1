@@ -31,7 +31,7 @@ class CourseGrupoSelect extends Component{
                 ->join('groups', 'groups.id', '=', 'course_details.group_id')
                 ->join('periods', 'periods.id', '=', 'course_details.period_id')
                 ->where('periods.id',$this->id_perper)
-                ->select('courses.id as idc', 'courses.nombre', 'courses.clave', 'groups.nombre as gruponombre')
+                ->select('course_details.id as idc', 'courses.nombre', 'courses.clave', 'groups.nombre as gruponombre')
                 ->get();
         } else {
 
@@ -42,7 +42,7 @@ class CourseGrupoSelect extends Component{
             ->when($this->valor, fn ($query2, $b) => $query2
                 ->where('courses.nombre', 'like', "%$b%")
                 ->orWhere('courses.clave', 'like', "%$b%"))
-            ->select('courses.id as idc', 'courses.nombre', 'courses.clave', 'groups.nombre as gruponombre')
+            ->select('course_details.id as idc', 'courses.nombre', 'courses.clave', 'groups.nombre as gruponombre')
             ->get();
         }
     }

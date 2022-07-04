@@ -14,7 +14,7 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-danger-button class="ml-3" wire:click="delete()" wire:loading.attr="disabled">
+        <x-jet-danger-button class="ml-3" wire:click="destroy()" wire:loading.attr="disabled">
             Eliminar
         </x-jet-danger-button>
     </x-slot>

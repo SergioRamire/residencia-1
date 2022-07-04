@@ -13,7 +13,8 @@ use Livewire\WithPagination;
 
 use App\Exports\UserExport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Invoice;
+use App\Models\CourseDetail;
 
 class ParticipantListsController extends Component
 {
@@ -39,6 +40,7 @@ class ParticipantListsController extends Component
     public $id_per_;
     public $peri;
     public $curso;
+
     // public $periodo;
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -111,26 +113,89 @@ class ParticipantListsController extends Component
     }
 
     public function edit($id,$id_per,$id_detallecurso){
+
         $this->id_usuario = $id;
-        $this->id_curso_grupo = $id_per;
-        $this->id_per_ = $id_detallecurso;
+        $this->id_curso_grupo = $id_detallecurso;
+        $this->id_per_ = $id_per;
+
+        $this->edit_user = $id;
+        $this->edit_curso = $id_detallecurso;
+
         $this->emit('valorParticipante',$id);
         $this->emit('valorPerio',$id_per);
         $this->emit('valorCursoGrupo',$id_detallecurso);
+
 
         $this->edit = true;
         $this->create = false;
         $this->showEditCreateModal = true;
     }
 
-    public function updateParticipant()
-    {
-        $this->validate();
-        $this->confirmingSaveParticipant = true;
+    public function updateParticipant(){
+        if ($this->edit) {
+            $this->confirmingSaveParticipant = true;
+        }else{
+            $this->confirmingSaveParticipant = true;
+        }
     }
 
     public function store(){
+        $aux_user = $this->id_usuario;
+        $aux_detallercurso = $this->id_curso_grupo;
 
+        $user = User::find($aux_user);
+        $courseDetails = CourseDetail::find($aux_detallercurso);
+        $user->courseDetails()->attach( $courseDetails, [
+                'calificacion' => 0,
+                'estatus_participante' => 'Participante',
+                'asistencias_minimas' => 0,
+            ]
+        );
+
+        $this->noti('success','Participante creado');
+        $this->showEditCreateModal = false;
+        $this->confirmingParticipantDeletion = false;
+        $this->confirmingSaveParticipant = false;
+    }
+    public $edit_user;
+    public $edit_curso;
+
+    public function update(){
+
+        $aux_user = $this->edit_user;
+        $aux_detallercurso = $this->edit_curso;
+
+        $user = User::find($aux_user);
+        $courseDetails = CourseDetail::find($aux_detallercurso);
+        $user->courseDetails()->updateExistingPivot( $courseDetails, [
+                'user_id' => $this->id_usuario,
+                'course_detail_id' => $this->id_curso_grupo,
+                // 'calificacion' => 0,
+                // 'estatus_participante' => 'Participante',
+                // 'asistencias_minimas' => 0,
+            ]
+        );
+
+        $this->noti('pencil','Participante actualizado');
+        $this->showEditCreateModal = false;
+        $this->confirmingParticipantDeletion = false;
+        $this->confirmingSaveParticipant = false;
+    }
+    public $id_delete;
+
+    public function delete($id)
+    {
+        // dd($id);
+        $this->id_delete = $id;
+        $this->confirmingParticipantDeletion = true;
+    }
+    public function destroy()
+    {
+        DB::table('inscriptions')->delete($this->id_delete);
+        $this->noti('trash','Participante eliminado');
+        $this->showEditCreateModal = false;
+        $this->confirmingParticipantDeletion = false;
+        $this->confirmingSaveParticipant = false;
     }
 
     public function consultar()
@@ -192,5 +257,12 @@ class ParticipantListsController extends Component
     }
     public function send_curso_grupo($valor){
         $this->id_curso_grupo = $valor;
+    }
+
+    public function noti($icon,$txt){
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $icon,
+            'message' => $txt,
+        ]);
     }
 }

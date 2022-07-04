@@ -19,22 +19,15 @@
         @endif
         <form method="POST" action="{{ route('login') }}">
             @csrf
-            <x-slot name="boton">
-                <div class="flex flex-wrap">
-                    {{-- <div class="flex items-center p-2 bg-white rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 transition text-sky-700 ">
-                        <input  name="rol" value="Participante" id="rol" type="radio"  class="w-4 h-4 text-sky-800 bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
-                        <label for="rol" class="ml-2 text-sm font-medium text-gray-900 ">Participante</label>
-                    </div> --}}
-
-                </div>
-            </x-slot>
-            <div class="flex items-center p-2 bg-white rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 transition text-sky-700 ">
-                <input  checked name="rol" value="Participante" id="rol" type="radio"  class="w-4 h-4 text-sky-800 bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
-                <label class="ml-2 text-sm font-medium text-gray-900 ">Participante</label>
-            </div>
-            <div class="flex items-center p-2 bg-white rounded-t-lg font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 transition text-sky-700 ">
-                <input  name="rol" value="Instructor" id="rol" type="radio" class="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2">
-                <label class="ml-2 text-sm font-medium text-gray-900 ">Instructor</label>
+            <div class="mb-8">
+                <label class="flex items-center p-2 bg-white font-semibold text-xs uppercase tracking-widest focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 text-sky-700 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-50 duration-300">
+                    <input checked name="rol" value="Participante" id="rol" type="radio"  class="w-4 h-4 text-sky-800 bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
+                    <span class="ml-2 text-sm font-medium text-gray-900 ">Participante</span>
+                </label>
+                <label class="flex items-center p-2 bg-white font-semibold text-xs uppercase tracking-widest focus:outline-none focus:ring focus:ring-blue-200 disabled:opacity-25 text-sky-700 transition ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-50 duration-300">
+                    <input name="rol" value="Instructor" id="rol" type="radio" class="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2">
+                    <span class="ml-2 text-sm font-medium text-gray-900 ">Instructor</span>
+                </label>
             </div>
             <div class="mt-2">
                 <img src="{{ asset('img/ico.png') }}">
@@ -54,13 +47,13 @@
             <div class="block mt-4 ">
                 <label for="remember_me" class="flex items-center ">
                     <x-jet-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <span class="ml-2 text-sm text-black hover:text-sky-700 active:text-sky-500">{{ __('Remember me') }}</span>
                 </label>
             </div>
 
             <div class="flex items-center justify-center mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                    <a class="underline text-sm text-black hover:text-sky-700 active:text-sky-500"
                         href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
@@ -80,9 +73,6 @@
                 </x-jet-button>
             </div>
         </form> --}}
-
-
-
 
     </x-jet-authentication-card>
 </x-guest-layout>
