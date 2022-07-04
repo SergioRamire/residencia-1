@@ -43,8 +43,8 @@ class Time implements Rule
      */
     public function message()
     {
-        $min = date('h:i A', strtotime($this->min));
-        $max = date('h:i A', strtotime($this->max));
-        return "La hora debe estar entre $min y $max";
+        $min = date('H:i', strtotime($this->min));
+        $max = date('H:i', strtotime($this->max));
+        return "La hora debe estar entre $min y $max hrs";
     }
 }
