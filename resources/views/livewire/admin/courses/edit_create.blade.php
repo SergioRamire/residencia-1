@@ -3,18 +3,19 @@
         {{ $edit ? 'Editar curso' : 'Crear curso' }}
     </x-slot>
     <x-slot name="content">
+        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" />
         <form wire:submit.prevent="confirmSave()" id="courseForm">
             <!-- Clave y Periodo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Clave -->
                 <div class="sm:flex-1">
-                    <x-jet-label for="clave" value="Clave"/>
-                    <x-input.error wire:model="course.clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="course.clave" required/>
+                    <x-jet-label for="clave" value="Clave*"/>
+                    <x-input.error wire:model.defer="course.clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="course.clave" required/>
                 </div>
                 <!-- Perfil -->
                 <div class="sm:flex-1">
-                    <x-jet-label for="perfil" value="Perfil"/>
-                    <x-input.select wire:model="course.perfil" id="perfil" class="mt-1 w-full" name="perfil" required>
+                    <x-jet-label for="perfil" value="Perfil*"/>
+                    <x-input.select wire:model.defer="course.perfil" id="perfil" class="mt-1 w-full" name="perfil" required>
                         <option value="" disabled>Selecciona perfil...</option>
                         <option value="Formación docente">Formación docente</option>
                         <option value="Actualización profesional">Actualización profesional</option>
@@ -25,14 +26,14 @@
 
             <!-- Nombre -->
             <div class="mt-4">
-                <x-jet-label for="nombre" value="Nombre"/>
-                <x-input.error wire:model="course.nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="course.nombre" required/>
+                <x-jet-label for="nombre" value="Nombre*"/>
+                <x-input.error wire:model.defer="course.nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="course.nombre" required/>
             </div>
 
             <!-- Objetivo -->
             <div class="mt-4">
-                <x-jet-label for="objetivo" value="Objetivo"/>
-                <x-input.textarea wire:model="course.objetivo" id="objetivo" class="block mt-1 w-full" name="objetivo" required/>
+                <x-jet-label for="objetivo" value="Objetivo*"/>
+                <x-input.textarea wire:model.defer="course.objetivo" id="objetivo" class="block mt-1 w-full" name="objetivo" required/>
                 <x-jet-input-error for="course.objetivo"/>
             </div>
 
@@ -40,8 +41,8 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Duración -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="duracion" value="Duración"/>
-                    <x-input.addon wire:model="course.duracion" right addon="hrs" class="block mt-1 w-full" type="number" id="duracion" name="duracion" min="30" max="50" required/>
+                    <x-jet-label for="duracion" value="Duración*"/>
+                    <x-input.addon wire:model.defer="course.duracion" right addon="hrs" class="block mt-1 w-full" type="number" id="duracion" name="duracion" required/>
                     <x-jet-input-error for="course.duracion"/>
                 </div>
                 {{-- <!-- Modalidad -->
@@ -59,8 +60,8 @@
 
             <!-- Dirigido -->
             <div class="mt-4">
-                <x-jet-label for="dirigido" value="Dirigido"/>
-                <x-input.select wire:model="course.dirigido" multiple id="dirigido" class="mt-1 w-full" name="dirigido" required>
+                <x-jet-label for="dirigido" value="Dirigido*"/>
+                <x-input.select wire:model.defer="course.dirigido" multiple id="dirigido" class="mt-1 w-full" name="dirigido" required>
                     @foreach(App\Models\Area::all() as $area)
                         <option value="{{ $area->nombre }}">{{ $area->nombre }}</option>
                     @endforeach

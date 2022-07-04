@@ -23,6 +23,7 @@ use App\Http\Livewire\Admin\StudyingController;
 use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\PostController;
 use App\Http\Livewire\Admin\TeachingController;
+use App\Http\Livewire\Admin\ConstanciaInstructorController;
 use App\Http\Livewire\Admin\EmailController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -58,6 +59,9 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:constancy.show')->prefix('admin')->name('admin.')
         ->get('constancias', ConstanciasController::class)->name('constancias');
+
+    Route::middleware('can:constancyInstructor.show')->prefix('admin')->name('admin.')
+        ->get('constanciasinstructores', ConstanciaInstructorController::class)->name('constanciasinstructores');
 
     Route::middleware('can:instructor.show')->prefix('admin')->name('admin.')
         ->get('instructores', InstructorCurseController::class)->name('instructores');
@@ -156,8 +160,5 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:sendemail.show')->prefix('admin')->name('admin.')
         ->get('email', EmailController::class)->name('email');
 
-    Route::get('/algo', function (UserExport $userExport) {
-        // return Excel::download(new UserExport, 'users.xlsx');
-        return $userExport;
-    });
+
 });

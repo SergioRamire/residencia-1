@@ -84,14 +84,17 @@ class PostController extends Component
         $this->reset('arr');
     }
 
-    private function validateInputs()
-    {
-        $this->validate([
-            'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
-            'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
-            'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
-        ]);
-    }
+    // private function validateInputs()
+    // {
+    //     $this->validate([
+    //         'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+    //         'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
+    //         'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
+    //     ]);
+    // }
+
+
+
 
     public function create()
     {
@@ -149,9 +152,21 @@ class PostController extends Component
         $this->confirmingSaveNotificacion=true;
     }
 
+    protected $rules = [
+        'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+        'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
+        'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function store()
     {
-        $this->validateInputs();
+        // $this->validateInputs();
+        $this->validate();
         $this->arr['user_id']=Auth::id();
         $post=Post::create($this->arr);
         event(new PostEvent($post));
@@ -163,6 +178,7 @@ class PostController extends Component
 
         $this->edit = false;
         $this->create = false;
+        $this->confirmingSaveNotificacion= false;
         $this->closeModal();
         $this->resetInputFields();
     }

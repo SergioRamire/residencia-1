@@ -31,11 +31,17 @@
 
 <p id="constancia">CONSTANCIA</p>
 <p id="a">A</p>
-<p id="nombre">{{mb_strtoupper($datos->nombre,'utf-8')}}</p>
+<p id="nombre">{{ mb_strtoupper($datos->nombre,'utf-8') }}</p>
 
-<p id="texto-principal">POR SU PARTICIPACIÓN EN EL CURSO "{{mb_strtoupper($datos->curso,'utf-8')}}" CON EL NÚMERO DE REGISTRO: "TECNM-135-42-2021/001", LLEVADO A CABO EN LINEA DEL {{mb_strtoupper($fi,'utf-8')}} AL {{mb_strtoupper($ff,'utf-8')}}, CON UNA DURACIÓN DE {{$datos->duracion}} HORAS.</p>
 
-<p id="fecha">OAXACA DE JUÁREZ, OAX, A {{ mb_strtoupper($day,'utf-8')}}</p>
+@if ($datos->sexo == 'F')
+    <p id="texto-principal">POR SU PARTICIPACIÓN COMO INSTRUCTORA DEL CURSO "{{ mb_strtoupper($datos->curso,'utf-8') }}" CON EL NÚMERO DE REGISTRO: "TECNM-135-42-2021/001", LLEVADO A CABO EN LINEA DEL {{mb_strtoupper($fi,'utf-8')}} AL {{mb_strtoupper( $ff,'utf-8')}}, CON UNA DURACIÓN DE {{$datos->duracion}} HORAS.</p>
+@elseif($datos->sexo == 'M')
+    <p id="texto-principal">POR SU PARTICIPACIÓN COMO INSTRUCTOR DEL CURSO "{{ mb_strtoupper($datos->curso,'utf-8') }}" CON EL NÚMERO DE REGISTRO: "TECNM-135-42-2021/001", LLEVADO A CABO EN LINEA DEL {{mb_strtoupper($fi,'utf-8')}} AL {{mb_strtoupper($ff,'utf-8')}}, CON UNA DURACIÓN DE {{$datos->duracion}} HORAS.</p>
+@endif
+
+
+<p id="fecha">OAXACA DE JUÁREZ, OAX, A {{ mb_strtoupper($day,'utf-8')}} </p>
 
 <p id="director-nombre">FERNANDO TOLEDO TOLEDO</p>
 <p id="director">DIRECTOR</p>

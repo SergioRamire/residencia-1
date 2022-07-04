@@ -66,7 +66,7 @@
                             </div>
 
                             <!-- Departamento -->
-                            <div class="block px-4 py-2 space-y-1">
+                            <div class="block px-4 py-2 space-y-1 ">
                                 <div>
                                     <x-jet-label for="departamento_filter" value="Departamento"/>
                                     <x-input.select wire:model="filters.departamento" id="departamento_filter" class="text-sm block mt-1 w-full" name="departamento_filter" required>
@@ -83,7 +83,7 @@
                                 <div>
                                     <x-jet-label for="grupo_filter" value="Grupo"/>
                                     <x-input.select wire:model="filters.grupo" id="grupo_filter" class="text-sm block mt-1 w-full" name="grupo_filter" required>
-                                        <option value="" disabled>Selecciona modalidad...</option>
+                                        <option value="" disabled>Selecciona grupo...</option>
                                         @foreach(\App\Models\CourseDetail::join('groups','groups.id','=','course_details.group_id')
                                             ->join('periods','periods.id','=', 'course_details.period_id')
                                             ->join('courses','courses.id','=', 'course_details.course_id')
@@ -107,7 +107,7 @@
                     <!-- Selección de paginación -->
                     <div>
                         <x-input.select wire:model="perPage" class="block w-full">
-                            <option value="5">5</option>
+                            <option value="5">8</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
                             <option value="25">25</option>

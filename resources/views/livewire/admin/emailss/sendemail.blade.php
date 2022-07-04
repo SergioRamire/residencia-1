@@ -1,6 +1,6 @@
 @component('mail::message')
-Estimado(a) docente: **{{$user->name}} {{' '}} {{$user->apellido_paterno}} {{' '}} {{$user->apellido_materno}}**
-    se le notifica {{$info}}
+Estimado(a) docente: **{{$user->name}} {{' '}} {{$user->apellido_paterno}} {{' '}} {{$user->apellido_materno}}**<br>
+   **{{$info}}**
 
 {{-- @component('mail::button', ['url' => ''])
 Algún Botón
