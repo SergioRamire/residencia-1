@@ -99,13 +99,13 @@
 
     <!-- Modales -->
     @if($create)
-        @include('livewire.admin.notifications.edit')
+        @include('livewire.admin.notifications.create')
     @endif
     @if($confirmingPartDeletion)
         @include('livewire.admin.notifications.destroy')
     @endif
     @if($confirminNotificacion)
-        @include('livewire.admin.notifications.deletenotifi')
+        @include('livewire.admin.notifications.destroy_notification')
     @endif
     @if($showViewModal)
         @include('livewire.admin.notifications.show')

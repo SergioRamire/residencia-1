@@ -4,7 +4,7 @@
         {{$modo}} Grupo
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" />
+        <x-jet-label for="x"  value="Los campos con * son obligatorios" />
         <form  id="courseForm">
 
                 <!-- Grupo -->

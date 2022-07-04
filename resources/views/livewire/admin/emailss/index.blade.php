@@ -99,14 +99,11 @@
     @if($create)
         @include('livewire.admin.emailss.edit')
     @endif
-    {{-- @if($confirmingPartDeletion)
-        @include('livewire.admin.notifications.destroy')
-    @endif --}}
     @if($confirminNotificacion)
-        @include('livewire.admin.emailss.deletenotifi')
+        @include('livewire.admin.emailss.destroy')
     @endif
     @if($showViewModal)
-        @include('livewire.admin.emailss.ver')
+        @include('livewire.admin.emailss.show')
     @endif
 </div>
 

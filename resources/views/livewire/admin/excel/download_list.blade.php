@@ -93,7 +93,7 @@
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">R.F.C</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;">ÁREA DE ADSCRIPCIÓN</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000;" colspan="5">ASISTENCIA</th>
-        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 100px;">CALIFICACION</th>
+        <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 100px;">CALIFICACIÓN</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;" rowspan="2">F</th>
         <th style="text-align:center; font-weight: 500; background: #c5c3c3; border: 1px solid # 000000; width: 45px;" rowspan="2">M</th>
     </tr>

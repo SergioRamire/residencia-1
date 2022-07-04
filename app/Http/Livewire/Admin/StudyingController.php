@@ -51,7 +51,7 @@ class StudyingController extends Component
                 'users.id as iduser',
                 'course_details.id as idcurso'
             )
-            // ->where("users.id", $this->user->id)
+            ->where("users.id", $this->user->id)
             ->where("inscriptions.estatus_participante", $this->estatus)
             ->get();;
     }
@@ -94,21 +94,28 @@ class StudyingController extends Component
     }
 
     public function downloadPdf($iduser,$idcurso){
-        // dd()
         $coursesdetails = $this->consultapdf($iduser, $idcurso);
         $instructor = $this->consultains( $idcurso);
-        setlocale(LC_TIME, "spanish");
-        $newDate = date("d-m-Y", strtotime($coursesdetails[0]->f1));
-        $fechaini = strftime("%d de %B", strtotime($newDate));
-        $newDate2 = date("d-m-Y", strtotime($coursesdetails[0]->f2));
-        $fechafin = strftime("%d de %B de %Y", strtotime($newDate2));
+        $fechaini = $this->convertirfecha2($coursesdetails[0]->f1);
+        $fechafin = $this->convertirfecha($coursesdetails[0]->f2);
 
-        $pdf = Pdf::loadView('livewire.admin.studying.descargarcedula', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fechaini,'fecha_f'=> $fechafin]);
+        $pdf = Pdf::loadView('livewire.admin.studying.download_cedula', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fechaini,'fecha_f'=> $fechafin]);
         $pdf_file = storage_path('app/')."Cedula de Inscipcion.pdf";
         $pdf->setPaper("A4",'landscape');
         $pdf->save($pdf_file);
         return response()->download($pdf_file)->deleteFileAfterSend();
     }
 
+    public function convertirfecha($fecha){
+        setlocale(LC_TIME, "spanish");
+        $newDate = date("d-m-Y", strtotime($fecha));
+       return  strftime("%d de %B de %Y", strtotime($newDate));
+    }
+
+    public function convertirfecha2($fecha){
+        setlocale(LC_TIME, "spanish");
+        $newDate = date("d-m-Y", strtotime($fecha));
+       return  strftime("%d de %B", strtotime($newDate));
+    }
 
 }

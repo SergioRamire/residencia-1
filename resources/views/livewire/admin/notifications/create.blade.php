@@ -3,7 +3,7 @@
        Enviar Notificación
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" />
+        <x-jet-label for="x"  value="Los campos con * son obligatorios" />
         <form  id="courseForm">
 
             <!-- Nombre -->
@@ -43,7 +43,7 @@
             enviar
         </x-jet-button>
         @if($confirmingSaveNotificacion)
-                @include('livewire.admin.notifications.confirSenNotif')
+                @include('livewire.admin.notifications.confirm_send_notifi')
         @endif
     </x-slot>
 </x-jet-dialog-modal>

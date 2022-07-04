@@ -10,7 +10,7 @@
     {{-- botones --}}
     <x-slot name="footer">
         {{-- boton de cancelar --}}
-        <x-jet-secondary-button wire:click="$toggle('confirmingPartDeletion')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('confirminNotificacion')" wire:loading.attr="disabled">
             {{ __('Cancelar') }}
         </x-jet-secondary-button>
         {{-- boton de eliminar--}}

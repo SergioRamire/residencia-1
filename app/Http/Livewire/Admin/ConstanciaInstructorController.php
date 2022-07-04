@@ -51,7 +51,7 @@ class ConstanciaInstructorController extends Component
 
     public function render()
     {
-        return view('livewire.admin.constancias.constanciaInstructor', [
+        return view('livewire.admin.constancias.index_instructor', [
             'instructor' =>  CourseDetail::query()
             ->join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
@@ -106,14 +106,10 @@ class ConstanciaInstructorController extends Component
         $datos = $this->consultaBase()
             ->where('users.id', '=', $id)
             ->get()->first();
-        setlocale(LC_TIME, "spanish");
-        $newDate = date("d-m-Y", strtotime($datos->fi));
-        $fechaini = strftime("%d de %B", strtotime($newDate));
-        $newDate2 = date("d-m-Y", strtotime($datos->ff));
-        $fechafin = strftime("%d de %B de %Y", strtotime($newDate2));
-        $newDate3 = date("d-m-Y", strtotime(date('d-m-Y')));
-        $diaactual = strftime("%d de %B de %Y", strtotime($newDate3));
-        $pdf = Pdf::loadView('livewire.admin.constancias.descargainstructor', ['datos' => $datos,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
+        $fechaini = $this->convertirfecha2($datos->fi);
+        $fechafin =  $this->convertirfecha($datos->ff);
+        $diaactual = $this->convertirfecha(date('d-m-Y'));
+        $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $datos,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
         $pdf_file = storage_path('app/')."Constancia-$datos->nombre-$datos->grupo.pdf";
         $pdf->save($pdf_file);
 
@@ -127,14 +123,10 @@ class ConstanciaInstructorController extends Component
         \Storage::makeDirectory('pdf');
 
         foreach ($consulta as $item) {
-            setlocale(LC_TIME, "spanish");
-            $newDate = date("d-m-Y", strtotime($item->fi));
-            $fechaini = strftime("%d de %B", strtotime($newDate));
-            $newDate2 = date("d-m-Y", strtotime($item->ff));
-            $fechafin = strftime("%d de %B de %Y", strtotime($newDate2));
-            $newDate3 = date("d-m-Y", strtotime(date('d-m-Y')));
-            $diaactual = strftime("%d de %B de %Y", strtotime($newDate3));
-            $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $item,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
+            $fechaini = $this->convertirfecha2($item->fi);
+            $fechafin =  $this->convertirfecha($item->ff);
+            $diaactual = $this->convertirfecha(date('d-m-Y'));
+            $pdf = Pdf::loadView('livewire.admin.constancias.descargainstructor', ['datos' => $item,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
             $pdf->save(storage_path('app/pdf/')."Constancia-$item->nombre-$item->grupo.pdf");
         }
 
@@ -168,6 +160,18 @@ class ConstanciaInstructorController extends Component
             // ->where('course_details.course_id', '=', $this->filters['filtro_curso'])
             ->select(['users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.sexo as sexo', 'courses.nombre as curso', 'groups.nombre as grupo', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
             // ->when($this->filters['filtro_curso'], fn ($query, $filtro_curso) => $query->where('course_details.nombre', '=', $filtro_curso));
+    }
+
+    public function convertirfecha($fecha){
+        setlocale(LC_TIME, "spanish");
+        $newDate = date("d-m-Y", strtotime($fecha));
+       return  strftime("%d de %B de %Y", strtotime($newDate));
+    }
+
+    public function convertirfecha2($fecha){
+        setlocale(LC_TIME, "spanish");
+        $newDate = date("d-m-Y", strtotime($fecha));
+       return  strftime("%d de %B", strtotime($newDate));
     }
 
 }
