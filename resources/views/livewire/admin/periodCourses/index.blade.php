@@ -82,14 +82,16 @@
                             <button wire:click="deletePeriod('{{ $p->id }}','{{ $p->fecha_inicio }}','{{ $p->fecha_fip }}')" type="button" class="pr-px-3 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
-                            <br>
-                            <br>
-                            <button wire:click="periodoActivar({{ $p->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
-                                Activar
-                            </button>
+                            @if($p->estado === 1)
                             <button wire:click="periodoDesactivar({{ $p->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
                                 Desactivar
                             </button>
+                            @elseif($p->estado === 0)
+                                <button wire:click="periodoActivar({{ $p->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                    Activar
+                                </button>
+                            @endif
+
                         </x-table.cell>
                     </tr>
                     {{-- @php $numero=$numero+1 @endphp --}}
