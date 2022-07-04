@@ -30,13 +30,13 @@
                 <!-- Hora inicio -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="hora_inicio" value="Hora inicio"/>
-                    <x-jet-input wire:model.defer="hora_inicio" class="block mt-1 w-full" type="time" disabled/>
+                    <x-jet-input wire:model.defer="hora_inicio" class="block mt-1 w-full" type="text" disabled/>
                 </div>
 
                 <!-- Hora fin -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="hora_fin" value="Hora fin"/>
-                    <x-jet-input wire:model.defer="hora_fin" class="block mt-1 w-full" type="time" disabled/>
+                    <x-jet-input wire:model.defer="hora_fin" class="block mt-1 w-full" type="text" disabled/>
                 </div>
             </div>
 
