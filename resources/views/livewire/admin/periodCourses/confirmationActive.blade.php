@@ -14,7 +14,7 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-danger-button class="ml-3" wire:click="activar" wire:loading.attr="disabled">
+        <x-jet-danger-button class="ml-3" wire:click="activar()" wire:loading.attr="disabled">
             Aceptar
         </x-jet-danger-button>
     </x-slot>

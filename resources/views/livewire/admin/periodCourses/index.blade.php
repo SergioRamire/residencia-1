@@ -76,18 +76,18 @@
                             @endif
                         </x-table.cell>
                         <x-table.cell>
-                            <button  wire:click="edit({{ $p->id }})" type="button" class=" px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                            <button  wire:click="edit({{ $p->id }})" type="button" title="Editar periodo" class=" px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="deletePeriod('{{ $p->id }}','{{ $p->fecha_inicio }}','{{ $p->fecha_fip }}')" type="button" class="pr-px-3 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="deletePeriod('{{ $p->id }}','{{ $p->fecha_inicio }}','{{ $p->fecha_fip }}')" type="button" title="Eliminar periodo" class="pr-px-3 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                             @if($p->estado === 1)
-                            <button wire:click="periodoDesactivar({{ $p->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
+                            <button wire:click="periodoDesactivar({{ $p->id }})" type="button" title="Desactivar periodo" class="px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
                                 Desactivar
                             </button>
                             @elseif($p->estado === 0)
-                                <button wire:click="periodoActivar({{ $p->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                <button wire:click="periodoActivar({{ $p->id }})" type="button" title="Activar periodo" class="px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
                                     Activar
                                 </button>
                             @endif

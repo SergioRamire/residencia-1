@@ -51,7 +51,7 @@ class StudyingController extends Component
                 'users.id as iduser',
                 'course_details.id as idcurso'
             )
-            // ->where("users.id", $this->user->id)
+            ->where("users.id", $this->user->id)
             ->where("inscriptions.estatus_participante", $this->estatus)
             ->get();;
     }

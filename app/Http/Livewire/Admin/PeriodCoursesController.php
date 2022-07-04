@@ -174,7 +174,6 @@ class PeriodCoursesController extends Component
         $period = Period::findOrFail($id);
         $this->periodo_id = $id;
         $this->confirmingPeriodActive=true;
-        $this->desactivarTodos();
     }
     public function periodoDesactivar($id){
         $period = Period::findOrFail($id);
@@ -188,6 +187,7 @@ class PeriodCoursesController extends Component
     }
 
     public function activar(){
+        $this->desactivarTodos();
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
             ->update(['estado' => 1]);
@@ -267,21 +267,9 @@ class PeriodCoursesController extends Component
         ]);
     }
 
-    public $modalConfirmacion;
+
     public bool $estadox = false;
-    public $color = 'red';
 
-    public function act($id){
-        $this->modalConfirmacion = true;
-        $this->estadox = true;
-        $this->color = 'green';
-    }
-
-    public function des($id){
-        $this->modalConfirmacion = true;
-        $this->estadox = false;
-        $this->color = 'red';
-    }
 
     public function confirmar(){
         if ($this->estadox) {
@@ -289,6 +277,5 @@ class PeriodCoursesController extends Component
         }else {
             $this->estadox = true;
         }
-        $this->modalConfirmacion = false;
     }
 }
