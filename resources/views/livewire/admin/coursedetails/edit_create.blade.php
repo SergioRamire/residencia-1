@@ -3,7 +3,7 @@
         Detalles de curso
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}">
+        <x-jet-label for="x" value="Los campos con * son obligatorios"/>
         <div class="mt-4 flex-1">
             <x-jet-label value="Seleccione el Curso"/>
             @livewire('admin.course-select')
@@ -33,20 +33,17 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Hora inicio -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_inicio" value="Hora inicio*" />
-                    <x-jet-input wire:model.defer="hora_inicio" class="block mt-1 w-full" type="time" id="hora_inicio"
-                        name="hora_inicio" />
-                        {{-- <input type="time" id="liveTimeStr" value="16:32"> --}}
-                        {{-- <input  wire:model.defer="hora_inicio" id = "hora_inicio"  type = "time"  nombre = "hora_inicio"
-                         min="12:00"  max = "18:00"  patrón requerido="[0-24]{2}:[0-9]{2}" > --}}
+                    <x-jet-label for="hora_inicio1" value="Hora inicio*" />
+                    <x-datepicker wire:model.defer="hora_inicio" class="block mt-1 w-full" ref="hora_inicio1" name="hora_inicio1"
+                                  :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="hora_inicio" />
                 </div>
 
                 <!-- Hora fin -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_fin" value="Hora fin*" />
-                    <x-jet-input wire:model.defer="hora_fin" class="block mt-1 w-full" type="time" id="hora_fin"
-                        name="hora_fin" />
+                    <x-jet-label for="hora_fin1" value="Hora fin*" />
+                    <x-datepicker wire:model.defer="hora_fin" class="block mt-1 w-full" ref="hora_fin1" name="hora_fin1"
+                                  :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="hora_fin" />
                 </div>
             </div>
