@@ -3,7 +3,7 @@
         {{ $edit ? 'Editar usuario' : 'Crear usuario' }}
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" /><br>
+        <x-jet-label for="x"  value="Los campos con * son obligatorios" /><br>
         <form wire:submit.prevent="confirmSave()" id="userForm">
             <!-- Nombre y Apellidos -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
