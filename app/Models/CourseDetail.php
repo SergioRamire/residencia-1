@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -41,6 +42,20 @@ class CourseDetail extends Model
     public function period()
     {
         return $this->belongsTo(Period::class);
+    }
+
+    protected function horaInicio(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => date('H:i', strtotime($value)),
+        );
+    }
+
+    protected function horaFin(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => date('H:i', strtotime($value)),
+        );
     }
 
     /* public function periods()

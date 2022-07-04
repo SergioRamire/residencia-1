@@ -1,4 +1,11 @@
 <div>
+    @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    @endpush
+    @push('styles')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    @endpush
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
             DETALLES DE CURSOS
