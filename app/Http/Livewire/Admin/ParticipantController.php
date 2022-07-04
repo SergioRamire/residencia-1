@@ -7,6 +7,7 @@ use App\Http\Traits\WithSearching;
 use App\Http\Traits\WithSorting;
 use App\Http\Traits\WithTrimAndNullEmptyStrings;
 use App\Models\User;
+use App\Rules\Time;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
@@ -59,8 +60,8 @@ class ParticipantController extends Component
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
             'user.correo_tecnm' => ['email', 'ends_with:@oaxaca.tecnm.mx', Rule::unique('users', 'correo_tecnm')->ignore($this->user)],
             'user.puesto_en_area' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'user.hora_entrada' => 'required',
-            'user.hora_salida' => 'required',
+            'user.hora_entrada' => ['required', new Time('07:00:00', '17:00:00')],
+            'user.hora_salida' => ['required', new Time('08:00:00', '18:00:00')],
             'user.cuenta_moodle' => ['required',  'in:0,1'],
             'user.organizacion_origen' => ['required', 'max:255'],
             'user.jefe_inmediato' => ['required', 'regex:/^[\pL\pM\s.]+$/u', 'max:255'],
@@ -134,7 +135,7 @@ class ParticipantController extends Component
                           ->orWhere('areas.nombre', 'like', '%'.$this->search.'%');
                     });
                 })
-                
+
                 ->when($this->filters['area'], fn ($query, $area) => $query->where('area_id', $area))
                 ->when($this->filters['tipo'], fn ($query, $tipo) => $query->where('tipo', $tipo))
                 ->when($this->filters['sexo'], fn ($query, $sexo) => $query->where('sexo', $sexo))

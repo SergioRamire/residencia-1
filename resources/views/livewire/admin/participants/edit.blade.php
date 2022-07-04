@@ -148,14 +148,16 @@
                 <!-- Hora entrada -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="hora_entrada" value="Hora entrada*"/>
-                    <x-jet-input wire:model.defer="user.hora_entrada" class="block mt-1 w-full" type="time" id="hora_entrada" name="hora_entrada"/>
+                    <x-datepicker wire:model.defer="user.hora_entrada" class="block mt-1 w-full" ref="hora_entrada" name="hora_entrada"
+                                  :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="user.hora_entrada"/>
                 </div>
 
                 <!-- Hora salida -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="hora_salida" value="Hora salida*"/>
-                    <x-jet-input wire:model.defer="user.hora_salida" class="block mt-1 w-full" type="time" id="hora_salida" name="hora_salida"/>
+                    <x-datepicker wire:model.defer="user.hora_salida" class="block mt-1 w-full" ref="hora_salida" name="hora_salida"
+                                  :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="user.hora_salida"/>
                 </div>
             </div>
