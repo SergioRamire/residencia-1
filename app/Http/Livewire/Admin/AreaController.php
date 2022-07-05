@@ -33,10 +33,10 @@ class AreaController extends Component
     public function rules(): array{
         if ($this->edit) {
             return [
-                'areas.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'areas.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u',Rule::unique('areas', 'nombre')->ignore($this->areas)],
                 'areas.jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
                 'areas.extension' => ['required', 'numeric'],
-                'areas.clave' => ['required', 'alpha_num'],
+                'areas.clave' => ['required', 'alpha_num',Rule::unique('areas', 'clave')->ignore($this->areas)],
                 'areas.telefono' => ['required', 'numeric'],
         ];}
         return [

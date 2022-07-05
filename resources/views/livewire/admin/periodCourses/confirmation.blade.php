@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea guardar cambios del periodo de  <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
+        ¿Seguro que desea guardar cambios del periodo de  <strong>{{$periods->clave}}</strong>?
     </x-slot>
 
     {{-- botones --}}
@@ -14,7 +14,7 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-danger-button class="ml-3" wire:click="store" wire:loading.attr="disabled">
+        <x-jet-danger-button class="ml-3" wire:click="save" wire:loading.attr="disabled">
             Guardar
         </x-jet-danger-button>
     </x-slot>

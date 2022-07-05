@@ -62,7 +62,7 @@
                 </x-slot>
 
                 @forelse($datosareas as $a)
-                    <tr wire:key="area-{{ $a->id }}" wire:loading.class.delay="opacity-50">
+                    <tr wire:key="area-{{ $loop->index}}" wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $a->clave }}</x-table.cell>
                         <x-table.cell>{{ $a->nombre }}</x-table.cell>
                         <x-table.cell>{{ $a->jefe_area }}</x-table.cell>

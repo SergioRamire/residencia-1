@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea eliminar el Periodo de <strong> {{ date('d-m-Y', strtotime($period->fecha_inicio)) }} - {{date('d-m-Y', strtotime($period->fecha_fin)) }} </strong> ?
+        ¿Seguro que desea eliminar el Periodo de <strong>{{$periods->clave}}</strong> ?
     </x-slot>
 
     {{-- botones --}}

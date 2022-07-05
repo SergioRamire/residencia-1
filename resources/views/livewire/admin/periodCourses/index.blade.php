@@ -63,8 +63,8 @@
 
                 </x-slot>
 
-                @forelse($periods as $p)
-                    <tr wire:key="period-{{ $p->id }}" wire:loading.class.delay="opacity-50">
+                @forelse($datos as $p)
+                    <tr wire:key="period-{{ $loop->index}}" wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $p->clave }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
@@ -79,7 +79,7 @@
                             <button  wire:click="edit({{ $p->id }})" type="button" title="Editar periodo" class=" px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="deletePeriod('{{ $p->id }}','{{ $p->fecha_inicio }}','{{ $p->fecha_fip }}')" type="button" title="Eliminar periodo" class="pr-px-3 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="deletePeriod('{{ $p->id }}')" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                             @if($p->estado === 1)
@@ -113,7 +113,7 @@
                 @endforelse
             </x-table>
             <div>
-                {{ $periods->links() }}
+                {{ $datos->links() }}
             </div>
             @if ($create)
                 @include('livewire.admin.periodCourses.edit_create', ['modo' => 'Crear'])
