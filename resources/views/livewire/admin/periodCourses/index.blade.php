@@ -13,14 +13,14 @@
             </x-jet-secondary-button>
         </div>
         <!-- Opciones de tabla -->
-        <span class="mx-4 text-gray-500"></span>
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
+            <!-- Parte izquierda -->
             <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                <div>
+                <div class="w-full">
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
                     <x-input.error wire:model="filters" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio2" name="fecha_inicio2" for="fecha_inicio2"/>
                 </div>
-                <div>
+                <div class="w-full" >
                     <x-jet-label for="hasta" value="Hasta" class="text-lg" />
                     <x-input.error wire:model="filters2" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin2" name="fecha_fin2" for="fecha_fin2"/>
                 </div>
