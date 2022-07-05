@@ -7,26 +7,25 @@
     <div class="space-y-2">
 
         <!-- Opciones de tabla -->
-        <span class="mx-4 text-gray-500"></span>
-        <div class="md:flex md:justify-between space-y-2 md:space-y-0">
-            <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                <div>
+        <div class="space-y-2">
+            <div class="flex flex-wrap">
+                <div class="md:w-1/2 max-w-xs col-start pr-1">
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
                     <x-input.error wire:model="filters" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required />
                 </div>
-                <div>
+                <div class="md:w-1/2 max-w-xs col-start pr-1">
                     <x-jet-label for="hasta" value="Hasta" class="text-lg" />
                     <x-input.error wire:model="filters2" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required />
-                </div>
-                <div class="flex items-end">
-                    <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">
-                        <x-icon.trash solid alt="sm" class="inline-block h-5 w-5" />
-                    </x-jet-secondary-button>
                 </div>
             </div>
 
             <!-- Parte derecha -->
-            <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
+            <div class="flex justify-between">
+                <div>
+                    <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">
+                        borrar filtro
+                    </x-jet-secondary-button>
+                </div>
                 <div>
                     <x-input.select wire:model="perPage" class="block w-full">
                         <option value=8>8 por página</option>

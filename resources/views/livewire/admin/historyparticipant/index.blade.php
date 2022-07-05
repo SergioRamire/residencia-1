@@ -6,27 +6,19 @@
     </x-slot>
     <div class="space-y-2">
 
-        <div class="md:flex md:justify-between space-y-2 md:space-y-0">
-            <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                <div>
+
+        <div class="space-y-2">
+            <div class="flex flex-wrap">
+                <div class="w-auto pr-2">
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
                     <x-input.error wire:model="filters1" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required />
                 </div>
-                <div>
+                <div class="w-auto pr-2">
                     <x-jet-label for="hasta" value="Hasta" class="text-lg" />
                     <x-input.error wire:model="filters2" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required />
                 </div>
-                <div class="flex items-end">
-                    <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">
-                        <x-icon.trash solid alt="sm" class="inline-block h-5 w-5" />
-                    </x-jet-secondary-button>
-                </div>
-
-
-
-                <div class="flex items-end">
-
-                    <x-dropdown width="w-full" align="right" dropdownClasses="md:w-72" content-classes="py-4 bg-white divide-y">
+                <div class="w-auto pr-2 flex items-end">
+                    <x-dropdown class="w-full h-11" align="right" dropdownClasses="md:w-72" content-classes="py-4 bg-white divide-y">
                         <x-slot name="trigger">
                             <button class="inline-flex justify-center w-full rounded-md border hover:border-[#1b396a] shadow-sm px-2.5 py-2.5 bg-white font-medium focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" :class="open ? 'text-indigo-400 hover:text-indigo-500 border-[#1b396a]' : 'text-gray-400 hover:text-gray-500 border-[#1b396a]'">
                                 @if(in_array(true, $filters))
@@ -40,7 +32,7 @@
                                 @endif
                             </button>
                         </x-slot>
-
+    
                         <x-slot name="content">
                             <!-- Reiniciar filtros -->
                             <div class="block px-4 py-2 space-y-1">
@@ -49,7 +41,7 @@
                                     <x-icon.trash class="h-5 w-5"/>
                                 </button>
                             </div>
-
+    
                             <!-- Cursos -->
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
@@ -60,7 +52,7 @@
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
                                     <x-jet-label for="perfil" value="Perfil"/>
-
+    
                                     <x-input.select wire:model="filters.filtro_perfil" id="perfil" class="mt-1 w-full" name="perfil" required>
                                         <option value="" disabled>Selecciona perfil...</option>
                                         <option value="Formación docente">Formación docente</option>
@@ -68,24 +60,27 @@
                                     </x-input.select>
                                 </div>
                             </div>
-
+    
                         </x-slot>
                     </x-dropdown>
+                </div>
+                <div class="w-auto pr-2 flex items-end">
+                    <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="h-11 border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">
+                        borrar filtro
+                    </x-jet-secondary-button>
                 </div>
 
 
             </div>
 
             <!-- Parte derecha -->
-            <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
-                <div>
-                    <x-input.select wire:model="perPage" class="block w-full">
-                        <option value=8>8 por página</option>
-                        <option value=10>10 por página</option>
-                        <option value=25>25 por página</option>
-                        <option value=50>50 por página</option>
-                    </x-input.select>
-                </div>
+            <div class="flex justify-end">
+                <x-input.select wire:model="perPage" class="block w-full">
+                    <option value=8>8 por página</option>
+                    <option value=10>10 por página</option>
+                    <option value=25>25 por página</option>
+                    <option value=50>50 por página</option>
+                </x-input.select>
             </div>
         </div>
         <!-- Tabla -->
