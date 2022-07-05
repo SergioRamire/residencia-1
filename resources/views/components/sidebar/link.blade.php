@@ -2,12 +2,12 @@
 
 @php
     $linkClasses = ($active ?? false)
-                ? 'bg-orange-200 text-sky-800 group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                : 'text-sky-800 hover:bg-orange-100 hover:text-sky-900 group flex items-center px-2 py-2 text-base font-medium rounded-md';
+                ? 'bg-orange-400 text-black group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                : 'text-[#1b396a] hover:bg-orange-100 hover:text-black group flex items-center px-2 py-2 text-base font-medium rounded-md';
 
     $iconClasses = ($active ?? false)
-                ? 'text-sky-800 mr-4 flex-shrink-0 h-6 w-6'
-                : 'text-sky-700 group-hover:text-sky-800 mr-4 flex-shrink-0 h-6 w-6';
+                ? 'text-black mr-4 flex-shrink-0 h-6 w-6'
+                : 'text-[#1b396a] group-hover:text-black mr-4 flex-shrink-0 h-6 w-6';
 @endphp
 
 <a {{ $attributes->merge(['class' => $linkClasses]) }}>

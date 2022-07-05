@@ -122,7 +122,7 @@ class InscriptionsController extends Component
                             ->get();
                 $hi=$h[0]->hora_inicio;
                 if(in_array($hi,$this->horas_inicio)){
-                    $this-> noti('info','Ya escogiste un curso con el cual se empalma');
+                    $this-> noti('info','Ya escogiste un curso con el horario de este curso');
                 }
                 else{
                     array_push($this->horas_inicio,$hi);
@@ -163,7 +163,7 @@ class InscriptionsController extends Component
                             ->get();
                 $hi=$h[0]->hora_inicio;
                 if(in_array($hi,$this->horas_inicio)){
-                    $this-> noti('info','Ya escogiste un curso con el cual se empalma');
+                    $this-> noti('info','Ya escogiste un curso con el horario de este curso');
                 }
                 else{
                     array_push($this->horas_inicio,$hi);

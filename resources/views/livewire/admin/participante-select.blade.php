@@ -1,7 +1,7 @@
 <div id="buscadorU" name="buscadorU" class="relative border-none flex-1" >
     <input
         type="text"
-        class="grow w-full border-sky-800 text-sky-700 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+        class="grow w-full border-[#1b396a] text-[#1b396a] focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
         placeholder="{{$txt}}"
         wire:click="full"
         wire:model="query"

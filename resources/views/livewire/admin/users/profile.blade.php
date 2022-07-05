@@ -1,6 +1,6 @@
 <div>
     <x-slot name="header">
-        <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-orange-200 border-sky-800 rounded-lg border shadow-md sm:p-8">
+        <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-orange-300 border-[#1b396a] rounded-lg border shadow-md sm:p-8">
             <div class="flex flex-col items-center">
                 <img class="mb-3 w-24 h-24 rounded-full shadow-lg" src="{{ Auth::user()->profile_photo_url }} " alt="Bonnie image" />
                 <h5 class="mb-1 text-2xl font-medium text-gray-900" >
@@ -15,7 +15,7 @@
 
     <div class="max-w-7xl mx-auto pt-5 pb-5">
         <div class="space-y-2">
-            <div class="p-4 bg-sky-50 rounded-lg border border-sky-800 shadow-md sm:p-6 lg:p-8 ">
+            <div class="p-4 bg-blue-100 rounded-lg border border-[#1b396a] shadow-md sm:p-6 lg:p-8 ">
                 <h5 class="text-xl font-medium text-gray-800 ">Datos Personales</h5>
                 <form id="courseForm">
                     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
@@ -59,10 +59,10 @@
                                 <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">{{$user->curp}}</dd>
                             </div>
                         </div>
-                        {{-- sexo --}}
+                        {{-- Género --}}
                         <div>
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Sexo: </dt>
+                                <dt class="text-base font-bold text-gray-900">Género: </dt>
                                 <dd class="mt-1 text-lg font-medium text-gray-900 sm:mt-0 sm:col-span-2">
                                     @if ($user->sexo == 'F')
                                         Femenino
@@ -124,7 +124,7 @@
     @if (!is_null($user->area))
         <div class="max-w-7xl mx-auto pt-5 pb-5">
             <div class="space-y-2">
-                <div class="p-4 bg-sky-50 rounded-lg border border-sky-800 shadow-md sm:p-6 lg:p-8 ">
+                <div class="p-4 bg-blue-100 rounded-lg border border-[#1b396a] shadow-md sm:p-6 lg:p-8 ">
                     <h5 class="text-xl font-medium text-black-800 ">Datos Laborales</h5>
                     <form id="courseForm">
                         <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">

@@ -2,7 +2,7 @@
     class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow">
 
     <!-- Botón para abrir barra lateral en móviles -->
-    <button @click="sidebarOpen = true" type="button" class="px-4 border-r border-sky-800 text-sky-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden">
+    <button @click="sidebarOpen = true" type="button" class="px-4 border-r border-[#1b396a] text-[#1b396a] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden">
         <span class="sr-only">Open sidebar</span>
         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
@@ -120,7 +120,7 @@
 
                 <!-- Botón del desplegable e icono -->
                 <div class="flex items-center">
-                    <p class="hidden md:block mr-2 tracking-wide text-sm font-bold text-sky-800">{{ Str::words(Auth::user()->name, 1,' ')}}{{ Str::words(Auth::user()->apellido_paterno,1)}}{{' '}}{{ Str::words(Auth::user()->apellido_materno) }}</p>
+                    <p class="hidden md:block mr-2 tracking-wide text-sm font-bold text-[#1b396a]">{{ Str::words(Auth::user()->name, 1,' ')}}{{ Str::words(Auth::user()->apellido_paterno,1)}}{{' '}}{{ Str::words(Auth::user()->apellido_materno) }}</p>
                     <button @click="navbarProfileOpen = !navbarProfileOpen" type="button" class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                         <span class="sr-only">Open user menu</span>
                         <img class="h-8 w-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="Profile photo">

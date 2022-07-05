@@ -9,7 +9,7 @@
         <div class="space-y-2">
             <!-- Botón de nuevo -->
             <div>
-                <x-jet-secondary-button wire:click="create()" title="Crear nueva notificación" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                <x-jet-secondary-button wire:click="create()" title="Crear nueva notificación" class="border-[#1b396a] text-[#1b396a] hover:text-sky-500 active:text-[#1b396a] active:bg-sky-50">
                     <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
                     Nueva Notificación
                 </x-jet-secondary-button>
@@ -38,10 +38,10 @@
                     <!-- Selección de paginación -->
                     <div>
                         <x-input.select wire:model="perPage" class="block w-full">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="25">25</option>
+                            <option value=8>8 por página</option>
+                            <option value=10>10 por página</option>
+                            <option value=25>25 por página</option>
+                            <option value=50>50 por página</option>
                         </x-input.select>
                     </div>
                 </div>

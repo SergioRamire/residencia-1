@@ -1,7 +1,7 @@
 <div class="relative border-none flex-1">
-    <input 
-        type="text" 
-        class="form-input w-full border-sky-800 text-sky-700 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" 
+    <input
+        type="text"
+        class="form-input w-full border-[#1b396a] text-[#1b396a] focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
         placeholder="{{$txt}}"
         wire:click="full"
         wire:model="query"
@@ -17,14 +17,14 @@
     @if (!empty($query))
     <div class="fixed top-0 right-0 bottom-0 left-0" wire:click="reset2"></div>
     <div class="absolute z-20 bg-white shadow-lg w-full rounded-lg" style="
-        height:200px; 
+        height:200px;
         overflow-y: scroll;
     ">
         Buscar por "clave" o "nombre del curso"
             @if (!empty($datos))
                 @foreach ($datos as $i => $data)
                 <br>
-                    <a 
+                    <a
                         wire:click="selectCur({{ $data->idc }})"
                         class="inset-x-0 w-full inline-flex items-center px-4 py-2 bg-white
                         border border-gray-300 font-semibold text-gray-700 uppercase text-xs
@@ -32,7 +32,7 @@
                         focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200
                         active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">
                         {{$data->clav}} {{$data->nombre}}
-                    </a>    
+                    </a>
                 @endforeach
             @else
                 <div class="list-item">No hay Resultados</div>

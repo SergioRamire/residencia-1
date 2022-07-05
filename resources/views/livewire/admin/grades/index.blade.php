@@ -54,10 +54,10 @@
                 <!-- Selección de paginación -->
                 <div>
                     <x-input.select wire:model="perPage" class="block w-full">
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
-                        <option value="25">25</option>
+                        <option value=8>8 por página</option>
+                        <option value=10>10 por página</option>
+                        <option value=25>25 por página</option>
+                        <option value=50>50 por página</option>
                     </x-input.select>
                 </div>
             </div>

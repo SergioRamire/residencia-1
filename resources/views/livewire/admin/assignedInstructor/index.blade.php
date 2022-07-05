@@ -36,15 +36,14 @@
                 <!-- Parte derecha -->
                 <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
                     <!-- Selección de paginación -->
-                    {{-- <div>
-                        <x-input.select wire:model="perPage" class="block w-full border-green-300 text-green-700 hover:text-green-500 active:text-green-800 active:bg-green-50">
+                    <div>
+                        <x-input.select wire:model="perPage" class="block w-full">
                             <option value=8>8 por página</option>
                             <option value=10>10 por página</option>
                             <option value=25>25 por página</option>
                             <option value=50>50 por página</option>
-                            <option value=100>100 por página</option>
                         </x-input.select>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
 
@@ -70,7 +69,7 @@
                                 <button  wire:click="openModalCreate({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
                                     Añadir
                                 </button>
-                                <button  wire:click="openModalShow({{ $g->idcurdet }})" type="button" title="Ver instructor" class="px-4 bg-white hover:text-white hover:bg-sky-800 text-black font-bold border border-sky-400 rounded shadow" >
+                                <button  wire:click="openModalShow({{ $g->idcurdet }})" type="button" title="Ver instructor" class="px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                     Ver
                                 </button>
 

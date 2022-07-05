@@ -63,7 +63,7 @@
                     @if ($btnContinuar)
                         <div class="mt-4 flex justify-end">
 
-                    <x-jet-secondary-button wire:click="addHorario()" class="border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+                    <x-jet-secondary-button wire:click="addHorario()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
                             Continuar
                     </x-jet-secondary-button>
                         </div>
@@ -77,12 +77,12 @@
     <div class="space-y-2 pt-8">
         <div class="grid grid-cols-2 justify-center">
             <div class="grid justify-center">
-                <x-jet-secondary-button wire:click="switchbtn1()" class="border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+                <x-jet-secondary-button wire:click="switchbtn1()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
                         Cursos de la Semana 1
                 </x-jet-secondary-button>
             </div>
             <div class="grid justify-center">
-                <x-jet-secondary-button wire:click="switchbtn2()" class="border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+                <x-jet-secondary-button wire:click="switchbtn2()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
                         Cursos de la Semana 2
                 </x-jet-secondary-button>
             </div>
@@ -132,7 +132,7 @@
                                             </x-table.cell>
 
                                             <x-table.cell>
-                                                <button  wire:click="add({{ $c->curdet }})" type="button" class="px-4 bg-white hover:bg-sky-200 text-black font-bold border border-sky-400 rounded shadow" >
+                                                <button  wire:click="add({{ $c->curdet }})" type="button" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
                                                     Seleccionar
                                                 </button>
                                             </x-table.cell>
@@ -203,7 +203,7 @@
                                                     / {{ $c->capacidad }}
                                                 </x-table.cell>
                                                 <x-table.cell>
-                                                    <button  wire:click="addTabla2({{ $c->curdet }})" type="button" class="px-4 bg-white hover:bg-sky-200 text-black font-bold border border-sky-400 rounded shadow" >
+                                                    <button  wire:click="addTabla2({{ $c->curdet }})" type="button" class="px-4 bg-white hover:bg-blue-100  text-black font-bold border border-[#1b396a] rounded shadow" >
                                                         Seleccionar
                                                     </button>
                                                 </x-table.cell>

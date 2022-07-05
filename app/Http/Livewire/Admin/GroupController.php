@@ -36,12 +36,12 @@ class GroupController extends Component
     {
         if ($this->edit) {
             return [
-                'nombre' => ['required', 'regex:/^[\pL\pM]+$/u', 'max:8'],
+                'nombre' => ['required', 'alpha_dash', 'max:8'],
             ];
         }
 
         return [
-            'nombre' => ['required', 'regex:/^[\pL\pM]+$/u', 'max:8', 'unique:groups'],
+            'nombre' => ['required', 'alpha_dash', 'max:8', 'unique:groups'],
         ];
     }
 

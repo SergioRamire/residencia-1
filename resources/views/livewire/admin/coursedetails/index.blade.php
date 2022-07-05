@@ -17,7 +17,7 @@
         <!-- Botón de nuevo -->
         <div>
             <x-jet-secondary-button wire:click="create()"
-                class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-[#1b396a] active:bg-sky-50">
                 <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
                 Aregar detalles de curso
             </x-jet-secondary-button>
@@ -49,10 +49,10 @@
                 <!-- Selección de paginación -->
                 <div>
                     <x-input.select wire:model="perPage" class="block w-full">
-                        <option value=5>5</option>
-                        <option value=10>10</option>
-                        <option value=15>15</option>
-                        <option value=25>25</option>
+                        <option value=8>8 por página</option>
+                        <option value=10>10 por página</option>
+                        <option value=25>25 por página</option>
+                        <option value=50>50 por página</option>
                     </x-input.select>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                         <x-table.cell>{{ $d->lugar }}</x-table.cell>
                         <x-table.cell>{{ $d->grupo }}</x-table.cell>
                         <x-table.cell>
-                            <button  wire:click="view({{ $d->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-sky-800 text-black font-bold border border-sky-400 rounded shadow" >
+                            <button  wire:click="view({{ $d->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                 Ver
                             </button>
                             <button  wire:click="edit({{ $d->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >

@@ -9,7 +9,7 @@
 <div x-cloak x-show="sidebarOpen" class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
 
     <!-- Superposición con opacidad -->
-    <div class="fixed inset-0 bg-sky-800 bg-opacity-75" aria-hidden="true"
+    <div class="fixed inset-0 bg-[#1b396a] bg-opacity-75" aria-hidden="true"
          x-cloak x-show="sidebarOpen" @click="sidebarOpen = false"
          x-transition:enter="transition-opacity ease-linear duration-300"
          x-transition:enter-start="opacity-0"

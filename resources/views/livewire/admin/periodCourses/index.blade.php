@@ -7,7 +7,7 @@
     <div class="space-y-2">
         <!-- Botón de nuevo -->
         <div>
-            <x-jet-secondary-button wire:click="create()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+            <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-[#1b396a] hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
                 <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
                 Nuevo Periodo
             </x-jet-secondary-button>
@@ -18,11 +18,11 @@
             <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
                 <div>
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
-                    <x-input.error wire:model="filters" class="block mt-1 w-full border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio2" name="fecha_inicio2" for="fecha_inicio2"/>
+                    <x-input.error wire:model="filters" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio2" name="fecha_inicio2" for="fecha_inicio2"/>
                 </div>
                 <div>
                     <x-jet-label for="hasta" value="Hasta" class="text-lg" />
-                    <x-input.error wire:model="filters2" class="block mt-1 w-full border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin2" name="fecha_fin2" for="fecha_fin2"/>
+                    <x-input.error wire:model="filters2" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin2" name="fecha_fin2" for="fecha_fin2"/>
                 </div>
                 <div class="flex items-end">
                     <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">
@@ -37,10 +37,10 @@
                 <!-- Selección de paginación -->
                 <div>
                     <x-input.select wire:model="perPage" class="block w-full">
-                        <option value=5>5</option>
-                        <option value=10>10</option>
-                        <option value=15>15</option>
-                        <option value=25>25</option>
+                        <option value=8>8 por página</option>
+                        <option value=10>10 por página</option>
+                        <option value=25>25 por página</option>
+                        <option value=50>50 por página</option>
                     </x-input.select>
                 </div>
             </div>

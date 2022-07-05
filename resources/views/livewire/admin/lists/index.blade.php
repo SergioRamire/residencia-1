@@ -9,7 +9,7 @@
         <div class="space-y-2">
 
             <div class="w-full">
-                <x-jet-secondary-button wire:click="create()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
                     <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
                     Registrar participante
                 </x-jet-secondary-button>
@@ -43,7 +43,7 @@
                      <!-- Filtros -->
                      <x-dropdown width="w-full" align="right" dropdownClasses="md:w-72" content-classes="py-1 bg-white divide-y">
                         <x-slot name="trigger">
-                            <button class="inline-flex justify-center w-full rounded-md border hover:border-sky-800 shadow-sm px-2.5 py-2.5 bg-white font-medium focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" :class="open ? 'text-indigo-400 hover:text-indigo-500 border-sky-800' : 'text-gray-400 hover:text-gray-500 border-sky-800'">
+                            <button class="inline-flex justify-center w-full rounded-md border hover:border-[#1b396a] shadow-sm px-2.5 py-2.5 bg-white font-medium focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" :class="open ? 'text-indigo-400 hover:text-indigo-500 border-[#1b396a]' : 'text-gray-400 hover:text-gray-500 border-[#1b396a]'">
                                 @if(in_array(true, $filters))
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd"/>
@@ -107,10 +107,10 @@
                     <!-- Selección de paginación -->
                     <div>
                         <x-input.select wire:model="perPage" class="block w-full">
-                            <option value="5">8</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="25">25</option>
+                            <option value=8>8 por página</option>
+                            <option value=10>10 por página</option>
+                            <option value=25>25 por página</option>
+                            <option value=50>50 por página</option>
                         </x-input.select>
                     </div>
                 </div>

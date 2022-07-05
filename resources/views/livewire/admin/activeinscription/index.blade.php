@@ -1,7 +1,7 @@
 <div>
 
     <div class="p-6 w-full bg-white rounded-lg border border-sky-600 shadow-md shadow-sky-800">
-        
+
         <div class="py-4 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="lg:text-center">
@@ -22,12 +22,12 @@
                                             <x-badge.basic value="Activo" color="green" large/>
                                         @elseif($f->estado === 0)
                                             <x-badge.basic value="Inactivo" color="red" large/>
-                                        @endif    
+                                        @endif
                                     </dd>
                                 </div>
                             @endforeach
                         </dl>
-                    </div>                    
+                    </div>
                 @endif
             </div>
         </div>
@@ -36,11 +36,11 @@
             <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
                 <div class="flex justify-center ">
                     <x-jet-secondary-button wire:click="activar()"
-                        class="mx-10 border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+                        class="mx-10 border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
                         Activar
                     </x-jet-secondary-button>
                     <x-jet-secondary-button wire:click="desactivar()"
-                        class="mx-10 border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+                        class="mx-10 border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
                         Desactivar
                     </x-jet-secondary-button>
                 </div>

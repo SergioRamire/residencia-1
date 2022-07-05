@@ -32,7 +32,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-jet-secondary-button type="submit" class="ml-4 bg-white border-sky-800 text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+                <x-jet-secondary-button type="submit" class="ml-4 bg-white border-[#1b396a] text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
                     {{ __('Reset Password') }}
                 </x-jet-secondary-button>
             </div>
