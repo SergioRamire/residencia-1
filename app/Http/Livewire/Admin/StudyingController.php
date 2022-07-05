@@ -8,7 +8,7 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use Illuminate\Support\Carbon;
 
 class StudyingController extends Component
 {
@@ -94,21 +94,23 @@ class StudyingController extends Component
     }
 
     public function downloadPdf($iduser,$idcurso){
-        // dd()
         $coursesdetails = $this->consultapdf($iduser, $idcurso);
         $instructor = $this->consultains( $idcurso);
-        setlocale(LC_TIME, "spanish");
-        $newDate = date("d-m-Y", strtotime($coursesdetails[0]->f1));
-        $fechaini = strftime("%d de %B", strtotime($newDate));
-        $newDate2 = date("d-m-Y", strtotime($coursesdetails[0]->f2));
-        $fechafin = strftime("%d de %B de %Y", strtotime($newDate2));
+        list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($coursesdetails[0]);
 
-        $pdf = Pdf::loadView('livewire.admin.studying.descargarcedula', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fechaini,'fecha_f'=> $fechafin]);
+        $pdf = Pdf::loadView('livewire.admin.studying.download_cedula', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fecha_inicial,'fecha_f'=> $fecha_final,'day_actual'=> $dia_actual]);
         $pdf_file = storage_path('app/')."Cedula de Inscipcion.pdf";
         $pdf->setPaper("A4",'landscape');
         $pdf->save($pdf_file);
         return response()->download($pdf_file)->deleteFileAfterSend();
     }
 
+    private function getDates(?CourseDetail $coursesdetails): array
+    {
+        $fechaini = Carbon::parse($coursesdetails->f1)->isoFormat('D \d\e MMMM');
+        $fecha_fin = Carbon::parse($coursesdetails->f2)->isoFormat('D \d\e MMMM \d\e YYYY');
+        $dia_actual = Carbon::now()->isoFormat('D \d\e MMMM \d\e YYYY');
+        return [$fechaini, $fecha_fin, $dia_actual];
+    }
 
 }

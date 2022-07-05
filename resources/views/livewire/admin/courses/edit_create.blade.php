@@ -3,6 +3,7 @@
         {{ $edit ? 'Editar curso' : 'Crear curso' }}
     </x-slot>
     <x-slot name="content">
+        <x-jet-label value="Los campos con * son obligatorios" />
         <form wire:submit.prevent="confirmSave()" id="courseForm">
             <!-- Clave y Periodo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">

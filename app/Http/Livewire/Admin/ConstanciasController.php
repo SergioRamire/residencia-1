@@ -38,7 +38,7 @@ class ConstanciasController extends Component
 
     public function render()
     {
-        return view('livewire.admin.constancias.index', [
+        return view('livewire.admin.constancias.index_participant', [
             'calificaciones' => $this->consultaBase()
                 ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
                 'courses.nombre as curso', 'groups.nombre as grupo',
@@ -90,7 +90,7 @@ class ConstanciasController extends Component
             ->get()->first();
         list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($datos);
 
-        $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $datos, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
+        $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $datos, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
         $pdf_file = storage_path('app/')."Constancia - $datos->nombre - $datos->curso - $datos->grupo.pdf";
         $pdf->save($pdf_file);
 
@@ -108,7 +108,7 @@ class ConstanciasController extends Component
         foreach ($consulta as $item) {
             list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($item);
 
-            $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $item, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
+            $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $item, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
             $pdf->save(storage_path('app/pdf/')."Constancia - $item->nombre - $item->curso - $item->grupo.pdf");
         }
 

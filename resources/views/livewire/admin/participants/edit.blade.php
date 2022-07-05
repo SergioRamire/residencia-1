@@ -3,6 +3,7 @@
         Editar user
     </x-slot>
     <x-slot name="content">
+        <x-jet-label value="Los campos con * son obligatorios" /><br>
         <form wire:submit.prevent="confirmSave()" id="participantForm">
             <!-- RFC y CURP -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">

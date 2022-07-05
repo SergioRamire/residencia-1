@@ -4,7 +4,7 @@
         {{$modo}} Área
     </x-slot>
     <x-slot name="content">
-
+        <x-jet-label value="Los campos con * son obligatorios" />
         <form  id="courseForm">
                 <!-- Clave -->
                 <div class="mt-4">

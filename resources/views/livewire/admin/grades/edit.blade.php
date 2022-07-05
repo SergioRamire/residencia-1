@@ -3,7 +3,7 @@
         Actualizar Calificación
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" />
+        <x-jet-label for="x"  value="Los campos con * son obligatorios" />
         <form  id="courseForm">
             <!-- Clave y Grupo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">

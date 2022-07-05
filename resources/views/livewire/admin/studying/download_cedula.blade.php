@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Laravel</title>
+    <title>{{mb_strtoupper($courses[0]->nombre,'utf-8')}}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -99,7 +99,7 @@
     </div>
 
     <div class="container py-2 col-sm-11">
-        <h3 class="container col  col-sm-10">FECHA: {{date('d/m/Y')}}</h3>
+        <h3 class="container col  col-sm-10">FECHA: {{mb_strtoupper($day_actual,'utf-8')}}</h3>
         <table>
             <thead>
                 <td bgcolor="silver">

@@ -3,7 +3,7 @@
         Detalles de curso
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x" value="Los campos con * son obligatorios"/>
+        <x-jet-label value="Los campos con * son obligatorios"/>
         <div class="mt-4 flex-1">
             <x-jet-label value="Seleccione el Curso"/>
             @livewire('admin.course-select')
