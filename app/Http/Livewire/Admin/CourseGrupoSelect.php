@@ -61,8 +61,10 @@ class CourseGrupoSelect extends Component{
     protected $listeners = [
         'valorCursoGrupo',
         'per_send2',
+        'valorPerio',
     ];
     public $id_escojido;
+
     public function valorCursoGrupo($valor){
         // $aux = Course::where('courses.id', '=', $valor)
         //     ->select('courses.nombre as name','courses.clave as clav')
@@ -80,7 +82,11 @@ class CourseGrupoSelect extends Component{
         $this->id_escojido = $valor;
     }
     public $id_perper;
+
     public function per_send2($valor){
+        $this->id_perper = $valor;
+    }
+    public function valorPerio($valor){
         $this->id_perper = $valor;
     }
 }

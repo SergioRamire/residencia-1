@@ -8,10 +8,10 @@
                 <x-jet-label value="Seleccione el participante"/>
                 @livewire('admin.participante-select')
             </div>
-            <div class="mt-4 flex-1">
+            {{-- <div class="mt-4 flex-1">
                 <x-jet-label value="Seleccione el periodo"/>
                 @livewire('admin.period-select2')
-            </div>
+            </div> --}}
             <div class="mt-4 flex-1">
                 <x-jet-label value="Seleccione el Curso"/>
                 @livewire('admin.course-grupo-select')

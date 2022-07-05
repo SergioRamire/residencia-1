@@ -2,13 +2,13 @@
     <x-slot name="header">
         <div class="max-w-7xl mx-auto pt-5 pb-10 text-center bg-orange-300 border-[#1b396a] rounded-lg border shadow-md sm:p-8">
             <div class="flex flex-col items-center">
-                <img class="mb-3 w-h-28 h-28 rounded-full shadow-lg" src="{{ Auth::user()->profile_photo_url }} " alt="Bonnie image" />
-                <h5 class="mb-1 text-2xl font-medium text-gray-900" >
+                <img class="mb-3 w-h-28 h-28 rounded-full shadow-lg transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-300" src="{{ Auth::user()->profile_photo_url }} " alt="Bonnie image" />
+                <h5 class="mb-1 text-2xl font-medium text-gray-900 transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-300" >
                     {{ auth()->user()->name }}
                     {{ auth()->user()->apellido_paterno }}
                     {{ auth()->user()->apellido_materno }}
                 </h5>
-                <span class="text-xl text-black">{{ auth()->user()->email }}</span>
+                <span class="text-xl text-black transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-300">{{ auth()->user()->email }}</span>
             </div>
         </div>
     </x-slot>
