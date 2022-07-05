@@ -5,11 +5,10 @@
     </x-slot>
     <x-slot name="content">
         <form  id="courseForm">
-
                 <!-- Grupo -->
                 <div class="mt-4">
                     <x-jet-label for="Nombre" value="Nombre*" />
-                    <x-input.error wire:model="nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="nombre" maxlength="8" required/>
+                    <x-input.error wire:model="groups.nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="groups.nombre" maxlength="8" required/>
                 </div>
 
         </form>

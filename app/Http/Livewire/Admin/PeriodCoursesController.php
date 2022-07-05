@@ -8,7 +8,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -63,7 +62,6 @@ class PeriodCoursesController extends Component
     public function mount(){
         $this->blankUser();
     }
-
     public function blankUser(){
         $this->periods = Period::make();
     }
@@ -71,7 +69,6 @@ class PeriodCoursesController extends Component
     public function updated($x){
         $this->validateOnly($x);
     }
-
     public function updatingSearch(){
         $this->resetPage();
     }
@@ -79,20 +76,19 @@ class PeriodCoursesController extends Component
     public function openModal(){
         $this->showEditCreateModal = true;
     }
-
     public function closeModal(){
         $this->showEditCreateModal = false;
     }
 
-    public function resetFilters()
-    {
+    public function resetFilters(){
         $this->reset('search');
         $this->reset('filters');
         $this->reset('filters2');
     }
-
-    public function create()    
-    {   
+    /**
+     * @throws AuthorizationException
+     */
+    public function create(){
         $this->blankUser();
         $this->openModal();
         $this->confirmingPeriodDeletion = false;
@@ -135,7 +131,9 @@ class PeriodCoursesController extends Component
             'message' =>  $this->edit ? 'Periodo actualizado exitosamente' : 'Periodo creado exitosamente',
         ]);
     }
-
+    /**
+     * @throws AuthorizationException
+     */
     public function deletePeriod($id)
     {
         $this->authorize('periods.delete');

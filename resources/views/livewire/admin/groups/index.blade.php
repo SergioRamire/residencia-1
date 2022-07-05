@@ -53,8 +53,8 @@
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
-                @forelse($groups as $g)
-                    <tr wire:key="group-{{ $g->id }}" wire:loading.class.delay="opacity-50">
+                @forelse($datos as $g)
+                    <tr wire:key="group-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $g->nombre }}</x-table.cell>
                         <x-table.cell>
                             <button  wire:click="edit({{ $g->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
@@ -83,7 +83,7 @@
                 @endforelse
             </x-table>
             <div>
-                {{ $groups->links() }}
+                {{ $datos->links() }}
             </div>
             @if($create)
                         @include('livewire.admin.groups.edit_create',['modo'=>'Crear'])

@@ -51,7 +51,6 @@ class AreaController extends Component
     public function mount(){
         $this->blankArea();
     }
-
     public function blankArea(){
         $this->areas = Area::make();
     }
@@ -63,11 +62,12 @@ class AreaController extends Component
     public function updatingSearch(){
         $this->resetPage();
     }
-
     public function resetFilters(){
         $this->reset('search');
     }
-
+    /**
+     * @throws AuthorizationException
+     */
     public function create(){
         $this->resetErrorBag();
         $this->blankArea();
@@ -79,14 +79,11 @@ class AreaController extends Component
     public function openModal(){
         $this->showEditCreateModal = true;
     }
-
     public function closeModal(){
         $this->showEditCreateModal = false;
     }
 
-
-    public function save()
-    {
+    public function save(){
         $this->validate();
         $this->areas->save();
         $this->dispatchBrowserEvent('notify', [
@@ -100,19 +97,20 @@ class AreaController extends Component
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
-
         $this->closeModal();
     }
 
-    public function updateArea()
-    {
+    public function updateArea(){
         $this->validate();
         $this->confirmingSaveArea = true;
     }
 
-    public function edit($id)
-    {
+    /**
+        * @throws AuthorizationException
+     */
+    public function edit($id){
          /* Reinicia los errores */
+        $this->authorize('areas.edit');
          $this->resetErrorBag();
          $this->resetValidation();
 
@@ -121,15 +119,16 @@ class AreaController extends Component
         $this->create = false;
         $this->openModal();
     }
-
-    public function deleteArea($id)
-    {
+    /**
+     * @throws AuthorizationException
+     */
+    public function deleteArea($id){
+        $this->authorize('areas.delete');
         $this->areas = Area::findOrFail($id);
         $this->confirmingAreaDeletion = true;
     }
 
-    public function delete()
-    {
+    public function delete(){
         $this->areas->delete();
         $this->confirmingAreaDeletion = false;
         $this->dispatchBrowserEvent('notify', [
@@ -138,8 +137,7 @@ class AreaController extends Component
         ]);
     }
 
-    public function render()
-    {
+    public function render(){
         return view('livewire.admin.areas.index', [
             'datosareas' => Area::where('nombre', 'like', '%'.$this->search.'%')
                             ->orWhere('jefe_area', 'like', '%'.$this->search.'%')
