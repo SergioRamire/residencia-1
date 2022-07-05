@@ -7,6 +7,7 @@ use App\Http\Traits\WithSearching;
 use App\Http\Traits\WithSorting;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -87,10 +88,9 @@ class ConstanciasController extends Component
         $datos = $this->consultaBase()
             ->where('inscriptions.id', '=', $id)
             ->get()->first();
-        $fechaini = $this->convertirfecha2($datos->fi);
-        $fechafin =  $this->convertirfecha($datos->ff);
-        $diaactual = $this->convertirfecha(date('d-m-Y'));
-        $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $datos,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
+        list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($datos);
+
+        $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $datos, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
         $pdf_file = storage_path('app/')."Constancia - $datos->nombre - $datos->curso - $datos->grupo.pdf";
         $pdf->save($pdf_file);
 
@@ -106,10 +106,9 @@ class ConstanciasController extends Component
         \Storage::makeDirectory('pdf');
 
         foreach ($consulta as $item) {
-            $fechaini = $this->convertirfecha2($item->fi);
-            $fechafin =  $this->convertirfecha($item->ff);
-            $diaactual = $this->convertirfecha(date('d-m-Y'));
-            $pdf = Pdf::loadView('livewire.admin.constancias.descarga', ['datos' => $item,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
+            list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($item);
+
+            $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $item, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
             $pdf->save(storage_path('app/pdf/')."Constancia - $item->nombre - $item->curso - $item->grupo.pdf");
         }
 
@@ -145,15 +144,11 @@ class ConstanciasController extends Component
                 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
     }
 
-    public function convertirfecha($fecha){
-        setlocale(LC_TIME, "spanish");
-        $newDate = date("d-m-Y", strtotime($fecha));
-       return  strftime("%d de %B de %Y", strtotime($newDate));
-    }
-
-    public function convertirfecha2($fecha){
-        setlocale(LC_TIME, "spanish");
-        $newDate = date("d-m-Y", strtotime($fecha));
-       return  strftime("%d de %B", strtotime($newDate));
+    private function getDates(?User $datos): array
+    {
+        $fechaini = Carbon::parse($datos->fi)->isoFormat('D \d\e MMMM');
+        $fecha_fin = Carbon::parse($datos->ff)->isoFormat('D \d\e MMMM \d\e YYYY');
+        $dia_actual = Carbon::now()->isoFormat('D \d\e MMMM \d\e YYYY');
+        return [$fechaini, $fecha_fin, $dia_actual];
     }
 }

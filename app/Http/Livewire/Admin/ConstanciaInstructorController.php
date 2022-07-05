@@ -106,10 +106,9 @@ class ConstanciaInstructorController extends Component
         $datos = $this->consultaBase()
             ->where('users.id', '=', $id)
             ->get()->first();
-        $fechaini = $this->convertirfecha2($datos->fi);
-        $fechafin =  $this->convertirfecha($datos->ff);
-        $diaactual = $this->convertirfecha(date('d-m-Y'));
-        $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $datos,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
+        list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($datos);
+
+        $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $datos,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual]);
         $pdf_file = storage_path('app/')."Constancia-$datos->nombre-$datos->grupo.pdf";
         $pdf->save($pdf_file);
 
@@ -118,15 +117,14 @@ class ConstanciaInstructorController extends Component
 
     public function descargarConstanciasZIP()
     {
-        $consulta = $this->consultaBase();
+        $consulta = $this->consultaBase()->get();
 
         \Storage::makeDirectory('pdf');
 
         foreach ($consulta as $item) {
-            $fechaini = $this->convertirfecha2($item->fi);
-            $fechafin =  $this->convertirfecha($item->ff);
-            $diaactual = $this->convertirfecha(date('d-m-Y'));
-            $pdf = Pdf::loadView('livewire.admin.constancias.descargainstructor', ['datos' => $item,'fi'=> $fechaini,'ff'=> $fechafin,'day'=> $diaactual]);
+            list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($item);
+
+            $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $item,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual]);
             $pdf->save(storage_path('app/pdf/')."Constancia-$item->nombre-$item->grupo.pdf");
         }
 
@@ -162,16 +160,11 @@ class ConstanciaInstructorController extends Component
             // ->when($this->filters['filtro_curso'], fn ($query, $filtro_curso) => $query->where('course_details.nombre', '=', $filtro_curso));
     }
 
-    public function convertirfecha($fecha){
-        setlocale(LC_TIME, "spanish");
-        $newDate = date("d-m-Y", strtotime($fecha));
-       return  strftime("%d de %B de %Y", strtotime($newDate));
+    private function getDates(?User $datos): array
+    {
+        $fechaini = Carbon::parse($datos->fi)->isoFormat('D \d\e MMMM');
+        $fecha_fin = Carbon::parse($datos->ff)->isoFormat('D \d\e MMMM \d\e YYYY');
+        $dia_actual = Carbon::now()->isoFormat('D \d\e MMMM \d\e YYYY');
+        return [$fechaini, $fecha_fin, $dia_actual];
     }
-
-    public function convertirfecha2($fecha){
-        setlocale(LC_TIME, "spanish");
-        $newDate = date("d-m-Y", strtotime($fecha));
-       return  strftime("%d de %B", strtotime($newDate));
-    }
-
 }

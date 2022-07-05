@@ -73,16 +73,16 @@
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                         </x-slot>
-                        Mis cursos
+                        En curso
                     </x-sidebar.link>
                 @endcan
 
                 @can('teaching.show')
                 <x-sidebar.link :href='route("instructor.teaching")' :active="request()->routeIs('instructor.teaching')">
                     <x-slot name="icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </x-slot>
-                    Mis cursos
+                    Cursos instruidos
                 </x-sidebar.link>
                 @endcan
 
@@ -274,7 +274,7 @@
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                         </x-slot>
-                        Mis cursos
+                        En curso
                     </x-sidebar.link>
                 @endcan
 
@@ -290,9 +290,9 @@
                 @can('teaching.show')
                 <x-sidebar.link :href='route("instructor.teaching")' :active="request()->routeIs('instructor.teaching')">
                     <x-slot name="icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </x-slot>
-                    Mis cursos
+                    Cursos instruidos
                 </x-sidebar.link>
                 @endcan
 
