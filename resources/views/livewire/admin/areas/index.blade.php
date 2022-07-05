@@ -61,7 +61,7 @@
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
-                @forelse($areas as $a)
+                @forelse($datosareas as $a)
                     <tr wire:key="area-{{ $a->id }}" wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $a->clave }}</x-table.cell>
                         <x-table.cell>{{ $a->nombre }}</x-table.cell>
@@ -72,7 +72,7 @@
                             <button  wire:click="edit({{ $a->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="deleteArea('{{ $a->id }}','{{ $a->nombre }}')" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="deleteArea('{{ $a->id }}')" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                         </x-table.cell>
@@ -95,7 +95,7 @@
                 @endforelse
             </x-table>
             <div>
-                {{ $areas->links() }}
+                {{ $datosareas->links() }}
             </div>
             @if($create)
                         @include('livewire.admin.areas.edit_create',['modo'=>'Crear'])
