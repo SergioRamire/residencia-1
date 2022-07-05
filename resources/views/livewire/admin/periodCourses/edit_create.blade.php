@@ -3,30 +3,26 @@
         {{$modo}} Periodo
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" />
+        {{-- <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" /> --}}
         <form id="courseForm">
             <!-- Clave -->
             <div class="mt-4">
-                @if (!$edit)
-                <p>Clave: </p>
+                <p>Clave * </p>
                 <p class="text-red-700">[Semana] [-] [3 primeras letras del mes] [/] [3 primeras letras del mes] [Año] </p>
                 <p class="text-red-700">  <strong> Ejemplo: 1-ENE/AGO2022</strong> </p>
-                @else
-                    <x-jet-label for="clave" value="Clave"/>
-                @endif
-                <x-input.error wire:model="clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="clave" required/>
+                <x-input.error wire:model="periods.clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="periods.clave" required/>
             </div>
             <!-- Clave y Periodo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Clave -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="FechaInicio" value="Fecha Inicio*"/>
-                    <x-input.error wire:model="fecha_inicio" class="block mt-1 w-full" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required/>
+                    <x-jet-label for="FechaInicio" value="Fecha Inicio *"/>
+                    <x-input.error wire:model="periods.fecha_inicio" class="block mt-1 w-full" type="date" id="fecha_inicio" name="fecha_inicio" for="periods.fecha_inicio" required/>
                 </div>
                 <!-- Perfil -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="FechaFin" value="Fecha Fin*"/>
-                    <x-input.error wire:model="fecha_fin" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required/>
+                    <x-jet-label for="FechaFin" value="Fecha Fin *"/>
+                    <x-input.error wire:model="periods.fecha_fin" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" for="periods.fecha_fin" required/>
                 </div>
             </div>
         </form>

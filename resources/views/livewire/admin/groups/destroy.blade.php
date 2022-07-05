@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea eliminar el grupo <strong> {{$group->nombre}} </strong> ?
+        ¿Seguro que desea eliminar el grupo <strong> {{$groups->nombre}} </strong> ?
     </x-slot>
 
     {{-- botones --}}

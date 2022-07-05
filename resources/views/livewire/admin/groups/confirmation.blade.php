@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea guardar cambios del grupo  <strong> {{$nombre}} </strong>?
+        ¿Seguro que desea guardar cambios del grupo  <strong> {{$groups->nombre}} </strong>?
     </x-slot>
 
     {{-- botones --}}
@@ -14,7 +14,7 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-danger-button class="ml-3" wire:click="store()" wire:loading.attr="disabled">
+        <x-jet-danger-button class="ml-3" wire:click="save()" wire:loading.attr="disabled">
             Guardar
         </x-jet-danger-button>
     </x-slot>

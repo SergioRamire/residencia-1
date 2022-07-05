@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea eliminar el área <span class="font-bold text-red-900">{{ $nombre }}</span>?
+        ¿Seguro que desea eliminar el área <span class="font-bold text-red-900">{{ $areas->nombre }}</span>?
     </x-slot>
 
     {{-- botones --}}

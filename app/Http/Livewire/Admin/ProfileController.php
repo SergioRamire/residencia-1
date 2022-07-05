@@ -6,9 +6,12 @@ use App\Models\Area;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ProfileController extends Component
 {
+    use AuthorizesRequests;
+
     public User $user;
     public Area $area;
     public $showConfirmationModal = false;
@@ -46,6 +49,9 @@ class ProfileController extends Component
             'user.cuenta_moodle'  => '',
         ];
     }
+    public function updated($x){
+        $this->validateOnly($x);
+    }
     public $vali = false;
     public function render(){
         if (
@@ -60,8 +66,7 @@ class ProfileController extends Component
     }
 
     public function editInfo(){
-        // $this->validate();
-        /* cargar valores en apellido */
+        $this->authorize('user.edit');
         if (empty($this->user->apellido_paterno)) {
             $this->no_ap1 = true;
         }else {

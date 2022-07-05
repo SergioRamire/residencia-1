@@ -5,23 +5,26 @@ namespace App\Http\Livewire\Admin;
 use App\Http\Traits\WithSorting;
 use App\Models\Period;
 use Livewire\Component;
-use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 
 class PeriodCoursesController extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
     use WithSorting;
 
-    public Period $period;
+    public Period $periods;
     public $perPage = 5;
     public $search = '';
+
     public $periodo_id;
-    public $fecha_inicio;
-    public $fecha_fin;
-    public $clave;
-    public $numero = 1;
+    
     public $filters = '';
     public $filters2 = '';
     protected $queryString = [
@@ -42,100 +45,79 @@ class PeriodCoursesController extends Component
     public $arreglo_id=[];
     public $arreglo_estatus=[];
 
-    public function rules(): array
-    {
+    public function rules(){
         if ($this->edit) {
             return [
-                'clave' => ['required', 'unique:periods'],
-                'fecha_inicio' => ['required', 'date'],
-                'fecha_fin' => ['required', 'date'],
+                'periods.clave' => ['required',Rule::unique('periods', 'clave')->ignore($this->periods)],
+                'periods.fecha_inicio' => ['required', 'date'],
+                'periods.fecha_fin' => ['required', 'date'],
             ];
-        }
-
+        } 
         return [
-            'clave' => ['required', 'unique:periods'],
-            'fecha_inicio' => ['required', 'date', 'unique:periods'],
-            'fecha_fin' => ['required', 'date', 'unique:periods'],
+            'periods.clave' => ['required', 'unique:periods'],
+            'periods.fecha_inicio' => ['required', 'date', 'unique:periods'],
+            'periods.fecha_fin' => ['required', 'date', 'unique:periods'],
         ];
     }
-
-    public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
+    public function mount(){
+        $this->blankUser();
+    }
+    public function blankUser(){
+        $this->periods = Period::make();
     }
 
-    public function updatingSearch()
-    {
+    public function updated($x){
+        $this->validateOnly($x);
+    }
+    public function updatingSearch(){
         $this->resetPage();
     }
+    
+    public function openModal(){
+        $this->showEditCreateModal = true;
+    }
+    public function closeModal(){
+        $this->showEditCreateModal = false;
+    }
 
-    public function resetFilters()
-    {
+    public function resetFilters(){
         $this->reset('search');
         $this->reset('filters');
         $this->reset('filters2');
     }
-
-    public function create()
-    {
-        $this->resetInputFields();
+    /**
+     * @throws AuthorizationException
+     */
+    public function create(){
+        $this->blankUser();
         $this->openModal();
         $this->confirmingPeriodDeletion = false;
         $this->confirmingSavePeriod = false;
         $this->edit = false;
         $this->create = true;
     }
-
-    public function openModal()
-    {
-        $this->showEditCreateModal = true;
+    /**
+        * @throws AuthorizationException
+     */
+    public function edit($id){
+        $this->authorize('periods.edit');
+        $this->periods = Period::findOrFail($id);
+        $this->edit = true;
+        $this->create = false;
+        $this->openModal();
     }
-
-    public function closeModal()
-    {
-        $this->showEditCreateModal = false;
-    }
-
-    private function resetInputFields()
-    {
-        $this->periodo_id = '';
-        $this->clave = '';
-        $this->fecha_inicio = '';
-        $this->fecha_fin = '';
-    }
-
     public function updatePeriod()
     {
         $this->validate();
         $this->confirmingSavePeriod = true;
     }
 
-    public function edit($id)
-    {
-        $period = Period::findOrFail($id);
-        $this->periodo_id = $id;
-        $this->clave = $period->clave;
-        $this->fecha_inicio = $period->fecha_inicio;
-        $this->fecha_fin = $period->fecha_fin;
-        $this->edit = true;
-        $this->create = false;
-        $this->openModal();
-    }
-
-    public function store()
-    {
-        // $this->validateInputs();
-
-        Period::updateOrCreate(['id' => $this->periodo_id], [
-            'clave' => $this->clave,
-            'fecha_inicio' => $this->fecha_inicio,
-            'fecha_fin' => $this->fecha_fin,
-            'estado' => 0,
-        ]);
+    public function save(){
+        $this->periods->estado = 0;
+        $this->periods->save();
 
         $this->edit = false;
         $this->create = false;
-        $this->confirmingSaveArea = false;
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -143,37 +125,37 @@ class PeriodCoursesController extends Component
         $this->showEditCreateModal = false;
         $this->confirmingPeriodDeletion = false;
         $this->confirmingSavePeriod = false;
-        $this->resetInputFields();
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
             'message' =>  $this->edit ? 'Periodo actualizado exitosamente' : 'Periodo creado exitosamente',
         ]);
     }
-
-    public function deletePeriod($id, $fi, $ff)
+    /**
+     * @throws AuthorizationException
+     */
+    public function deletePeriod($id)
     {
-        $this->period = Period::findOrFail($id);
-        $this->fecha_inicio = $fi;
-        $this->fecha_fin = $ff;
+        $this->authorize('periods.delete');
+        $this->periods = Period::findOrFail($id);
         $this->confirmingPeriodDeletion = true;
     }
 
     public function delete()
     {
-        $this->period->delete();
+        $this->periods->delete();
         $this->confirmingPeriodDeletion = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Periodo eliminado exitosamente',
         ]);
-        $this->resetInputFields();
     }
 
     public function periodoActivar($id){
         $period = Period::findOrFail($id);
         $this->periodo_id = $id;
         $this->confirmingPeriodActive=true;
+        $this->desactivarTodos();
     }
     public function periodoDesactivar($id){
         $period = Period::findOrFail($id);
@@ -187,7 +169,6 @@ class PeriodCoursesController extends Component
     }
 
     public function activar(){
-        $this->desactivarTodos();
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
             ->update(['estado' => 1]);
@@ -251,25 +232,33 @@ class PeriodCoursesController extends Component
     public function render()
     {
         return view('livewire.admin.periodCourses.index', [
-            'periods' => Period::query()
+            'datos' => Period::query()
                 ->when($this->filters, function ($query, $b) {
-                    return $query->where(function ($q) {
-                        $q->where('fecha_inicio', '>=', $this->filters);
-                    });
+                    $query->where('periods.fecha_inicio', '>=', "%$b%");
                 })
                 ->when($this->filters2, function ($query, $b) {
-                    return $query->where(function ($q) {
-                        $q->where('fecha_fin', '<=', $this->filters2);
-                    });
+                    $query->where('periods.fecha_fin', '<=', "%$b%");
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->perPage),
         ]);
     }
 
-
+    public $modalConfirmacion;
     public bool $estadox = false;
+    public $color = 'red';
 
+    public function act($id){
+        $this->modalConfirmacion = true;
+        $this->estadox = true;
+        $this->color = 'green';
+    }
+
+    public function des($id){
+        $this->modalConfirmacion = true;
+        $this->estadox = false;
+        $this->color = 'red';
+    }
 
     public function confirmar(){
         if ($this->estadox) {
@@ -277,5 +266,6 @@ class PeriodCoursesController extends Component
         }else {
             $this->estadox = true;
         }
+        $this->modalConfirmacion = false;
     }
 }

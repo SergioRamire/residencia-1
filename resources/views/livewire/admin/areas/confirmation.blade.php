@@ -6,9 +6,9 @@
 
     <x-slot name="content">
         @if($edit)
-                ¿Seguro que desea guardar los cambios del área <strong>{{ $nombre }}</strong>
+                ¿Seguro que desea guardar los cambios del área <strong>{{ $areas->nombre }}</strong>
             @else
-                ¿Seguro que desea crear el área <strong>{{ $nombre }}</strong>
+                ¿Seguro que desea crear el área <strong>{{ $areas->nombre }}</strong>
             @endif
     </x-slot>
 
@@ -18,7 +18,7 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-danger-button class="ml-3" wire:click="store()" wire:loading.attr="disabled">
+        <x-jet-danger-button class="ml-3" wire:click="save()" wire:loading.attr="disabled">
             Guardar
         </x-jet-danger-button>
     </x-slot>
