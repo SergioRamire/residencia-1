@@ -15,6 +15,7 @@ use App\Exports\UserExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Invoice;
 use App\Models\CourseDetail;
+use App\Models\Period;
 
 class ParticipantListsController extends Component
 {
@@ -40,7 +41,13 @@ class ParticipantListsController extends Component
     public $id_per_;
     public $peri;
     public $curso;
+    public User $participante;
+    public Period $perido;
 
+    public function mount(){    
+        $this->participante = User::make();
+        $this->perido = Period::make();
+    }
     // public $periodo;
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -126,10 +133,11 @@ class ParticipantListsController extends Component
         $this->edit_user = $id;
         $this->edit_curso = $id_detallecurso;
 
-        $this->emit('valorParticipante',$id);
+        // $this->emit('valorParticipante',$id);
         $this->emit('valorPerio',$id_per);
         $this->emit('valorCursoGrupo',$id_detallecurso);
-
+        $this->participante = User::find($id);
+        $this->perido = Period::find($id_per);
 
         $this->edit = true;
         $this->create = false;
