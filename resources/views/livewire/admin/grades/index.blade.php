@@ -16,7 +16,7 @@
     {{-- </div> --}}
 
     <div class="space-y-2">
-        @if($cuenta>1 or $cuenta==0)
+        @if($cuenta>1)
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5 pb-6">
         <!-- Cursos -->
             <div class="mt-1  w-1/2">
@@ -119,11 +119,8 @@
             </div>
             <div class="text-right min-h-full">
                 @if($grades->count() > 0)
-                    <button wire:click="descarga()" class=" hover:bg-gray-400 text-gray-800 font-bold py-2 px-1 rounded inline-flex items-center">
-                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
-                        </svg>
-                        <span>Lista en Excel</span>
+                    <button wire:click="descarga()" title="Descargar lista de participantes" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        Lista en Excel
                     </button>
                     {{-- <x-jet-secondary-button wire:click="descarga()" class="border-sky-800 text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
                         <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
