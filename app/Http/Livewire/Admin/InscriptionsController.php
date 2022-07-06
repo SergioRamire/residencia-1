@@ -253,7 +253,7 @@ class InscriptionsController extends Component
     }
 
     public function render(){
-        dd($this->horarios(1));
+        // dd($this->horarios(1));
         $this->tablaVacia();
         $this->consulta_periodos_a_publicar();
         $this->verficar_mostrar_cursos();
