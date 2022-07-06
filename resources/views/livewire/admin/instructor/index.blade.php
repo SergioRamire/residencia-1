@@ -21,7 +21,7 @@
                     <!-- Barra de búsqueda -->
 
                     <div class="w-full">
-                        <x-input.icon wire:model="search" class="w-full border border" type="text" placeholder="Buscar...">
+                        <x-input.icon wire:model="search" class="w-full border" type="text" placeholder="Buscar...">
                             <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                         </x-input.icon>
                         <label><p class="text-xs font-bold">Buscar por: Nombre, curso o grupo</p></label>
@@ -124,11 +124,3 @@
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener('livewire:load', function() {
-        $('#periodo_id').select2();
-        $('#periodo_id').on('change', function() {
-            @this.set('filters.fecha_inicio', this.value);
-        });
-    });
-</script>

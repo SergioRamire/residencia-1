@@ -116,11 +116,11 @@
                             <x-table.cell>{{ $c->clave }}</x-table.cell>
                             <x-table.cell>{{ $c->nombre }}</x-table.cell>
                             <x-table.cell>{{ $c->perfil }}</x-table.cell>
-                            <x-table.cell>
+                            <x-table.cell width='200' class="whitespace-nowrap">
                                 <button  wire:click="view({{ $c->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                     Ver
                                 </button>
-                                <button  wire:click="edit({{ $c->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                <button  wire:click="edit({{ $c->id }})" type="button" class="mx-2 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                     Editar
                                 </button>
                                 <button wire:click="delete({{ $c->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">

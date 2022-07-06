@@ -64,11 +64,11 @@
                                 <x-table.cell>{{ $r->description}}</x-table.cell>
                                 <x-table.cell>{{ $r->role}}</x-table.cell>
                                 <x-table.cell>{{ $r->created_at->diffForHumans()}}</x-table.cell>
-                                <x-table.cell>
-                                    <button wire:click="view({{$r->id}})" type="button" class="text-indigo-600 hover:text-indigo-900">
+                                <x-table.cell width='200' class="whitespace-nowrap">
+                                    <button wire:click="view({{$r->id}})" type="button" class="mr-1 text-indigo-600 hover:text-indigo-900">
                                         <x-icon.eye class="h-6 w-6"/>
                                     </button>
-                                    <button  wire:click="deletePost('{{$r->id}}' , '{{$r->title}}')" type="button" class="text-red-600 hover:text-red-900">
+                                    <button  wire:click="deletePost('{{$r->id}}' , '{{$r->title}}')" type="button" class="ml-1 text-red-600 hover:text-red-900">
                                         <x-icon.trash class="h-6 w-6"/>
                                     </button>
                                 </x-table.cell>

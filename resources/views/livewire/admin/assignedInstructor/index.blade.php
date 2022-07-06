@@ -65,11 +65,11 @@
                             <x-table.cell class="text-center">{{ $g->lugar }}</x-table.cell>
                             <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
-                            <x-table.cell class="text-center">
-                                <button  wire:click="openModalCreate({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
+                                <x-table.cell width='200' class="whitespace-nowrap">
+                                <button  wire:click="openModalCreate({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="mr-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
                                     Añadir
                                 </button>
-                                <button  wire:click="openModalShow({{ $g->idcurdet }})" type="button" title="Ver instructor" class="px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
+                                <button  wire:click="openModalShow({{ $g->idcurdet }})" type="button" title="Ver instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                     Ver
                                 </button>
 
