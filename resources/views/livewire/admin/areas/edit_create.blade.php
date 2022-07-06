@@ -4,33 +4,33 @@
         {{$modo}} Área
     </x-slot>
     <x-slot name="content">
-        <x-jet-label value="Los campos con * son obligatorios" />
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" />
         <form  id="courseForm">
                 <!-- Clave -->
                 <div class="mt-4">
-                    <x-jet-label for="clave" value="Clave*" />
+                    <x-jet-label for="clave">Clave <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="areas.clave" class="block mt-1 w-full" type="text" id="clave" name="clave" for="areas.clave" required/>
                 </div>
                 <!-- Nombre -->
                 <div class="mt-4">
-                    <x-jet-label for="nombre" value="Nombre*" />
+                    <x-jet-label for="nombre">Nombre <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="areas.nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="areas.nombre" required/>
                 </div>
                 <!-- Jefe -->
                 <div class="mt-4">
-                    <x-jet-label for="nombre" value="Nombre del Jefe*" />
+                    <x-jet-label for="nombre">Nombre del Jefe <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="areas.jefe_area" class="block mt-1 w-full" type="text" id="jefe_area" name="jefe" for="areas.jefe_area" required/>
                 </div>
 
                 <!-- Telefono -->
                 <div class="mt-4">
-                    <x-jet-label for="telefono" value="Teléfono*" />
+                    <x-jet-label for="telefono">Teléfono <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="areas.telefono" class="block mt-1 w-full" type="text" id="telefono" name="telefono" for="areas.telefono" maxlength="10" required/>
                 </div>
 
                 <!-- Extension -->
                 <div class="mt-4">
-                    <x-jet-label for="extension" value="Extensión*" />
+                    <x-jet-label for="extension">Extensión <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="areas.extension" class="block mt-1 w-full" type="text" id="extension" name="extension" for="areas.extension" maxlength="4" required/>
                 </div>
                 </form>

@@ -3,9 +3,9 @@
         Detalles de curso
     </x-slot>
     <x-slot name="content">
-        <x-jet-label value="Los campos con * son obligatorios"/>
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" />
         <div class="mt-4 flex-1">
-            <x-jet-label value="Seleccione el Curso"/>
+            <x-jet-label>Seleccione el Curso <span class="text-red-600">*</span></x-jet-label>
             @livewire('admin.course-select')
         </div>
 
@@ -15,12 +15,12 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Periodo -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="periodo" value="Periodo" />
+                    <x-jet-label for="periodo">Periodo <span class="text-red-600">*</span></x-jet-label>
                     @livewire('admin.period-select2')
                 </div>
                 <!-- Modalidad -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="modalidad" value="Modalidad*"/>
+                    <x-jet-label for="modalidad">Modalidad <span class="text-red-600">*</span></x-jet-label>
                     <x-input.select wire:model.defer="modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
                         <option value="" disabled>Selecciona modalidad...</option>
                         <option value="Presencial" selected>Presencial</option>
@@ -33,7 +33,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Hora inicio -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_inicio1" value="Hora inicio*" />
+                    <x-jet-label for="hora_inicio">Hora inicio <span class="text-red-600">*</span></x-jet-label>
                     <x-datepicker wire:model.defer="hora_inicio" class="block mt-1 w-full" ref="hora_inicio1" name="hora_inicio1"
                                   :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="hora_inicio" />
@@ -41,7 +41,7 @@
 
                 <!-- Hora fin -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_fin1" value="Hora fin*" />
+                    <x-jet-label for="hora_fin">"Hora fin <span class="text-red-600">*</span></x-jet-label>
                     <x-datepicker wire:model.defer="hora_fin" class="block mt-1 w-full" ref="hora_fin1" name="hora_fin1"
                                   :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="hora_fin" />
@@ -50,7 +50,7 @@
 
             <!-- Lugar -->
             <div class="mt-4">
-                <x-jet-label for="lugar" value="Lugar*" />
+                <x-jet-label for="lugar">Lugar <span class="text-red-600">*</span></x-jet-label>
                 <x-input.error wire:model.defer="lugar" class="block mt-1 w-full" type="text" id="lugar" name="lugar"
                     for="lugar" required />
             </div>
@@ -60,14 +60,14 @@
 
                 <!-- Capacidad -->
                 <div class="mt-4">
-                    <x-jet-label for="capacidad" value="Capacidad*" />
+                    <x-jet-label for="capacidad">Capacidad <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="capacidad" class="block mt-1 w-full" type="number" id="capacidad"
                         name="capacidad" for="capacidad" maxlength="2" required />
                 </div>
 
                 <!-- Grupo -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="grupo" value="Grupo*" />
+                    <x-jet-label for="grupo">Grupo <span class="text-red-600">*</span></x-jet-label>
                     <x-input.select wire:model.defer="grupo_id" class="mt-1 w-full" id="grupo_id" name="grupo_id"
                         required>
                         <option value="" disabled>Selecciona el grupo</option>

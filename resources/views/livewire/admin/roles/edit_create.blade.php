@@ -3,10 +3,11 @@
         {{ $edit ? 'Editar rol' : 'Crear rol' }}
     </x-slot>
     <x-slot name="content">
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" /><br>
         <form wire:submit.prevent="confirmSave()" id="roleForm">
             <!-- Nombre -->
             <div>
-                <x-jet-label for="nombre" value="Nombre"/>
+                <x-jet-label for="nombre">Nombre <span class="text-red-600">*</span></x-jet-label>
                 @unless(in_array($role->name, ['Super admin', 'Administrador', 'Participante', 'Instructor']))
                     <x-input.error wire:model="role.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="role.name" required/>
                 @else

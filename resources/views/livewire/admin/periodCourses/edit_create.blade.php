@@ -3,7 +3,7 @@
         {{$modo}} Periodo
     </x-slot>
     <x-slot name="content">
-        {{-- <x-jet-label for="x"  value="{{_('Los campos con * son obligatorios')}}" /> --}}
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" />
         <form id="courseForm">
             <!-- Clave -->
             <div class="mt-4">
@@ -16,12 +16,12 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Clave -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="FechaInicio" value="Fecha Inicio *"/>
+                    <x-jet-label for="FechaInicio" >Fecha Inicio <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="periods.fecha_inicio" class="block mt-1 w-full" type="date" id="fecha_inicio" name="fecha_inicio" for="periods.fecha_inicio" required/>
                 </div>
                 <!-- Perfil -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="FechaFin" value="Fecha Fin *"/>
+                    <x-jet-label for="FechaFin">Fecha Fin <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="periods.fecha_fin" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" for="periods.fecha_fin" required/>
                 </div>
             </div>
