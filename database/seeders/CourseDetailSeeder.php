@@ -29,6 +29,7 @@ class CourseDetailSeeder extends Seeder
                 'calificacion' => $faker->numberBetween(0, 100),
                 'estatus_participante' => $faker->randomElement(['Participante', 'Instructor']),
                 'asistencias_minimas' => $faker->numberBetween(0, 1),
+                'url_cedula' => '',
             ]);
         }
 
