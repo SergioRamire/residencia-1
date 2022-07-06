@@ -76,7 +76,6 @@ class InscriptionsController extends Component
     }
 
     public function openShowHorario(){
-
         $this->showHorario = true;
     }
 
@@ -343,8 +342,12 @@ class InscriptionsController extends Component
             unset($this->arreglo1[$indice3]);
             unset($this->id_arreglo1[$indice4]);
         }
-        $indice5=array_search($id, $this->horas_inicio);
-        unset($this->horas_inicio[$indice5]);
+        $indice5=array_search($id, $this->horas_inicio_semana1);
+        unset($this->horas_inicio_semana1[$indice5]);
+
+        $indice6=array_search($id, $this->horas_inicio_semana2);
+        unset($this->horas_inicio_semana2[$indice6]);
+        
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $this->buscar();
         $this-> noti('trash','Curso descartado');
