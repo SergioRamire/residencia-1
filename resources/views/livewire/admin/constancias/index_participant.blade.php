@@ -121,7 +121,9 @@
                     </div>
                 </div>
             </div>
-
+            @php
+                $i=0;
+            @endphp
             <!-- Tabla -->
             <div class="flex flex-col space-y-2">
                 <x-table>
@@ -150,6 +152,9 @@
                             @endif
                             </x-table.cell>
                             @if($g->calificacion > 69 and $g->asistencias_minimas==1)
+                                @php
+                                    $i++;
+                                @endphp
                                 <x-table.cell width='200' class="whitespace-nowrap">
                                     <button wire:click="descargarConstancia({{ $g->id }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                         Constancia
@@ -180,11 +185,11 @@
                     {{ $calificaciones->links()}}
                 </div>
                 <div class="text-right min-h-full">
-                    @if($calificaciones->count() > 1)
-                        <button wire:click="descargarConstanciasZIP()" title="Descargar todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            Zip de constancias
-                        </button>
-                    @endif
+                    @if($i > 2)
+                            <button wire:click="descargarConstanciasZIP()" title="Descargar todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                Zip de constancias
+                            </button>
+                        @endif
                 </div>
             </div>
         </div>

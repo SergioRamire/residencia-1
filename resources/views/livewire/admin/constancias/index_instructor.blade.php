@@ -95,6 +95,7 @@
                 <x-table>
                     <x-slot name="head">
                         <x-table.header class="text-center">Instructor</x-table.header>
+                        <x-table.header class="text-center">Area</x-table.header>
                         <x-table.header class="text-center">Curso</x-table.header>
                         <x-table.header class="text-center">Grupo</x-table.header>
                         <x-table.header class="text-center">Fecha</x-table.header>
@@ -104,6 +105,7 @@
                     @forelse($instructor as $g)
                         <tr wire:key="instructor-{{$loop->index}}" wire:loading.class.delay="opacity-50">
                             <x-table.cell>{{ $g->name }} {{ $g->apellido_paterno }} {{ $g->apellido_materno }}</x-table.cell>
+                            <x-table.cell class="text-center">{{ $g->nombre_area }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->curso }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->nombregrupo }}</x-table.cell>
                             <x-table.cell class="text-center">{{date('d-m-Y', strtotime($g->fi))}} a {{date('d-m-Y', strtotime($g->ff))}}</x-table.cell>

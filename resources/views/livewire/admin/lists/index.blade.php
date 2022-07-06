@@ -121,6 +121,9 @@
                 <x-table>
                     <x-slot name="head">
                         <x-table.header wire:click="sortBy('rfc')" sortable :direction="$sortField === 'rfc' ? $sortDirection : null">
+                            id
+                        </x-table.header>
+                        <x-table.header wire:click="sortBy('rfc')" sortable :direction="$sortField === 'rfc' ? $sortDirection : null">
                             RFC
                         </x-table.header>
                         <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">
@@ -141,7 +144,8 @@
                     </x-slot>
 
                     @forelse($lists as $l)
-                        <tr wire:key="list-{{ $l->id }}" wire:loading.class.delay="opacity-50">
+                        <tr wire:key="list-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
+                            <x-table.cell>{{ $l->id}} </x-table.cell>
                             <x-table.cell>{{ $l->rfc}} </x-table.cell>
                             <x-table.cell>{{ $l->name }} {{ $l->apellido_paterno }} {{ $l->apellido_materno }}</x-table.cell>
                             <x-table.cell width="200">{{ $l->area }} </x-table.cell>
