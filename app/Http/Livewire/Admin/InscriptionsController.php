@@ -121,15 +121,15 @@ class InscriptionsController extends Component
                 ->selectRaw('count(*) as user_count')
                 ->first();
             if($users->user_count<$cap[0]->capacidad){
-                $h=CourseDetail::select('course_details.hora_inicio')
+                $h2=CourseDetail::select('course_details.hora_inicio')
                             ->where('course_details.id', "=",$id)
                             ->get();
-                $hi=$h[0]->hora_inicio_semana2;
-                if(in_array($hi,$this->horas_inicio_semana2)){
+                $hi2=$h2[0]->hora_inicio;
+                if(in_array($hi2,$this->horas_inicio_semana2)){
                     $this-> noti('info','Ya escogiste un curso con este horario');
                 }
                 else{
-                    array_push($this->horas_inicio_semana2,$hi);
+                    array_push($this->horas_inicio_semana2,$hi2);
                     $this->countabla2=$this->countabla2+1;
                     array_push($this->arreglo1, $id);
                     array_push($this->id_arreglo1, $id);
@@ -181,7 +181,7 @@ class InscriptionsController extends Component
                 $h=CourseDetail::select('course_details.hora_inicio')
                             ->where('course_details.id', "=",$id)
                             ->get();
-                $hi=$h[0]->hora_inicio_semana1;
+                $hi=$h[0]->hora_inicio;
                 if(in_array($hi,$this->horas_inicio_semana1)){
                     $this-> noti('info','Ya escogiste un curso con este horario');
                 }
@@ -343,8 +343,10 @@ class InscriptionsController extends Component
             unset($this->arreglo1[$indice3]);
             unset($this->id_arreglo1[$indice4]);
         }
-        $indice5=array_search($id, $this->horas_inicio);
-        unset($this->horas_inicio[$indice5]);
+        $indice5=array_search($id, $this->horas_inicio_semana1);
+        unset($this->horas_inicio_semana1[$indice5]);
+        $indice6=array_search($id, $this->horas_inicio_semana2);
+        unset($this->horas_inicio_semana2[$indice6]);
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $this->buscar();
         $this-> noti('trash','Curso descartado');

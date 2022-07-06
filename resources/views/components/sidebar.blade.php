@@ -127,9 +127,9 @@
                         <x-sidebar.link class="pl-11" :href='route("admin.participante")' :active="request()->routeIs('admin.participante')">
                             Participantes
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active="request()->routeIs('admin.instructores')">
+                        {{-- <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active="request()->routeIs('admin.instructores')">
                             Instructores
-                        </x-sidebar.link>
+                        </x-sidebar.link> --}}
                     </x-sidebar.dropdown>
                 @endcan
 
@@ -333,9 +333,9 @@
                         <x-sidebar.link class="pl-11" :href='route("admin.participante")' :active="request()->routeIs('admin.participante')">
                             Participantes
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active="request()->routeIs('admin.instructores')">
+                        {{-- <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active="request()->routeIs('admin.instructores')">
                             Instructores
-                        </x-sidebar.link>
+                        </x-sidebar.link> --}}
                     </x-sidebar.dropdown>
                 @endcan
 
