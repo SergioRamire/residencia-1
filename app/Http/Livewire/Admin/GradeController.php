@@ -20,7 +20,7 @@ class GradeController extends Component
     use WithSorting;
 
     // public Inscription $grade;
-    public $perPage = '5';
+    public $perPage = '8';
     public $search = '';
     public $calificacion;
     public $asistencias_minimas;

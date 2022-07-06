@@ -1,6 +1,6 @@
 <div>
 
-    <div class="p-6 w-full bg-white rounded-lg border border-sky-600 shadow-md shadow-sky-800">
+    <div class="p-6 w-full bg-white rounded-lg border border-sky-600 shadow-md shadow-[#1b396a]">
 
         <div class="py-4 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,14 +16,7 @@
                                     <dt>
                                         <p class="flex items-center justify-center ml-16 text-lg leading-6 font-medium text-gray-900">{{ $f->clave }}</p>
                                     </dt>
-                                    <dd class="flex items-center justify-center mt-2 ml-16 font-bold text-lg text-black">{{ date('d-m-Y', strtotime($f->fecha_inicio)) }} - {{ date('d-m-Y', strtotime($f->fecha_fin)) }}</dd>
-                                    <dd class="flex items-center justify-center mt-2 ml-16 font-bold text-base text-black">
-                                        @if($f->estado === 1)
-                                            <x-badge.basic value="Activo" color="green" large/>
-                                        @elseif($f->estado === 0)
-                                            <x-badge.basic value="Inactivo" color="red" large/>
-                                        @endif
-                                    </dd>
+                                    <dd class="flex items-center justify-center mt-2 ml-16 font-bold text-lg text-black">{{ date('d-m-Y', strtotime($f->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($f->fecha_fin)) }}</dd>
                                 </div>
                             @endforeach
                         </dl>
@@ -39,10 +32,6 @@
                         class="mx-10 border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
                         Activar
                     </x-jet-secondary-button>
-                    <x-jet-secondary-button wire:click="desactivar()"
-                        class="mx-10 border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
-                        Desactivar
-                    </x-jet-secondary-button>
                 </div>
             </div>
         @else
@@ -52,7 +41,5 @@
             </div>
         </div>
         @endif
-
-
     </div>
 </div>

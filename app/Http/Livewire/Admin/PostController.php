@@ -36,7 +36,7 @@ class PostController extends Component
     public $confirmingSaveNotificacion=false;
 
     //Variables de busqueda y paginación
-    public int $perPage = 5;
+    public int $perPage = 8;
     protected array $cleanStringsExcept = ['search'];
 
     //atributos del mensaje

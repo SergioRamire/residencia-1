@@ -76,21 +76,26 @@ class ParticipantListsController extends Component
         ->join('groups', 'groups.id', '=', 'course_details.group_id')
         ->join('periods', 'periods.id', '=', 'course_details.period_id')
         ->where('inscriptions.estatus_participante', '=', 'Participante')
-        ->where('course_details.period_id', '=', $periodo)
-        ->where('course_details.course_id', '=', $curso)
+        ->where('course_details.period_id', '=', 1)
+        ->where('course_details.course_id', '=', 10)
+        // ->when($periodo, fn ($query,$p) => $query
+        //     ->where('course_details.course_id', '=', $p))
+        // ->when($curso, fn ($query,$c) => $query
+        //     ->where('course_details.period_id', '=', $c))
         ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
             'users.id as id_user','users.name','users.apellido_paterno','users.apellido_materno','users.rfc',
             'courses.nombre as curso','courses.id as id_curso','groups.nombre as grupo','course_details.id as id_detallecurso',
             'areas.nombre as area', 'periods.fecha_inicio', 'periods.fecha_fin', 'periods.id as id_per')
-        //  ->when($curso, fn ($query, $search) => $query->where('courses.id', $search))
-         ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
-         ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
-         ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,
-         ' ', users.apellido_materno)"), 'like', "%$search%")
-            ->orWhere('users.rfc', 'like', "%$search%")
+        ->when($this->search, fn ($query, $search) => $query
+            ->where('users.name', 'like', '%'.$this->search.'%')
+            ->orWhere('users.rfc', 'like', '%'.$this->search.'%')
             ->orWhere('areas.nombre', 'like', '%'.$this->search.'%')
             ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
             ->orWhere('groups.nombre', 'like', '%'.$this->search.'%'))
+         //  ->when($curso, fn ($query, $search) => $query->where('courses.id', $search))
+        ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
+        ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
+
          ->orderBy($this->sortField, $this->sortDirection);
     }
 

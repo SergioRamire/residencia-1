@@ -23,7 +23,7 @@ class AreaController extends Component
     public $confirmingAreaDeletion = false;
     public $confirmingSaveArea = false;
 
-    public $perPage = '5';
+    public $perPage = '8';
     public $search = '';
     protected $queryString = [
         'search' => ['except' => '', 'as' => 's'],

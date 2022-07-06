@@ -36,7 +36,7 @@ class EmailController extends Component
     public $confirminNotificacion=false;
     public $deletetodasnotifi= false;
     public $confirmingSaveEmail=false;
-    public $perPage = '5';
+    public $perPage = '8';
     public $arreglo=[];
     // public $search = '';
     protected array $cleanStringsExcept = ['search'];

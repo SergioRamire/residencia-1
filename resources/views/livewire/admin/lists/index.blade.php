@@ -150,10 +150,10 @@
                             <x-table.cell>{{ $l->curso }} </x-table.cell>
                             <x-table.cell>{{ $l->grupo }} </x-table.cell>
                             <x-table.cell>
-                                <button  wire:click="edit({{ $l->id_user }},{{$l->id_per}},{{$l->id_detallecurso}})" type="button" class="px-4 bg-amber-100  hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                <button  wire:click="edit({{ $l->id_user }},{{$l->id_per}},{{$l->id_detallecurso}})" type="button" title="Editar inscripción" class="px-4 bg-white  hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                     Editar
                                 </button>
-                                <button wire:click="delete({{ $l->id }})" type="button" class="px-4 bg-red-200  hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                <button wire:click="delete({{ $l->id }})" type="button" title="Eliminar inscripción" class="px-4 bg-white  hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                     Eliminar
                                 </button>
 
@@ -182,7 +182,7 @@
                 </div>
                 <div class="text-right min-h-full">
                     @if($lists->count() > 0)
-                        <button wire:click="descarga()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        <button wire:click="descarga()" title="Descargar lista en formato (.xlsx)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             Descargar lista
                         </button>
                     @endif

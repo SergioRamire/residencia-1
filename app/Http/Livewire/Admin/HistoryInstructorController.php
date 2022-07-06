@@ -12,7 +12,7 @@ class HistoryInstructorController extends Component
     use WithPagination;
     use WithSorting;
 
-    public $perPage = 5;
+    public $perPage = 8;
     public $filters1 = '';
     public $filters2 = '';
     public $per_id = '';

@@ -24,7 +24,7 @@ class CourseController extends Component
 
     public Course $course;
 
-    public int $perPage = 5;
+    public int $perPage = 8;
     protected array $cleanStringsExcept = ['search'];
     public array $filters = [
         // 'modalidad' => '',
@@ -38,7 +38,7 @@ class CourseController extends Component
     public bool $delete = false;
 
     protected $queryString = [
-        'perPage' => ['except' => 5, 'as' => 'p'],
+        'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
     public function rules(): array

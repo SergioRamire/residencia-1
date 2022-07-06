@@ -8,11 +8,11 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class HistoryCourseController extends Component{
-    
+
     use WithPagination;
     use WithSorting;
 
-    public $perPage = 5;
+    public $perPage = 8;
     public $filters = '';
     public $filters2 = '';
     protected $queryString = [

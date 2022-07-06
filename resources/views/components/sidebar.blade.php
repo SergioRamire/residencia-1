@@ -68,6 +68,15 @@
                     </x-sidebar.link>
                 @endcan
 
+                @can('activeinscription.show')
+                    <x-sidebar.link :href='route("admin.activeinscription")' :active="request()->routeIs('admin.activeinscription')">
+                        <x-slot name="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </x-slot>
+                        Activar Inscripciones
+                    </x-sidebar.link>
+                @endcan
+
                 @can('studying.show')
                     <x-sidebar.link :href='route("participant.studying")' :active="request()->routeIs('participant.studying')">
                         <x-slot name="icon">
@@ -269,6 +278,15 @@
                     </x-sidebar.link>
                 @endcan
 
+                @can('activeinscription.show')
+                    <x-sidebar.link :href='route("admin.activeinscription")' :active="request()->routeIs('admin.activeinscription')">
+                        <x-slot name="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </x-slot>
+                        Activar Inscripciones
+                    </x-sidebar.link>
+                @endcan
+
                 @can('studying.show')
                     <x-sidebar.link :href='route("participant.studying")' :active="request()->routeIs('participant.studying')">
                         <x-slot name="icon">
@@ -277,15 +295,6 @@
                         En curso
                     </x-sidebar.link>
                 @endcan
-
-                {{-- @can('activeinscription.show')
-                    <x-sidebar.link :href='route("admin.activeinscription")' :active="request()->routeIs('admin.activeinscription')">
-                        <x-slot name="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </x-slot>
-                        Activar Inscripciones
-                    </x-sidebar.link>
-                @endcan --}}
 
                 @can('teaching.show')
                 <x-sidebar.link :href='route("instructor.teaching")' :active="request()->routeIs('instructor.teaching')">
@@ -443,6 +452,7 @@
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan
+
                 @can('sendemail.show')
                     <x-sidebar.dropdown title="Envio de Notificaciones" dp-id="1">
                         <x-slot name="icon" stroke-width="2">

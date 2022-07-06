@@ -26,7 +26,7 @@ class ParticipantController extends Component
 
     public User $user;
 
-    public int $perPage = 5;
+    public int $perPage = 8;
     protected array $cleanStringsExcept = ['search'];
     public array $filters = [
         'area' => '',
@@ -40,7 +40,7 @@ class ParticipantController extends Component
     public bool $showConfirmationModal = false;
 
     protected $queryString = [
-        'perPage' => ['except' => 5, 'as' => 'p'],
+        'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
     public function rules(): array

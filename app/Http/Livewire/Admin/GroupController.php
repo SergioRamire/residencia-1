@@ -25,18 +25,18 @@ class GroupController extends Component
     public $confirmingGroupDeletion = false;
     public $confirmingSaveGroup = false;
 
-    public $perPage = '5';
+    public $perPage = '8';
     public $search = '';
-    
+
     protected $queryString = [
         'search' => ['except' => '', 'as' => 's'],
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
 
     public function rules(): array{
-        return  ($this->edit) ? 
-        ['groups.nombre' => ['required', 'regex:/^[\pL\pM]+$/u', 'max:8',Rule::unique('groups', 'nombre')->ignore($this->groups)]] 
-        : 
+        return  ($this->edit) ?
+        ['groups.nombre' => ['required', 'regex:/^[\pL\pM]+$/u', 'max:8',Rule::unique('groups', 'nombre')->ignore($this->groups)]]
+        :
         ['groups.nombre' => ['required', 'regex:/^[\pL\pM]+$/u', 'max:8', 'unique:groups']];
     }
 

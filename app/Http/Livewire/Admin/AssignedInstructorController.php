@@ -21,9 +21,9 @@ class AssignedInstructorController extends Component
     public $horaf;
     public $id_instructor;
 
-    public int $perPage = 5;
+    public int $perPage = 8;
     protected $queryString = [
-        'perPage' => ['except' => 5, 'as' => 'p'],
+        'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
     public array $classification = [
@@ -239,7 +239,7 @@ class AssignedInstructorController extends Component
         ]);
     }
 
-    
+
     public bool $modalConfirmacion;
     public function openConfirmacion(){
         $this->modalConfirmacion = true;

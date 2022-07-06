@@ -23,7 +23,7 @@ class CourseDetailsController extends Component
     use WithSorting;
 
     public CourseDetail $coursedetail;
-    public $perPage = '5';
+    public $perPage = '8';
     public $search = '';
     public $coursedetail_id;
     public $curso_elegido;

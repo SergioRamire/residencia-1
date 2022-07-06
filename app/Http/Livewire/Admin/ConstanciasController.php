@@ -24,7 +24,7 @@ class ConstanciasController extends Component
         'periodo' => '',
     ];
 
-    public $perPage = '5';
+    public $perPage = '8';
     public array $cleanStringsExcept = ['search'];
     public array $filters = [
         'grupo' => '',
@@ -33,7 +33,7 @@ class ConstanciasController extends Component
     ];
 
     public $queryString = [
-        'perPage' => ['except' => 5, 'as' => 'p'],
+        'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
     public function render()

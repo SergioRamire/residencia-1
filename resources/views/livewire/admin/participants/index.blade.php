@@ -151,10 +151,10 @@
                                 @endif
                             </x-table.cell>
                             <x-table.cell>
-                                <button  wire:click="view({{ $u->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
+                                <button  wire:click="view({{ $u->id }})" type="button" title="Ver más infomación" class="px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                     Ver
                                 </button>
-                                <button  wire:click="edit({{ $u->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                <button  wire:click="edit({{ $u->id }})" type="button" title="Editar información" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                     Editar
                                 </button>
                                 {{-- <button wire:click="delete({{ $u->id }})" type="button" class="text-red-600 hover:text-red-900"> --}}

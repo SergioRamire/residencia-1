@@ -12,7 +12,7 @@ class HistoryParticipantController extends Component{
     use WithPagination;
     use WithSorting;
 
-    public $perPage = 5;
+    public $perPage = 8;
     public $filters1 = '';
     public $filters2 = '';
     public $per_id = '';
@@ -60,7 +60,7 @@ class HistoryParticipantController extends Component{
 
             ->when($this->filters['filtro_curso'], fn ($query, $b) => $query
                 ->where('course_details.course_id', '=', $b))
-    
+
             ->when($this->filters['filtro_perfil'], fn ($query, $b) => $query
                 ->where('courses.perfil', 'like', '%'.$b.'%'))
             // ->when($this->estatus, fn ($query, $b) => $query

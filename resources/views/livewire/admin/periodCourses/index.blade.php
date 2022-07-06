@@ -79,7 +79,7 @@
                             <button  wire:click="edit({{ $p->id }})" type="button" title="Editar periodo" class=" px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="deletePeriod('{{ $p->id }}')" type="button" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="deletePeriod('{{ $p->id }}')" type="button" title="Eliminar periodo" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                             @if($p->estado === 1)

@@ -20,7 +20,7 @@ class RoleController extends Component
     public Role $role;
     public array $permissions = [];
 
-    public int $perPage = 5;
+    public int $perPage = 8;
 
     public bool $showEditCreateModal = false;
     public bool $showViewModal = false;
@@ -29,7 +29,7 @@ class RoleController extends Component
     public bool $delete = false;
 
     protected $queryString = [
-        'perPage' => ['except' => 5, 'as' => 'p'],
+        'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
     protected array $rules = [
