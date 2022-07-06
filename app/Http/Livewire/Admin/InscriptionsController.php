@@ -76,7 +76,6 @@ class InscriptionsController extends Component
     }
 
     public function openShowHorario(){
-
         $this->showHorario = true;
     }
 

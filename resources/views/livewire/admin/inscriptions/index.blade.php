@@ -36,11 +36,10 @@
                                         a {{ date('d-m-Y', strtotime($c->fecha_fin)) }} </x-table.cell>
                                     <x-table.cell>{{ $c->perfil }} </x-table.cell>
                                     <x-table.cell>{{ $c->dirigido }} </x-table.cell>
-                                    <x-table.cell> De {{ date("g:i a", strtotime($c->hora_inicio)) }} a
-                                        {{ date("g:i a", strtotime($c->hora_fin)) }}</x-table.cell>
-                                    <x-table.cell>
+                                    <x-table.cell> De {{ date("g:i a", strtotime($c->hora_inicio))}} a {{ date("g:i a", strtotime($c->hora_fin))}}</x-table.cell>
+                                        <x-table.cell width='200' class="whitespace-nowrap">
                                         <button wire:click="del({{ $c->curdet }})" type="button"
-                                            class="text-amber-600 hover:text-amber-900">
+                                            class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                             Descartar Curso
                                         </button>
                                     </x-table.cell>
@@ -137,7 +136,7 @@
                                                 / {{ $c->capacidad }}
                                             </x-table.cell>
 
-                                            <x-table.cell>
+                                            <x-table.cell width='200' class="whitespace-nowrap">
                                                 <button  wire:click="add({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
                                                     Seleccionar
                                                 </button>
@@ -208,7 +207,7 @@
                                                         {{$this->cantidades($c->curdet)}}
                                                         / {{ $c->capacidad }}
                                                     </x-table.cell>
-                                                    <x-table.cell>
+                                                    <x-table.cell width='200' class="whitespace-nowrap">
                                                         <button  wire:click="addTabla2({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100  text-black font-bold border border-[#1b396a] rounded shadow" >
                                                             Seleccionar
                                                         </button>

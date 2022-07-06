@@ -21,6 +21,7 @@ class HistoryInstructorController extends Component
     public $filters = [
         'filtro_curso' => '',
         'filtro_perfil'=>'',
+        'filtro_organizacion'=>'',
     ];
 
     protected $queryString = [
@@ -59,9 +60,11 @@ class HistoryInstructorController extends Component
 
         ->when($this->filters['filtro_curso'], fn ($query, $b) => $query
             ->where('course_details.course_id', '=', $b))
-
         ->when($this->filters['filtro_perfil'], fn ($query, $b) => $query
             ->where('courses.perfil', 'like', '%'.$b.'%'))
+
+        ->when($this->filters['filtro_organizacion'], fn ($query, $b) => $query
+            ->where('users.organizacion_origen', 'like', '%'.$b.'%'))
             // ->when($this->estatus, fn ($query, $b) => $query
             //     ->where('inscriptions.estatus_participante', 'like', '$'.$b.'$'))
         // ->where('periods.id','=',$this->per_id )
