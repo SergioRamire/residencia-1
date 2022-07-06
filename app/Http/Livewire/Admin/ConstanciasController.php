@@ -38,16 +38,22 @@ class ConstanciasController extends Component
 
     public function render()
     {
+        $buscar=$this->search;
         return view('livewire.admin.constancias.index_participant', [
             'calificaciones' => $this->consultaBase()
                 ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
                 'courses.nombre as curso', 'groups.nombre as grupo',
                 'inscriptions.calificacion','inscriptions.estatus_participante','inscriptions.asistencias_minimas', 'areas.nombre as area'])
                 ->where('inscriptions.estatus_participante','=','Participante')
-                ->when($this->search, fn ($query, $search) => $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)"), 'like', "%$search%")
-                    ->orWhere('courses.nombre', 'like', '%'.$this->search.'%')
-                    ->orWhere('groups.nombre', 'like', '%'.$this->search.'%')
-                    ->orWhere('inscriptions.calificacion', 'like', '%'.$this->search.'%'))
+                ->where(function ($query) use ($buscar) {
+                    $query->where(DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno)"), 'like', '%'.$buscar.'%')
+                          ->orWhere('courses.nombre', 'like', '%'.$buscar.'%')
+                          ->orWhere('users.name', 'like', '%'.$buscar.'%')
+                          ->orWhere('users.apellido_materno', 'like', '%'.$buscar.'%')
+                          ->orWhere('users.apellido_paterno', 'like', '%'.$buscar.'%')
+                          ->orWhere('inscriptions.calificacion', 'like', '%'.$buscar.'%')
+                          ->orWhere('groups.nombre', 'like', '%'.$buscar.'%');
+                })
                 ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
                 ->when($this->filters['departamento'], fn ($query, $depto) => $query->where('users.area_id', '=', $depto))
                 ->when($this->filters['filtro_calificacion'], function ($query) {

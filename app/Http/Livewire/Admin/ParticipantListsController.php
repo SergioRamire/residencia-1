@@ -225,6 +225,7 @@ class ParticipantListsController extends Component
         ]);
         $this->resetFilters();
     }
+
     public function descarga(){
         $data=$this->participants($this->classification['periodo'], $this->classification['curso'],'Participante',$this->filters['grupo']);
         $ins=$this->participants($this->classification['periodo'], $this->classification['curso'],'Instructor',$this->filters['grupo']);

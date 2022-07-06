@@ -121,6 +121,9 @@
                 <x-table>
                     <x-slot name="head">
                         <x-table.header wire:click="sortBy('rfc')" sortable :direction="$sortField === 'rfc' ? $sortDirection : null">
+                            id
+                        </x-table.header>
+                        <x-table.header wire:click="sortBy('rfc')" sortable :direction="$sortField === 'rfc' ? $sortDirection : null">
                             RFC
                         </x-table.header>
                         <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">

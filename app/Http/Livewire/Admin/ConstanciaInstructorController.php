@@ -58,7 +58,8 @@ class ConstanciaInstructorController extends Component
             ->join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
             ->join('users', 'users.id', '=', 'inscriptions.user_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
-            ->select('users.id as iduser','users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.estatus_participante', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','groups.nombre as nombregrupo','course_details.course_id')
+            ->join('areas', 'areas.id', '=', 'users.area_id')
+            ->select('users.id as iduser','users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.estatus_participante', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','groups.nombre as nombregrupo','course_details.course_id','areas.nombre as nombre_area')
             ->where('inscriptions.estatus_participante', '=', 'Instructor')
             ->when($this->search, function ($query, $b) {
                 return $query->where(function ($q) {

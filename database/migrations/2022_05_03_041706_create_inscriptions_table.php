@@ -18,6 +18,7 @@ return new class extends Migration
             $table->double('calificacion');
             $table->string('estatus_participante');
             $table->boolean('asistencias_minimas');
+            $table->string('url_cedula');
             $table->timestamps();
             $table->foreignId('user_id')
                 ->nullable()
