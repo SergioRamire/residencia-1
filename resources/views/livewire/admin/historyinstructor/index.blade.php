@@ -60,6 +60,17 @@
                                     </x-input.select>
                                 </div>
                             </div>
+                            <div class="block px-4 py-2 space-y-1">
+                                <div>
+                                    <x-jet-label for="perfil" value="Organización"/>
+                                    <x-input.select wire:model="filters.filtro_organizacion" id="perfil" class="mt-1 w-full" name="perfil" required>
+                                        <option value="" disabled>Selecciona perfil...</option>
+                                        @foreach (App\Models\User::select('users.organizacion_origen')->distinct()->get() as $item)
+                                            <option value="{{$item->organizacion_origen}}">{{$item->organizacion_origen}}</option>
+                                        @endforeach
+                                    </x-input.select>
+                                </div>
+                            </div>
 
                         </x-slot>
                     </x-dropdown>
