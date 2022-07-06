@@ -62,8 +62,8 @@
                                 <x-table.cell>{{ $r->title }}</x-table.cell>
                                 <x-table.cell>{{ $r->description}}</x-table.cell>
                                 <x-table.cell>{{ $r->created_at->diffForHumans()}}</x-table.cell>
-                                <x-table.cell>
-                                    <button wire:click="view({{$r->id }})" type="button" class="text-indigo-600 hover:text-indigo-900">
+                                <x-table.cell width='200' class="whitespace-nowrap">
+                                    <button wire:click="view({{$r->id }})" type="button" class="mx-2 text-indigo-600 hover:text-indigo-900">
                                         <x-icon.eye class="h-6 w-6"/>
                                     </button>
                                     {{-- <button  wire:click="deletePost('{{$r->id}}' , '{{$r->title}}')" type="button" class="text-red-600 hover:text-red-900">

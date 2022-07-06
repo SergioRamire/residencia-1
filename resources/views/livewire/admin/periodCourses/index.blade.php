@@ -12,30 +12,27 @@
                 Nuevo Periodo
             </x-jet-secondary-button>
         </div>
+
         <!-- Opciones de tabla -->
-        <div class="md:flex md:justify-between space-y-2 md:space-y-0">
-            <!-- Parte izquierda -->
-            <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                <div class="w-full">
+        <div class="space-y-2">
+            <div class="flex flex-wrap">
+                <div class="md:w-1/2 max-w-xs col-start pr-1">
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
                     <x-input.error wire:model="filters" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio2" name="fecha_inicio2" for="fecha_inicio2"/>
                 </div>
-                <div class="w-full" >
+                <div class="md:w-1/2 max-w-xs col-start pl-1" >
                     <x-jet-label for="hasta" value="Hasta" class="text-lg" />
                     <x-input.error wire:model="filters2" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin2" name="fecha_fin2" for="fecha_fin2"/>
                 </div>
-                <div class="flex items-end">
+            </div>
+            <!-- Parte derecha -->
+            <div class="flex justify-between">
+                <div class="">
                     <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">
-                        <x-icon.trash solid alt="sm" class="inline-block h-5 w-5" />
+                        borrar filtro
                     </x-jet-secondary-button>
                 </div>
-            </div>
-
-            <!-- Parte derecha -->
-            <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
-
-                <!-- Selección de paginación -->
-                <div>
+                <div class="">
                     <x-input.select wire:model="perPage" class="block w-full">
                         <option value=8>8 por página</option>
                         <option value=10>10 por página</option>
@@ -45,6 +42,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Tabla -->
         <div class="flex flex-col space-y-2">
             <x-table>
@@ -75,19 +73,19 @@
                                 <x-badge.basic value="Inactivo" color="red" large/>
                             @endif
                         </x-table.cell>
-                        <x-table.cell>
-                            <button  wire:click="edit({{ $p->id }})" type="button" title="Editar periodo" class=" px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                        <x-table.cell width='200' class="whitespace-nowrap">
+                            <button  wire:click="edit({{ $p->id }})" type="button" title="Editar periodo" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="deletePeriod('{{ $p->id }}')" type="button" title="Eliminar periodo" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="deletePeriod('{{ $p->id }}')" type="button" title="Eliminar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                             @if($p->estado === 1)
-                            <button wire:click="periodoDesactivar({{ $p->id }})" type="button" title="Desactivar periodo" class="px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
+                            <button wire:click="periodoDesactivar({{ $p->id }})" type="button" title="Desactivar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
                                 Desactivar
                             </button>
                             @elseif($p->estado === 0)
-                                <button wire:click="periodoActivar({{ $p->id }})" type="button" title="Activar periodo" class="px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                <button wire:click="periodoActivar({{ $p->id }})" type="button" title="Activar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
                                     Activar
                                 </button>
                             @endif

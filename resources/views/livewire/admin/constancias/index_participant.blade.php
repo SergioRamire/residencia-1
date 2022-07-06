@@ -149,17 +149,15 @@
                                 <x-badge.basic value="No tiene" color="red" large/>
                             @endif
                             </x-table.cell>
-                            <div>
-                                @if($g->calificacion > 69 and $g->asistencias_minimas==1)
-                                    <x-table.cell class="text-center">
-                                        <button wire:click="descargarConstancia({{ $g->id }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                            Constancia
-                                        </button>
-                                    </x-table.cell>
-                                @else
-                                    <x-table.cell class="text-center  text-red-500">{{'No aprobó'}}</x-table.cell>
-                                @endif
-                            </div>
+                            @if($g->calificacion > 69 and $g->asistencias_minimas==1)
+                                <x-table.cell width='200' class="whitespace-nowrap">
+                                    <button wire:click="descargarConstancia({{ $g->id }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                        Constancia
+                                    </button>
+                                </x-table.cell>
+                            @else
+                                <x-table.cell class="text-center  text-red-500">{{'No aprobó'}}</x-table.cell>
+                            @endif
                         </tr>
                     @empty
                         <tr>
