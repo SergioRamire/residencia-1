@@ -9,11 +9,11 @@
 
         <div class="space-y-2">
             <div class="flex flex-wrap">
-                <div class="w-auto pr-2">
+                <div class="md:w-1/2 max-w-xs col-start pr-1">
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
                     <x-input.error wire:model="filters1" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio" name="fecha_inicio" for="fecha_inicio" required />
                 </div>
-                <div class="w-auto pr-2">
+                <div class="md:w-1/2 max-w-xs col-start pr-1">
                     <x-jet-label for="hasta" value="Hasta" class="text-lg" />
                     <x-input.error wire:model="filters2" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin" name="fecha_fin" for="fecha_fin" required />
                 </div>
