@@ -3,26 +3,26 @@
         Editar user
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="Los campos con * son obligatorios" /><br>
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" /><br>
         <form wire:submit.prevent="confirmSave()" id="participantForm">
             <!-- RFC y CURP -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- RFC -->
                 <div class="sm:flex-1">
-                    <x-jet-label for="rfc" value="RFC*"/>
+                    <x-jet-label for="rfc">RFC <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="user.rfc" class="block mt-1 w-full" type="text" id="rfc" name="rfc" for="user.rfc" required/>
                 </div>
 
                 <!-- CURP -->
                 <div class="sm:flex-1">
-                    <x-jet-label for="curp" value="CURP*"/>
+                    <x-jet-label for="curp">CURP <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="user.curp" class="block mt-1 w-full" type="text" id="curp" name="curp" for="user.curp" required/>
                 </div>
             </div>
 
             <!-- Nombre -->
             <div class="mt-4">
-                <x-jet-label for="nombre" value="Nombre*"/>
+                <x-jet-label for="nombre">Nombre <span class="text-red-600">*</span></x-jet-label>
                 <x-input.error wire:model.defer="user.name" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="user.name" required/>
             </div>
 
@@ -30,13 +30,13 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Apellido paterno -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="apellido_paterno" value="Apellido paterno*"/>
+                    <x-jet-label for="apellido_paterno">Apellido paterno <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno"/>
                 </div>
 
                 <!-- Apellido materno -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="apellido_materno" value="Apellido materno*"/>
+                    <x-jet-label for="apellido_materno">Apellido materno <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno"/>
                 </div>
             </div>
@@ -45,7 +45,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Sexo -->
                 <div class="mt-4">
-                    <x-jet-label for="sexo" value="Género*"/>
+                    <x-jet-label for="sexo">Género <span class="text-red-600">*</span></x-jet-label>
                     <x-input.select wire:model.defer="user.sexo" class="mt-1 w-full" id="sexo" name="sexo" required>
                         <option value="" disabled>Selecciona el género</option>
                         <option value="F">Femenino</option>
@@ -56,14 +56,14 @@
 
                 <!-- Estudios máximos -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="estudio_maximo" value="Estudios máximos*"/>
+                    <x-jet-label for="estudio_maximo">Estudios máximos <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="user.estudio_maximo" class="block mt-1 w-full" type="text" id="estudio_maximo" name="estudio_maximo" for="user.estudio_maximo" required/>
                 </div>
             </div>
 
             <!-- Organización de origen -->
             <div class="mt-4">
-                <x-jet-label for="organizacion_origen" value="Organización de origen*"/>
+                <x-jet-label for="organizacion_origen">Organización de origen <span class="text-red-600">*</span></x-jet-label>
                 <x-input.error wire:model.defer="user.organizacion_origen" class="block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" for="user.organizacion_origen" required/>
             </div>
 
@@ -71,7 +71,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Correo ITO -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="email" value="Correo extension ITO*"/>
+                    <x-jet-label for="email">Correo extension ITO <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="user.email" class="block mt-1 w-full" type="email" id="email" name="email" for="user.email" required/>
                 </div>
 
@@ -84,7 +84,7 @@
 
             <!-- Cuenta moodle -->
             <div class="mt-4">
-                <x-jet-label for="cuenta_moodle" value="Cuenta moodle*"/>
+                <x-jet-label for="cuenta_moodle">Cuenta moodle <span class="text-red-600">*</span></x-jet-label>
                 <x-input.select wire:model.defer="user.cuenta_moodle" class="mt-1 w-full" id="cuenta_moodle" name="cuenta_moodle" required>
                     <option value="" disabled>Selecciona la opción</option>
                     <option value="1">Tiene</option>
@@ -95,7 +95,7 @@
 
             <!-- Carrera-->
             <div class="mt-4">
-                <x-jet-label for="carrera" value="Carrera*"/>
+                <x-jet-label for="carrera" >Carrera <span class="text-red-600">*</span></x-jet-label>
                 <x-input.error wire:model.defer="user.carrera" class="block mt-1 w-full" type="text" id="carrera" name="carrera" for="user.carrera" required/>
             </div>
 
@@ -103,7 +103,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Tipo -->
                 <div class="mt-4">
-                    <x-jet-label for="tipo" value="Tipo*"/>
+                    <x-jet-label for="tipo" >Tipo <span class="text-red-600">*</span></x-jet-label>
                     <x-input.select wire:model.defer="user.tipo" class="mt-1 w-full" id="tipo" name="tipo" required>
                         <option value="" disabled>Selecciona el tipo</option>
                         <option value="Base">Base</option>
@@ -115,7 +115,7 @@
 
                 <!-- Clave -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="clave_presupuestal" value="Clave presupuestal*"/>
+                    <x-jet-label for="clave_presupuestal">Clave presupuestal <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="user.clave_presupuestal" class="block mt-1 w-full" type="text" id="clave_presupuestal" name="clave" for="user.clave_presupuestal" required/>
                 </div>
             </div>
@@ -133,7 +133,7 @@
 
             <!-- Jefe Inmediato -->
             <div class="mt-4">
-                <x-jet-label for="jefe" value="Jefe Inmediato*"/>
+                <x-jet-label for="jefe">Jefe Inmediato <span class="text-red-600">*</span></x-jet-label>
                 <x-input.error wire:model.defer="user.jefe_inmediato" class="block mt-1 w-full" type="text" id="jefe" name="jefe" for="user.jefe_inmediato" required/>
             </div>
 
@@ -141,20 +141,20 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Puesto -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="puesto" value="Puesto*"/>
+                    <x-jet-label for="puesto">Puesto <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model.defer="user.puesto_en_area" class="block mt-1 w-full" type="text" id="puesto" name="puesto" for="user.puesto" required/>
                 </div>
 
                 <!-- Hora entrada -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_entrada" value="Hora entrada*"/>
+                    <x-jet-label for="hora_entrada">Hora entrada <span class="text-red-600">*</span></x-jet-label>
                     <x-jet-input wire:model.defer="user.hora_entrada" class="block mt-1 w-full" type="time" id="hora_entrada" name="hora_entrada"/>
                     <x-jet-input-error for="user.hora_entrada"/>
                 </div>
 
                 <!-- Hora salida -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_salida" value="Hora salida*"/>
+                    <x-jet-label for="hora_salida">Hora salida <span class="text-red-600">*</span></x-jet-label>
                     <x-jet-input wire:model.defer="user.hora_salida" class="block mt-1 w-full" type="time" id="hora_salida" name="hora_salida"/>
                     <x-jet-input-error for="user.hora_salida"/>
                 </div>

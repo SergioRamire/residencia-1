@@ -4,12 +4,11 @@
         {{$modo}} Grupo
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="Los campos con * son obligatorios" />
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" />
         <form  id="courseForm">
-
                 <!-- Grupo -->
                 <div class="mt-4">
-                    <x-jet-label for="Nombre" value="Nombre*" />
+                    <x-jet-label for="Nombre">Nombre <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="nombre" class="block mt-1 w-full" type="text" id="nombre" name="nombre" for="nombre" required/>
                 </div>
 

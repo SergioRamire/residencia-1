@@ -3,25 +3,25 @@
        Enviar Notificación
     </x-slot>
     <x-slot name="content">
-        <x-jet-label for="x"  value="Los campos con * son obligatorios" />
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" />
         <form  id="courseForm">
 
             <!-- Nombre -->
             <div class="mt-4">
-                <x-jet-label for="title"  value="{{ __('Asunto*') }}" />
+                <x-jet-label for="title">Asunto <span class="text-red-600">*</span></x-jet-label>
                 <x-input.error wire:model="arr.title" class="block mt-1 w-full" type="text" id="title" name="title" for="title" required/>
                 <x-jet-input-error for="arr.title"/>
             </div>
 
             <!-- Descripcion -->
             <div class="mt-4">
-                <x-jet-label for="description" value="{{ __('Cuerpo*') }}"/>
+                <x-jet-label for="description">Cuerpo <span class="text-red-600">*</span></x-jet-label>
                 <x-input.textarea wire:model="arr.description" id="arr.description" class="block mt-1 w-full" name="arr.description" required/>
                 <x-jet-input-error for="arr.description"/>
             </div>
 
             <div class="mt-4 sm:flex-1">
-                <x-jet-label for="rol" value="Destinatario*"/>
+                <x-jet-label for="rol">Destinatario <span class="text-red-600">*</span></x-jet-label>
                 <x-input.select wire:model="arr.role" id="rol" class="mt-1 w-full" name="rol">
                         <option value="" disabled>Selecciona</option>
                         <option value="Participante">Participantes</option>
