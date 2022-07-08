@@ -40,44 +40,39 @@ class GradeController extends Component
 
     public $course_details_id;
     public $grupo;
-    public $isOpen = false;
-    public $grade_id;
-    public $confirmingSaveGrade = false;
+    public bool $isOpen = false;
+    public bool $grade_id;
+    public bool $confirmingSaveGrade = false;
+    public bool $disponible=true;
 
     protected $queryString = [
         'search' => ['except' => '', 'as' => 's'],
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
 
-    public function updatingSearch()
-    {
+    public function updatingSearch(){
         $this->resetPage();
     }
 
-    public function resetFilters()
-    {
+    public function resetFilters(){
         $this->reset('search');
     }
 
-    private function validateInputs()
-    {
+    private function validateInputs(){
         $this->validate([
             'calificacion' => ['required', 'numeric', 'min:1', 'max:100'],
         ]);
     }
 
-    public function openModal()
-    {
+    public function openModal(){
         $this->isOpen = true;
     }
 
-    public function closeModal()
-    {
+    public function closeModal(){
         $this->isOpen = false;
     }
 
-    public function store()
-    {
+    public function store(){
         $this->validateInputs();
         $user = User::find($this->grade_id);
         $user->courseDetails()->syncWithPivotValues($this->course_details_id, ['calificacion' => $this->calificacion, 'asistencias_minimas'=>$this->asistencias_minimas]);
@@ -89,8 +84,7 @@ class GradeController extends Component
         $this->closeModal();
     }
 
-    public function edit($id)
-    {
+    public function edit($id){
         $grade = User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
                 ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
                 ->join('courses', 'courses.id', '=', 'course_details.course_id')
@@ -111,11 +105,11 @@ class GradeController extends Component
         $this->openModal();
     }
 
-    public function updateGrade()
-    {
+    public function updateGrade(){
         $this->validateInputs();
         $this->confirmingSaveGrade = true;
     }
+
     public function obtenerUsuario(){
         $this->user = User::find(auth()->user()->id);
     }
@@ -135,6 +129,7 @@ class GradeController extends Component
                     ->select('course_details.id','courses.nombre')
                     ->get();
     }
+
     public function consultargrupos(){
         $fecha_actual = date("Y-m-d");
         $this->obtenerUsuario();
@@ -143,14 +138,17 @@ class GradeController extends Component
                     ->select('groups.id','groups.nombre')
                     ->get();
     }
+
     public function consultaperiodos(){
         $fecha_actual = date("Y-m-d");
         return Period::where('periods.fecha_inicio','<',$fecha_actual);
     }
+
     public function cuentaCursos(){
         $cursosTotales=$this->consultarcursos();
         $this->cuenta=count($cursosTotales);
     }
+
     public function mostrarcursos(){
         return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
             ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
@@ -170,19 +168,8 @@ class GradeController extends Component
             })
             ->orderBy($this->sortField, $this->sortDirection);
     }
-    // public function mes(){
-    //     setlocale(LC_ALL, 'es_ES');
-    //     $monthNum  = 3;
-    //     // $now = new DateTime();
-    //     // $me=$now->format('M');
-    //     $dateObj   = DateTimeInterface::createFromFormat('!m', $monthNum);
-    //     $this->monthName = strftime('%B', $dateObj->getTimestamp());
 
-    // }
-
-    public function render()
-    {
-        // $this->mes();
+    public function render(){
         $this->cuentaCursos();
         $cur=$this->consultarcursos();
         if($this->cuenta==1){
@@ -221,11 +208,15 @@ class GradeController extends Component
         return Excel::download(new ListExport($data), 'Lista_Asistencia.xlsx');
     }
 
-    public function participants()
-    {
+    public function evaluar_si_existen_grupos(){
+        $grupos = User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id');
+
+    }
+
+    public function participants(){
         return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
         ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
-        ->join('courses', 'courses.id', '=', 'course_details.course_id')
+        ->join('courses', 'courses.i d', '=', 'course_details.course_id')
         ->join('groups', 'groups.id', '=', 'course_details.group_id')
         ->join('areas', 'areas.id', '=', 'users.area_id')
         ->join('periods', 'periods.id', '=', 'course_details.period_id')
@@ -234,9 +225,6 @@ class GradeController extends Component
         ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,
         ' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.rfc as rfc','users.curp as curp','users.sexo as sex','courses.clave as clave','courses.duracion as duracion','courses.nombre as curso','groups.nombre as grupo','course_details.modalidad as modalidad',
         'areas.nombre as area', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','course_details.hora_inicio as hi','course_details.hora_fin as hf')->get();
-
-        // 'courses' => $this->consultarcursos(),
-        // 'groups' => $this->consultargrupos()->get();
     }
 
 }
