@@ -44,7 +44,7 @@ class ParticipantListsController extends Component
     public User $participante;
     public Period $perido;
 
-    public function mount(){    
+    public function mount(){
         $this->participante = User::make();
         $this->perido = Period::make();
     }
@@ -198,7 +198,6 @@ class ParticipantListsController extends Component
 
     public function delete($id)
     {
-        // dd($id);
         $this->id_delete = $id;
         $this->confirmingParticipantDeletion = true;
     }

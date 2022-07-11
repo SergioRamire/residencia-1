@@ -31,6 +31,7 @@ class GradeController extends Component
 
     //
     public $user;
+    public $id_user_participant;
     public $id_course;
     public $id_period;
     public $id_group;
@@ -41,7 +42,6 @@ class GradeController extends Component
     public $course_details_id;
     public $grupo;
     public bool $isOpen = false;
-    public bool $grade_id;
     public bool $confirmingSaveGrade = false;
     public bool $disponible=true;
 
@@ -74,8 +74,9 @@ class GradeController extends Component
 
     public function store(){
         $this->validateInputs();
-        $user = User::find($this->grade_id);
-        $user->courseDetails()->syncWithPivotValues($this->course_details_id, ['calificacion' => $this->calificacion, 'asistencias_minimas'=>$this->asistencias_minimas]);
+        $this->obtenerUsuario();
+        $user_parti= User::find($this->id_user_participant);
+        $user_parti->courseDetails()->syncWithPivotValues($this->course_details_id, ['calificacion' => $this->calificacion, 'asistencias_minimas'=>$this->asistencias_minimas]);
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'pencil',
             'message' => 'Calificación actualizada exitosamente',
@@ -94,7 +95,7 @@ class GradeController extends Component
                 ->select('users.id', 'course_details.id as course_details_id', DB::raw("concat(users.name,' ',users.apellido_paterno)as nombre"),
                 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.asistencias_minimas','inscriptions.calificacion')
                 ->first();
-        $this->grade_id = $id;
+        $this->id_user_participant= $grade->id;
         $this->course_details_id = $grade->course_details_id;
         $this->participante = $grade->nombre;
         $this->curso = $grade->curso;
