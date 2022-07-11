@@ -1,105 +1,81 @@
 <x-app-layout>
+
+
     <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            Notificaciones.
+        <h2 class="py-6 font-semibold text-2xl text-gray-800 leading-tight">
+            Bandeja de notificaciones.
         </h2>
     </x-slot>
+     
+    <div x-data="{ open: true, open2: false }">
+        
+        <button @click="open = true, open2 = false" x-bind:style="open && { background: 'rgba(219, 234, 254, 1)' }" class="py-2 px-6 rounded-t-lg bg-white ">No leídas</button>
+        <button @click="open2 = true, open = false" x-bind:style="open2 && { background: 'rgba(219, 234, 254, 1)' }" class="py-2 px-6 rounded-t-lg bg-white ">Leídas</button>
 
-    <div class="max-w-7xl mx-auto pt-5 pb-10">
-        <div class="p-6 sm:px-20  bg-opacity-25 border-b bg-gray-200">
-
-            <div class="mt-8 text-2xl leading-9 font-bold tracking-tight text-blcak sm:text-1xl sm:leading-10">
-                Notificaciones sin leer...
-            </div>
-
-            <div class="mt-6 text-gray-600">
-                @if (auth()->user())
-                    @forelse ($postNotifications as $notification)
-                        <div class="max-w-screen border rounded-lg text-left py-4 mx-8">
-                            <h2 class="text-2xl leading-9 font-bold tracking-tight text-blcak sm:text-1xl sm:leading-10">
-                                {{'Titulo: '}}{{ $notification->data['title'] }}
-                            </h2>
-                            <h3 class="ml-2 text-1xl text-black sm:text-2xl sm:leading-10">
-                                Mensaje: {{ $notification->data['description'] }}
-                            </h3>
-                            <h4 class="ml-6">{{ $notification->created_at->diffForHumans() }}</h4>
-                            <div class="ml-4 mt-4 text-rigth">
-                                <div class="inline-flex rounded-md bg-white shadow">
-                                    <a href={{route('marcarunanoti', $notification->id)}} class="text-gray-700 font-bold py-2 px-6">
-                                        Marcar Notificación
-                                    </a>
-                                </div>
-                            </div>
+        <div x-show="open" {{-- @click.outside="open = false" --}} >
+            @if (auth()->user())
+                @forelse ($postNotifications as $notification)
+                    <div class="px-6 py-2 bg-blue-50">
+                        <div class="flex justify-between">
+                            <h5 class="text-2xl font-bold tracking-tight text-gray-900">
+                                {{ $notification->data['title'] }}</h5>
+                            <p class="font-normal text-gray-700">{{ $notification->created_at->diffForHumans() }}
+                            </p>
                         </div>
-
-                        @if ($loop->last)
-                        {{-- <a href="{{route('markAsRead')}}" id="mark-all">Mark all as read</a>--}}
-                        <div class="ml-2 mt-4 text-rigth">
-                            <div class="inline-flex rounded-md bg-white shadow">
-                                <a href={{route('markAsRead')}} class="text-blue-600 font-bold py-2 px-6">
-                                    Marcar todas las notificationes como leídas
-                                </a>
-                            </div>
-                            {{-- <div class="inline-flex rounded-md bg-white text-red shadow">
-                                <a href={{route('destroyNotificationsss')}} class="text-red-600 font-bold py-2 px-6">
-                                    Eliminar todas las notificaciones
-                                </a>
-                            </div> --}}
+                        <div class="flex justify-between">
+                            <p class="font-normal text-gray-700">{{ $notification->data['description'] }}</p>
+                            <a href={{ route('marcarunanoti', $notification->id) }} class="px-4 bg-white hover:text-white hover:bg-sky-600 text-black font-bold border border-sky-400 rounded shadow">
+                                Marcar como leída
+                            </a>
                         </div>
-                        @endif
-
-                        @empty
-                        No tiene notificaciones
-                    @endforelse
-
-                @endif
-            </div>
-
-        </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto">
-        <div class="p-6 sm:px-20  bg-opacity-25 bg-white border-b border-gray-200">
-
-            <div class="mt-8 text-2xl leading-9 font-bold tracking-tight text-blcak sm:text-1xl sm:leading-10">
-                Notificaciones Leídas...
-            </div>
-
-            <div class="mt-6 text-gray-600">
-                <div class="dropdown-divider"></div>
-                  {{-- <span class="dropdown-header">Read Notifications</span> --}}
-                @if(auth()->user())
-                    @forelse (auth()->user()->readNotifications as $notification)
-                        <div class="max-w-screen border rounded-lg text-left py-4 mx-8">
-                            <h2 class="text-2xl leading-9 font-bold tracking-tight text-blcak sm:text-1xl sm:leading-10">
-                                {{'Titulo: '}}{{ $notification->data['title'] }}
-                            </h2>
-                            <h3 class="ml-2 text-1xl text-black sm:text-2xl sm:leading-10">
-                                Mensaje: {{ $notification->data['description'] }}
-                            </h3>
-                            <h4 class="ml-6">{{ $notification->created_at->diffForHumans() }}</h4>
-                        </div>
-                    @empty
-                        No tiene notificaciones
-                    @endforelse
-                    @if(auth()->user()->readNotifications()->get()->count() > 0)
-                        <div class="ml-2 mt-4 text-rigth">
-                            <div class="inline-flex rounded-md bg-white text-red shadow">
-                                <a href={{route('destroyNotifications')}} class="text-red-600 font-bold py-2 px-6">
-                                    Eliminar todas las notificaciones Leídas
-                                </a>
-                            </div>
+                    </div>
+                    @if ($loop->last)
+                        <div class="flex justify-center px-6 py-2 bg-blue-50">
+                            <a href={{ route('markAsRead') }} class="text-blue-600 font-bold p-2 px-4 bg-white hover:text-white hover:bg-sky-600 border border-sky-400 rounded shadow">
+                                Marcar todas las notificationes como leídas
+                            </a>
                         </div>
                     @endif
-                @endif
-            </div>
+                @empty
+                    <div class="flex justify-center py-4 my-4 bg-white">
+                        No tiene notificaciones nuevas.
+                    </div>
+                @endforelse
+            @endif
+
         </div>
 
+        <div x-show="open2" {{-- @click.outside="open2 = false" --}}>
 
-        {{-- <a href={{route('deleteNotifications')}} class="dropdown-item dropdown-footer">Boton maestro</a> --}}
+            <div class="bg-blue-50">
+                @if (auth()->user())
+                    @forelse (auth()->user()->readNotifications as $notification)
+                        <div class="px-6 py-2 bg-blue-50">
+                            <div class="flex justify-between">
+                                <h5 class="text-2xl font-bold tracking-tight text-gray-900">
+                                    {{ $notification->data['title'] }}</h5>
+                                <p class="font-normal text-gray-700">
+                                    {{ $notification->created_at->diffForHumans() }}</p>
+                            </div>
+                            <div class="flex justify-between">
+                                <p class="font-normal text-gray-700">{{ $notification->data['description'] }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="flex justify-center bg-white py-4 my-4">
+                            No tiene notificaciones leidas
+                            <div>
+                    @endforelse
+                    @if (auth()->user()->readNotifications()->get()->count() > 0)
+                        <div class="flex justify-center px-6 py-2">
+                            <a href={{ route('destroyNotifications') }} class="text-red-600 font-bold py-2 px-6 bg-white hover:text-white hover:bg-red-600 border border-red-400 rounded shadow"">
+                                Eliminar todas las notificaciones Leídas
+                            </a>
+                            <div>
+                    @endif
+                @endif
+                <div>
+
+        </div>
     </div>
-
 </x-app-layout>
-{{-- <x-app-layout>@if($deletetodasnotifi)
-    @include('livewire.admin.notifications.deletenotifiusuario')
-    @endif</x-app-layout> --}}
