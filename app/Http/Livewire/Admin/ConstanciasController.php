@@ -70,7 +70,8 @@ class ConstanciasController extends Component
                         }
                     });
                 })
-                ->orderBy($this->sortField, $this->sortDirection)
+                // ->orderBy($this->sortField, $this->sortDirection)
+                ->orderBy('users.apellido_paterno', 'ASC')
                 ->paginate($this->perPage),
         ]);
     }
@@ -96,7 +97,7 @@ class ConstanciasController extends Component
         $numlist='';
         $num=0;
         $aux=$this->consultaBase()
-                ->orderBy($this->sortField, $this->sortDirection)->get();
+                ->orderBy('apellido_paterno', 'ASC')->get();
 
         foreach($aux as $a){
             if($a->iduser == $iduser){
@@ -136,7 +137,6 @@ class ConstanciasController extends Component
         $consulta = $this->consultaBase()
             ->where('calificacion', '>=', 70)
             ->where('asistencias_minimas', '=', 1)->get();
-            // ->orderBy($this->sortField, $this->sortDirection)
 
 
         \Storage::makeDirectory('pdf');
