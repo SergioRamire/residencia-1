@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 use App\Exports\UserExport;
+use App\Http\Livewire\Admin\LimitForInstructorsController;
 use Maatwebsite\Excel\Facades\Excel;
 
 // Use App\Models\User;
@@ -160,5 +161,6 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:sendemail.show')->prefix('admin')->name('admin.')
         ->get('email', EmailController::class)->name('email');
 
+    Route::get('/limit', LimitForInstructorsController::class)->name('limit');
 
 });
