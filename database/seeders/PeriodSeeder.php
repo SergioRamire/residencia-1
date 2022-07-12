@@ -20,7 +20,8 @@ class PeriodSeeder extends Seeder
         $f1->fecha_inicio ='2022-07-11';
         $f1->fecha_fin = '2022-07-15';
         $f1->estado = 0;
-        $f1->publico = 0;
+        $f1->ofertado = 0;
+        $f1->fecha_limite_para_calificar= '2022-07-16';
         $f1->save();
 
         $f2 = new Period();
@@ -28,7 +29,8 @@ class PeriodSeeder extends Seeder
         $f2->fecha_inicio ='2022-07-18';
         $f2->fecha_fin = '2022-07-22';
         $f2->estado = 0;
-        $f2->publico = 0;
+        $f2->ofertado = 0;
+        $f2->fecha_limite_para_calificar= '2022-07-23';
         $f2->save();
 
         // Period::factory()

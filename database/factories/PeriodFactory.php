@@ -27,7 +27,8 @@ class PeriodFactory extends Factory
             'fecha_inicio' => $fechaInicio,
             'fecha_fin' => date('Y-m-d', strtotime($fechaInicio."+${fechaMasDias} day")),
             'estado' => 0,
-            'publico' => 0,
+            'ofertado' => 0,
+            'fecha_limite_para_calificar' => date('Y-m-d', strtotime($fechaInicio."+${fechaMasDias} day")),
         ];
     }
 }

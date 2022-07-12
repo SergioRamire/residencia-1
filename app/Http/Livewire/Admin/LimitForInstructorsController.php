@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Admin;
 
     use Livewire\Component;
+    use App\Models\Period;
+    use Illuminate\Support\Facades\DB;
 
 class LimitForInstructorsController extends Component{
 
@@ -12,10 +14,32 @@ class LimitForInstructorsController extends Component{
     public $estado = 1;
     public $limite_fecha;
     public $limite_hora;
-    public function render(){
-        return view('livewire.admin.limitForInstructors.index');
+    public $period;
+    public $period_id;
+
+    public function periodo_activo(){
+        $period = Period::select('periods.id','periods.clave','periods.fecha_inicio','periods.fecha_fin')
+                        ->where('periods.estado','=',1)
+                        ->first();
+        return $period;
     }
-    public function consultPeriodo(){
-        
+
+    public function render(){
+        $p= $this->periodo_activo();
+        $this->consultar_clave();
+        // dd($p->clave);
+        return view('livewire.admin.limitForInstructors.index',[
+           'periodos' => $p
+        ]);
+    }
+    public function consultar_clave(){
+        $p= $this->periodo_activo();
+        $this->period_id=$p->id;
+    }
+
+    public function actualizar_fecha_limite(){
+        DB::table('periods')
+            ->where('periods.id','=',$this->period_id)
+            ->update(['fecha_limite_para_calificar' => $this->limite_fecha]);
     }
 }

@@ -10,9 +10,9 @@
         <div class="pt-12">
             <x-jet-label for="desde" value="Periodo activo." class="text-lg" />
             <div class="flex justify-between px-12 shadow-sm shadow-blue-100 border border-[#1b396a] bg-blue-50">
-                <p class="p-4">{{$clave}}</p>
-                <p class="p-4">{{$fecha1}}</p>
-                <p class="p-4">{{$fecha2}}</p>
+                <p class="p-4">{{$periodos->clave}} </p>
+                <p class="p-4">{{$periodos->fecha_inicio}}</p>
+                <p class="p-4">{{$periodos->fecha_fin}}</p>
                 {{-- <div class="flex items-center">
                 @if($estado === 0)
                     <button wire:click="" type="button" title="Desactivo" class="py-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
@@ -34,19 +34,13 @@
                 <x-input.error wire:model="limite_fecha" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] active:text-sky-50 active:bg-sky-500"
                     type="date" id="fecha_limite" name="fecha_limite" for="fecha_limite" />
             </div>
-            <div class="lg:w-1/2 lg:max-w-md col-start pr-1">
-                <x-jet-label for="hasta" value="Hora." class="text-lg" />
-                <x-datepicker wire:model.defer="" class="block mt-1 w-full border-[#1b396a]" ref="hora_limite" name="hora_limite"
-                    :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
-                <x-jet-input-error for="hora_limite" />
-            </div>
         </div>
         <div class="flex justify-end pt-16">
-            <x-jet-secondary-button type="submit" class="flex justify-center w-60 bg-white border-[#1b396a] text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
+            <x-jet-secondary-button wire:click="actualizar_fecha_limite()" type="submit" class="flex justify-center w-60 bg-white border-[#1b396a] text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
                 GUARDAR
             </x-jet-secondary-button>
         </div>
-       
+
     </div>
 
 </div>
