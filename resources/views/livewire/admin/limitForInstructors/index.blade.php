@@ -1,3 +1,9 @@
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+@endpush
+@push('styles')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endpush
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
@@ -36,9 +42,15 @@
             </div>
             <div class="lg:w-1/2 lg:max-w-md col-start pr-1">
                 <x-jet-label for="hasta" value="Hora." class="text-lg" />
-                <x-datepicker wire:model.defer="" class="block mt-1 w-full border-[#1b396a]" ref="hora_limite" name="hora_limite"
+
+
+
+                <x-datepicker wire:model="limite_hora" class="block mt-1 w-full border-[#1b396a]" ref="hora_limite" name="hora_limite"
                     :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
-                <x-jet-input-error for="hora_limite" />
+                {{-- <x-jet-input-error for="hora_limite" /> --}}
+
+
+                
             </div>
         </div>
         <div class="flex justify-end pt-16">
