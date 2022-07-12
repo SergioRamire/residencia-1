@@ -9,32 +9,75 @@
                     <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">Periodos próximos:</p>
                 </div>
                 @if (!empty($fecha))
-                    <div class="mt-10">
-                        <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10 p-4 shadow-md shadow-gray-500 rounded-md">
-                            @foreach ($fecha as $f)
-                                <div class="relative">
-                                    <dt>
-                                        <p class="flex items-center justify-center ml-16 text-lg leading-6 font-medium text-gray-900">{{ $f->clave }}</p>
-                                    </dt>
-                                    <dd class="flex items-center justify-center mt-2 ml-16 font-bold text-lg text-black">{{ date('d-m-Y', strtotime($f->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($f->fecha_fin)) }}</dd>
-                                </div>
-                            @endforeach
-                        </dl>
-                    </div>
+
+
+
+                    <x-table>
+                        <x-slot name="head">
+                            {{-- <x-table.header >Número</x-table.header> --}}
+                            <x-table.header>
+                                Clave
+                            </x-table.header>
+                            <x-table.header>
+                                Periodo
+                            </x-table.header>
+                            <x-table.header>ofertado</x-table.header>
+                            <x-table.header>acciones</x-table.header>
+        
+                        </x-slot>
+        
+                        @forelse($fecha as $p)
+                            <tr wire:key="period-{{ $loop->index}}" wire:loading.class.delay="opacity-50">
+                                <x-table.cell>{{ $p->clave }}</x-table.cell>
+                                <x-table.cell>Del {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
+                                <x-table.cell>
+                                    
+                                </x-table.cell>
+                                <x-table.cell width='200' class="whitespace-nowrap">
+                                        <button wire:click="activar" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                            Ofertar
+                                        </button>
+        
+                                </x-table.cell>
+                            </tr>
+                            {{-- @php $numero=$numero+1 @endphp --}}
+                        @empty
+                            <tr>
+                                <x-table.cell colspan="7">
+                                    <div class="flex justify-center items-center space-x-2">
+                                        <!-- Icono -->
+                                        <svg class="inline-block h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                        </svg>
+                                        <!-- Texto -->
+                                        <span class="py-4 text-xl text-gray-400 font-medium">
+                                            No se encontraron registros ...
+                                        </span>
+                                    </div>
+                                </x-table.cell>
+                            </tr>
+                        @endforelse
+                    </x-table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 @endif
             </div>
         </div>
 
-        @if (!empty($fecha))
-            <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                <div class="flex justify-center ">
-                    <x-jet-secondary-button wire:click="activar()"
-                        class="mx-10 border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
-                        Activar
-                    </x-jet-secondary-button>
-                </div>
-            </div>
-        @else
+        @if (empty($fecha))
         <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
             <div class="flex justify-center ">
                 <span class="text-black font-bold text-lg">No se encuentra ninguno.</span>
