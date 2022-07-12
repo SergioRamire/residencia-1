@@ -6,9 +6,9 @@
             Bandeja de notificaciones.
         </h2>
     </x-slot>
-     
+
     <div x-data="{ open: true, open2: false }">
-        
+
         <button @click="open = true, open2 = false" x-bind:style="open && { background: 'rgba(219, 234, 254, 1)' }" class="py-2 px-6 rounded-t-lg bg-white ">No leídas</button>
         <button @click="open2 = true, open = false" x-bind:style="open2 && { background: 'rgba(219, 234, 254, 1)' }" class="py-2 px-6 rounded-t-lg bg-white ">Leídas</button>
 
@@ -63,7 +63,7 @@
                         </div>
                     @empty
                         <div class="flex justify-center bg-white py-4 my-4">
-                            No tiene notificaciones leidas
+                            No tiene notificaciones leídas
                             <div>
                     @endforelse
                     @if (auth()->user()->readNotifications()->get()->count() > 0)
