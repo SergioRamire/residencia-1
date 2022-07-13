@@ -17,6 +17,9 @@ class LimitForInstructorsController extends Component{
     public $period;
     public $period_id;
 
+    public bool $modalEdit = false;
+    public bool $modalConfirmacion = false;
+
     public function periodo_activo(){
         $period = Period::select('periods.id','periods.clave','periods.fecha_inicio','periods.fecha_fin')
                         ->where('periods.estado','=',1)
@@ -41,5 +44,16 @@ class LimitForInstructorsController extends Component{
         DB::table('periods')
             ->where('periods.id','=',$this->period_id)
             ->update(['fecha_limite_para_calificar' => $this->limite_fecha]);
+    }
+    public function edit($id){
+        $this->modalEdit = true;
+    }
+    public function confirmar(){
+        $this->modalConfirmacion = true;
+    }
+    public function save(){
+        
+        $this->modalConfirmacion = false;
+        $this->modalEdit = false;
     }
 }

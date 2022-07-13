@@ -14,37 +14,52 @@
     <div class="space-y-2">
 
         <div class="pt-12">
-            <x-jet-label for="desde" value="Periodo activo." class="text-lg" />
-            <div class="flex justify-between px-12 shadow-sm shadow-blue-100 border border-[#1b396a] bg-blue-50">
-                <p class="p-4">{{$periodos->clave}} </p>
-                <p class="p-4">{{$periodos->fecha_inicio}}</p>
-                <p class="p-4">{{$periodos->fecha_fin}}</p>
-                {{-- <div class="flex items-center">
-                @if($estado === 0)
-                    <button wire:click="" type="button" title="Desactivo" class="py-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
-                        Desactivo
-                    </button>
-                @elseif($estado === 1)
-                    <button wire:click="" type="button" title="Activo" class="py-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
-                        Activo
-                    </button>
+            <x-table>
+                <x-slot name="head">
+                    {{-- <x-table.header >Número</x-table.header> --}}
+                    <x-table.header>
+                        Clave
+                    </x-table.header>
+                    <x-table.header>
+                        Periodo
+                    </x-table.header>
+                    <x-table.header>
+                        fecha límite para cargar calificaciones
+                    </x-table.header>
+                    <x-table.header>acciones</x-table.header>
+
+                </x-slot>
+                @if (!empty($periodos))
+                    <tr wire:loading.class.delay="opacity-50">
+                        <x-table.cell>{{ $periodos->clave }}</x-table.cell>
+                        <x-table.cell>Del {{ date('d-m-Y', strtotime($periodos->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($periodos->fecha_fin)) }}</x-table.cell>
+                        <x-table.cell></x-table.cell>
+                        <x-table.cell width='200' class="whitespace-nowrap">
+                            <button wire:click="edit({{$periodos->id}})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-amber-600 text-black font-bold border border-amber-400 rounded shadow">
+                                Editar fecha límite
+                            </button>
+                        </x-table.cell>
+                        
+                    </tr>
+                @else
+                        
+                    <tr>
+                        <x-table.cell colspan="7">
+                            <div class="flex justify-center items-center space-x-2">
+                                <svg class="inline-block h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                                </svg>
+                                <span class="py-4 text-xl text-gray-400 font-medium">
+                                    No se encontraron registros ...
+                                </span>
+                            </div>
+                        </x-table.cell>
+                    </tr>
                 @endif
-                </div> --}}
-
-            </div>
-        </div>
-
-        <div class="lg:flex lg:justify-between pt-16 min:w-12">
-            <div class="lg:w-1/2 lg:max-w-md col-start pr-1">
-                <x-jet-label for="desde" value="Fecha límite para cargar calificaciones." class="text-lg" />
-                <x-input.error wire:model="limite_fecha" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] active:text-sky-50 active:bg-sky-500"
-                    type="date" id="fecha_limite" name="fecha_limite" for="fecha_limite" />
-            </div>
-        </div>
-        <div class="flex justify-end pt-16">
-            <x-jet-secondary-button wire:click="actualizar_fecha_limite()" type="submit" class="flex justify-center w-60 bg-white border-[#1b396a] text-sky-700 hover:text-white hover:bg-sky-800 active:text-sky-50 active:bg-sky-500">
-                GUARDAR
-            </x-jet-secondary-button>
+            </x-table>
+            @if ($modalEdit)
+                @include('livewire.admin.limitForInstructors.edit_create')
+            @endif
         </div>
 
     </div>

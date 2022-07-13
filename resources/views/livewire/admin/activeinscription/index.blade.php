@@ -9,9 +9,6 @@
                     <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">Periodos próximos:</p>
                 </div>
                 @if (!empty($fecha))
-
-
-
                     <x-table>
                         <x-slot name="head">
                             {{-- <x-table.header >Número</x-table.header> --}}
@@ -58,20 +55,6 @@
                             </tr>
                         @endforelse
                     </x-table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 @endif
             </div>
