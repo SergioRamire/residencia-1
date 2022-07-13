@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea guardar cambios del participante?
+        ¿Seguro que desea cambiar a <strong class="text-red-500">{{ date('d-m-Y', strtotime($period->fecha_limite_para_calificar)) }}</strong> como fecha limite?
     </x-slot>
 
     <x-slot name="footer">

@@ -1,13 +1,13 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="modalEdit">
     <x-slot name="title">
-        Editar fecha limite
+        Editar fecha límite
     </x-slot>
     <x-slot name="content">
-
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios"/><br>
         <div class="col-start pr-1">
-            <x-jet-label for="desde" value="Fecha límite para cargar calificaciones." class="text-lg" />
-            <x-input.error wire:model="limite_fecha" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] active:text-sky-50 active:bg-sky-500"
-                type="date" id="fecha_limite" name="fecha_limite" for="fecha_limite" />
+            <p class="text-lg">Fecha límite para cargar calificaciones. <span class="text-red-600">*</span></p>
+            <x-input.error wire:model="period.fecha_limite_para_calificar" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] active:text-sky-50 active:bg-sky-500"
+                type="date" id="fecha_limite" name="period.fecha_limite_para_calificar" for="period.fecha_limite_para_calificar" />
         </div>
     </x-slot>
 

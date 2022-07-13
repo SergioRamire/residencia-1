@@ -14,26 +14,19 @@
     <div class="space-y-2">
 
         <div class="pt-12">
+            <p class="p-2 text-xl">Periodo Activo: </p>
             <x-table>
                 <x-slot name="head">
-                    {{-- <x-table.header >Número</x-table.header> --}}
-                    <x-table.header>
-                        Clave
-                    </x-table.header>
-                    <x-table.header>
-                        Periodo
-                    </x-table.header>
-                    <x-table.header>
-                        fecha límite para cargar calificaciones
-                    </x-table.header>
+                    <x-table.header>Clave</x-table.header>
+                    <x-table.header>Periodo</x-table.header>
+                    <x-table.header>fecha límite para cargar calificaciones</x-table.header>
                     <x-table.header>acciones</x-table.header>
-
                 </x-slot>
                 @if (!empty($periodos))
                     <tr wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $periodos->clave }}</x-table.cell>
                         <x-table.cell>Del {{ date('d-m-Y', strtotime($periodos->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($periodos->fecha_fin)) }}</x-table.cell>
-                        <x-table.cell></x-table.cell>
+                        <x-table.cell>{{ $periodos->fecha_limite_para_calificar }}</x-table.cell>
                         <x-table.cell width='200' class="whitespace-nowrap">
                             <button wire:click="edit({{$periodos->id}})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-amber-600 text-black font-bold border border-amber-400 rounded shadow">
                                 Editar fecha límite
@@ -42,7 +35,6 @@
                         
                     </tr>
                 @else
-                        
                     <tr>
                         <x-table.cell colspan="7">
                             <div class="flex justify-center items-center space-x-2">

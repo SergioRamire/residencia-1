@@ -5,34 +5,46 @@ namespace App\Http\Livewire\Admin;
     use Livewire\Component;
     use App\Models\Period;
     use Illuminate\Support\Facades\DB;
+    use Illuminate\Validation\Rule;
+    use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class LimitForInstructorsController extends Component{
+    use AuthorizesRequests;
 
-    public $clave ='1-ENE/JUN2022';
-    public $fecha1 ='01/01/2022';
-    public $fecha2 ='02/01/2022';
-    public $estado = 1;
-    public $limite_fecha;
-    public $limite_hora;
-    public $period;
-    public $period_id;
+    public Period $period;
 
     public bool $modalEdit = false;
     public bool $modalConfirmacion = false;
 
+    
+    public function mount(){
+        $this->blankPeriod();
+    }
+    public function updated($x){
+        $this->validateOnly($x);
+    }
+    public function blankPeriod(){
+        $this->period = Period::make();
+    }
+    public function updatingSearch(){
+        $this->resetPage();
+    }
+    public function rules(): array{
+        return ['period.fecha_limite_para_calificar' => ['required', 'date']];
+    }
+    
     public function periodo_activo(){
-        $period = Period::select('periods.id','periods.clave','periods.fecha_inicio','periods.fecha_fin')
-                        ->where('periods.estado','=',1)
-                        ->first();
+        $period = Period::select('periods.id','periods.clave','periods.fecha_inicio','periods.fecha_fin','periods.fecha_limite_para_calificar')
+            ->where('periods.estado','=',1)
+            ->first();
         return $period;
     }
 
     public function render(){
-        $p= $this->periodo_activo();
         $this->consultar_clave();
         // dd($p->clave);
         return view('livewire.admin.limitForInstructors.index',[
-           'periodos' => $p
+           'periodos' => $this->periodo_activo()
         ]);
     }
     public function consultar_clave(){
@@ -45,15 +57,23 @@ class LimitForInstructorsController extends Component{
             ->where('periods.id','=',$this->period_id)
             ->update(['fecha_limite_para_calificar' => $this->limite_fecha]);
     }
+
     public function edit($id){
+        $this->authorize('periods.edit');
+        $this->period = Period::findOrfail($id);
         $this->modalEdit = true;
     }
     public function confirmar(){
+        $this->validate();
         $this->modalConfirmacion = true;
     }
     public function save(){
-        
+        $this->period->save();
         $this->modalConfirmacion = false;
         $this->modalEdit = false;
+        $this->dispatchBrowserEvent('notify', [
+            'icon' =>  'pencil' ,
+            'message' =>  'Fecha límite cambiada exitosamente',
+        ]);
     }
 }
