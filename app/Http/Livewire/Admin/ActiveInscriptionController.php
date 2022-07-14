@@ -19,7 +19,7 @@ class ActiveInscriptionController extends Component
     public function consulta(){
         $this->hoy = date('Y/m/d');
         return Period::where('periods.fecha_inicio','>',$this->hoy)
-        ->where('periods.fecha_inicio' , '<', Carbon::now()->addDays(60))
+        // ->where('periods.fecha_inicio' , '<', Carbon::now()->addDays(60))
             ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
     }
