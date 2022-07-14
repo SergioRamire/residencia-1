@@ -118,8 +118,6 @@ class PeriodCoursesController extends Component
         $this->periods->fecha_limite_para_calificar = $this->periods->fecha_fin;
         $this->periods->save();
 
-        $this->edit = false;
-        $this->create = false;
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -132,6 +130,8 @@ class PeriodCoursesController extends Component
             'icon' => $this->edit ? 'pencil' : 'success',
             'message' =>  $this->edit ? 'Periodo actualizado exitosamente' : 'Periodo creado exitosamente',
         ]);
+        $this->edit = false;
+        $this->create = false;
     }
     /**
      * @throws AuthorizationException
