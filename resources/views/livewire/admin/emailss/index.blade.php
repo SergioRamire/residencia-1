@@ -53,6 +53,7 @@
                     <x-slot name="head">
                         <x-table.header>Asunto</x-table.header>
                         <x-table.header>cuerpo</x-table.header>
+                        <x-table.header>destinatario</x-table.header>
                         <x-table.header>Enviado</x-table.header>
                         <x-table.header>Opción</x-table.header>
                     </x-slot>
@@ -61,6 +62,7 @@
                             <tr>
                                 <x-table.cell>{{ $r->title }}</x-table.cell>
                                 <x-table.cell>{{ $r->description}}</x-table.cell>
+                                <x-table.cell>{{ $r->role}}</x-table.cell>
                                 <x-table.cell>{{ $r->created_at->diffForHumans()}}</x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
                                     <button wire:click="view({{$r->id }})" type="button" class="mx-2 text-indigo-600 hover:text-indigo-900">

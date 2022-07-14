@@ -45,6 +45,7 @@ class EmailController extends Component
     public $arr=[
         'title' => '',
         'description' =>'',
+        'role' =>'',
     ];
 
     protected $queryString = [
@@ -110,8 +111,9 @@ class EmailController extends Component
         $this->confirmingSaveEmail=true;
     }
 
-    public function view(Email $email)
+    public function view($id)
     {
+        $email = Email::findOrFail($id);
         $this->title= $email->title;
         $this->description= $email->description;
         // $this->role= $post->role;
@@ -128,13 +130,30 @@ class EmailController extends Component
         $this->validateOnly($propertyName);
     }
 
+    public function consulta($destinatario){
+
+        if($destinatario == 'Participante' || $destinatario == 'Instructor'){
+             $user=User::whereRelation('roles', 'name', '=', $destinatario)->get();
+        }
+        // if($destinatario == 'Todos'){
+        //    return $user= User::join('model_has_roles','model_has_roles.model_id','=','users.id')
+        //     ->join('roles', 'roles.id','=','model_has_roles.role_id')
+        //     ->where('roles.name', '=','Instructor')
+        //     ->where('roles.name', '=','Participante')->get();
+        //     return $user;
+        // };
+        return $user;
+    }
+
     public function store()
     {
         $this->validate();
-        $users=User::all();
+        // $users=User::all();
         $iduser=Auth::id();
         $correo=Email::create($this->arr);
+        $users=$this->consulta($this->arr['role']);
 
+        // dd($users);
         foreach ($users as $u){
             if($u->id != $iduser){
                 Mail::to($u->email)
@@ -173,7 +192,7 @@ class EmailController extends Component
     {
         return view('livewire.admin.emailss.index', [
             'emailss' => Email::query()
-                            ->select('title','description','created_at',)
+                            ->select('id','title','description','role','created_at',)
                             ->when($this->search, function ($query, $b) {
                                 return $query->where(function ($q) {
                                     $q->Where('title', 'like', '%'.$this->search.'%')

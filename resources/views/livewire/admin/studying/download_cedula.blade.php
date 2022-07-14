@@ -99,7 +99,7 @@
     </div>
 
     <div class="container py-2 col-sm-11">
-        <h3 class="container col  col-sm-10">FECHA: {{mb_strtoupper($day_actual,'utf-8')}}</h3>
+        <h1 >FECHA: {{mb_strtoupper($day_actual,'utf-8')}}</h1>
         <table>
             <thead>
                 <td bgcolor="silver">
