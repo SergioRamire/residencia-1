@@ -114,6 +114,8 @@ class PeriodCoursesController extends Component
 
     public function save(){
         $this->periods->estado = 0;
+        $this->periods->ofertado = 0;
+        $this->periods->fecha_limite_para_calificar = $this->periods->fecha_fin;
         $this->periods->save();
 
         $this->edit = false;
