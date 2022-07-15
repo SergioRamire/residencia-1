@@ -13,6 +13,8 @@ use Livewire\WithPagination;
 
 use App\Exports\ListExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Monolog\Handler\IFTTTHandler;
+use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic;
 
 class GradeController extends Component
 {
@@ -43,7 +45,10 @@ class GradeController extends Component
     public $grupo;
     public bool $is_open = false;
     public bool $confirming_save_grade = false;
-    public bool $disponible=true;
+    public bool $disponible=false;
+    public $hoy;
+    public $limit;
+    
 
     protected $queryString = [
         'search' => ['except' => '', 'as' => 's'],
@@ -170,6 +175,13 @@ class GradeController extends Component
             ->orderBy($this->sortField, $this->sortDirection);
     }
 
+    public function validar_limite(){
+        $hoy2 = date('Y-m-d', strtotime(date('Y-m-d')));   
+        $aux_fecha = Period::where('periods.estado','1')
+            ->select('periods.fecha_limite_para_calificar')->first();
+        ($hoy2 <= $aux_fecha->fecha_limite_para_calificar) ? $this->disponible=true : $this->disponible=false ;
+    }
+
     public function render(){
         $this->cuenta_cursos();
         $cur=$this->consultar_cursos();
@@ -177,6 +189,7 @@ class GradeController extends Component
             $this->curso=$cur[0]->nombre;
             $this->id_course=$cur[0]->id;
         }
+        $this->validar_limite();
         return view('livewire.admin.grades.index', [
             'grades' => User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
             ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
