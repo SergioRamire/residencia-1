@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="showViewModal">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="show_view_modal">
     <x-slot name="title">
         Detalles del curso:
     </x-slot>
@@ -64,7 +64,7 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-button wire:click="$toggle('showViewModal')" wire:loading.attr="disabled" >
+        <x-jet-button wire:click="$toggle('show_view_modal')" wire:loading.attr="disabled" >
             Hecho
         </x-jet-button>
     </x-slot>

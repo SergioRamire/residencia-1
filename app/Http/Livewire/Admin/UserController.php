@@ -30,9 +30,9 @@ class UserController extends Component
     public int $perPage = 8;
     protected array $cleanStringsExcept = ['search'];
 
-    public bool $showEditCreateModal = false;
-    public bool $showViewModal = false;
-    public bool $showConfirmationModal = false;
+    public bool $show_edit_create_modal = false;
+    public bool $show_view_modal = false;
+    public bool $show_confirmation_modal = false;
     public bool $edit = false;
     public bool $delete = false;
 
@@ -75,10 +75,10 @@ class UserController extends Component
 
     public function mount()
     {
-        $this->blankUser();
+        $this->blank_user();
     }
 
-    public function blankUser()
+    public function blank_user()
     {
         $this->user = User::make();
         $this->reset(['role', 'password', 'password_confirmation']);
@@ -95,11 +95,11 @@ class UserController extends Component
         $this->resetErrorBag();
         $this->resetValidation();
 
-        $this->blankUser();
+        $this->blank_user();
 
         $this->edit = false;
         $this->delete = false;
-        $this->showEditCreateModal = true;
+        $this->show_edit_create_modal = true;
     }
 
     /**
@@ -130,7 +130,7 @@ class UserController extends Component
 
         $this->edit = true;
         $this->delete = false;
-        $this->showEditCreateModal = true;
+        $this->show_edit_create_modal = true;
     }
 
     /**
@@ -144,13 +144,13 @@ class UserController extends Component
 
         $this->edit = false;
         $this->delete = true;
-        $this->showConfirmationModal = true;
+        $this->show_confirmation_modal = true;
     }
 
-    public function confirmSave()
+    public function confirm_save()
     {
         $this->validate();
-        $this->showConfirmationModal = true;
+        $this->show_confirmation_modal = true;
     }
 
     public function save()
@@ -167,8 +167,8 @@ class UserController extends Component
             $this->user->save();
         }
 
-        $this->showConfirmationModal = false;
-        $this->showEditCreateModal = false;
+        $this->show_confirmation_modal = false;
+        $this->show_edit_create_modal = false;
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
@@ -179,7 +179,7 @@ class UserController extends Component
     public function destroy()
     {
         $this->user->delete();
-        $this->showConfirmationModal = false;
+        $this->show_confirmation_modal = false;
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',

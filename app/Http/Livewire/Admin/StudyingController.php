@@ -56,7 +56,7 @@ class StudyingController extends Component
             ->get();;
     }
 
-    public function consultapdf($iduser,$idcurso)
+    public function consulta_pdf($iduser,$idcurso)
     {
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
@@ -82,7 +82,7 @@ class StudyingController extends Component
             ->get();;
     }
 
-    public function consultains($idcurso)
+    public function consulta_ins($idcurso)
     {
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
@@ -93,10 +93,10 @@ class StudyingController extends Component
             ->get();;
     }
 
-    public function downloadPdf($iduser,$idcurso){
-        $coursesdetails = $this->consultapdf($iduser, $idcurso);
-        $instructor = $this->consultains( $idcurso);
-        list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($coursesdetails[0]);
+    public function download_pdf($iduser,$idcurso){
+        $coursesdetails = $this->consulta_pdf($iduser, $idcurso);
+        $instructor = $this->consulta_ins( $idcurso);
+        list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($coursesdetails[0]);
 
         $pdf = Pdf::loadView('livewire.admin.studying.download_cedula', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fecha_inicial,'fecha_f'=> $fecha_final,'day_actual'=> $dia_actual]);
         $pdf_file = storage_path('app/')."Cedula de Inscipcion.pdf";
@@ -105,7 +105,7 @@ class StudyingController extends Component
         return response()->download($pdf_file)->deleteFileAfterSend();
     }
 
-    private function getDates(?CourseDetail $coursesdetails): array
+    private function get_dates(?CourseDetail $coursesdetails): array
     {
         $fechaini = Carbon::parse($coursesdetails->f1)->isoFormat('D \d\e MMMM');
         $fecha_fin = Carbon::parse($coursesdetails->f2)->isoFormat('D \d\e MMMM \d\e YYYY');

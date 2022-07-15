@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditCreateModal">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="showEdit_create_modal">
     <x-slot name="title">
         {{$modo}} Participante
     </x-slot>
@@ -36,14 +36,14 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('showEditCreateModal')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('showEdit_create_modal')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:click.prevent=" updateParticipant()" wire:loading.attr="disabled" form="courseForm">
+        <x-jet-button class="ml-3" wire:click.prevent=" update_participant()" wire:loading.attr="disabled" form="courseForm">
             {{$modo}} Datos
          </x-jet-button>
-        @if($confirmingSaveParticipant)
+        @if($confirming_save_participant)
             @include('livewire.admin.lists.confirmation')
         @endif
     </x-slot>

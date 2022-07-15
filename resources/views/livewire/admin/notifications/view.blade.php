@@ -31,7 +31,7 @@
                     </div>
                     @if ($loop->last)
                         <div class="flex justify-center px-6 py-2 bg-blue-50">
-                            <a href={{ route('markAsRead') }} class="text-blue-600 font-bold p-2 px-4 bg-white hover:text-white hover:bg-sky-600 border border-sky-400 rounded shadow">
+                            <a href={{ route('mark_as_read') }} class="text-blue-600 font-bold p-2 px-4 bg-white hover:text-white hover:bg-sky-600 border border-sky-400 rounded shadow">
                                 Marcar todas las notificationes como leídas
                             </a>
                         </div>

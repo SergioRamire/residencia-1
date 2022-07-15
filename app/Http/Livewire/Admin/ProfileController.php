@@ -14,8 +14,8 @@ class ProfileController extends Component
 
     public User $user;
     public Area $area;
-    public $showConfirmationModal = false;
-    public $showEditModal = false;
+    public $show_confirmation_modal = false;
+    public $show_edit_modal = false;
 
     public function mount(){
         $this->user = auth()->user();
@@ -29,8 +29,8 @@ class ProfileController extends Component
             // 'user.rfc' =>  ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
             // 'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'user.apellido_paterno' => $this->valiAp($this->no_ap1),
-            'user.apellido_materno' => $this->valiAp($this->no_ap2),
+            'user.apellido_paterno' => $this->vali_ap($this->no_ap1),
+            'user.apellido_materno' => $this->vali_ap($this->no_ap2),
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
             'user.sexo' => ['required', 'regex:/^[F|M]$/u', 'max:1'],
             'user.correo_tecnm' => ['required', 'email', 'ends_with:@oaxaca.tecnm.mx', Rule::unique('users', 'correo_tecnm')->ignore($this->user)],
@@ -65,7 +65,7 @@ class ProfileController extends Component
         return view('livewire.admin.users.profile');
     }
 
-    public function editInfo(){
+    public function edi_iInfo(){
         $this->authorize('user.edit');
         if (empty($this->user->apellido_paterno)) {
             $this->no_ap1 = true;
@@ -78,26 +78,26 @@ class ProfileController extends Component
         }else {
             $this->no_ap2 = false;
         }
-        $this->showEditModal = true;
+        $this->show_edit_modal = true;
     }
 
-    public function confirmSave(){
+    public function confirm_save(){
         $this->validate();
-        $this->showEditModal = false;
-        $this->showConfirmationModal = true;
+        $this->show_edit_modal = false;
+        $this->show_confirmation_modal = true;
     }
-    public function closeM(){
-        $this->showEditModal = false;
+    public function close_m(){
+        $this->show_edit_modal = false;
         return redirect()->route('user.perfil');
     }
-    public function closeM2(){
-        $this->showConfirmationModal = false;
+    public function close_m2(){
+        $this->show_confirmation_modal = false;
         return redirect()->route('user.perfil');
     }
     public function save(){
         $this->user->save();
-        $this->showEditModal = false;
-        $this->showConfirmationModal = false;
+        $this->show_edit_modal = false;
+        $this->show_confirmation_modal = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'success',
             'message' => 'Datos actualizado exitosamente.',
@@ -108,7 +108,7 @@ class ProfileController extends Component
     public $no_ap1 = false;
     public $no_ap2 = false;
 
-    public function valiAp($valor){
+    public function vali_ap($valor){
         if ($valor) {
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
         }

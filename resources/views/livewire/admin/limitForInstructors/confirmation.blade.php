@@ -1,4 +1,4 @@
-<x-jet-confirmation-modal wire:model="modalConfirmacion">
+<x-jet-confirmation-modal wire:model="modal_confirmacion">
     <x-slot name="title">
         Confirmación
     </x-slot>
@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('modalConfirmacion')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('modal_confirmacion')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 

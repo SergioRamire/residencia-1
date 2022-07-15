@@ -35,8 +35,8 @@ class ParticipantController extends Component
         'cuenta_moodle' => '',
     ];
 
-    public bool $showEditModal = false;
-    public bool $showViewModal = false;
+    public bool $show_edit_modal = false;
+    public bool $show_view_modal = false;
     public bool $showConfirmationModal = false;
 
     protected $queryString = [
@@ -92,16 +92,16 @@ class ParticipantController extends Component
 
         $this->user = $user;
 
-        $this->showEditModal = true;
+        $this->show_edit_modal = true;
     }
 
     public function view(User $user)
     {
         $this->user = $user;
-        $this->showViewModal = true;
+        $this->show_view_modal = true;
     }
 
-    public function confirmSave()
+    public function confirm_save()
     {
         $this->validate();
         $this->showConfirmationModal = true;
@@ -112,7 +112,7 @@ class ParticipantController extends Component
         $this->user->save();
 
         $this->showConfirmationModal = false;
-        $this->showEditModal = false;
+        $this->show_edit_modal = false;
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'pencil',

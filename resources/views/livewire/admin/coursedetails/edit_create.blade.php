@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditCreateModal">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="show_edit_createModal">
     <x-slot name="title">
         Detalles de curso
     </x-slot>
@@ -9,7 +9,7 @@
             @livewire('admin.course-select')
         </div>
 
-        <form wire:submit.prevent="updateDetails()" id="courseForm">
+        <form wire:submit.prevent="update_details()" id="courseForm">
             <!-- Nombre  Curso-->
             <!-- Periodo y Hora inicio y Hora fin -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
@@ -81,14 +81,14 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('showEditCreateModal')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('show_edit_createModal')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 
         <x-jet-button class="ml-3" wire:loading.attr="disabled" form="courseForm">
             Datos
         </x-jet-button>
-        @if ($confirmingSaveDetails)
+        @if ($confirming_save_details)
             @include('livewire.admin.coursedetails.confirmation')
         @endif
     </x-slot>

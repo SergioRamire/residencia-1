@@ -4,7 +4,7 @@
     </x-slot>
     <x-slot name="content">
         <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" /><br>
-        <form wire:submit.prevent="confirmSave()" id="courseForm">
+        <form wire:submit.prevent="confirm_save()" id="courseForm">
             <!-- Clave y Periodo -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Clave -->

@@ -89,12 +89,12 @@ class ConstanciasController extends Component
     public function data_send($valor){
         $this->classification['curso'] = $valor;
     }
-    public function descargarConstancia($id)
+    public function descargar_constancia($id)
     {
         $datos = $this->consultaBase()
             ->where('inscriptions.id', '=', $id)
             ->get()->first();
-        list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($datos);
+        list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($datos);
 
         $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $datos, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
         $pdf_file = storage_path('app/')."Constancia - $datos->nombre - $datos->curso - $datos->grupo.pdf";
@@ -103,7 +103,7 @@ class ConstanciasController extends Component
         return response()->download($pdf_file)->deleteFileAfterSend();
     }
 
-    public function descargarConstanciasZIP()
+    public function descargar_constancias_zip()
     {
         $consulta = $this->consultaBase()
             ->where('calificacion', '>=', 70)
@@ -112,7 +112,7 @@ class ConstanciasController extends Component
         \Storage::makeDirectory('pdf');
 
         foreach ($consulta as $item) {
-            list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($item);
+            list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($item);
 
             $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $item, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
             $pdf->save(storage_path('app/pdf/')."Constancia - $item->nombre - $item->curso - $item->grupo.pdf");
@@ -150,7 +150,7 @@ class ConstanciasController extends Component
                 'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
     }
 
-    private function getDates(?User $datos): array
+    private function get_dates(?User $datos): array
     {
         $fechaini = Carbon::parse($datos->fi)->isoFormat('D \d\e MMMM');
         $fecha_fin = Carbon::parse($datos->ff)->isoFormat('D \d\e MMMM \d\e YYYY');

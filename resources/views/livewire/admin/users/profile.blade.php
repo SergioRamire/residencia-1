@@ -114,7 +114,7 @@
                         @if ($vali)
                             <p class="rounded-md text-lg text-red-700 pr-4">Recuerde reller su informacion faltante.</p>
                         @endif
-                        <x-jet-button wire:click="editInfo()" type="button" class="bg-[#1b396a]">
+                        <x-jet-button wire:click="edi_iInfo()" type="button" class="bg-[#1b396a]">
                             Editar Informacion
                         </x-jet-button>
                     </div>

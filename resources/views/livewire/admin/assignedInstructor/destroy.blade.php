@@ -1,5 +1,5 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
-<x-jet-confirmation-modal wire:model="modaldelete">
+<x-jet-confirmation-modal wire:model="modal_delete">
     <x-slot name="title">
         Eliminar instructor del curso seleccioando.
     </x-slot>
@@ -10,7 +10,7 @@
 
     {{-- botones --}}
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('modaldelete')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('modal_delete')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 

@@ -29,13 +29,13 @@ class EmailController extends Component
     public $post;
     public $edit = false;
     public $create = false;
-    public $showEditModal = 0;
-    public $showViewModal =false;
-    public $confirmingPartDeletion = false;
-    public $confirmingSaveParti = false;
-    public $confirminNotificacion=false;
-    public $deletetodasnotifi= false;
-    public $confirmingSaveEmail=false;
+    public $show_edit_modal = 0;
+    public $show_view_modal =false;
+    public $confirming_part_deletion = false;
+    public $confirming_save_parti = false;
+    public $confirmin_notificacion=false;
+    public $delete_todas_notifi= false;
+    public $confirming_save_email=false;
     public $perPage = '8';
     public $arreglo=[];
     // public $search = '';
@@ -86,19 +86,19 @@ class EmailController extends Component
     public function create()
     {
         $this->resetInputFields();
-        $this->openModal();
+        $this->open_modal();
         $this->edit = false;
         $this->create = true;
     }
 
-    public function openModal()
+    public function open_modal()
     {
-        $this->showEditModal = true;
+        $this->show_edit_modal = true;
     }
 
-    public function closeModal()
+    public function close_modal()
     {
-        $this->showEditModal = false;
+        $this->show_edit_modal = false;
     }
 
     public function resetInputFields()
@@ -107,7 +107,7 @@ class EmailController extends Component
     }
 
     public function confirmation(){
-        $this->confirmingSaveEmail=true;
+        $this->confirming_save_email=true;
     }
 
     public function view(Email $email)
@@ -115,7 +115,7 @@ class EmailController extends Component
         $this->title= $email->title;
         $this->description= $email->description;
         // $this->role= $post->role;
-        $this->showViewModal = true;
+        $this->show_view_modal = true;
     }
 
     protected $rules = [
@@ -149,24 +149,24 @@ class EmailController extends Component
 
         $this->edit = false;
         $this->create = false;
-        $this->confirmingSaveEmail = false;
-        $this->closeModal();
+        $this->confirming_save_email = false;
+        $this->close_modal();
         $this->resetInputFields();
     }
 
     //eliminar todas las notificaciones enviadas
-    public function deleteNoti()
+    public function delete_noti()
     {
-        $this->confirminNotificacion= true;
+        $this->confirmin_notificacion= true;
     }
 
-    public function deleteNotifications(){
+    public function delete_notifications(){
         Email::all()->each->delete();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Notificaciones eliminadas exitosamente!!!',
         ]);
-        $this->confirminNotificacion= false;
+        $this->confirmin_notificacion= false;
     }
 
     public function render()

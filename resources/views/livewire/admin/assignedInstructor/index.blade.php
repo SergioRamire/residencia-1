@@ -58,7 +58,7 @@
                         <x-table.header class="text-center">Accion</x-table.header>
                     </x-slot>
 
-                    @forelse($datosTabla as $g)
+                    @forelse($datos_tabla as $g)
                         <tr wire:key="instructor-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell >{{ $g->cnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->gnombre }}</x-table.cell>
@@ -66,10 +66,10 @@
                             <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                <button  wire:click="openModalCreate({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="mr-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
+                                <button  wire:click="open_modal_create({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="mr-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
                                     Añadir
                                 </button>
-                                <button  wire:click="openModalShow({{ $g->idcurdet }})" type="button" title="Ver instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
+                                <button  wire:click="open_modal_show({{ $g->idcurdet }})" type="button" title="Ver instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                     Ver
                                 </button>
 
@@ -96,7 +96,7 @@
                     @endforelse
                 </x-table>
                 <div>
-                    {{ $datosTabla->links() }}
+                    {{ $datos_tabla->links() }}
                 </div>
             </div>
         </div>

@@ -190,7 +190,7 @@
                 @elseif($edit)
                     @include('livewire.admin.lists.edit_create', [ 'modo' => 'Actualizar', ])
                 @endif
-                @if ($confirmingParticipantDeletion)
+                @if ($confirming_participant_deletion)
                     @include('livewire.admin.lists.destroy')
                 @endif
 

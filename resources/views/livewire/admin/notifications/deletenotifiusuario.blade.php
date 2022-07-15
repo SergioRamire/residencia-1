@@ -1,4 +1,4 @@
-<x-jet-confirmation-modal wire:model="deletetodasnotifi">
+<x-jet-confirmation-modal wire:model="delete_todas_notifi">
     <x-slot name="title">
         {{ __('Eliminar Notificaciones') }}
     </x-slot>
@@ -10,11 +10,11 @@
     {{-- botones --}}
     <x-slot name="footer">
         {{-- boton de cancelar --}}
-        <x-jet-secondary-button wire:click="$toggle('deletetodasnotifi')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('delete_todas_notifi')" wire:loading.attr="disabled">
             {{ __('Cancelar') }}
         </x-jet-secondary-button>
         {{-- boton de eliminar--}}
-        <x-jet-danger-button class="ml-3" wire:click="deleteNotificationsleidas()" wire:loading.attr="disabled">
+        <x-jet-danger-button class="ml-3" wire:click="delete_notificationsleidas()" wire:loading.attr="disabled">
             {{ __('Eliminar') }}
         </x-jet-danger-button>
     </x-slot>

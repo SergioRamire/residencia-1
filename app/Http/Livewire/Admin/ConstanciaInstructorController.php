@@ -102,12 +102,12 @@ class ConstanciaInstructorController extends Component
     }
 
 
-    public function descargarConstancia($id)
+    public function descargar_constancia($id)
     {
-        $datos = $this->consultaBase()
+        $datos = $this->consulta_base()
             ->where('users.id', '=', $id)
             ->get()->first();
-        list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($datos);
+        list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($datos);
 
         $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $datos,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual]);
         $pdf_file = storage_path('app/')."Constancia-$datos->nombre-$datos->grupo.pdf";
@@ -116,14 +116,14 @@ class ConstanciaInstructorController extends Component
         return response()->download($pdf_file)->deleteFileAfterSend();
     }
 
-    public function descargarConstanciasZIP()
+    public function descargar_constancias_zip()
     {
-        $consulta = $this->consultaBase()->get();
+        $consulta = $this->consulta_base()->get();
 
         \Storage::makeDirectory('pdf');
 
         foreach ($consulta as $item) {
-            list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($item);
+            list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($item);
 
             $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $item,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual]);
             $pdf->save(storage_path('app/pdf/')."Constancia-$item->nombre-$item->grupo.pdf");
@@ -146,7 +146,7 @@ class ConstanciaInstructorController extends Component
         return response()->download($zipFile)->deleteFileAfterSend();
     }
 
-    private function consultaBase()
+    private function consulta_base()
     {
         return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
             ->join('areas', 'areas.id', '=', 'users.area_id')
@@ -161,7 +161,7 @@ class ConstanciaInstructorController extends Component
             // ->when($this->filters['filtro_curso'], fn ($query, $filtro_curso) => $query->where('course_details.nombre', '=', $filtro_curso));
     }
 
-    private function getDates(?User $datos): array
+    private function get_dates(?User $datos): array
     {
         $fechaini = Carbon::parse($datos->fi)->isoFormat('D \d\e MMMM');
         $fecha_fin = Carbon::parse($datos->ff)->isoFormat('D \d\e MMMM \d\e YYYY');

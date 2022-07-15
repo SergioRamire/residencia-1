@@ -46,10 +46,10 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button wire:click.prevent="updateGrade()" class="ml-3"  wire:loading.attr="disabled" form="courseForm">
+        <x-jet-button wire:click.prevent="update_grade()" class="ml-3"  wire:loading.attr="disabled" form="courseForm">
            Actualizar Datos
         </x-jet-button>
-        @if($confirmingSaveGrade)
+        @if($confirming_save_grade)
                     @include('livewire.admin.grades.confirmation')
         @endif
     </x-slot>

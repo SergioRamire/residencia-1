@@ -22,9 +22,9 @@ class RoleController extends Component
 
     public int $perPage = 8;
 
-    public bool $showEditCreateModal = false;
-    public bool $showViewModal = false;
-    public bool $showConfirmationModal = false;
+    public bool $show_edit_createModal = false;
+    public bool $show_view_modal = false;
+    public bool $show_confirmation_modal = false;
     public bool $edit = false;
     public bool $delete = false;
 
@@ -43,10 +43,10 @@ class RoleController extends Component
 
     public function mount()
     {
-        $this->blankRole();
+        $this->blank_role();
     }
 
-    public function blankRole()
+    public function blank_role()
     {
         $this->role = Role::make();
         $this->reset('permissions');
@@ -63,11 +63,11 @@ class RoleController extends Component
         $this->resetErrorBag();
         $this->resetValidation();
 
-        $this->blankRole();
+        $this->blank_role();
 
         $this->edit = false;
         $this->delete = false;
-        $this->showEditCreateModal = true;
+        $this->show_edit_createModal = true;
     }
 
     /**
@@ -82,11 +82,11 @@ class RoleController extends Component
         $this->resetValidation();
 
         $this->role = $role;
-        $this->permissions = $this->getPermissionsIds();
+        $this->permissions = $this->get_permissions_ids();
 
         $this->edit = true;
         $this->delete = false;
-        $this->showEditCreateModal = true;
+        $this->show_edit_createModal = true;
     }
 
     /**
@@ -100,13 +100,13 @@ class RoleController extends Component
 
         $this->edit = false;
         $this->delete = true;
-        $this->showConfirmationModal = true;
+        $this->show_confirmation_modal = true;
     }
 
-    public function confirmSave()
+    public function confirm_save()
     {
         $this->validate();
-        $this->showConfirmationModal = true;
+        $this->show_confirmation_modal = true;
     }
 
     public function save()
@@ -114,8 +114,8 @@ class RoleController extends Component
         $this->role->syncPermissions($this->permissions);
         $this->role->save();
 
-        $this->showConfirmationModal = false;
-        $this->showEditCreateModal = false;
+        $this->show_confirmation_modal = false;
+        $this->show_edit_createModal = false;
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
@@ -126,7 +126,7 @@ class RoleController extends Component
     public function destroy()
     {
         $this->role->delete();
-        $this->showConfirmationModal = false;
+        $this->show_confirmation_modal = false;
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
@@ -134,7 +134,7 @@ class RoleController extends Component
         ]);
     }
 
-    private function getPermissionsIds(): array
+    private function get_permissions_ids(): array
     {
         return $this->role->getAllPermissions()->pluck('id')->toArray();
     }

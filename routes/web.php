@@ -113,35 +113,35 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::resource('post', PostController::class);
 
     // Ruta para marcar como leída las notificaciones
-    Route::get('markAsRead', function (){
-        app(PostController::class)->markAsRead();
+    Route::get('mark_as_read', function (){
+        app(PostController::class)->mark_as_read();
         return redirect()->back();//te retorna a la misma vista
-    })->name('markAsRead');
+    })->name('mark_as_read');
      // Ruta para eliminar todas sus notifications
     Route::get('destroyNotificationsss', function (){
-        app(PostController::class)->deletetodasnoti();
+        app(PostController::class)->delete_todas_noti();
         return redirect()->back();//te retorna a la misma vista
     })->name('destroyNotificationsss');
 
     // Ruta para eliminar todas sus notifications lídas
     Route::get('destroyNotifications', function (){
-        app(PostController::class)->deletfullnotifyread();
+        app(PostController::class)->delet_full_notify_read();
         return redirect()->back();//te retorna a la misma vista
     })->name('destroyNotifications');
 
     //Ruta para marcar una notificación como marcada
     Route::get('marcarunanoti/{id}', function ($id){
-        app(PostController::class)->markoneAsRead($id);
+        app(PostController::class)->markone_as_read($id);
         return redirect()->back();//te retorna a la misma vista
     })->name('marcarunanoti');
 
-    Route::post('/mark-as-read', PostController::class)->name('markNotification');
+    Route::post('/mark-as-read', PostController::class)->name('mark_notification');
 
-    Route::get('markNotificationone', function (Request $request){
+    Route::get('mark_notificationone', function (Request $request){
         auth()->user()->unreadNotifications
-        ->where('id', $request)->markAsRead();
+        ->where('id', $request)->mark_as_read();
         return redirect()->back();//te retorna a la misma vista
-    })->name('markNotificationone');
+    })->name('mark_notificationone');
 
     Route::middleware('can:historycourse.show')->prefix('admin')->name('admin.')
         ->get('historial-cursos', HistoryCourseController::class)->name('historycourse');

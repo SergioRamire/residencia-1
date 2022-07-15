@@ -1,5 +1,5 @@
 <!-- Modales -->
-<x-jet-dialog-modal wire:model="isOpen">
+<x-jet-dialog-modal wire:model="is_open">
     <x-slot name="title">
         {{$modo}} Grupo
     </x-slot>
@@ -16,14 +16,14 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('isOpen')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('is_open')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:click.prevent="updateGroup()" wire:loading.attr="disabled" form="courseForm">
+        <x-jet-button class="ml-3" wire:click.prevent="update_group()" wire:loading.attr="disabled" form="courseForm">
            {{$modo}} Datos
         </x-jet-button>
-        @if($confirmingSaveGroup)
+        @if($confirming_save_group)
                     @include('livewire.admin.groups.confirmation')
         @endif
     </x-slot>

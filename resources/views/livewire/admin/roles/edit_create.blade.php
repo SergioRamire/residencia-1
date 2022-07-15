@@ -1,10 +1,10 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditCreateModal">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="show_edit_createModal">
     <x-slot name="title">
         {{ $edit ? 'Editar rol' : 'Crear rol' }}
     </x-slot>
     <x-slot name="content">
         <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" /><br>
-        <form wire:submit.prevent="confirmSave()" id="roleForm">
+        <form wire:submit.prevent="confirm_save()" id="roleForm">
             <!-- Nombre -->
             <div>
                 <x-jet-label for="nombre">Nombre <span class="text-red-600">*</span></x-jet-label>
@@ -30,7 +30,7 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('showEditCreateModal')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('show_edit_createModal')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 

@@ -1,5 +1,5 @@
 <!-- Modales -->
-    <x-jet-dialog-modal wire:model="modalEdit">
+    <x-jet-dialog-modal wire:model="modal_edit">
         <x-slot name="title">
             <div class="bg-[#1b396a] text-white p-2">
                 @if ($create)
@@ -31,7 +31,7 @@
                                     <x-table.header class="text-center">Accion</x-table.header>
                                 </x-slot>
 
-                                @forelse($listaIns as $item)
+                                @forelse($lista_ins as $item)
                                     <tr wire:key="instructor-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                                         <x-table.cell >{{ $item->n }} {{ $item->ap1 }} {{ $item->ap2 }}</x-table.cell>
                                         <x-table.cell class="text-center">
@@ -62,7 +62,7 @@
                     @if ($delet)
                             <select wire:model="id_ins_delete" name="" id="">
                                 <option value="">Seleccione un Instructor</option>
-                                    @foreach ($listaIns as $item)
+                                    @foreach ($lista_ins as $item)
                                         <option value="{{$item->idi}}">{{ $item->n }} {{ $item->ap1 }} {{ $item->ap2 }}</option>
                                     @endforeach
                             </select>
@@ -78,12 +78,12 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button wire:click="closeModal()" wire:loading.attr="disabled">
+            <x-jet-secondary-button wire:click="close_modal()" wire:loading.attr="disabled">
                 Cancelar
             </x-jet-secondary-button>
 
             @if ($create)
-                <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="openConfirmacion()" wire:loading.attr="disabled" form="courseForm">
+                <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="open_confirmacion()" wire:loading.attr="disabled" form="courseForm">
                     Asignar
                 </x-jet-button>
             @endif

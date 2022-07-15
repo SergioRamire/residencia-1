@@ -94,7 +94,7 @@
                             <button  wire:click="edit({{ $d->id }})" type="button" title="Editar información" class="mx-2 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="deleteDetails('{{ $d->id }}','{{ $d->curso }}')" type="button" title="Eliminar detalles" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="delete_details('{{ $d->id }}','{{ $d->curso }}')" type="button" title="Eliminar detalles" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                         </x-table.cell>
@@ -123,7 +123,7 @@
             </div>
             {{-- <div class="text-right min-h-full">
                 @if($detalles->count() > 0)
-                    <button wire:click="downloadPdf()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                    <button wire:click="download_pdf()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                         <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/>
                         </svg>
@@ -137,11 +137,11 @@
                 @include('livewire.admin.coursedetails.edit_create', ['modo' => 'Actualizar'])
             @endif
 
-            @if ($confirmingDetailsDeletion)
+            @if ($confirming_details_deletion)
                 @include('livewire.admin.coursedetails.destroy')
             @endif
 
-            @if ($showViewModal)
+            @if ($show_view_modal)
                 @include('livewire.admin.coursedetails.show')
             @endif
         </div>

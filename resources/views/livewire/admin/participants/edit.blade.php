@@ -1,10 +1,10 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditModal">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="show_edit_modal">
     <x-slot name="title">
         Editar user
     </x-slot>
     <x-slot name="content">
         <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" /><br>
-        <form wire:submit.prevent="confirmSave()" id="participantForm">
+        <form wire:submit.prevent="confirm_save()" id="participantForm">
             <!-- RFC y CURP -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- RFC -->
@@ -165,7 +165,7 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('showEditModal')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('show_edit_modal')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 

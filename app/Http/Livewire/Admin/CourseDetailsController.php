@@ -56,27 +56,27 @@ class CourseDetailsController extends Component
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
 
-    public $showEditCreateModal = false;
-    public $confirmingDetailsDeletion = false;
-    public $confirmingSaveDetails = false;
-    public bool $showViewModal = false;
+    public $show_edit_createModal = false;
+    public $confirming_details_deletion = false;
+    public $confirming_save_details = false;
+    public bool $show_view_modal = false;
 
     public function create(){
         $this->resetErrorBag();
         $this->resetInputFields();
         $this->emit('valorCurso','');
         $this->emit('valorPerio','');
-        $this->openModal();
+        $this->open_modal();
         $this->edit = false;
         $this->create = true;
     }
 
-    public function openModal(){
-        $this->showEditCreateModal = true;
+    public function open_modal(){
+        $this->show_edit_createModal = true;
     }
 
-    public function closeModal(){
-        $this->showEditCreateModal = false;
+    public function close_modal(){
+        $this->show_edit_createModal = false;
     }
 
     private function resetInputFields(){
@@ -105,9 +105,9 @@ class CourseDetailsController extends Component
         ]);
     }
 
-    public function updateDetails(){
+    public function update_details(){
         $this->validateInputs();
-        $this->confirmingSaveDetails = true;
+        $this->confirming_save_details = true;
     }
 
     public function view($id){
@@ -136,7 +136,7 @@ class CourseDetailsController extends Component
 
 
         $this->lugar = $coursedetail->lugar;
-        $this->showViewModal = true;
+        $this->show_view_modal = true;
     }
 
     public function store(){
@@ -153,12 +153,12 @@ class CourseDetailsController extends Component
         ]);
         $this->edit = false;
         $this->create = false;
-        $this->confirmingSaveDetails = false;
+        $this->confirming_save_details = false;
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
 
-        $this->closeModal();
+        $this->close_modal();
         $this->resetInputFields();
 
         $this->dispatchBrowserEvent('notify', [
@@ -184,23 +184,23 @@ class CourseDetailsController extends Component
         $this->emit('valorPerio',$this->period);
         $this->edit = true;
         $this->create = false;
-        $this->openModal();
+        $this->open_modal();
 
     }
 
-    public function deleteDetails($id){
+    public function delete_details($id){
         $this->coursedetail = CourseDetail::findOrFail($id);
         $course = CourseDetail::join('courses','courses.id','course_details.course_id')
             ->select('courses.nombre as curso')
             ->where('course_details.id','=',$id)
             ->first();
         $this->curso_elegido=$course->curso;
-        $this->confirmingDetailsDeletion = true;
+        $this->confirming_details_deletion = true;
     }
 
     public function delete(){
         $this->coursedetail->delete();
-        $this->confirmingDetailsDeletion= false;
+        $this->confirming_details_deletion= false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Los detalles se han eliminado exitosamente',
@@ -254,7 +254,7 @@ class CourseDetailsController extends Component
         $this->curso = $valor;
     }
 
-    public function downloadPdf()
+    public function download_pdf()
     {
         $coursesdetails = CourseDetail::join('courses', 'courses.id','=', 'course_details.course_id')
         ->join('groups', 'groups.id', '=','course_details.group_id')

@@ -13,17 +13,17 @@ class LimitForInstructorsController extends Component{
 
     public Period $period;
 
-    public bool $modalEdit = false;
-    public bool $modalConfirmacion = false;
+    public bool $modal_edit = false;
+    public bool $modal_confirmacion = false;
 
     
     public function mount(){
-        $this->blankPeriod();
+        $this->blank_period();
     }
     public function updated($x){
         $this->validateOnly($x);
     }
-    public function blankPeriod(){
+    public function blank_period(){
         $this->period = Period::make();
     }
     public function updatingSearch(){
@@ -61,16 +61,16 @@ class LimitForInstructorsController extends Component{
     public function edit($id){
         $this->authorize('periods.edit');
         $this->period = Period::findOrfail($id);
-        $this->modalEdit = true;
+        $this->modal_edit = true;
     }
     public function confirmar(){
         $this->validate();
-        $this->modalConfirmacion = true;
+        $this->modal_confirmacion = true;
     }
     public function save(){
         $this->period->save();
-        $this->modalConfirmacion = false;
-        $this->modalEdit = false;
+        $this->modal_confirmacion = false;
+        $this->modal_edit = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' =>  'pencil' ,
             'message' =>  'Fecha límite cambiada exitosamente',

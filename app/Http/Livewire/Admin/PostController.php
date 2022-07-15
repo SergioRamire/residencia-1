@@ -27,13 +27,13 @@ class PostController extends Component
     //variables de modales
     public $edit = false;
     public $create = false;
-    public $showEditModal = 0;
-    public $showViewModal =false;
-    public $confirmingPartDeletion = false;
-    public $confirmingSaveParti = false;
-    public $confirminNotificacion=false;
-    public $deletetodasnotifi= false;
-    public $confirmingSaveNotificacion=false;
+    public $show_edit_modal = 0;
+    public $show_view_modal =false;
+    public $confirming_part_deletion = false;
+    public $confirming_save_parti = false;
+    public $confirmin_notificacion=false;
+    public $delete_todas_notifi= false;
+    public $confirming_save_notificacion=false;
 
     //Variables de busqueda y paginación
     public int $perPage = 8;
@@ -69,14 +69,14 @@ class PostController extends Component
         ]);
     }
 
-    public function openModal()
+    public function open_modal()
     {
-        $this->showEditModal = true;
+        $this->show_edit_modal = true;
     }
 
-    public function closeModal()
+    public function close_modal()
     {
-        $this->showEditModal = false;
+        $this->show_edit_modal = false;
     }
 
     public function resetInputFields()
@@ -99,7 +99,7 @@ class PostController extends Component
     public function create()
     {
         $this->resetInputFields();
-        $this->openModal();
+        $this->open_modal();
         $this->edit = false;
         $this->create = true;
     }
@@ -109,7 +109,7 @@ class PostController extends Component
         $this->title = $post->title;
         $this->description= $post->description;
         $this->role= $post->role;
-        $this->showViewModal = true;
+        $this->show_view_modal = true;
     }
 
     public function index()
@@ -119,28 +119,28 @@ class PostController extends Component
     }
 
 
-    public function markNotification(Request $request)
+    public function mark_notification(Request $request)
     {
         auth()->user()->unreadNotifications
                 ->when($request->input('id'), function($query) use ($request){
                     return $query->where('id', $request->input('id'));
-                })->markAsRead();
+                })->mark_as_read();
         return response()->noContent();
     }
 
     //Eliminar un post
-    public function deletePost($id, $title)
+    public function delete_post($id, $title)
     {
         $this->posts = Post::findOrFail($id);
         $this->title = $title;
-        $this->confirmingPartDeletion = true;
+        $this->confirming_part_deletion = true;
     }
 
     public function delete()
     {
         $this->posts->delete();
         // Notification::where('data[1]', '=', $title)->each->delete();
-        $this->confirmingPartDeletion = false;
+        $this->confirming_part_deletion = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Mensaje eliminado exitosamente',
@@ -149,7 +149,7 @@ class PostController extends Component
     }
 
     public function confirmation(){
-        $this->confirmingSaveNotificacion=true;
+        $this->confirming_save_notificacion=true;
     }
 
     protected $rules = [
@@ -178,29 +178,29 @@ class PostController extends Component
 
         $this->edit = false;
         $this->create = false;
-        $this->confirmingSaveNotificacion= false;
-        $this->closeModal();
+        $this->confirming_save_notificacion= false;
+        $this->close_modal();
         $this->resetInputFields();
     }
 
     //eliminar todas las notificaciones enviadas
-    public function deleteNoti()
+    public function delete_noti()
     {
-        $this->confirminNotificacion= true;
+        $this->confirmin_notificacion= true;
     }
 
-    public function deleteNotifications(){
+    public function delete_notifications(){
         Notification::all()->each->delete();
         Post::all()->each->delete();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Notificaciones eliminadas exitosamente!!!',
         ]);
-        $this->confirminNotificacion= false;
+        $this->confirmin_notificacion= false;
     }
 
-    public function deletetodasnoti(){
-        // $this->deletetodasnotifi=true;
+    public function delete_todas_noti(){
+        // $this->delete_todas_notifi=true;
         auth()->user()->Notifications->each->delete();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
@@ -208,28 +208,28 @@ class PostController extends Component
         ]);
     }
 
-    // public function deleteNotificationsleidas(){
+    // public function delete_notificationsleidas(){
     //     auth()->user()->Notifications->each->delete();
-    //     $this->deletetodasnotifi= false;
+    //     $this->delete_todas_notifi= false;
     // }
 
-    public function markAsRead(){
-        auth()->user()->unreadNotifications->markAsRead();
+    public function mark_as_read(){
+        auth()->user()->unreadNotifications->mark_as_read();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Notificaciones marcada como leídas',
         ]);
     }
 
-    public function markoneAsRead($id){
-        auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+    public function markone_as_read($id){
+        auth()->user()->unreadNotifications->where('id', $id)->mark_as_read();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Notificación marcada como leída',
         ]);
     }
 
-    public function deletfullnotifyread(){
+    public function delet_full_notify_read(){
         auth()->user()->readNotifications->each->delete();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',

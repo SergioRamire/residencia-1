@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditModal">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="show_edit_modal">
     <x-slot name="title">
        Enviar Notificación
     </x-slot>
@@ -35,14 +35,14 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('showEditModal')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('show_edit_modal')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 
         <x-jet-button class="ml-3" wire:click.prevent="confirmation()" wire:loading.attr="disabled" form="courseForm">
             enviar
         </x-jet-button>
-        @if($confirmingSaveNotificacion)
+        @if($confirming_save_notificacion)
                 @include('livewire.admin.notifications.confirm_send_notifi')
         @endif
     </x-slot>

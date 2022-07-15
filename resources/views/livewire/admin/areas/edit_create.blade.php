@@ -41,7 +41,7 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:click.prevent=" updateArea()" wire:loading.attr="disabled" form="courseForm">
+        <x-jet-button class="ml-3" wire:click.prevent=" update_area()" wire:loading.attr="disabled" form="courseForm">
            {{$modo}} Datos
         </x-jet-button>
         @if($confirmingSaveArea)

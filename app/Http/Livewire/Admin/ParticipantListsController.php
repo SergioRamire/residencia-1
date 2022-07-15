@@ -55,19 +55,16 @@ class ParticipantListsController extends Component
 
     public bool $edit = false;
     public bool $create = false;
-    public bool $showEditCreateModal = false;
-    public bool $confirmingParticipantDeletion = false;
-    public bool $confirmingSaveParticipant = false;
+    public bool $showEdit_create_modal = false;
+    public bool $confirming_participant_deletion = false;
+    public bool $confirming_save_participant = false;
 
-    public function rules(): array
-    {
+    public function rules(): array{
         if ($this->edit) {
             return [
                 'id_usuario' => ['required', 'numeric'],
                 'id_curso_grupo' => ['required', 'numeric'],
-            ];
-        }
-
+        ];}
         return [
             'id_usuario' => ['required', 'numeric'],
             'id_curso_grupo' => ['required', 'numeric'],
@@ -117,9 +114,9 @@ class ParticipantListsController extends Component
         $this->emit('valorParticipante','');
         $this->emit('valorPerio','');
         $this->emit('valorCursoGrupo','');
-        $this->showEditCreateModal = true;
-        $this->confirmingParticipantDeletion = false;
-        $this->confirmingSaveParticipant = false;
+        $this->showEdit_create_modal = true;
+        $this->confirming_participant_deletion = false;
+        $this->confirming_save_participant = false;
         $this->edit = false;
         $this->create = true;
     }
@@ -141,14 +138,14 @@ class ParticipantListsController extends Component
 
         $this->edit = true;
         $this->create = false;
-        $this->showEditCreateModal = true;
+        $this->showEdit_create_modal = true;
     }
 
-    public function updateParticipant(){
+    public function update_participant(){
         if ($this->edit) {
-            $this->confirmingSaveParticipant = true;
+            $this->confirming_save_participant = true;
         }else{
-            $this->confirmingSaveParticipant = true;
+            $this->confirming_save_participant = true;
         }
     }
 
@@ -166,9 +163,9 @@ class ParticipantListsController extends Component
         );
 
         $this->noti('success','Participante creado');
-        $this->showEditCreateModal = false;
-        $this->confirmingParticipantDeletion = false;
-        $this->confirmingSaveParticipant = false;
+        $this->showEdit_create_modal = false;
+        $this->confirming_participant_deletion = false;
+        $this->confirming_save_participant = false;
     }
     public $edit_user;
     public $edit_curso;
@@ -190,24 +187,24 @@ class ParticipantListsController extends Component
         );
 
         $this->noti('pencil','Participante actualizado');
-        $this->showEditCreateModal = false;
-        $this->confirmingParticipantDeletion = false;
-        $this->confirmingSaveParticipant = false;
+        $this->showEdit_create_modal = false;
+        $this->confirming_participant_deletion = false;
+        $this->confirming_save_participant = false;
     }
     public $id_delete;
 
     public function delete($id)
     {
         $this->id_delete = $id;
-        $this->confirmingParticipantDeletion = true;
+        $this->confirming_participant_deletion = true;
     }
     public function destroy()
     {
         DB::table('inscriptions')->delete($this->id_delete);
         $this->noti('trash','Participante eliminado');
-        $this->showEditCreateModal = false;
-        $this->confirmingParticipantDeletion = false;
-        $this->confirmingSaveParticipant = false;
+        $this->showEdit_create_modal = false;
+        $this->confirming_participant_deletion = false;
+        $this->confirming_save_participant = false;
     }
 
     public function consultar()

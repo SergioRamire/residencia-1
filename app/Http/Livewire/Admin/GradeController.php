@@ -41,8 +41,8 @@ class GradeController extends Component
 
     public $course_details_id;
     public $grupo;
-    public bool $isOpen = false;
-    public bool $confirmingSaveGrade = false;
+    public bool $is_open = false;
+    public bool $confirming_save_grade = false;
     public bool $disponible=true;
 
     protected $queryString = [
@@ -64,25 +64,25 @@ class GradeController extends Component
         ]);
     }
 
-    public function openModal(){
-        $this->isOpen = true;
+    public function open_modal(){
+        $this->is_open = true;
     }
 
-    public function closeModal(){
-        $this->isOpen = false;
+    public function close_modal(){
+        $this->is_open = false;
     }
 
     public function store(){
         $this->validateInputs();
-        $this->obtenerUsuario();
+        $this->obtener_usuario();
         $user_parti= User::find($this->id_user_participant);
         $user_parti->courseDetails()->syncWithPivotValues($this->course_details_id, ['calificacion' => $this->calificacion, 'asistencias_minimas'=>$this->asistencias_minimas]);
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'pencil',
             'message' => 'Calificación actualizada exitosamente',
         ]);
-        $this->confirmingSaveGrade = false;
-        $this->closeModal();
+        $this->confirming_save_grade = false;
+        $this->close_modal();
     }
 
     public function edit($id){
@@ -103,23 +103,23 @@ class GradeController extends Component
         $this->calificacion = $grade->calificacion;
         $this->asistencias_minimas=$grade->asistencias_minimas;
         $this->validateInputs();
-        $this->openModal();
+        $this->open_modal();
     }
 
-    public function updateGrade(){
+    public function update_grade(){
         $this->validateInputs();
-        $this->confirmingSaveGrade = true;
+        $this->confirming_save_grade = true;
     }
 
-    public function obtenerUsuario(){
+    public function obtener_usuario(){
         $this->user = User::find(auth()->user()->id);
     }
 
-    public function consultarcursos(){
+    public function consultar_cursos(){
         // $user = User::find(auth()->user()->id);
         $fecha_actual = date("Y-m-d");
         // $this->id_user=$user->id;
-        $this->obtenerUsuario();
+        $this->obtener_usuario();
         return CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
                     ->join('users','users.id','inscriptions.user_id')
                     ->join('courses','courses.id','course_details.course_id')
@@ -131,26 +131,26 @@ class GradeController extends Component
                     ->get();
     }
 
-    public function consultargrupos(){
+    public function consultar_grupos(){
         $fecha_actual = date("Y-m-d");
-        $this->obtenerUsuario();
+        $this->obtener_usuario();
         return  CourseDetail::join('groups','groups.id','course_details.group_id')
                     ->where('course_details.id','=',$this->id_course)
                     ->select('groups.id','groups.nombre')
                     ->get();
     }
 
-    public function consultaperiodos(){
+    public function consulta_periodos(){
         $fecha_actual = date("Y-m-d");
         return Period::where('periods.fecha_inicio','<',$fecha_actual);
     }
 
-    public function cuentaCursos(){
-        $cursosTotales=$this->consultarcursos();
+    public function cuenta_cursos(){
+        $cursosTotales=$this->consultar_cursos();
         $this->cuenta=count($cursosTotales);
     }
 
-    public function mostrarcursos(){
+    public function mostrar_cursos(){
         return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
             ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
             ->join('courses', 'courses.id', '=', 'course_details.course_id')
@@ -171,8 +171,8 @@ class GradeController extends Component
     }
 
     public function render(){
-        $this->cuentaCursos();
-        $cur=$this->consultarcursos();
+        $this->cuenta_cursos();
+        $cur=$this->consultar_cursos();
         if($this->cuenta==1){
             $this->curso=$cur[0]->nombre;
             $this->id_course=$cur[0]->id;
@@ -198,8 +198,8 @@ class GradeController extends Component
             })
             ->orderBy($this->sortField, $this->sortDirection)
                         ->paginate($this->perPage),
-            'courses' => $this->consultarcursos(),
-            'groups' => $this->consultargrupos()
+            'courses' => $this->consultar_cursos(),
+            'groups' => $this->consultar_grupos()
         ]);
     }
 

@@ -33,7 +33,7 @@
 
                     <div class="text-center">
                         <x-table.cell class="text-center">
-                            <button wire:click="downloadPdf({{$data->iduser}},{{$data->idcurso}})" title="Descargar cédula sin firma" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                            <button wire:click="download_pdf({{$data->iduser}},{{$data->idcurso}})" title="Descargar cédula sin firma" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-1 px-1 rounded inline-flex items-center">
                                 Cédula de inscripción
                             </button>
                         </x-table.cell>

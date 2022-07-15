@@ -66,13 +66,12 @@ class AssignedInstructorController extends Component
     public function asignar(){
         // $this->id_instructor = $this->id_ins;
         $this->registrar();
-        $this->closeModal();
-        $this->modalConfirmacion = false;
+        $this->close_modal();
+        $this->modal_confirmacion = false;
     }
 
 
-    public function resetFilters()
-    {
+    public function resetFilters(){
         $this->reset('curso');
         $this->reset('grupo');
         $this->reset('lugar');
@@ -80,22 +79,19 @@ class AssignedInstructorController extends Component
         $this->reset('horaf');
     }
 
-    public function render()
-    {
-
+    public function render(){
         $this->valores();
         return view('livewire.admin.assignedInstructor.index', [
-            'datoscurso' => $this->consultacurso($this->classification['periodo'], $this->classification['curso'], $this->classification['grupo']),
-            'datosuser' => $this->consultauser(),
-            'datosTabla' => $this->consultaTabla()->paginate($this->perPage),
-            'datosPer' => $this->consultaper(),
-            'listaIns' => $this->consultaDocentes(),
+            'datos_curso' => $this->consulta_curso($this->classification['periodo'], $this->classification['curso'], $this->classification['grupo']),
+            'datos_user' => $this->consulta_user(),
+            'datos_tabla' => $this->consulta_tabla()->paginate($this->perPage),
+            'datos_per' => $this->consulta_per(),
+            'lista_ins' => $this->consulta_docentes(),
         ]);
     }
 
-    public function valores()
-    {
-        $this->datos = $this->consultacurso($this->classification['periodo'], $this->classification['curso'], $this->classification['grupo']);
+    public function valores(){
+        $this->datos = $this->consulta_curso($this->classification['periodo'], $this->classification['curso'], $this->classification['grupo']);
         if (count($this->datos) > 0) {
             $this->id_detalle_curso = $this->datos[0]->id;
             $this->lugar = $this->datos[0]->lugar;
@@ -103,8 +99,7 @@ class AssignedInstructorController extends Component
             $this->horaf = $this->datos[0]->hora_fin;
         }
     }
-    public function consultacurso($idp, $idc, $idg)
-    {
+    public function consulta_curso($idp, $idc, $idg){
         return CourseDetail::query()
             ->select(
                 'course_details.id',
@@ -120,12 +115,11 @@ class AssignedInstructorController extends Component
             ->get()
             ;
     }
-    public function consultauser(){
+    public function consulta_user(){
         return User::all();
     }
 
-    public function noti($icon, $txt)
-    {
+    public function noti($icon, $txt){
         $this->dispatchBrowserEvent('notify', [
             'icon' => $icon,
             'message' => $txt,
@@ -134,13 +128,12 @@ class AssignedInstructorController extends Component
 
     // public $busqPer;
 
-    public function consultaper()
-    {
+    public function consulta_per(){
         return Period::all();
     }
 
     public $search = '';
-    public function consultaTabla(){
+    public function consulta_tabla(){
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
@@ -171,7 +164,7 @@ class AssignedInstructorController extends Component
             // ->get()
             ;
     }
-    public $modalEdit = false;
+    public $modal_edit = false;
     public $id_per;
     public $create = false;
     public $show = false;
@@ -180,35 +173,35 @@ class AssignedInstructorController extends Component
 
     public $id_detalle_curso2;
 
-    public function openModalCreate($id){
+    public function open_modal_create($id){
         $this->id_detalle_curso = $id;
-        $this->modalEdit = true;
+        $this->modal_edit = true;
         $this->create = true;
         $this->show = false;
         $this->delet = false;
     }
-    public function openModalShow($id){
+    public function open_modal_show($id){
         $this->id_detalle_curso2 = $id;
-        $this->modalEdit = true;
+        $this->modal_edit = true;
         $this->create = false;
         $this->show = true;
         $this->delet = false;
     }
-    public function openModalDelete($id){
+    public function open_modal_delete($id){
         $this->id_detalle_curso2 = $id;
-        $this->modalEdit = true;
+        $this->modal_edit = true;
         $this->create = false;
         $this->show = false;
         $this->delet = true;
     }
-    public function closeModal(){
-        $this->modalEdit = false;
+    public function close_modal(){
+        $this->modal_edit = false;
         $this->create = false;
         $this->show = false;
         $this->delet = false;
     }
 
-    public function consultaDocentes(){
+    public function consulta_docentes(){
         return User::join('inscriptions','inscriptions.user_id','users.id')
         ->join('course_details','course_details.id','inscriptions.course_detail_id')
         ->where('course_details.id',$this->id_detalle_curso2)
@@ -218,21 +211,20 @@ class AssignedInstructorController extends Component
         ->get();
     }
     public $id_ins_delete;
-    public $modaldelete = false;
+    public $modal_delete = false;
 
     public function delete(){
-        $this->modaldelete = true;
+        $this->modal_delete = true;
     }
     public function delete2($id){
         $this->id_ins_delete = $id;
-        $this->modaldelete = true;
+        $this->modal_delete = true;
     }
-    public function destroy()
-    {
+    public function destroy(){
         DB::table('inscriptions')
             ->delete($this->id_ins_delete);
         $this->id_ins_delete = null;
-        $this->modaldelete = false;
+        $this->modal_delete = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Instructor eliminado exitosamente',
@@ -240,8 +232,8 @@ class AssignedInstructorController extends Component
     }
 
 
-    public bool $modalConfirmacion;
-    public function openConfirmacion(){
-        $this->modalConfirmacion = true;
+    public bool $modal_confirmacion;
+    public function open_confirmacion(){
+        $this->modal_confirmacion = true;
     }
 }

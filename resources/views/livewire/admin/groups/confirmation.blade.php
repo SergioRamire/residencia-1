@@ -1,5 +1,5 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
-<x-jet-confirmation-modal wire:model="confirmingSaveGroup">
+<x-jet-confirmation-modal wire:model="confirming_save_group">
     <x-slot name="title">
         Confirmación
     </x-slot>
@@ -10,7 +10,7 @@
 
     {{-- botones --}}
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('confirmingSaveGroup')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('confirming_save_group')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 

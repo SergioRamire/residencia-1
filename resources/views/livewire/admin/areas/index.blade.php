@@ -72,7 +72,7 @@
                             <button  wire:click="edit({{ $a->id }})" type="button" title="Editar información" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="deleteArea('{{ $a->id }}')" type="button" title="Eliminar área" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="delete_area('{{ $a->id }}')" type="button" title="Eliminar área" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                         </x-table.cell>

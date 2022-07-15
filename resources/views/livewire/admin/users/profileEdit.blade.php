@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:model.defer="showEditModal">
+<x-jet-dialog-modal wire:model.defer="show_edit_modal">
     <x-slot name="title">
         Editar Información
     </x-slot>
@@ -67,11 +67,11 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="closeM" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="close_m" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="confirmSave()" wire:loading.attr="disabled">
+        <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="confirm_save()" wire:loading.attr="disabled">
             Confirmar
         </x-jet-button>
     </x-slot>

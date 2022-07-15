@@ -21,9 +21,9 @@ class GroupController extends Component
 
     public $edit = false;
     public $create = false;
-    public $isOpen = false;
-    public $confirmingGroupDeletion = false;
-    public $confirmingSaveGroup = false;
+    public $is_open = false;
+    public $confirming_group_deletion = false;
+    public $confirming_save_group = false;
 
     public $perPage = '8';
     public $search = '';
@@ -41,14 +41,14 @@ class GroupController extends Component
     }
 
     public function mount(){
-        $this->blankGroup();
+        $this->blank_group();
     }
 
-    public function blankGroup(){
+    public function blank_group(){
         $this->groups = Group::make();
     }
-    public function updated($propertyName){
-        $this->validateOnly($propertyName);
+    public function updated($x){
+        $this->validateOnly($x);
     }
 
     public function updatingSearch(){
@@ -63,19 +63,19 @@ class GroupController extends Component
      */
     public function create(){
         $this->resetErrorBag();
-        $this->blankGroup();
-        $this->openModal();
+        $this->blank_group();
+        $this->open_modal();
         $this->edit = false;
-        $this->confirmingSaveGroup = false;
+        $this->confirming_save_group = false;
         $this->create = true;
     }
 
-    public function openModal(){
-        $this->isOpen = true;
+    public function open_modal(){
+        $this->is_open = true;
     }
 
-    public function closeModal(){
-        $this->isOpen = false;
+    public function close_modal(){
+        $this->is_open = false;
     }
 
     public function save(){
@@ -91,14 +91,14 @@ class GroupController extends Component
         $this->resetErrorBag();
         $this->resetValidation();
 
-        $this->closeModal();
-        $this->confirmingSaveGroup = false;
-        $this->confirmingGroupDeletion = false;
+        $this->close_modal();
+        $this->confirming_save_group = false;
+        $this->confirming_group_deletion = false;
     }
 
-    public function updateGroup(){
+    public function update_group(){
         $this->validate();
-        $this->confirmingSaveGroup = true;
+        $this->confirming_save_group = true;
     }
 
     /**
@@ -110,23 +110,23 @@ class GroupController extends Component
         $this->groups = Group::findOrFail($id);
         $this->edit = true;
         $this->create = false;
-        $this->openModal();
-        $this->confirmingSaveGroup = false;
+        $this->open_modal();
+        $this->confirming_save_group = false;
         $this->validate();
     }
     /**
      * @throws AuthorizationException
      */
-    public function deleteGroup($id){
+    public function delete_group($id){
         $this->authorize('groups.delete');
         $this->groups = Group::findOrFail($id);
-        $this->confirmingGroupDeletion = true;
+        $this->confirming_group_deletion = true;
     }
     public function delete(){
         $this->groups->delete();
-        $this->closeModal();
-        $this->confirmingSaveGroup = false;
-        $this->confirmingGroupDeletion = false;
+        $this->close_modal();
+        $this->confirming_save_group = false;
+        $this->confirming_group_deletion = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Grupo eliminado exitosamente',

@@ -1,4 +1,4 @@
-<x-jet-confirmation-modal wire:model="confirmingPartDeletion">
+<x-jet-confirmation-modal wire:model="confirming_part_deletion">
     <x-slot name="title">
         {{ __('Eliminar Post.') }}
     </x-slot>
@@ -11,7 +11,7 @@
     {{-- botones --}}
     <x-slot name="footer">
         {{-- boton de cancelar --}}
-        <x-jet-secondary-button wire:click="$toggle('confirmingPartDeletion')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('confirming_part_deletion')" wire:loading.attr="disabled">
             {{ __('Cancelar') }}
         </x-jet-secondary-button>
         {{-- boton de eliminar--}}

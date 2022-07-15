@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div>
-                    <x-jet-secondary-button wire:click="deleteNoti()" title="Eliminar notificaciones enviadas" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-red-50">
+                    <x-jet-secondary-button wire:click="delete_noti()" title="Eliminar notificaciones enviadas" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-red-50">
                         <x-icon.trash d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" class="inline-block h-5 w-5"/>
                         Eliminar notificaciones
                     </x-jet-secondary-button>
@@ -99,10 +99,10 @@
     @if($create)
         @include('livewire.admin.emailss.edit')
     @endif
-    @if($confirminNotificacion)
+    @if($confirmin_notificacion)
         @include('livewire.admin.emailss.destroy')
     @endif
-    @if($showViewModal)
+    @if($show_view_modal)
         @include('livewire.admin.emailss.show')
     @endif
 </div>

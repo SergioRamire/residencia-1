@@ -49,9 +49,9 @@ class AreaController extends Component
     }
 
     public function mount(){
-        $this->blankArea();
+        $this->blank_area();
     }
-    public function blankArea(){
+    public function blank_area(){
         $this->areas = Area::make();
     }
 
@@ -70,17 +70,10 @@ class AreaController extends Component
      */
     public function create(){
         $this->resetErrorBag();
-        $this->blankArea();
-        $this->openModal();
+        $this->blank_area();
+        $this->showEditCreateModal = true;
         $this->edit = false;
         $this->create = true;
-    }
-
-    public function openModal(){
-        $this->showEditCreateModal = true;
-    }
-    public function closeModal(){
-        $this->showEditCreateModal = false;
     }
 
     public function save(){
@@ -97,10 +90,10 @@ class AreaController extends Component
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
-        $this->closeModal();
+        $this->showEditCreateModal = false;
     }
 
-    public function updateArea(){
+    public function update_area(){
         $this->validate();
         $this->confirmingSaveArea = true;
     }
@@ -117,12 +110,12 @@ class AreaController extends Component
         $this->areas = Area::findOrFail($id);
         $this->edit = true;
         $this->create = false;
-        $this->openModal();
+        $this->showEditCreateModal = true;
     }
     /**
      * @throws AuthorizationException
      */
-    public function deleteArea($id){
+    public function delete_area($id){
         $this->authorize('areas.delete');
         $this->areas = Area::findOrFail($id);
         $this->confirmingAreaDeletion = true;

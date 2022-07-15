@@ -110,7 +110,7 @@
                             <x-table.cell class="text-center">{{ $g->nombregrupo }}</x-table.cell>
                             <x-table.cell class="text-center">{{date('d-m-Y', strtotime($g->fi))}} a {{date('d-m-Y', strtotime($g->ff))}}</x-table.cell>
                             <x-table.cell class="text-center">
-                                <button wire:click="descargarConstancia({{ $g->iduser }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                <button wire:click="descargar_constancia({{ $g->iduser }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                     Constancia
                                 </button>
                             </x-table.cell>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="text-right min-h-full">
                     @if($instructor->count() > 1)
-                        <button wire:click="descargarConstanciasZIP()" title="Descargar todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                        <button wire:click="descargar_constancias_zip()" title="Descargar todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                             Zip de constancias
                         </button>
                     @endif

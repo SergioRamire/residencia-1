@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="modalEdit">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="modal_edit">
     <x-slot name="title">
         Editar fecha límite
     </x-slot>
@@ -12,14 +12,14 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('modalEdit')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('modal_edit')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 
         <x-jet-button class="ml-3" wire:click="confirmar" wire:loading.attr="disabled" form="courseForm">
             Guardar
          </x-jet-button>
-        @if($modalConfirmacion)
+        @if($modal_confirmacion)
             @include('livewire.admin.limitForInstructors.confirmation')
         @endif
     </x-slot>

@@ -61,10 +61,10 @@ class CourseController extends Component
 
     public function mount()
     {
-        $this->blankCourse();
+        $this->blank_course();
     }
 
-    public function blankCourse()
+    public function blank_course()
     {
         /* Valores predefinidos para los <select> */
         $this->course = Course::make([
@@ -85,7 +85,7 @@ class CourseController extends Component
         $this->resetErrorBag();
         $this->resetValidation();
 
-        $this->blankCourse();
+        $this->blank_course();
 
         $this->edit = false;
         $this->delete = false;
@@ -141,7 +141,7 @@ class CourseController extends Component
         $this->showConfirmationModal = true;
     }
 
-    public function confirmSave()
+    public function confirm_save()
     {
         $this->validate();
         $this->showConfirmationModal = true;

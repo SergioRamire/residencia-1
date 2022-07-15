@@ -17,14 +17,12 @@ class TeachingController extends Component{
         // ->get();
         // $this->estatus = $this->estatus[0]->est;
     }
-    public function render()
-    {
+    public function render(){
         return view('livewire.admin.teaching.index', [
             'datos' => $this->consulta(),
         ]);
     }
-    public function consulta()
-    {
+    public function consulta(){
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')

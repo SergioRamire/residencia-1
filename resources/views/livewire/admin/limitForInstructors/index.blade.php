@@ -49,7 +49,7 @@
                     </tr>
                 @endif
             </x-table>
-            @if ($modalEdit)
+            @if ($modal_edit)
                 @include('livewire.admin.limitForInstructors.edit_create')
             @endif
         </div>

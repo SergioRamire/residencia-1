@@ -1,11 +1,11 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer.defer="showEditCreateModal">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer.defer="show_edit_create_modal">
     <x-slot name="title">
         {{ $edit ? 'Editar usuario' : 'Crear usuario' }}
     </x-slot>
     <x-slot name="content">
         <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios"/><br>
 
-        <form wire:submit.prevent="confirmSave()" id="userForm">
+        <form wire:submit.prevent="confirm_save()" id="userForm">
             <!-- Nombre y Apellidos -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Nombre -->
@@ -68,7 +68,7 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('showEditCreateModal')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('show_edit_create_modal')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 
