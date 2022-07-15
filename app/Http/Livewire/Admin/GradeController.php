@@ -10,11 +10,8 @@ use App\Http\Livewire\Admin\DateTime;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-
 use App\Exports\ListExport;
 use Maatwebsite\Excel\Facades\Excel;
-use Monolog\Handler\IFTTTHandler;
-use PhpOffice\PhpSpreadsheet\Calculation\Financial\CashFlow\Constant\Periodic;
 
 class GradeController extends Component
 {
@@ -46,8 +43,6 @@ class GradeController extends Component
     public bool $is_open = false;
     public bool $confirming_save_grade = false;
     public bool $disponible=false;
-    public $hoy;
-    public $limit;
     
 
     protected $queryString = [
