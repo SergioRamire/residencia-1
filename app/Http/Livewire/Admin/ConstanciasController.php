@@ -24,6 +24,8 @@ class ConstanciasController extends Component
         'periodo' => '',
     ];
 
+    public $arreglo=[];
+
     public $perPage = '8';
     public array $cleanStringsExcept = ['search'];
     public array $filters = [
@@ -41,7 +43,7 @@ class ConstanciasController extends Component
         $buscar=$this->search;
         return view('livewire.admin.constancias.index_participant', [
             'calificaciones' => $this->consultaBase()
-                ->select(['inscriptions.id', 'users.name', 'users.apellido_paterno', 'users.apellido_materno', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
+                ->select(['inscriptions.id', 'users.id as iduser','users.name', 'users.apellido_paterno', 'users.apellido_materno', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
                 'courses.nombre as curso', 'groups.nombre as grupo',
                 'inscriptions.calificacion','inscriptions.estatus_participante','inscriptions.asistencias_minimas', 'areas.nombre as area'])
                 ->where('inscriptions.estatus_participante','=','Participante')
@@ -68,7 +70,8 @@ class ConstanciasController extends Component
                         }
                     });
                 })
-                ->orderBy($this->sortField, $this->sortDirection)
+                // ->orderBy($this->sortField, $this->sortDirection)
+                ->orderBy('users.apellido_paterno', 'ASC')
                 ->paginate($this->perPage),
         ]);
     }
@@ -89,14 +92,40 @@ class ConstanciasController extends Component
     public function data_send($valor){
         $this->classification['curso'] = $valor;
     }
-    public function descargar_constancia($id)
+    public function obtenernumlist($iduser){
+        $i=1;
+        $numlist='';
+        $num=0;
+        $aux=$this->consultaBase()
+                ->orderBy('apellido_paterno', 'ASC')->get();
+
+        foreach($aux as $a){
+            if($a->iduser == $iduser){
+                $num=$i;
+                break;
+            }
+            $i++;
+        }
+        if(strlen($num) < 2){
+            $numlist = "00"."".$num;
+        }elseif(strlen($num) < 3){
+            $numlist = "0"."".$num;
+        }elseif(strlen($num) == 3){
+            $numlist ="".$num;
+        }
+        return $numlist;
+    }
+
+    public function descargarConstancia($id, $iduser)
     {
+        $numlista=$this->obtenernumlist($iduser);
+
         $datos = $this->consultaBase()
             ->where('inscriptions.id', '=', $id)
             ->get()->first();
         list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($datos);
 
-        $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $datos, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
+        $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $datos, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual, 'numlist'=> $numlista]);
         $pdf_file = storage_path('app/')."Constancia - $datos->nombre - $datos->curso - $datos->grupo.pdf";
         $pdf->save($pdf_file);
 
@@ -107,14 +136,16 @@ class ConstanciasController extends Component
     {
         $consulta = $this->consultaBase()
             ->where('calificacion', '>=', 70)
-            ->get();
+            ->where('asistencias_minimas', '=', 1)->get();
+
 
         \Storage::makeDirectory('pdf');
 
         foreach ($consulta as $item) {
-            list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($item);
+            list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($item);
+            $numlista=$this->obtenernumlist($item->iduser);
 
-            $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $item, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual]);
+            $pdf = Pdf::loadView('livewire.admin.constancias.download_participant', ['datos' => $item, 'fi'=> $fecha_inicial, 'ff'=> $fecha_final, 'day'=> $dia_actual, 'numlist'=> $numlista]);
             $pdf->save(storage_path('app/pdf/')."Constancia - $item->nombre - $item->curso - $item->grupo.pdf");
         }
 
@@ -146,8 +177,8 @@ class ConstanciasController extends Component
             ->where('inscriptions.estatus_participante', '=', 'Participante')
             ->where('course_details.period_id', '=', $this->classification['periodo'])
             ->where('course_details.course_id', '=', $this->classification['curso'])
-            ->select(['inscriptions.id',  DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name', 'users.apellido_paterno', 'users.apellido_materno',
-                'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
+            ->select(['inscriptions.id', 'users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name', 'users.apellido_paterno', 'users.apellido_materno',
+                'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion','inscriptions.asistencias_minimas', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
     }
 
     private function get_dates(?User $datos): array

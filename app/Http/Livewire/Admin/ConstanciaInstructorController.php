@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\CourseDetail;
 use App\Http\Traits\WithFilters;
+use App\Http\Traits\WithSorting;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,6 +17,7 @@ class ConstanciaInstructorController extends Component
 {
     use WithFilters;
     use WithPagination;
+    use WithSorting;
 
     public $perPage = '8';
     public $search = '';
@@ -59,7 +61,7 @@ class ConstanciaInstructorController extends Component
             ->join('users', 'users.id', '=', 'inscriptions.user_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('areas', 'areas.id', '=', 'users.area_id')
-            ->select('users.id as iduser','users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.estatus_participante', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','groups.nombre as nombregrupo','course_details.course_id','areas.nombre as nombre_area')
+            ->select('users.id','users.id as iduser','users.name', 'users.apellido_paterno', 'users.apellido_materno', 'courses.nombre as curso', 'inscriptions.estatus_participante', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','groups.nombre as nombregrupo','course_details.course_id','areas.nombre as nombre_area')
             ->where('inscriptions.estatus_participante', '=', 'Instructor')
             ->when($this->search, function ($query, $b) {
                 return $query->where(function ($q) {
@@ -78,7 +80,7 @@ class ConstanciaInstructorController extends Component
             })
             ->where('periods.id', '=', $this->filters['fecha'])
             // ->where('course_details.course_id', '=', $this->filters['filtro_curso'])
-            ->orderBy('users.name', 'asc')
+            ->orderBy('users.apellido_paterno', 'ASC')
             ->paginate($this->perPage),
         ]);
         // $this->resetFilters();
@@ -101,15 +103,37 @@ class ConstanciaInstructorController extends Component
         $this->filters['filtro_curso'] = $valor;
     }
 
+    public function obtenernumlist($iduser){
+        $i=1;
+        $numlist='';
+        $num=0;
+        $aux=$this->consultaBase()
+                 ->orderBy('app', 'asc')->get();
+
+        foreach($aux as $a){
+            if($a->iduser == $iduser){
+                $num=$i;
+                break;
+            }
+            $i++;
+        }
+        if(strlen($num) < 2){
+            $numlist = "I-0"."".$num;
+        }elseif(strlen($num) < 3){
+            $numlist = "I-".$num;
+        }
+        return $numlist;
+    }
 
     public function descargar_constancia($id)
     {
-        $datos = $this->consulta_base()
+        $numlista=$this->obtenernumlist($id);
+        $datos = $this->consultaBase()
             ->where('users.id', '=', $id)
             ->get()->first();
         list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($datos);
 
-        $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $datos,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual]);
+        $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $datos,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual, 'numlist'=> $numlista]);
         $pdf_file = storage_path('app/')."Constancia-$datos->nombre-$datos->grupo.pdf";
         $pdf->save($pdf_file);
 
@@ -123,9 +147,10 @@ class ConstanciaInstructorController extends Component
         \Storage::makeDirectory('pdf');
 
         foreach ($consulta as $item) {
-            list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($item);
+            list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($item);
+            $numlista=$this->obtenernumlist($item->iduser);
 
-            $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $item,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual]);
+            $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $item,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual, 'numlist'=> $numlista]);
             $pdf->save(storage_path('app/pdf/')."Constancia-$item->nombre-$item->grupo.pdf");
         }
 
@@ -168,4 +193,19 @@ class ConstanciaInstructorController extends Component
         $dia_actual = Carbon::now()->isoFormat('D \d\e MMMM \d\e YYYY');
         return [$fechaini, $fecha_fin, $dia_actual];
     }
+
+    // private function consultaInstructores()
+    // {
+    //     return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
+    //         ->join('areas', 'areas.id', '=', 'users.area_id')
+    //         ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
+    //         ->join('courses', 'courses.id', '=', 'course_details.course_id')
+    //         ->join('groups', 'groups.id', '=', 'course_details.group_id')
+    //         ->join('periods', 'periods.id', '=', 'course_details.period_id')
+    //         ->where('inscriptions.estatus_participante', '=', 'Instructor')
+    //         ->where('course_details.period_id', '=', $this->filters['fecha'])
+    //         // ->where('course_details.course_id', '=', $this->filters['filtro_curso'])
+    //         ->select(['users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.sexo as sexo', 'courses.nombre as curso', 'groups.nombre as grupo', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
+    //         // ->when($this->filters['filtro_curso'], fn ($query, $filtro_curso) => $query->where('course_details.nombre', '=', $filtro_curso));
+    // }
 }

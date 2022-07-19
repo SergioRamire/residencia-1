@@ -11,5 +11,6 @@ class Email extends Model
     protected $fillable = [
         'title',
         'description',
+        'role',
     ];
 }

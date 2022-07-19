@@ -156,7 +156,7 @@
                                     $i++;
                                 @endphp
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                    <button wire:click="descargar_constancia({{ $g->id }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                    <button wire:click="descargarConstancia({{$g->id}},{{$g->iduser}})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                         Constancia
                                     </button>
                                 </x-table.cell>
@@ -185,8 +185,8 @@
                     {{ $calificaciones->links()}}
                 </div>
                 <div class="text-right min-h-full">
-                    @if($i > 2)
-                            <button wire:click="descargar_constancias_zip()" title="Descargar todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                    @if($i > 1)
+                            <button wire:click="descargarConstanciasZIP()" title="Descargar todas las constancias en un zip" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                 Zip de constancias
                             </button>
                         @endif
