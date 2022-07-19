@@ -5,7 +5,7 @@
         <div class="py-4 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="lg:text-center">
-                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-3xl">Ofertar cursos para las inscripciones</p>
+                    <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-3xl">Activar inscripciones de los periodos</p>
                     <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">Periodos próximos:</p>
                 </div>
                 @if (!empty($fecha))
@@ -20,21 +20,24 @@
                             </x-table.header>
                             <x-table.header>ofertado</x-table.header>
                             <x-table.header>acciones</x-table.header>
-        
+
                         </x-slot>
-        
+
                         @forelse($fecha as $p)
                             <tr wire:key="period-{{ $loop->index}}" wire:loading.class.delay="opacity-50">
                                 <x-table.cell>{{ $p->clave }}</x-table.cell>
                                 <x-table.cell>Del {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
                                 <x-table.cell>
-                                    
+                                    {{ $p->ofertado }}
                                 </x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                        <button wire:click="activar" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
-                                            Ofertar
+                                        <button wire:click="publicar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                            Publicar
                                         </button>
-        
+                                        <button wire:click="ocultar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                            Ocultar
+                                        </button>
+
                                 </x-table.cell>
                             </tr>
                             {{-- @php $numero=$numero+1 @endphp --}}

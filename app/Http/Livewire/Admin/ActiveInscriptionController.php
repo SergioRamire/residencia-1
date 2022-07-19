@@ -47,14 +47,19 @@ class ActiveInscriptionController extends Component
         $this->fecha = $this->consulta();
         return view('livewire.admin.activeinscription.index');
     }
-    public function activar(){
-        foreach($this->fecha as $f){
-            DB::table('periods')
-            ->where('periods.id','=',$f->id)
-            ->update(['publico' => 1]);
-        }
+    public function publicar($id){
+        DB::table('periods')
+            ->where('periods.id','=',$id)
+            ->update(['ofertado' => 1]);
 
-        $this-> noti('success','Inscripciones Activadas');
+        $this-> noti('success','Inscripciones publicas');
+    }
+    public function ocultar($id){
+        DB::table('periods')
+            ->where('periods.id','=',$id)
+            ->update(['ofertado' => 0]);
+
+        $this-> noti('success','Inscripciones ocultas');
     }
     public function desactivar(){
         // dd('DEsactivaste curso');

@@ -303,7 +303,7 @@ class InscriptionsController extends Component
                         ->join('periods','periods.id','=','course_details.period_id')
                         ->where('users.id','=',$id_user)
                         ->where('inscriptions.estatus_participante','=','Participante')
-                        ->where('periods.publico','=',1)
+                        ->where('periods.ofertado','=',1)
                         ->get();
         if(count($inscripciones)!==0){
             $this->permiso=false;
@@ -315,7 +315,7 @@ class InscriptionsController extends Component
 
     public function consulta_periodos_a_publicar(){
         $periodos = Period::select('periods.fecha_inicio','periods.fecha_fin')
-        ->where('publico' , '=', 1)
+            ->where('ofertado' , '=', 1)
             ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
         $count=0;
