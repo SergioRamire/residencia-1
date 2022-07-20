@@ -42,11 +42,11 @@ class ParticipantListsController extends Component
     public $peri;
     public $curso;
     public User $participante;
-    public Period $perido;
+    public Period $periodo;
 
     public function mount(){
         $this->participante = User::make();
-        $this->perido = Period::make();
+        $this->periodo = Period::make();
     }
     // public $periodo;
     protected $queryString = [
@@ -134,7 +134,7 @@ class ParticipantListsController extends Component
         $this->emit('valorPerio',$id_per);
         $this->emit('valorCursoGrupo',$id_detallecurso);
         $this->participante = User::find($id);
-        $this->perido = Period::find($id_per);
+        $this->periodo = Period::find($id_per);
 
         $this->edit = true;
         $this->create = false;
