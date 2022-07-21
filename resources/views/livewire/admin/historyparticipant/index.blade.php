@@ -116,7 +116,7 @@
                         <x-table.cell>{{ $h->cl }}</x-table.cell>
                         <x-table.cell>{{ $h->nom }}</x-table.cell>
                         <x-table.cell>{{ $h->gnom }}</x-table.cell>
-                        <x-table.cell>{{ $h->clave }}</x-table.cell>
+                        <x-table.cell class="whitespace-nowrap">{{ $h->clave }}</x-table.cell>
 
                     </tr>
                 @empty
