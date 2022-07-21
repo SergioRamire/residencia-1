@@ -130,18 +130,16 @@ class EmailController extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function consulta($destinatario){
-
-        if($destinatario == 'Participante' || $destinatario == 'Instructor'){
-             $user=User::whereRelation('roles', 'name', '=', $destinatario)->get();
+    public function consulta($destinatario)
+    {
+        if ($destinatario == 'Participante' || $destinatario == 'Instructor') {
+            $user = User::whereRelation('roles', 'name', '=', $destinatario)->get();
         }
-        // if($destinatario == 'Todos'){
-        //    return $user= User::join('model_has_roles','model_has_roles.model_id','=','users.id')
-        //     ->join('roles', 'roles.id','=','model_has_roles.role_id')
-        //     ->where('roles.name', '=','Instructor')
-        //     ->where('roles.name', '=','Participante')->get();
-        //     return $user;
-        // };
+        if ($destinatario == 'Todos') {
+            $user = User::whereHas('roles', function ($query) {
+                $query->where('name', '=', 'Instructor')->orWhere('name', '=', 'Participante');
+            })->get();
+        }
         return $user;
     }
 
@@ -149,21 +147,21 @@ class EmailController extends Component
     {
         $this->validate();
         // $users=User::all();
-        $iduser=Auth::id();
-        $correo=Email::create($this->arr);
-        $users=$this->consulta($this->arr['role']);
+        $iduser = Auth::id();
+        $correo = Email::create($this->arr);
+        $users = $this->consulta($this->arr['role']);
 
         // dd($users);
-        foreach ($users as $u){
-            if($u->id != $iduser){
+        foreach ($users as $u) {
+            if ($u->id != $iduser) {
                 Mail::to($u->email)
-                ->send(new OrderShipped($correo, $u));
+                    ->send(new OrderShipped($correo, $u));
             }
         }
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
-            'message' =>  $this->edit ? 'Mensaje Enviado exitosamente' : 'Mensaje Enviado exitosamente',
+            'message' => $this->edit ? 'Mensaje Enviado exitosamente' : 'Mensaje Enviado exitosamente',
         ]);
 
         $this->edit = false;
