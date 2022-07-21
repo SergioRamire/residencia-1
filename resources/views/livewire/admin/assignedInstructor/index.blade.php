@@ -27,7 +27,7 @@
                         <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar...">
                             <x-icon.search solid class="h-5 w-5 text-gray-400" />
                         </x-input.icon>
-                        <label><p class="text-xs font-bold">Buscar por: Curso, grupo, lugar y horario</p></label>
+                        <label><p class="text-xs font-bold">Buscar por: curso, grupo, lugar u horario</p></label>
                     </div>
 
 
@@ -55,7 +55,7 @@
                         <x-table.header class="text-center">Grupo</x-table.header>
                         <x-table.header class="text-center">Lugar</x-table.header>
                         <x-table.header class="text-center">Horario</x-table.header>
-                        <x-table.header class="text-center">Accion</x-table.header>
+                        <x-table.header class="text-center">Acción</x-table.header>
                     </x-slot>
 
                     @forelse($datos_tabla as $g)

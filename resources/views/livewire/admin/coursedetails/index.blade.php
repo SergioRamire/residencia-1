@@ -39,7 +39,7 @@
                     <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar curso...">
                         <x-icon.search solid class="h-5 w-5 text-gray-400" />
                     </x-input.icon>
-                    <label><p class="text-xs font-bold">Buscar por: Curso, periodo, horario, lugar, capacidad o grupo</p></label>
+                    <label><p class="text-xs font-bold">Buscar por: clave del curso, curso, lugar o grupo</p></label>
                 </div>
             </div>
 
@@ -94,7 +94,7 @@
                             <button  wire:click="edit({{ $d->id }})" type="button" title="Editar información" class="mx-2 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="delete_details('{{ $d->id }}','{{ $d->curso }}')" type="button" title="Eliminar detalles" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="delete_details('{{ $d->id }}')" type="button" title="Eliminar detalles" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                         </x-table.cell>

@@ -32,6 +32,7 @@
                     <!-- Barra de búsqueda -->
                     <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar Instructor...">
                         <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                        <label><p class="text-xs font-bold">Buscar por: nombre del instructor</p></label>
                     </x-input.icon>
 
 

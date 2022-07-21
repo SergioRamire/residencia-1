@@ -24,7 +24,7 @@
                         <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
                             <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                         </x-input.icon>
-                        <label><p class="text-xs font-bold">Buscar por: Nombre, rfc o área</p></label>
+                        <label><p class="text-xs font-bold">Buscar por: rfc, nombre o área</p></label>
                     </div>
 
                     <!-- Filtros -->

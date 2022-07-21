@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 use Illuminate\Support\Facades\DB;
 use App\Http\Traits\WithFilters;
 use App\Http\Traits\WithSorting;
+use App\Http\Traits\WithSearching;
 use App\Models\Course;
 use App\Models\CourseDetail;
 use App\Models\Group;
@@ -20,11 +21,12 @@ class CourseDetailsController extends Component
 {
     use WithFilters;
     use WithPagination;
+    use WithSearching;
     use WithSorting;
 
     public CourseDetail $coursedetail;
     public $perPage = '8';
-    public $search = '';
+    protected array $cleanStringsExcept = ['search'];
     public $coursedetail_id;
     public $curso_elegido;
     public $curso;
@@ -42,6 +44,8 @@ class CourseDetailsController extends Component
     public $create = false;
     public $modal = false;
 
+
+
     public array $classification = [
         'curso' => '',
         'periodo' => '',
@@ -52,7 +56,6 @@ class CourseDetailsController extends Component
     ];
 
     protected $queryString = [
-        'search' => ['except' => '', 'as' => 's'],
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
 
@@ -206,31 +209,33 @@ class CourseDetailsController extends Component
             'message' =>  'Los detalles se han eliminado exitosamente',
         ]);
     }
+    public function mostrar(){
+        $buscar=$this->search;
+        return CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
+        ->join('groups', 'groups.id', 'course_details.group_id')
+        ->join('periods', 'periods.id', 'course_details.period_id')
+        ->where('periods.id','=',$this->classification['periodo'])
+        ->select('course_details.id', 'course_details.lugar', 'course_details.capacidad',
+        'course_details.hora_inicio', 'course_details.hora_fin', 'courses.clave', 'courses.nombre as curso',
+        'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
+        ->where(function ($query) use ($buscar) {
+            $query->where('courses.clave', 'like', '%'.$buscar.'%')
+            ->orwhere('courses.nombre', 'like', '%'.$buscar.'%')
+            ->orWhere('course_details.modalidad', 'like', '%'.$buscar.'%')
+            ->orWhere('periods.fecha_inicio', 'like', '%'.$buscar.'%')
+            ->orWhere('periods.fecha_fin', 'like', '%'.$buscar.'%')
+            ->orWhere('course_details.hora_inicio', 'like', '%'.$buscar.'%')
+            ->orWhere('course_details.hora_fin', 'like', '%'.$buscar.'%')
+            ->orWhere('course_details.lugar', 'like', '%'.$buscar.'%')
+            ->orWhere('course_details.capacidad', 'like', '%'.$buscar.'%');
+        })
+        ->orderBy($this->sortField, $this->sortDirection);
+    }
 
     public function render()
     {
         return view('livewire.admin.coursedetails.index', [
-            'detalles'=>CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
-                ->join('groups', 'groups.id', 'course_details.group_id')
-                ->join('periods', 'periods.id', 'course_details.period_id')
-                ->where('periods.id','=',$this->classification['periodo'])
-                ->select('course_details.id', 'course_details.lugar', 'course_details.capacidad',
-                'course_details.hora_inicio', 'course_details.hora_fin', 'courses.clave', 'courses.nombre as curso',
-                'groups.nombre as grupo', 'periods.fecha_inicio', 'periods.fecha_fin')
-                ->when($this->search, function ($query, $b) {
-                    $query->where('courses.nombre', 'like', "%$b%")
-                    ->orWhere('course_details.modalidad', 'like', "%$b%")
-                    ->orWhere('periods.fecha_inicio', 'like', "%$b%")
-                    ->orWhere('periods.fecha_fin', 'like', "%$b%")
-                    ->orWhere('course_details.hora_inicio', 'like', "%$b%")
-                    ->orWhere('course_details.hora_fin', 'like', "%$b%")
-                    ->orWhere('course_details.lugar', 'like', "%$b%")
-                    ->orWhere('course_details.capacidad', 'like', "%$b%")
-                    ->orWhere('groups.nombre', 'like', "%$b%")
-                    ;
-                })
-                ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage),
+            'detalles'=>$this->mostrar()->paginate($this->perPage),
         ]);
     }
 

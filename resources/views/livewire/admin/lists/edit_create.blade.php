@@ -15,12 +15,12 @@
                 </div>
             @endif
             @if ($edit)
-                
+
                 <div class="mt-4 flex-1">
                     <x-jet-label value="Participante"/>
                     <p class="text-black pt-2">RFC: {{$participante->rfc}}</p>
                     <p class="text-black pb-2">Nombre: {{$participante->name}} {{$participante->apellido_paterno}} {{$participante->apellido_materno}}</p>
-                     
+
                 </div>
                 <div class="mt-4 flex-1">
                     <x-jet-label value="Periodo"/>

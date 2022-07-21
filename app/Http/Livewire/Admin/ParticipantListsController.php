@@ -83,10 +83,11 @@ class ParticipantListsController extends Component
         ->where('inscriptions.estatus_participante', '=', 'Participante')
         ->where('course_details.period_id', '=', $periodo)
         ->where('course_details.course_id', '=', $curso)
-        ->select('inscriptions.id',
+        ->select('inscriptions.id','users.id as id_user',
             'users.name','users.apellido_paterno','users.apellido_materno','users.rfc',
             'courses.nombre as curso','groups.nombre as grupo',
-            'areas.nombre as area', 'periods.fecha_inicio', 'periods.fecha_fin')
+            'areas.nombre as area', 'periods.id as id_periodo', 'periods.fecha_inicio',
+            'periods.fecha_fin', 'course_details.id as id_detallecurso')
 
             ->where(function ($query) use ($buscar) {
                 $query->where('users.name', 'like', '%'.$buscar.'%')
@@ -122,7 +123,6 @@ class ParticipantListsController extends Component
     }
 
     public function edit($id,$id_per,$id_detallecurso){
-
         $this->id_usuario = $id;
         $this->id_curso_grupo = $id_detallecurso;
         $this->id_per_ = $id_per;

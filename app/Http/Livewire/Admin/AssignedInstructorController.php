@@ -20,6 +20,7 @@ class AssignedInstructorController extends Component
     public $horai;
     public $horaf;
     public $id_instructor;
+    public $search = '';
 
     public int $perPage = 8;
     protected $queryString = [
@@ -132,24 +133,14 @@ class AssignedInstructorController extends Component
         return Period::all();
     }
 
-    public $search = '';
+
     public function consulta_tabla(){
+        $buscar=$this->search;
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
             ->join('inscriptions','inscriptions.course_detail_id','course_details.id')
             ->where('inscriptions.estatus_participante','like','Instructor')
-            ->when($this->search, fn ($query, $search) => $query
-                ->where('courses.nombre', 'like', "%$search%")
-                ->orWhere('groups.nombre', 'like', "%$search%")
-                ->orWhere('course_details.lugar', 'like', "%$search%")
-                ->orWhere('course_details.hora_inicio', 'like', "%$search%")
-                ->orWhere('course_details.hora_fin', 'like', "%$search%")
-                )
-            // ->when($this->classification['periodo'], fn ($query, $search) => $query
-            //     ->where('periods.id', '=', $search))
-            // ->when($this->classification['curso'], fn ($query, $search) => $query
-            //     ->where('courses.id', '=', $search))
             ->where('periods.id',$this->classification['periodo'])
             ->where('courses.id', $this->classification['curso'])
             ->select(
@@ -160,6 +151,15 @@ class AssignedInstructorController extends Component
                 'periods.fecha_inicio as f2',
                 'course_details.id as idcurdet',
             )
+            ->where(function ($query) use ($buscar) {
+                $query->where('courses.nombre', 'like', '%'.$buscar.'%')
+                ->orWhere('groups.nombre', 'like', '%'.$buscar.'%')
+                ->orWhere('course_details.lugar', 'like', '%'.$buscar.'%')
+                ->orWhere('course_details.hora_inicio', 'like', '%'.$buscar.'%')
+                ->orWhere('course_details.hora_fin', 'like', '%'.$buscar.'%');
+                }
+                )
+
             ->distinct()
             // ->get()
             ;

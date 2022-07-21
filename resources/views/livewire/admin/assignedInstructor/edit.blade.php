@@ -6,7 +6,7 @@
                     Añadir Instructor
                 @endif
                 @if ($show)
-                    Ver Instructore
+                    Ver Instructores
                 @endif
                 @if ($delet)
                     Eliminar Instructores
@@ -28,7 +28,7 @@
                             <x-table>
                                 <x-slot name="head">
                                     <x-table.header class="text-center">Instructores</x-table.header>
-                                    <x-table.header class="text-center">Accion</x-table.header>
+                                    <x-table.header class="text-center">Acción</x-table.header>
                                 </x-slot>
 
                                 @forelse($lista_ins as $item)
@@ -68,7 +68,7 @@
                             </select>
                             @if (!is_null($id_ins_delete))
                                 <x-jet-button class="ml-3 bg-[#1b396a]" wire:click="delete" wire:loading.attr="disabled" form="courseForm">
-                                    Borrar Eleccion
+                                    Eliminar Elección
                                 </x-jet-button>
                             @endif
                     @endif
