@@ -44,8 +44,17 @@ class CourseDetailsController extends Component
     public $create = false;
     public $modal = false;
 
-
-
+    public $show_edit_createModal = false;
+    public $confirming_details_deletion = false;
+    public $confirming_save_details = false;
+    public bool $show_view_modal = false;
+    
+    protected $listeners = [
+        'per_send',
+        'per_send2',
+        'data_send',
+        'send_curso',
+    ];
     public array $classification = [
         'curso' => '',
         'periodo' => '',
@@ -54,16 +63,10 @@ class CourseDetailsController extends Component
         'curso' => '',
         'modalidad' => '',
     ];
-
     protected $queryString = [
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
-
-    public $show_edit_createModal = false;
-    public $confirming_details_deletion = false;
-    public $confirming_save_details = false;
-    public bool $show_view_modal = false;
-
+    
     public function create(){
         $this->resetErrorBag();
         $this->resetInputFields();
@@ -73,15 +76,12 @@ class CourseDetailsController extends Component
         $this->edit = false;
         $this->create = true;
     }
-
     public function open_modal(){
         $this->show_edit_createModal = true;
     }
-
     public function close_modal(){
         $this->show_edit_createModal = false;
     }
-
     private function resetInputFields(){
         $this->curso = '';
         $this->curso_elegido = '';
@@ -94,7 +94,6 @@ class CourseDetailsController extends Component
         $this->lugar = '';
         $this->busq = '';
     }
-
     private function validateInputs(){
         $this->validate([
             'curso' => ['required',  'exists:courses,id'],
@@ -107,12 +106,10 @@ class CourseDetailsController extends Component
             'grupo_id' => ['required',  'exists:groups,id'],
         ]);
     }
-
     public function update_details(){
         $this->validateInputs();
         $this->confirming_save_details = true;
     }
-
     public function view($id){
         $coursedetail = CourseDetail::find($id);
         // $this->curso = $coursedetail->curso;
@@ -141,7 +138,6 @@ class CourseDetailsController extends Component
         $this->lugar = $coursedetail->lugar;
         $this->show_view_modal = true;
     }
-
     public function store(){
         $this->validateInputs();
         CourseDetail::updateOrCreate(['id' => $this->coursedetail_id], [
@@ -169,7 +165,6 @@ class CourseDetailsController extends Component
             'message' =>  $this->edit ? 'Detalles actualizados exitosamente' : 'Detalles creados exitosamente',
         ]);
     }
-
     public function edit($id){
         $this->resetErrorBag();
         $this->resetInputFields();
@@ -190,7 +185,6 @@ class CourseDetailsController extends Component
         $this->open_modal();
 
     }
-
     public function delete_details($id){
         $this->coursedetail = CourseDetail::findOrFail($id);
         $course = CourseDetail::join('courses','courses.id','course_details.course_id')
@@ -200,7 +194,6 @@ class CourseDetailsController extends Component
         $this->curso_elegido=$course->curso;
         $this->confirming_details_deletion = true;
     }
-
     public function delete(){
         $this->coursedetail->delete();
         $this->confirming_details_deletion= false;
@@ -231,20 +224,11 @@ class CourseDetailsController extends Component
         })
         ->orderBy($this->sortField, $this->sortDirection);
     }
-
-    public function render()
-    {
+    public function render(){
         return view('livewire.admin.coursedetails.index', [
             'detalles'=>$this->mostrar()->paginate($this->perPage),
         ]);
     }
-
-    protected $listeners = [
-        'per_send',
-        'per_send2',
-        'data_send',
-        'send_curso',
-    ];
     public function per_send($valor){
         $this->classification['periodo'] = $valor;
     }
@@ -258,9 +242,7 @@ class CourseDetailsController extends Component
     public function send_curso($valor){
         $this->curso = $valor;
     }
-
-    public function download_pdf()
-    {
+    public function download_pdf(){
         $coursesdetails = CourseDetail::join('courses', 'courses.id','=', 'course_details.course_id')
         ->join('groups', 'groups.id', '=','course_details.group_id')
         ->join('periods', 'periods.id','=', 'course_details.period_id')

@@ -16,6 +16,12 @@ class ProfileController extends Component
     public Area $area;
     public $show_confirmation_modal = false;
     public $show_edit_modal = false;
+    
+    public $vali = false;
+
+    public $no_ap1 = false;
+    public $no_ap2 = false;
+
 
     public function mount(){
         $this->user = auth()->user();
@@ -23,7 +29,6 @@ class ProfileController extends Component
             $this->area = Area::find(auth()->user()->area_id);
         }
     }
-
     public function rules(){
         return [
             // 'user.rfc' =>  ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
@@ -52,7 +57,6 @@ class ProfileController extends Component
     public function updated($x){
         $this->validateOnly($x);
     }
-    public $vali = false;
     public function render(){
         if (
             empty($this->user->sexo) ||
@@ -64,7 +68,6 @@ class ProfileController extends Component
         }
         return view('livewire.admin.users.profile');
     }
-
     public function edi_iInfo(){
         $this->authorize('user.edit');
         if (empty($this->user->apellido_paterno)) {
@@ -80,7 +83,6 @@ class ProfileController extends Component
         }
         $this->show_edit_modal = true;
     }
-
     public function confirm_save(){
         $this->validate();
         $this->show_edit_modal = false;
@@ -104,10 +106,6 @@ class ProfileController extends Component
         ]);
         return redirect()->route('user.perfil');
     }
-
-    public $no_ap1 = false;
-    public $no_ap2 = false;
-
     public function vali_ap($valor){
         if ($valor) {
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
