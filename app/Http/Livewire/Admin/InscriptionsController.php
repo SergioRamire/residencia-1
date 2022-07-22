@@ -20,8 +20,8 @@ class InscriptionsController extends Component
 {
     use WithPagination;
     public User $user;
-    public int $perPage = 8;
-    public int $perPage2 = 8;
+    public int $per_page = 8;
+    public int $per_page2 = 8;
     public $arreglo = [];
     public $arreglo1 = [];
     public $unionarreglos = [];
@@ -39,34 +39,37 @@ class InscriptionsController extends Component
     /* Verificacion si hay cursos */
     public $disponible = false;
 
+    public $showOneModal = false;
+
+    public bool $flag = false;
 
 
-    public bool $btnContinuar = false;
-    public bool $showHorario = false;
-    public bool $confirmingSaveInscription = false;
+    public bool $btn_continuar = false;
+    public bool $show_horario = false;
+    public bool $confirming_save_inscription = false;
     protected $queryString = [
-        'perPage' => ['except' => 8, 'as' => 'p'],
-        'perPage2' => ['except' => 8, 'as' => 'p2'],
+        'per_page' => ['except' => 8, 'as' => 'p'],
+        'per_page2' => ['except' => 8, 'as' => 'p2'],
     ];
 
-    public bool $valorbtn1 = false;
-    public bool $valorbtn2 = false;
+    public bool $btn_semana_1 = false;
+    public bool $btn_semana_2 = false;
 
-    public function switchbtn1(){
-        $this->valorbtn1 = $this->alternar($this->valorbtn1);
-        if ($this->valorbtn2 == true) {
-            $this->valorbtn2 = $this->alternar($this->valorbtn2);
+    public function btn_switch_1(){
+        $this->btn_semana_1 = $this->alternar_bool($this->btn_semana_1);
+        if ($this->btn_semana_2 == true) {
+            $this->btn_semana_2 = $this->alternar_bool($this->btn_semana_2);
         }
     }
 
-    public function switchbtn2(){
-        $this->valorbtn2 = $this->alternar($this->valorbtn2);
-        if ($this->valorbtn1 == true) {
-            $this->valorbtn1 = $this->alternar($this->valorbtn1);
+    public function btn_switch_2(){
+        $this->btn_semana_2 = $this->alternar_bool($this->btn_semana_2);
+        if ($this->btn_semana_1 == true) {
+            $this->btn_semana_1 = $this->alternar_bool($this->btn_semana_1);
         }
     }
 
-    public function alternar($valor){
+    public function alternar_bool($valor){
         if($valor){
             $valor = false;
         }else{
@@ -75,34 +78,30 @@ class InscriptionsController extends Component
         return $valor;
     }
 
-    public function openShowHorario(){
-        $this->showHorario = true;
+    public function open_show_horario(){
+        $this->show_horario = true;
     }
 
-    public function closeShowHorario(){
-        $this->showHorario = false;
+    public function close_show_horario(){
+        $this->show_horario = false;
 
     }
 
     public function cambiar_estado_boton_conntinuar(){
-        $this->btnContinuar = true;
+        $this->btn_continuar = true;
     }
 
-    public $showOneModal = false;
-
-    public function mostrar_modal_de_verificacion()
-    {
-        $this->showHorario = false;
+    public function mostrar_modal_de_verificacion(){
+        $this->show_horario = false;
         $this->showOneModal = true;
 
     }
 
-    public function openConfir(){
-        $this->confirmingSaveInscription = true;
+    public function open_confir(){
+        $this->confirming_save_inscription = true;
     }
 
-    public function resetArreglo()
-    {
+    public function reset_arreglo(){
         $this->reset('arreglo');
     }
 
@@ -196,9 +195,9 @@ class InscriptionsController extends Component
 
     public function evaluar_cantidad_cursos_seleccionados(){
         if(count($this->consultar_cursos_seleccionados())!==0)
-            $this->btnContinuar = true;
+            $this->btn_continuar = true;
         else
-            $this->btnContinuar = false;
+            $this->btn_continuar = false;
     }
 
     public function consultar_cursos_seleccionados(){
@@ -240,8 +239,8 @@ class InscriptionsController extends Component
             return view('livewire.admin.inscriptions.index',
             [
                 'tabla' => $this->consultar_cursos_seleccionados(),
-                'semana1' => $this->consultar_cursos_disponibles($this->arreglo_fecha[0])->paginate($this->perPage),
-                'semana2' => $this->consultar_cursos_disponibles($this->arreglo_fecha[2])->paginate($this->perPage2),
+                'semana1' => $this->consultar_cursos_disponibles($this->arreglo_fecha[0])->paginate($this->per_page),
+                'semana2' => $this->consultar_cursos_disponibles($this->arreglo_fecha[2])->paginate($this->per_page2),
             ]
                 );
             }
@@ -250,7 +249,7 @@ class InscriptionsController extends Component
             return view('livewire.admin.inscriptions.index',
                 [
                     'tabla' => $this->consultar_cursos_seleccionados(),
-                    'semana1' => $this->consultar_cursos_disponibles($this->arreglo_fecha[0])->paginate($this->perPage),
+                    'semana1' => $this->consultar_cursos_disponibles($this->arreglo_fecha[0])->paginate($this->per_page),
                 ]
             );
         }
@@ -332,12 +331,12 @@ class InscriptionsController extends Component
     }
 
     public function abrir_horario(){
-        $this->openShowHorario();
+        $this->open_show_horario();
     }
 
     public function store(){
-        $this->confirmingSaveInscription = false;
-        $this->showHorario = false;
+        $this->confirming_save_inscription = false;
+        $this->show_horario = false;
         $this->flag = false;
         $this->user = User::find(auth()->user()->id);
         foreach ($this->unionarreglos as $id) {
@@ -360,13 +359,10 @@ class InscriptionsController extends Component
         ]);
     }
     /* Para cambiar al modal final para redirecion */
-    public bool $flag = false;
-
-    public function alter()
-    {
+    public function alter(){
         $this->showOneModal = false;
-        $this->confirmingSaveInscription = false;
-        $this->showHorario = true;
+        $this->confirming_save_inscription = false;
+        $this->show_horario = true;
         $this->flag = true;
     }
 }

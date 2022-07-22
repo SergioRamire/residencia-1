@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="showEditCreateModal">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="show_edit_create_modal">
     <x-slot name="title">
         {{$modo}} Periodo
     </x-slot>
@@ -29,14 +29,14 @@
     </x-slot>
 
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('showEditCreateModal')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('show_edit_create_modal')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:click.prevent=" updatePeriod()" wire:loading.attr="disabled" form="courseForm">
+        <x-jet-button class="ml-3" wire:click.prevent=" update_period()" wire:loading.attr="disabled" form="courseForm">
             {{$modo}} Datos
          </x-jet-button>
-        @if($confirmingSavePeriod)
+        @if($confirming_save_period)
                     @include('livewire.admin.periodCourses.confirmation')
         @endif
     </x-slot>

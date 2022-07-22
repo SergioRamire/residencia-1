@@ -1,4 +1,4 @@
-<x-jet-dialog-modal wire:ignore.self wire:model.defer="showHorario">
+<x-jet-dialog-modal wire:ignore.self wire:model.defer="show_horario">
     <x-slot name="title">
         @if ($flag)
 
@@ -76,14 +76,14 @@
                 </x-jet-button>
             </div>
         @else
-            <x-jet-secondary-button wire:click="$toggle('showHorario')" type="button">
+            <x-jet-secondary-button wire:click="$toggle('show_horario')" type="button">
                 Cerrar
             </x-jet-secondary-button>
 
             <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="register()" form="courseForm">
                 Aceptar
             </x-jet-button>
-            {{-- @if ($confirmingSaveInscription) --}}
+            {{-- @if ($confirming_save_inscription) --}}
             {{-- @endif --}}
         @endif
     </x-slot>

@@ -20,32 +20,32 @@ class PeriodCoursesController extends Component
     use WithSorting;
 
     public Period $periods;
-    public $perPage = 5;
+    public $per_page = 5;
     public $search = '';
 
     public $periodo_id;
 
-    public $filters = '';
-    public $filters2 = '';
+    public $filters_1 = '';
+    public $filters_2 = '';
     protected $queryString = [
         'search' => ['except' => '', 'as' => 's'],
-        'perPage' => ['except' => 1, 'as' => 'p'],
+        'per_page' => ['except' => 1, 'as' => 'p'],
     ];
 
     public bool $edit = false;
     public bool $create = false;
-    public bool $showEditCreateModal = false;
-    public bool $confirmingPeriodDeletion = false;
-    public bool $confirmingSavePeriod = false;
-    public bool $confirmingPeriodActive =false;
-    public bool $confirmingPeriodInactive =false;
+    public bool $show_edit_create_modal = false;
+    public bool $confirming_period_deletion = false;
+    public bool $confirming_save_period = false;
+    public bool $confirming_period_active =false;
+    public bool $confirming_period_Inactive =false;
 
     public $f_i;
     public $f_f;
     public $arreglo_id=[];
     public $arreglo_estatus=[];
 
-    public bool $estadox = false;
+    public bool $estado_x = false;
 
     public function rules(){
         if ($this->edit) {
@@ -63,10 +63,9 @@ class PeriodCoursesController extends Component
     }
 
     public function mount(){
-        $this->blankUser();
+        $this->blank_user();
     }
-
-    public function blankUser(){
+    public function blank_user(){
         $this->periods = Period::make();
     }
 
@@ -78,27 +77,26 @@ class PeriodCoursesController extends Component
         $this->resetPage();
     }
 
-    public function openModal(){
-        $this->showEditCreateModal = true;
+    public function open_modal(){
+        $this->show_edit_create_modal = true;
     }
-
-    public function closeModal(){
-        $this->showEditCreateModal = false;
+    public function close_modal(){
+        $this->show_edit_create_modal = false;
     }
 
     public function resetFilters(){
         $this->reset('search');
-        $this->reset('filters');
-        $this->reset('filters2');
+        $this->reset('filters_1');
+        $this->reset('filters_2');
     }
     /**
      * @throws AuthorizationException
      */
     public function create(){
-        $this->blankUser();
-        $this->openModal();
-        $this->confirmingPeriodDeletion = false;
-        $this->confirmingSavePeriod = false;
+        $this->blank_user();
+        $this->open_modal();
+        $this->confirming_period_deletion = false;
+        $this->confirming_save_period = false;
         $this->edit = false;
         $this->create = true;
     }
@@ -110,13 +108,12 @@ class PeriodCoursesController extends Component
         $this->periods = Period::findOrFail($id);
         $this->edit = true;
         $this->create = false;
-        $this->openModal();
+        $this->open_modal();
     }
-
-    public function updatePeriod()
+    public function update_period()
     {
         $this->validate();
-        $this->confirmingSavePeriod = true;
+        $this->confirming_save_period = true;
     }
 
     public function save(){
@@ -129,9 +126,9 @@ class PeriodCoursesController extends Component
         $this->resetErrorBag();
         $this->resetValidation();
 
-        $this->showEditCreateModal = false;
-        $this->confirmingPeriodDeletion = false;
-        $this->confirmingSavePeriod = false;
+        $this->show_edit_create_modal = false;
+        $this->confirming_period_deletion = false;
+        $this->confirming_save_period = false;
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
@@ -143,56 +140,53 @@ class PeriodCoursesController extends Component
     /**
      * @throws AuthorizationException
      */
-    public function deletePeriod($id)
+    public function delete_period($id)
     {
         $this->authorize('periods.delete');
         $this->periods = Period::findOrFail($id);
-        $this->confirmingPeriodDeletion = true;
+        $this->confirming_period_deletion = true;
     }
 
     public function delete()
     {
         $this->periods->delete();
-        $this->confirmingPeriodDeletion = false;
+        $this->confirming_period_deletion = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Periodo eliminado exitosamente',
         ]);
     }
 
-    public function periodoActivar($id){
-        $period = Period::findOrFail($id);
+    public function periodo_activar($id){
         $this->periodo_id = $id;
-        $this->confirmingPeriodActive=true;
+        $this->confirming_period_active=true;
+    }
+    public function periodo_desactivar($id){
+        $this->periodo_id = $id;
+        $this->confirming_period_Inactive=true;
     }
 
-    public function periodoDesactivar($id){
-        $period = Period::findOrFail($id);
-        $this->periodo_id = $id;
-        $this->confirmingPeriodInactive=true;
-    }
-
-    public function desactivarTodos(){
+    public function desactivar_todos(){
         DB::table('periods')
             ->update(['estado' => 0]);
     }
 
     public function activar(){
-        $this->desactivarTodos();
+        $this->desactivar_todos();
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
             ->update(['estado' => 1]);
-        $this->confirmingPeriodActive=false;
+        $this->confirming_period_active=false;
     }
 
     public function desactivar(){
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
             ->update(['estado' => 0]);
-        $this->confirmingPeriodInactive=false;
+        $this->confirming_period_Inactive=false;
     }
 
-    public function obtenerFechasActivas(){
+    public function obtener_fechas_activas(){
         $fecha_i_1=Period::select('periods.fecha_inicio')
                                ->where('periods.estado','=',1)
                                ->first();
@@ -208,22 +202,22 @@ class PeriodCoursesController extends Component
     {
         return view('livewire.admin.periodCourses.index', [
             'datos' => Period::query()
-                ->when($this->filters, function ($query, $b) {
+                ->when($this->filters_1, function ($query, $b) {
                     $query->where('periods.fecha_inicio', '>=', "%$b%");
                 })
-                ->when($this->filters2, function ($query, $b) {
+                ->when($this->filters_2, function ($query, $b) {
                     $query->where('periods.fecha_fin', '<=', "%$b%");
                 })
                 ->orderBy($this->sortField, $this->sortDirection)
-                ->paginate($this->perPage),
+                ->paginate($this->per_page),
         ]);
     }
 
     public function confirmar(){
-        if ($this->estadox) {
-            $this->estadox = false;
+        if ($this->estado_x) {
+            $this->estado_x = false;
         }else {
-            $this->estadox = true;
+            $this->estado_x = true;
         }
     }
 }
