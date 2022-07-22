@@ -19,13 +19,25 @@
                 <div class="mt-4 flex-1">
                     <x-jet-label for="apellido_paterno" value="Apellido Paterno" />
                     <x-input.error wire:model="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno" required />
-                    <input type="checkbox" wire:model.defer="no_ap1"> No Aplica
                 </div>
                 {{-- materno --}}
                 <div class="mt-4 flex-1">
                     <x-jet-label for="apellido_materno" value="Apellido Materno" />
                     <x-input.error wire:model="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno" required />
-                    <input type="checkbox" wire:model.defer="no_ap2"> No Aplica
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                <div class="sm:flex-1">
+                    <label class="items-center m-2">
+                        <input wire:model.defer="no_ap1" name="noape" value="1" id="noape" type="checkbox"  class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
+                        <span class="ml-2 text-sm font-medium text-gray-900 ">No Aplica</span>
+                    </label>
+                </div>
+                <div class="sm:flex-1">
+                    <label class="items-center m-2">
+                        <input wire:model.defer="no_ap2" name="noape" value="1" id="noape" type="checkbox" class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2">
+                        <span class="ml-2 text-sm font-medium text-gray-900 ">No Aplica</span>
+                    </label>
                 </div>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
