@@ -57,7 +57,7 @@
                             @endforelse
                         </x-table>
                     </div>
-                    @if ($btnContinuar)
+                    @if ($btn_continuar)
                         <div class="mt-4 flex justify-end">
 
                     <x-jet-secondary-button wire:click="addHorario()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
@@ -72,19 +72,19 @@
     <div class="space-y-2 pt-8">
         <div class="grid grid-cols-2 justify-center">
             <div class="grid justify-center">
-                <x-jet-secondary-button wire:click="switchbtn1()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
+                <x-jet-secondary-button wire:click="btn_switch_1()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
                         Cursos de la Semana 1
                 </x-jet-secondary-button>
             </div>
             @if($segunda_semana_activa)
                 <div class="grid justify-center">
-                    <x-jet-secondary-button wire:click="switchbtn2()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
+                    <x-jet-secondary-button wire:click="btn_switch_2()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
                             Cursos de la Semana 2
                     </x-jet-secondary-button>
                 </div>
             @endif
         </div>
-        @if ($valorbtn1)
+        @if ($btn_semana_1)
             <div class="mt-4 flex-1">
                 {{-- Tabala de cursos SEMANA 2 --}}
                 <div class="max-w-7xl mx-auto pt-5">
@@ -161,7 +161,7 @@
             </div>
         @endif
         {{-- @if($segunda_semana_activa=true) --}}
-            @if ($valorbtn2)
+            @if ($btn_semana_2)
                 <div class="mt-4 flex-1">
                     {{-- Tabala de cursos SEMANA 1 --}}
                     <div class="max-w-7xl mx-auto pt-5">
