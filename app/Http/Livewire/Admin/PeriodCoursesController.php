@@ -44,7 +44,7 @@ class PeriodCoursesController extends Component
     public $f_f;
     public $arreglo_id=[];
     public $arreglo_estatus=[];
-    
+
     public bool $estadox = false;
 
     public function rules(){
@@ -61,9 +61,11 @@ class PeriodCoursesController extends Component
             'periods.fecha_fin' => ['required', 'date', 'unique:periods'],
         ];
     }
+
     public function mount(){
         $this->blankUser();
     }
+
     public function blankUser(){
         $this->periods = Period::make();
     }
@@ -71,6 +73,7 @@ class PeriodCoursesController extends Component
     public function updated($x){
         $this->validateOnly($x);
     }
+
     public function updatingSearch(){
         $this->resetPage();
     }
@@ -78,6 +81,7 @@ class PeriodCoursesController extends Component
     public function openModal(){
         $this->showEditCreateModal = true;
     }
+
     public function closeModal(){
         $this->showEditCreateModal = false;
     }
@@ -108,6 +112,7 @@ class PeriodCoursesController extends Component
         $this->create = false;
         $this->openModal();
     }
+
     public function updatePeriod()
     {
         $this->validate();
@@ -160,6 +165,7 @@ class PeriodCoursesController extends Component
         $this->periodo_id = $id;
         $this->confirmingPeriodActive=true;
     }
+
     public function periodoDesactivar($id){
         $period = Period::findOrFail($id);
         $this->periodo_id = $id;
@@ -176,19 +182,13 @@ class PeriodCoursesController extends Component
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
             ->update(['estado' => 1]);
-        // Period::updateOrCreate(['id' => $this->periodo_id], [
-        //     'estado' => 1,
-        // ]);
         $this->confirmingPeriodActive=false;
-        // $this->cambiodeRol();
     }
+
     public function desactivar(){
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
             ->update(['estado' => 0]);
-        // Period::updateOrCreate(['id' => $this->periodo_id], [
-        //     'estado' => 0,
-        // ]);
         $this->confirmingPeriodInactive=false;
     }
 
@@ -202,35 +202,6 @@ class PeriodCoursesController extends Component
                                ->first();
         $this->f_i= $fecha_i_1->fecha_inicio;
         $this->f_f= $fecha_f_1->fecha_fin;
-    }
-
-    public function obteneUsuariosPeriodoActivo(){
-        return User::join('inscriptions','inscriptions.user_id','users.id')
-        ->join('course_details','course_details.id','inscriptions.course_detail_id')
-        ->join('periods','periods.id','course_details.period_id')
-        ->select('inscriptions.user_id','inscriptions.estatus_participante')
-        ->where('periods.estado','=',1)
-        ->get();
-    }
-    public function cambiodeRol(){
-        $this-> obtenerFechasActivas();
-        $fecha_actual = date("Y-m-d");
-        $consulta=$this->obteneUsuariosPeriodoActivo();
-        foreach($consulta as $co){
-            array_push($this->arreglo_id,$co->user_id);
-        }
-
-        foreach($consulta as $co){
-            array_push($this->arreglo_estatus,$co->estatus_participante);
-        }
-
-        if(($fecha_actual >= $this->f_i) && ($fecha_actual <= $this->f_f)) {
-
-            for($i=0;$i<count($consulta);$i++){
-                $user = User::findOrFail($this->arreglo_id[$i]);
-                $user->syncRoles($this->arreglo_estatus[$i]);
-            }
-        }
     }
 
     public function render()
@@ -247,7 +218,6 @@ class PeriodCoursesController extends Component
                 ->paginate($this->perPage),
         ]);
     }
-
 
     public function confirmar(){
         if ($this->estadox) {
