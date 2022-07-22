@@ -58,6 +58,7 @@ class AssignedInstructorController extends Component
             'calificacion' => 0,
             'estatus_participante' => 'Instructor',
             'asistencias_minimas' => 0,
+            'url_cedula' => '',
         ]);
         $this->noti('success', 'Instructor asignado correctamente');
     }
@@ -140,7 +141,7 @@ class AssignedInstructorController extends Component
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
             ->join('inscriptions','inscriptions.course_detail_id','course_details.id')
-            ->where('inscriptions.estatus_participante','like','Instructor')
+            // ->where('inscriptions.estatus_participante','like','Instructor')
             ->where('periods.id',$this->classification['periodo'])
             ->where('courses.id', $this->classification['curso'])
             ->select(
