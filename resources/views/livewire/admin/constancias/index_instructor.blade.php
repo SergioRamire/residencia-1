@@ -25,15 +25,20 @@
     </div> --}}
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
+            <div>
+
+            </div>
             <!-- Opciones de tabla -->
             <div class="md:flex md:justify-between space-y-2 md:space-y-0">
                 <!-- Parte izquierda -->
                 <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                    <!-- Barra de búsqueda -->
-                    <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar Instructor...">
-                        <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                     <!-- Barra de búsqueda -->
+                    <div class="w-full">
+                        <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar Instructor...">
+                            <x-icon.search solid class="h-5 w-5 text-gray-400"/>
+                        </x-input.icon>
                         <label><p class="text-xs font-bold">Buscar por: nombre del instructor</p></label>
-                    </x-input.icon>
+                    </div>
 
 
                     <!-- Filtros -->

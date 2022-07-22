@@ -19,8 +19,9 @@
                 <div id="Layer1" style="width:700px; height:400px; " class="mt-4 flex-1">
                     @if ($create)
                         <div class="mt-4 w-3/4">
-                            <x-jet-label value="Seleccione el instructor" class="font-bold font text-lg"/>
+                            <x-jet-label value="Seleccione el instructor" class="font text-base"/>
                             @livewire('admin.instructor-select')
+                            <label><p class="text-xs font-bold">Buscar por: RFC o nombre del participante</p></label>
                         </div>
                     @endif
                     @if ($show)
