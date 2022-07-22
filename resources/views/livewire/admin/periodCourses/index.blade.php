@@ -18,11 +18,11 @@
             <div class="flex flex-wrap">
                 <div class="md:w-1/2 max-w-xs col-start pr-1">
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
-                    <x-input.error wire:model="filters" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio2" name="fecha_inicio2" for="fecha_inicio2"/>
+                    <x-input.error wire:model="filters_1" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_inicio2" name="fecha_inicio2" for="fecha_inicio2"/>
                 </div>
                 <div class="md:w-1/2 max-w-xs col-start pr-1">
                     <x-jet-label for="hasta" value="Hasta" class="text-lg" />
-                    <x-input.error wire:model="filters2" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin2" name="fecha_fin2" for="fecha_fin2"/>
+                    <x-input.error wire:model="filters_2" class="block mt-1 w-full border-[#1b396a] text-[#1b396a] hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" type="date" id="fecha_fin2" name="fecha_fin2" for="fecha_fin2"/>
                 </div>
                 <div class="flex items-end">
                     <x-jet-secondary-button wire:click="resetFilters()" title="Reiniciar fitros" class="h-11 ml-2 border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-green-50">
@@ -33,7 +33,7 @@
             <!-- Parte derecha -->
             <div class="flex justify-end">
                 <div class="">
-                    <x-input.select wire:model="perPage" class="block w-full">
+                    <x-input.select wire:model="per_page" class="block w-full">
                         <option value=8>8 por página</option>
                         <option value=10>10 por página</option>
                         <option value=25>25 por página</option>
@@ -77,15 +77,15 @@
                             <button  wire:click="edit({{ $p->id }})" type="button" title="Editar periodo" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="deletePeriod('{{ $p->id }}')" type="button" title="Eliminar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="delete_period('{{ $p->id }}')" type="button" title="Eliminar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                             @if($p->estado === 1)
-                            <button wire:click="periodoDesactivar({{ $p->id }})" type="button" title="Desactivar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
+                            <button wire:click="periodo_desactivar({{ $p->id }})" type="button" title="Desactivar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
                                 Desactivar
                             </button>
                             @elseif($p->estado === 0)
-                                <button wire:click="periodoActivar({{ $p->id }})" type="button" title="Activar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                <button wire:click="periodo_activar({{ $p->id }})" type="button" title="Activar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
                                     Activar
                                 </button>
                             @endif
@@ -118,12 +118,12 @@
             @elseif($edit)
                 @include('livewire.admin.periodCourses.edit_create', [ 'modo' => 'Actualizar', ])
             @endif
-            @if ($confirmingPeriodDeletion)
+            @if ($confirming_period_deletion)
                 @include('livewire.admin.periodCourses.destroy')
             @endif
-            @if ($confirmingPeriodActive)
+            @if ($confirming_period_active)
                 @include('livewire.admin.periodCourses.confirmationActive')
-            @elseif($confirmingPeriodInactive)
+            @elseif($confirming_period_Inactive)
                 @include('livewire.admin.periodCourses.confirmationInactive')
             @endif
         </div>

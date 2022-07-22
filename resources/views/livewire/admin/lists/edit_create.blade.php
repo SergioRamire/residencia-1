@@ -24,7 +24,7 @@
                 </div>
                 <div class="mt-4 flex-1">
                     <x-jet-label value="Periodo"/>
-                    <p class="text-black py-2">{{$perido->clave}}</p>
+                    <p class="text-black py-2">{{$periodo->clave}}</p>
                 </div>
             @endif
 
