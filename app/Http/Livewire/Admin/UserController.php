@@ -35,6 +35,9 @@ class UserController extends Component
     public bool $show_confirmation_modal = false;
     public bool $edit = false;
     public bool $delete = false;
+    
+    public $no_ap1 = false;
+    public $no_ap2 = false;
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -204,8 +207,6 @@ class UserController extends Component
         ]);
     }
 
-    public $no_ap1 = false;
-    public $no_ap2 = false;
     public function valiAp($valor){
         if ($valor) {
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];

@@ -22,6 +22,23 @@ class AssignedInstructorController extends Component
     public $id_instructor;
     public $search = '';
 
+    public $id_detalle_curso;
+    public $id_ins;
+    
+    public $modal_edit = false;
+    public $id_per;
+    public $create = false;
+    public $show = false;
+    public $delet = false;
+
+    public $id_detalle_curso2;
+    
+    public $id_ins_delete;
+    public $modal_delete = false;
+    public bool $modal_confirmacion;
+
+
+
     public int $perPage = 8;
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -32,7 +49,6 @@ class AssignedInstructorController extends Component
         'periodo' => '',
         'grupo' => '',
     ];
-    public $id_detalle_curso;
 
     protected $listeners = [
         'per_send',
@@ -50,7 +66,6 @@ class AssignedInstructorController extends Component
         $this->id_instructor = $valor;
         // dd($this->id_instructor);
     }
-
     public function registrar(){
         $this->user = User::find($this->id_instructor);
         $courseDetails = CourseDetail::find($this->id_detalle_curso);
@@ -62,17 +77,12 @@ class AssignedInstructorController extends Component
         ]);
         $this->noti('success', 'Instructor asignado correctamente');
     }
-
-    public $id_ins;
-
     public function asignar(){
         // $this->id_instructor = $this->id_ins;
         $this->registrar();
         $this->close_modal();
         $this->modal_confirmacion = false;
     }
-
-
     public function resetFilters(){
         $this->reset('curso');
         $this->reset('grupo');
@@ -80,7 +90,6 @@ class AssignedInstructorController extends Component
         $this->reset('horai');
         $this->reset('horaf');
     }
-
     public function render(){
         $this->valores();
         return view('livewire.admin.assignedInstructor.index', [
@@ -91,7 +100,6 @@ class AssignedInstructorController extends Component
             'lista_ins' => $this->consulta_docentes(),
         ]);
     }
-
     public function valores(){
         $this->datos = $this->consulta_curso($this->classification['periodo'], $this->classification['curso'], $this->classification['grupo']);
         if (count($this->datos) > 0) {
@@ -120,21 +128,15 @@ class AssignedInstructorController extends Component
     public function consulta_user(){
         return User::all();
     }
-
     public function noti($icon, $txt){
         $this->dispatchBrowserEvent('notify', [
             'icon' => $icon,
             'message' => $txt,
         ]);
     }
-
-    // public $busqPer;
-
     public function consulta_per(){
         return Period::all();
     }
-
-
     public function consulta_tabla(){
         $buscar=$this->search;
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
@@ -165,15 +167,6 @@ class AssignedInstructorController extends Component
             // ->get()
             ;
     }
-    public $modal_edit = false;
-    public $id_per;
-    public $create = false;
-    public $show = false;
-    public $delet = false;
-
-
-    public $id_detalle_curso2;
-
     public function open_modal_create($id){
         $this->id_detalle_curso = $id;
         $this->modal_edit = true;
@@ -201,7 +194,6 @@ class AssignedInstructorController extends Component
         $this->show = false;
         $this->delet = false;
     }
-
     public function consulta_docentes(){
         return User::join('inscriptions','inscriptions.user_id','users.id')
         ->join('course_details','course_details.id','inscriptions.course_detail_id')
@@ -211,9 +203,6 @@ class AssignedInstructorController extends Component
             'inscriptions.id as idi',)
         ->get();
     }
-    public $id_ins_delete;
-    public $modal_delete = false;
-
     public function delete(){
         $this->modal_delete = true;
     }
@@ -231,9 +220,6 @@ class AssignedInstructorController extends Component
             'message' =>  'Instructor eliminado exitosamente',
         ]);
     }
-
-
-    public bool $modal_confirmacion;
     public function open_confirmacion(){
         $this->modal_confirmacion = true;
     }

@@ -48,8 +48,8 @@ class ParticipantController extends Component
         return [
             'user.rfc' => ['required', 'regex:/^([A-ZÑ&]{3,4}) ?(?:- ?)?(\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])) ?(?:- ?)?([A-Z\d]{2})([A\d])$/'],
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'user.apellido_paterno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'user.apellido_materno' => ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.apellido_paterno' => $this->vali_ap($this->no_ap1),
+            'user.apellido_materno' => $this->vali_ap($this->no_ap2),
             'user.sexo' => ['required',  'in:M,F'],
             'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
             'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
@@ -85,13 +85,19 @@ class ParticipantController extends Component
     public function edit(User $user)
     {
         $this->authorize('participant.edit');
-
-        /* Reinicia los errores */
+        if (empty($user->apellido_paterno)) {
+            $this->no_ap1 = 1;
+        }else {
+            $this->no_ap1 = 0;
+        }
+        if (empty($user->apellido_materno)) {
+            $this->no_ap2 = 1;
+        }else {
+            $this->no_ap2 = 0;
+        }
         $this->resetErrorBag();
         $this->resetValidation();
-
         $this->user = $user;
-
         $this->show_edit_modal = true;
     }
 
@@ -150,5 +156,18 @@ class ParticipantController extends Component
                 })
                 ->paginate($this->perPage),
         ]);
+    }
+
+    
+    public $no_ap1 = false;
+    public $no_ap2 = false;
+    public $entroonoentro;
+    public function vali_ap($valor){
+        if ((int)$valor == 1) {
+            $this->entroonoentro = 'ENtro al if';
+            return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
+        }
+        $this->entroonoentro = 'No entro al if';
+        return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255','required'];
     }
 }

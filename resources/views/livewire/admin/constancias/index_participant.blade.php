@@ -30,7 +30,7 @@
                     <div class="w-full">
                         <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
                            <x-icon.search solid class="h-5 w-5 text-gray-400"/>
-                       </x-input.icon>
+                        </x-input.icon>
                         <label><p class="text-xs font-bold">Buscar por: nombre del instructor, curso, grupo o calificación</p></label>
                     </div>
 
@@ -150,12 +150,12 @@
                             @elseif($g->asistencias_minimas === 0)
                                 <x-badge.basic value="No tiene" color="red" large/>
                             @endif
-                            </x-table.cell>
+                            </x-table.cell >
                             @if($g->calificacion > 69 and $g->asistencias_minimas==1)
                                 @php
                                     $i++;
                                 @endphp
-                                <x-table.cell width='200' class="whitespace-nowrap">
+                                <x-table.cell width='200' class="whitespace-nowrap text-center">
                                     <button wire:click="descargarConstancia({{$g->id}},{{$g->iduser}})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                         Constancia
                                     </button>

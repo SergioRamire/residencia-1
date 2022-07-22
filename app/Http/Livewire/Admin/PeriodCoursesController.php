@@ -44,6 +44,8 @@ class PeriodCoursesController extends Component
     public $f_f;
     public $arreglo_id=[];
     public $arreglo_estatus=[];
+    
+    public bool $estadox = false;
 
     public function rules(){
         if ($this->edit) {
@@ -246,7 +248,6 @@ class PeriodCoursesController extends Component
         ]);
     }
 
-    public bool $estadox = false;
 
     public function confirmar(){
         if ($this->estadox) {
