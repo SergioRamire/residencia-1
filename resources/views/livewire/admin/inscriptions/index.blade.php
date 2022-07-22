@@ -1,14 +1,10 @@
-
 <div>
-
 @if ($disponible==true and $permiso==true)
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
             PROCESO DE INSCRIPCIÓN
         </h2>
     </x-slot>
-    {{-- {{dd($arreglo_fecha)}} --}}
-    {{-- @if ($tabla->count()) --}}
     <div class="mt-4 flex-1">
         {{-- Tabala de cursos SEMANA 1 --}}
         <div class="max-w-7xl mx-auto pt-5">
@@ -16,8 +12,6 @@
                 <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
                     <h5 class="text-xl font-medium text-blue-800">Cursos Seleccionados</h5>
                     <div class="flex flex-col space-y-2">
-
-
                         <x-table>
                             <x-slot name="head">
                                 {{-- <x-table.header>course_id</x-table.header> --}}
@@ -38,7 +32,7 @@
                                     <x-table.cell>{{ $c->dirigido }} </x-table.cell>
                                     <x-table.cell> De {{ date("g:i a", strtotime($c->hora_inicio))}} a {{ date("g:i a", strtotime($c->hora_fin))}}</x-table.cell>
                                         <x-table.cell width='200' class="whitespace-nowrap">
-                                        <button wire:click="del({{ $c->curdet }})" type="button"
+                                        <button wire:click="descartar_curso({{ $c->curdet }})" type="button"
                                             class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                             Descartar Curso
                                         </button>
@@ -75,8 +69,6 @@
             </div>
         </div>
     </div>
-    {{-- @endif --}}
-
     <div class="space-y-2 pt-8">
         <div class="grid grid-cols-2 justify-center">
             <div class="grid justify-center">
@@ -92,10 +84,9 @@
                 </div>
             @endif
         </div>
-
         @if ($valorbtn1)
             <div class="mt-4 flex-1">
-                {{-- Tabala de cursos SEMANA 1 --}}
+                {{-- Tabala de cursos SEMANA 2 --}}
                 <div class="max-w-7xl mx-auto pt-5">
                     <div class="space-y-2">
                         <div class="p-4 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 ">
@@ -132,12 +123,12 @@
                                             </x-table.cell>
 
                                             <x-table.cell>
-                                                {{$this->cantidades($c->curdet)}}
+                                                {{$this->consultar_inscritos_en_curso($c->curdet)}}
                                                 / {{ $c->capacidad }}
                                             </x-table.cell>
 
                                             <x-table.cell width='200' class="whitespace-nowrap">
-                                                <button  wire:click="add({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
+                                                <button  wire:click="seleccionar_curso_tabla1({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
                                                     Seleccionar
                                                 </button>
                                             </x-table.cell>
@@ -204,11 +195,11 @@
                                                     <x-table.cell>{{ $c->hora_inicio }} a {{ $c->hora_fin }}
                                                     </x-table.cell>
                                                     <x-table.cell>
-                                                        {{$this->cantidades($c->curdet)}}
+                                                        {{$this->consultar_inscritos_en_curso($c->curdet)}}
                                                         / {{ $c->capacidad }}
                                                     </x-table.cell>
                                                     <x-table.cell width='200' class="whitespace-nowrap">
-                                                        <button  wire:click="addTabla2({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100  text-black font-bold border border-[#1b396a] rounded shadow" >
+                                                        <button wire:click="seleccionar_curso_tabla2({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100  text-black font-bold border border-[#1b396a] rounded shadow" >
                                                             Seleccionar
                                                         </button>
                                                     </x-table.cell>
@@ -240,18 +231,6 @@
                     </div>
                 </div>
             @endif
-        {{-- @endif --}}
-        {{-- hora:
-        {{var_dump($horas_inicio)}} --}}
-        {{-- i_arreglo
-        {{var_dump($id_arreglo)}}
-        ---
-        valor:
-        {{$valor}}
-
-        {{var_dump($arreglo)}}
-        ok
-        {{var_dump($unionarreglos)}} --}}
     </div>
     @include('livewire.admin.inscriptions.anuncio')
     @include('livewire.admin.inscriptions.horario')

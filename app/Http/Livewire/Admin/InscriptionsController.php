@@ -84,42 +84,36 @@ class InscriptionsController extends Component
 
     }
 
-    public function openbtnContinuar(){
+    public function cambiar_estado_boton_conntinuar(){
         $this->btnContinuar = true;
     }
 
     public $showOneModal = false;
 
-    public function register()
+    public function mostrar_modal_de_verificacion()
     {
-        //Agregar modal de informacion Uwu
         $this->showHorario = false;
         $this->showOneModal = true;
 
     }
+
     public function openConfir(){
         $this->confirmingSaveInscription = true;
     }
-
 
     public function resetArreglo()
     {
         $this->reset('arreglo');
     }
 
-    public function addTabla2($id){
+    public function seleccionar_curso_tabla2($id){
 
         if($this->countabla2<3){
             $cap=CourseDetail::select('course_details.capacidad')
                 ->where('course_details.id',"=",$id)
                 ->get();
-            $users = CourseDetail::
-                join('inscriptions as i', 'i.course_detail_id', '=', 'course_details.id')
-                ->where('i.course_detail_id', "=",$id)
-                ->where('i.estatus_participante', "=",'Participante')
-                ->selectRaw('count(*) as user_count')
-                ->first();
-            if($users->user_count<$cap[0]->capacidad){
+            $participantes_inscritos = $this->consultar_inscritos_en_curso($id);
+            if($participantes_inscritos<$cap[0]->capacidad){
                 $h2=CourseDetail::select('course_details.hora_inicio')
                             ->where('course_details.id', "=",$id)
                             ->get();
@@ -142,12 +136,11 @@ class InscriptionsController extends Component
         elseif($this->countabla2>2){
             $this-> noti('info','No se pueden seleccionar más de 2 cursos por semana ',);
         }
-        $this->buscar();
+        $this->consultar_cursos_seleccionados();
     }
 
-    public function horarios($period_id){
+    public function consultar_horario_para_instructores($period_id){
         $id_user = auth()->user()->id;
-        // dd($id_user);
         $horario = User::select('course_details.hora_inicio')
                         ->join('inscriptions','inscriptions.user_id','=','users.id')
                         ->join('course_details','course_details.id','=','inscriptions.course_detail_id')
@@ -155,28 +148,17 @@ class InscriptionsController extends Component
                         ->where('inscriptions.user_id','=',$id_user)
                         ->where('inscriptions.estatus_participante','=','Instructor')
                         ->where('periods.id','=',$period_id)
-
-                        // ->where('periods.publico','=',1)
                         ->first();
         return $horario->hora_inicio;
     }
 
-
-    public function add($id){
-
-
+    public function seleccionar_curso_tabla1($id){
         if($this->countabla1<3){
             $cap=CourseDetail::select('course_details.capacidad')
                              ->where('course_details.id',"=",$id)
                              ->get();
-            $users = CourseDetail::
-                join('inscriptions as i', 'i.course_detail_id', '=', 'course_details.id')
-                ->where('i.course_detail_id', "=",$id)
-                ->where('i.estatus_participante', "=",'Participante')
-                ->selectRaw('count(*) as user_count')
-                ->first();
-
-            if($users->user_count<$cap[0]->capacidad){
+            $participantes_inscritos = $this->consultar_inscritos_en_curso($id);
+            if($participantes_inscritos<$cap[0]->capacidad){
                 $h=CourseDetail::select('course_details.hora_inicio')
                             ->where('course_details.id', "=",$id)
                             ->get();
@@ -199,10 +181,10 @@ class InscriptionsController extends Component
         elseif($this->countabla1>2){
             $this-> noti('info','No se pueden seleccionar más de 2 cursos por semana ');
         }
-        $this->buscar();
+        $this->consultar_cursos_seleccionados();
     }
 
-    public function cantidades($id){
+    public function consultar_inscritos_en_curso($id){
         $users = CourseDetail::
                 join('inscriptions as i', 'i.course_detail_id', '=', 'course_details.id')
                 ->where('i.course_detail_id', "=",$id)
@@ -212,14 +194,14 @@ class InscriptionsController extends Component
         return $users->user_count;
     }
 
-    public function tablaVacia(){
-        if(count($this->buscar())!==0)
+    public function evaluar_cantidad_cursos_seleccionados(){
+        if(count($this->consultar_cursos_seleccionados())!==0)
             $this->btnContinuar = true;
         else
             $this->btnContinuar = false;
     }
 
-    public function buscar(){
+    public function consultar_cursos_seleccionados(){
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $i = array_merge($this->arreglo,$this->arreglo1);
         return Period::query()
@@ -232,39 +214,34 @@ class InscriptionsController extends Component
             ->get();
     }
 
-    public function rangoFecha($inicio){
+    public function consultar_cursos_disponibles($fecha_inicio){
         $a=$this->id_arreglo;
         $b=$this->id_arreglo1;
         return Period::query()
             ->join('course_details', 'periods.id', '=', 'course_details.period_id')
             ->join('courses', 'course_details.course_id', '=', 'courses.id')
-            // ->join('inscriptions','inscriptions.course_detail_id','=','course_details.id')
             ->select(
                 'course_details.id as curdet','course_details.*',
                 'courses.nombre','courses.dirigido','courses.perfil',
 
             )
-            ->where('periods.fecha_inicio', '=', $inicio)
-            // ->distinct()
+            ->where('periods.fecha_inicio', '=', $fecha_inicio)
             ->whereNotIn('course_details.id',$a)
             ->whereNotIn('course_details.id',$b)
             ;
     }
 
     public function render(){
-        // dd($this->horarios(1));
-        $this->tablaVacia();
+        $this->evaluar_cantidad_cursos_seleccionados();
         $this->consulta_periodos_a_publicar();
         $this->verficar_mostrar_cursos();
-        $this->verificarInscripciones();
-
+        $this->verificar_inscripciones_recientes_de_usuario();
         if(count($this->arreglo_fecha)==4 and $this->disponible==true){
-            // $this->segunda_semana_activa=true;
             return view('livewire.admin.inscriptions.index',
             [
-                'tabla' => $this->buscar(),
-                'semana1' => $this->rangoFecha($this->arreglo_fecha[0])->paginate($this->perPage),
-                'semana2' => $this->rangoFecha($this->arreglo_fecha[2])->paginate($this->perPage2),
+                'tabla' => $this->consultar_cursos_seleccionados(),
+                'semana1' => $this->consultar_cursos_disponibles($this->arreglo_fecha[0])->paginate($this->perPage),
+                'semana2' => $this->consultar_cursos_disponibles($this->arreglo_fecha[2])->paginate($this->perPage2),
             ]
                 );
             }
@@ -272,8 +249,8 @@ class InscriptionsController extends Component
             $this->segunda_semana_activa=false;
             return view('livewire.admin.inscriptions.index',
                 [
-                    'tabla' => $this->buscar(),
-                    'semana1' => $this->rangoFecha($this->arreglo_fecha[0])->paginate($this->perPage),
+                    'tabla' => $this->consultar_cursos_seleccionados(),
+                    'semana1' => $this->consultar_cursos_disponibles($this->arreglo_fecha[0])->paginate($this->perPage),
                 ]
             );
         }
@@ -284,7 +261,6 @@ class InscriptionsController extends Component
         if(count($this->arreglo_fecha)!==0){
             $fecha_inicio_periodo_activo1 = date('Y-m-d',strtotime($this->arreglo_fecha[0]));
             $date = Carbon::now();
-            // dd($fecha_inicio_periodo_activo1);
             if($fecha_inicio_periodo_activo1>$date->toDateString()){
                 $this->disponible =true;
             }
@@ -292,10 +268,9 @@ class InscriptionsController extends Component
         else{
             $this->disponible =false;
         }
-
     }
 
-    public function verificarInscripciones(){
+    public function verificar_inscripciones_recientes_de_usuario(){
         $id_user = User::find(auth()->user()->id);
         $inscripciones = User::select('inscriptions.course_detail_id')
                         ->join('inscriptions','inscriptions.user_id','=','users.id')
@@ -319,15 +294,20 @@ class InscriptionsController extends Component
             ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
         $count=0;
-        foreach($periodos as $p){
-            $this->arreglo_fecha[$count] = $p->fecha_inicio;
-            $count = $count + 1;
-            $this->arreglo_fecha[$count] = $p->fecha_fin;
-            $count = $count + 1;
-        }
+        // if(count($this->arreglo_fecha)==4){
+            foreach($periodos as $p){
+                $this->arreglo_fecha[$count] = $p->fecha_inicio;
+                $count = $count + 1;
+                $this->arreglo_fecha[$count] = $p->fecha_fin;
+                $count = $count + 1;
+            }
+        // }
+        // else{
+        //     $this->disponible =false;
+        // }
     }
 
-    public function del($id){
+    public function descartar_curso($id){
         if(in_array($id,$this->arreglo)){
             $this->countabla1=$this->countabla1-1;
             $indice1=array_search($id, $this->arreglo);
@@ -347,12 +327,11 @@ class InscriptionsController extends Component
         $indice6=array_search($id, $this->horas_inicio_semana2);
         unset($this->horas_inicio_semana2[$indice6]);
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
-        $this->buscar();
+        $this->consultar_cursos_seleccionados();
         $this-> noti('trash','Curso descartado');
     }
 
-    public function addHorario(){
-
+    public function abrir_horario(){
         $this->openShowHorario();
     }
 
@@ -360,7 +339,6 @@ class InscriptionsController extends Component
         $this->confirmingSaveInscription = false;
         $this->showHorario = false;
         $this->flag = false;
-
         $this->user = User::find(auth()->user()->id);
         foreach ($this->unionarreglos as $id) {
             $courseDetails = CourseDetail::find($id);
@@ -370,20 +348,10 @@ class InscriptionsController extends Component
                         'asistencias_minimas' => 0,
                     ]);
         }
-
         app(EmailController::class)->cursos($this->user, $this->unionarreglos);
         $this-> noti('success','Horario creado Exitosamente');
         return redirect()->route('participant.studying');
-        // $this-> noti('success','Horario creado Exitosamente');
-
     }
-
-    // public function Obtenerusuariosinscritospreviamente(){
-    //     $this->user = User::find(auth()->user()->id);
-    //     $consulta = CourseDetail::Join('inscriptions','inscriptions.user_id')
-    //                         ->select('course_details.')
-    //     if()
-    // }
 
     public function noti($icon,$txt){
         $this->dispatchBrowserEvent('notify', [
