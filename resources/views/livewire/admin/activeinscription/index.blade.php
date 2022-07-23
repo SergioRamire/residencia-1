@@ -35,12 +35,16 @@
                                     @endif
                                 </x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                        <button wire:click="abrir_confirmacion_publicar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
-                                            Publicar
-                                        </button>
-                                        <button wire:click="abrir_confirmacion_ocultar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-500 text-black font-bold border border-stone-400 rounded shadow">
-                                            Ocultar
-                                        </button>
+                                    
+                                    @if($p->ofertado === 1)
+                                    <button wire:click="abrir_confirmacion_ocultar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-500 text-black font-bold border border-stone-400 rounded shadow">
+                                        Ocultar
+                                    </button>
+                                    @elseif($p->ofertado === 0)
+                                    <button wire:click="abrir_confirmacion_publicar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                        Publicar
+                                    </button>
+                                    @endif
 
                                 </x-table.cell>
                             </tr>
