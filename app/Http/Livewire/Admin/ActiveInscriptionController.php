@@ -15,11 +15,16 @@ class ActiveInscriptionController extends Component
     public $fecha;
 
     public $periodos;
+    public $aux_id;
+    public bool $confirming_change = false;
+    public bool $flag = false;
 
+    public function black_periodo(){
+        $this->periodos = Period::make();
+    }
     public function consulta(){
         $this->hoy = date('Y/m/d');
         return Period::where('periods.fecha_inicio','>',$this->hoy)
-                ->where('periods.fecha_inicio' , '<', Carbon::now()->addDays(60))
             ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
     }
@@ -28,29 +33,37 @@ class ActiveInscriptionController extends Component
         $this->fecha = $this->consulta();
         return view('livewire.admin.activeinscription.index');
     }
-    public function publicar($id){
-        $periodos_publicados = Period::
-                where('periods.ofertado', "=",1)
-                ->selectRaw('count(*) as period_count')
-                ->first();
-        if($periodos_publicados->period_count < 2){
+
+    public function abrir_confirmacion_publicar($id){
+        $this->flag = true;
+        $this->periodos = Period::find($id);
+        $this->aux_id = $id;
+        $this->confirming_change = true;
+
+    }
+    public function abrir_confirmacion_ocultar($id){
+        $this->flag = false;
+        $this->periodos = Period::find($id);
+        $this->aux_id = $id;
+        $this->confirming_change = true;
+
+    }
+
+    public function publicar(){
+        if ($this->flag) {
             DB::table('periods')
-            ->where('periods.id','=',$id)
-            ->update(['ofertado' => 1]);
+                ->where('periods.id','=',$this->aux_id)
+                ->update(['ofertado' => 1]);
             $this-> noti('success','Inscripciones publicas');
-        }
-        else{
-            $this-> noti('info','No se pueden publicar mas de dos periodos ');
-        }
-
-    }
-    public function ocultar($id){
-        DB::table('periods')
-            ->where('periods.id','=',$id)
+        }else {
+            DB::table('periods')
+            ->where('periods.id','=',$this->aux_id)
             ->update(['ofertado' => 0]);
-
-        $this-> noti('success','Inscripciones ocultas');
+            $this-> noti('success','Inscripciones ocultas');
+        }
+        $this->confirming_change = false;
     }
+
     public function desactivar(){
         $this-> noti('close','Inscripciones Desactivadas');
     }

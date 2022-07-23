@@ -35,10 +35,10 @@
                                     @endif
                                 </x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                        <button wire:click="publicar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                        <button wire:click="abrir_confirmacion_publicar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
                                             Publicar
                                         </button>
-                                        <button wire:click="ocultar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-500 text-black font-bold border border-stone-400 rounded shadow">
+                                        <button wire:click="abrir_confirmacion_ocultar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-500 text-black font-bold border border-stone-400 rounded shadow">
                                             Ocultar
                                         </button>
 
@@ -66,6 +66,7 @@
                 @endif
             </div>
         </div>
+        @include('livewire.admin.activeinscription.confirmation')
 
         @if (empty($fecha))
         <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">
