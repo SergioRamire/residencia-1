@@ -2,7 +2,15 @@
     <span class="mb-2 text-2xl font-bold tracking-tight ">
     Mis cursos
     </span>
-
+    <div>
+        <div class="mt-4">
+            <div class="px-2 bg-white rounded-lg border border-gray-200 shadow-md sm:p-3 lg:p-4 ">
+                <h5 class="text-xl font-medium text-blue-600">AVISO</h5>
+                <p class="text-justify"><strong>Recuerde que,</strong> para aprobar y obtener la constancia de acreditación por curso debes de, cumplir con el <strong>mínimo de asistencias</strong>
+                    y tener una <strong>calificación mayor o igual a 70.</strong></p>
+            </div>
+        </div>
+    </div>
     <div class="grid grid-flow-row xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
         @foreach ($datos as $data)
             <div class="flex flex-col  m-2 max-w-md bg-#white rounded-lg border shadow-md transition ease-in-out bg-white hover:-translate-y-1 hover:scale-105 hover:bg-blue-50 duration-300" >
