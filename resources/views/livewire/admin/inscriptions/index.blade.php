@@ -233,6 +233,7 @@
             @endif
     </div>
     @include('livewire.admin.inscriptions.anuncio')
+    @include('livewire.admin.inscriptions.mensaje')
     @include('livewire.admin.inscriptions.horario')
 
 @endif
