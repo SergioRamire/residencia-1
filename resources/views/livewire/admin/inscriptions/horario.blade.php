@@ -47,7 +47,7 @@
                 Cerrar
             </x-jet-secondary-button>
 
-            <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="mostrar_modal_de_verificacion()" form="courseForm">
+            <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="open_confir()" form="courseForm">
                 Aceptar
             </x-jet-button>
             @include('livewire.admin.inscriptions.confirmation')

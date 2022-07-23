@@ -19,7 +19,7 @@
             Cerrar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:click="open_confir()" wire:loading.attr="disabled">
+        <x-jet-button class="ml-3" wire:click.prevent="open_confir()" wire:loading.attr="disabled">
             Aceptar
         </x-jet-button>
         @include('livewire.admin.inscriptions.confirmation')

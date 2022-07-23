@@ -98,7 +98,9 @@ class InscriptionsController extends Component
     }
 
     public function open_confir(){
+
         $this->confirming_save_inscription = true;
+        // $this->showOneModal = false;
     }
 
     public function reset_arreglo(){
@@ -337,8 +339,9 @@ class InscriptionsController extends Component
 
     public function store(){
         $this->confirming_save_inscription = false;
-        $this->show_horario = false;
-        $this->flag = false;
+        // $this->show_horario = false;
+        // $this->show_horario = false;
+
         $this->user = User::find(auth()->user()->id);
         foreach ($this->unionarreglos as $id) {
             $courseDetails = CourseDetail::find($id);
@@ -353,7 +356,7 @@ class InscriptionsController extends Component
         $this->show_mensaje = true;
         app(EmailController::class)->cursos($this->user, $this->unionarreglos);
 
-        // $this->alter();
+
         $this-> noti('success','Horario creado Exitosamente');
 
     }
