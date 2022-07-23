@@ -43,7 +43,8 @@ class GradeController extends Component
     public bool $is_open = false;
     public bool $confirming_save_grade = false;
     public bool $disponible=false;
-    
+    public $aux_fecha;
+
 
     protected $queryString = [
         'search' => ['except' => '', 'as' => 's'],
@@ -171,10 +172,10 @@ class GradeController extends Component
     }
 
     public function validar_limite(){
-        $hoy2 = date('Y-m-d', strtotime(date('Y-m-d')));   
-        $aux_fecha = Period::where('periods.estado','1')
+        $hoy2 = date('Y-m-d', strtotime(date('Y-m-d')));
+        $this->aux_fecha = Period::where('periods.estado','1')
             ->select('periods.fecha_limite_para_calificar')->first();
-        ($hoy2 <= $aux_fecha->fecha_limite_para_calificar) ? $this->disponible=true : $this->disponible=false ;
+        ($hoy2 <= $this->aux_fecha->fecha_limite_para_calificar) ? $this->disponible=true : $this->disponible=false ;
     }
 
     public function render(){
@@ -184,7 +185,7 @@ class GradeController extends Component
             $this->curso=$cur[0]->nombre;
             $this->id_course=$cur[0]->id;
         }
-        $this->validar_limite();
+        ($this->aux_fecha!=null) ? $this->validar_limite() : $this->disponible=false;
         return view('livewire.admin.grades.index', [
             'grades' => User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
             ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')

@@ -141,7 +141,7 @@
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>
             </div>
             <div class="p-8 w-full bg-white rounded-b-lg">
-                <p class="font-normal text-gray-700">No hay grupos registrados aún en este periodo.</p>
+                <p class="font-normal text-gray-700">No tiene un curso a cargo todavía</p>
             </div>
         </div>
     @endif

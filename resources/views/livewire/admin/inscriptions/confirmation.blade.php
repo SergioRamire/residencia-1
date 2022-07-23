@@ -14,8 +14,9 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-danger-button class="ml-3" wire:click="alter"  wire:loading.attr="disabled">
-             Generar Inscripcion
+        <x-jet-danger-button class="ml-3" wire:click="store()"  wire:loading.attr="disabled">
+             Generar Inscripción
         </x-jet-danger-button>
+        @include('livewire.admin.inscriptions.mensaje')
     </x-slot>
 </x-jet-confirmation-modal>

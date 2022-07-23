@@ -41,7 +41,7 @@ class InscriptionsController extends Component
 
     public $showOneModal = false;
 
-    public bool $flag = false;
+    public bool $show_mensaje = false;
 
 
     public bool $btn_continuar = false;
@@ -275,7 +275,7 @@ class InscriptionsController extends Component
                         ->join('inscriptions','inscriptions.user_id','=','users.id')
                         ->join('course_details','course_details.id','=','inscriptions.course_detail_id')
                         ->join('periods','periods.id','=','course_details.period_id')
-                        ->where('users.id','=',$id_user)
+                        ->where('users.id','=',$id_user->id)
                         ->where('inscriptions.estatus_participante','=','Participante')
                         ->where('periods.ofertado','=',1)
                         ->get();
@@ -285,6 +285,7 @@ class InscriptionsController extends Component
         else{
             $this->permiso=true;
         }
+
     }
 
     public function consulta_periodos_a_publicar(){
@@ -345,11 +346,16 @@ class InscriptionsController extends Component
                         'calificacion' => 0,
                         'estatus_participante' => 'Participante',
                         'asistencias_minimas' => 0,
+                        'url_cedula' => '',
                     ]);
         }
+
+        $this->show_mensaje = true;
         app(EmailController::class)->cursos($this->user, $this->unionarreglos);
+
+        // $this->alter();
         $this-> noti('success','Horario creado Exitosamente');
-        return redirect()->route('participant.studying');
+
     }
 
     public function noti($icon,$txt){
@@ -358,11 +364,14 @@ class InscriptionsController extends Component
             'message' => $txt,
         ]);
     }
-    /* Para cambiar al modal final para redirecion */
+    public function redireccionamiento(){
+        $this->show_mensaje = false;
+        return redirect()->route('participant.studying');
+    }
+
     public function alter(){
         $this->showOneModal = false;
         $this->confirming_save_inscription = false;
-        $this->show_horario = true;
-        $this->flag = true;
+        $this->show_mensaje = true;
     }
 }
