@@ -12,59 +12,57 @@
             </div>
         </div>
     </x-slot>
-
+    
     <div class="max-w-7xl mx-auto pt-5 pb-5">
         <div class="space-y-2">
             <div class="p-4 bg-blue-100 rounded-lg border border-[#1b396a] shadow-md sm:p-6 lg:p-8 ">
                 <h5 class="text-xl font-medium text-gray-800 ">Datos Personales</h5> 
 
                 <form id="courseForm">
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-
+                    <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                         {{-- Nombre --}}
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Nombre: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->name}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">Nombre: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->name}}</dd>
                             </div>
                         </div>
-
                        <!-- paterno -->
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Apellido Paterno: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->apellido_paterno}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">Apellido Paterno: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->apellido_paterno}}</dd>
                             </div>
                         </div>
                         {{-- materno --}}
                         <div class="mt-4 flex-1">
                             <div class=" bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Apellido Materno: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->apellido_materno}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">Apellido Materno: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->apellido_materno}}</dd>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                    <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                         <!-- rfc -->
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">RFC: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->rfc}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">RFC: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->rfc}}</dd>
                             </div>
                         </div>
                         {{-- Curp --}}
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">CURP: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->curp}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">CURP: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->curp}}</dd>
                             </div>
                         </div>
                         {{-- Género --}}
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Género: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">Género: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">
                                     @if ($user->sexo == 'F')
                                         Femenino
                                     @endif
@@ -76,36 +74,36 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                    <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                         {{-- ito --}}
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Correo @itoaxaca.edu.mx: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->email}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">Correo @itoaxaca.edu.mx: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->email}}</dd>
                             </div>
                         </div>
                         {{-- tecnm --}}
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Correo @oaxaca.tecnm.mx: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->correo_tecnm}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">Correo @oaxaca.tecnm.mx: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->correo_tecnm}}</dd>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                    <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                         {{-- estudios maximos --}}
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Estudios Maximos: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->estudio_maximo}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">Estudios Maximos: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->estudio_maximo}}</dd>
                             </div>
                         </div>
                         {{-- carrera --}}
                         <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                <dt class="text-base font-bold text-gray-900">Carrera: </dt>
-                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->carrera}}</dd>
+                                <dd class="text-base font-bold text-gray-900 lg:col-span-2">Carrera: </dd>
+                                <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->carrera}}</dd>
                             </div>
                         </div>
                     </div>
@@ -130,81 +128,81 @@
                 <div class="p-4 bg-blue-100 rounded-lg border border-[#1b396a] shadow-md sm:p-6 lg:p-8 ">
                     <h5 class="text-xl font-medium text-black-800 ">Datos Laborales</h5>
                     <form id="courseForm">
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                        <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                             {{-- Nombre de area --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Nombre de Área: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->area->nombre ?? ''}}</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Nombre de Área: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->area->nombre ?? ''}}</dd>
                                 </div>
                             </div>
                             {{-- clave_presupuestal --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Clave Presupuestal: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->clave_presupuestal}}</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Clave Presupuestal: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->clave_presupuestal}}</dd>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                        <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                             {{-- jefe --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Nombre del jefe inmediato: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->jefe_inmediato}}</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Nombre del jefe inmediato: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->jefe_inmediato}}</dd>
                                 </div>
                             </div>
                             {{-- telefono --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Teléfono: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$area->telefono}}</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Teléfono: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$area->telefono}}</dd>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                        <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                             <!-- puesto_en_area -->
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Puesto en Área: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->puesto_en_area}}</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Puesto en Área: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->puesto_en_area}}</dd>
                                 </div>
                             </div>
                             {{-- hora_entrada --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Hora de Entrada: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{ date("H:i", strtotime($user->hora_entrada)) }} hrs.</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Hora de Entrada: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{ date("H:i", strtotime($user->hora_entrada)) }} hrs.</dd>
                                 </div>
                             </div>
                             {{-- hora_salida --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Hora de Salida: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{ date("H:i", strtotime($user->hora_salida)) }} hrs.</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Hora de Salida: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{ date("H:i", strtotime($user->hora_salida)) }} hrs.</dd>
                                 </div>
                             </div>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
+                        <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                             {{-- tipo --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Tipo: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->tipo ?? ''}}</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Tipo: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->tipo ?? ''}}</dd>
                                 </div>
                             </div>
                             {{-- organizacion_origen --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Organización origen: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->organizacion_origen}}</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Organización origen: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->organizacion_origen}}</dd>
                                 </div>
                             </div>
                             {{-- cuenta_moodle --}}
                             <div class="mt-4 flex-1">
                             <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dt class="text-base font-bold text-gray-900">Cuenta Moodle: </dt>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2">{{$user->cuenta_moodle ? 'Tiene' : 'No Tiene'}}</dd>
+                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Cuenta Moodle: </dd>
+                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->cuenta_moodle ? 'Tiene' : 'No Tiene'}}</dd>
                                 </div>
                             </div>
                         </div>
