@@ -106,14 +106,14 @@
                                 <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->carrera}}</dd>
                             </div>
                         </div>
-                    </div>
+                    </div>  
 
                     <div class="my-4 flex justify-end">
                         @if ($vali)
-                            <p class="rounded-md text-lg text-red-700 pr-4">Recuerde reller su informacion faltante.</p>
+                            <p class="rounded-md text-lg text-red-700 pr-4">Recuerde reller su información faltante.</p>
                         @endif
                         <x-jet-button wire:click="edi_iInfo()" type="button" class="bg-[#1b396a]">
-                            Editar Informacion
+                            Editar Información
                         </x-jet-button>
                     </div>
                 </form>
