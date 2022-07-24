@@ -22,7 +22,7 @@
                 </div>
                 <div class="flex flex-col justify-center  px-6 mx-4 mb-2 text-black bg-white shadow-md rounded-lg border border-[#1b396a]">
                     <p><span class="font-bold">Lugar: </span>{{$data->lugar}}</p>
-                    <p><span class="font-bold">Periodo: </span>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
+                    <p><span class="font-bold">Período: </span>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
                     <p><span class="font-bold">Horario: </span>{{ date("H:i", strtotime($data->h1))}} - {{ date("H:i", strtotime($data->h2))}} </p>
                 </div>
             </div>

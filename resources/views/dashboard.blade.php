@@ -16,12 +16,9 @@
                         </div>
                         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
                             <h2 class="text-justify text-xl font-extrabold tracking-tight text-gray-900">
-                                Los cursos intersemestrales son una
-                                opción que se ofrecerá fuera del
-                                periodo escolar regular para poder entrar a cursos
-                                los cuales ayudan a agregar o reforzar
-                                conocimientos de los docentes.
-                                <span class=" text-lg block text-gray-900">Pueden ser de Actualizacion o Formacion
+                                Los cursos intersemestrales se ofrecen fuera del
+                                período escolar regular, estos cursos ayudan a agregar o reforzar
+                                los conocimientos de los docentes.
                                 </span>
                             </h2>
                         </div>

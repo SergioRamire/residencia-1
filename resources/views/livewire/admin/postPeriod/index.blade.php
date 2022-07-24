@@ -16,7 +16,7 @@
                                 Clave
                             </x-table.header>
                             <x-table.header>
-                                Periodo
+                                Período
                             </x-table.header>
                             <x-table.header>Publico</x-table.header>
                             <x-table.header>acciones</x-table.header>
@@ -35,7 +35,7 @@
                                     @endif
                                 </x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                    
+
                                     @if($p->ofertado === 1)
                                     <button wire:click="abrir_confirmacion_ocultar({{ $p->id }})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-500 text-black font-bold border border-stone-400 rounded shadow">
                                         Ocultar
@@ -70,7 +70,7 @@
                 @endif
             </div>
         </div>
-        @include('livewire.admin.activeinscription.confirmation')
+        @include('livewire.admin.postPeriod.confirmation')
 
         @if (empty($fecha))
         <div class="mb-3 font-normal text-gray-700 dark:text-gray-400">

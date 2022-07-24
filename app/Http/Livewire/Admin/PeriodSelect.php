@@ -9,7 +9,7 @@ class PeriodSelect extends Component
 {
     public $query;/* valor para buscar */
     public $contador;
-    public $txt = 'Buscar Periodo';
+    public $txt = 'Buscar Período';
     public function mount(){/* metodo par ainicar variables */
         $this->reset2();
     }
@@ -45,7 +45,7 @@ class PeriodSelect extends Component
             ->orWhere('periods.fecha_fin', 'like', "%$b%"))
             ->get();
         }
-            
+
     }
     public function full(){/* Muestra todos */
         $this->query = 'todos';

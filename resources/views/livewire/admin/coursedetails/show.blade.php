@@ -13,7 +13,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Periodo -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="periodo" value="Periodo"/>
+                    <x-jet-label for="periodo" value="Período"/>
                     <x-jet-input wire:model.defer="period" class="block mt-1 w-full" type="text" disabled/>
                 </div>
 

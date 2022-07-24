@@ -50,7 +50,7 @@
                         perfil
                     </x-table.header>
                     <x-table.header wire:click="sortBy('percla')" sortable :direction="$sortField === 'percla' ? $sortDirection : null">
-                        Periodo
+                        Período
                     </x-table.header>
 
                 </x-slot>

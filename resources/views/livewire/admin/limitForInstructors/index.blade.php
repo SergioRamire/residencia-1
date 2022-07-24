@@ -14,11 +14,11 @@
     <div class="space-y-2">
 
         <div class="pt-12">
-            <p class="p-2 text-xl">Periodo Activo: </p>
+            <p class="p-2 text-xl">Período Activo: </p>
             <x-table>
                 <x-slot name="head">
                     <x-table.header>Clave</x-table.header>
-                    <x-table.header>Periodo</x-table.header>
+                    <x-table.header>Período</x-table.header>
                     <x-table.header>fecha límite para cargar calificaciones</x-table.header>
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
@@ -32,7 +32,7 @@
                                 Editar fecha límite
                             </button>
                         </x-table.cell>
-                        
+
                     </tr>
                 @else
                     <tr>

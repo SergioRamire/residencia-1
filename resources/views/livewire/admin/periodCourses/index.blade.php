@@ -9,12 +9,12 @@
         <div>
             <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-[#1b396a] hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
                 <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
-                Nuevo Periodo
+                Nuevo Período
             </x-jet-secondary-button>
         </div>
 
         <!-- Opciones de tabla -->
-        <div class="space-y-2"> 
+        <div class="space-y-2">
             <div class="flex flex-wrap">
                 <div class="md:w-1/2 max-w-xs col-start pr-1">
                     <x-jet-label for="desde" value="Desde" class="text-lg" />
@@ -74,18 +74,18 @@
                             @endif
                         </x-table.cell>
                         <x-table.cell width='200' class="whitespace-nowrap">
-                            <button  wire:click="edit({{ $p->id }})" type="button" title="Editar periodo" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                            <button  wire:click="edit({{ $p->id }})" type="button" title="Editar período" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="delete_period('{{ $p->id }}')" type="button" title="Eliminar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                            <button wire:click="delete_period('{{ $p->id }}')" type="button" title="Eliminar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                 Eliminar
                             </button>
                             @if($p->estado === 1)
-                            <button wire:click="periodo_desactivar({{ $p->id }})" type="button" title="Desactivar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
+                            <button wire:click="periodo_desactivar({{ $p->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
                                 Desactivar
                             </button>
                             @elseif($p->estado === 0)
-                                <button wire:click="periodo_activar({{ $p->id }})" type="button" title="Activar periodo" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                <button wire:click="periodo_activar({{ $p->id }})" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
                                     Activar
                                 </button>
                             @endif

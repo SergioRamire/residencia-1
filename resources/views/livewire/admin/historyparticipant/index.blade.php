@@ -32,7 +32,7 @@
                                 @endif
                             </button>
                         </x-slot>
-    
+
                         <x-slot name="content">
                             <!-- Reiniciar filtros -->
                             <div class="block px-4 py-2 space-y-1">
@@ -41,7 +41,7 @@
                                     <x-icon.trash class="h-5 w-5"/>
                                 </button>
                             </div>
-    
+
                             <!-- Cursos -->
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
@@ -52,7 +52,7 @@
                             <div class="block px-4 py-2 space-y-1">
                                 <div>
                                     <x-jet-label for="perfil" value="Perfil"/>
-    
+
                                     <x-input.select wire:model="filters.filtro_perfil" id="perfil" class="mt-1 w-full" name="perfil" required>
                                         <option value="" disabled>Selecciona perfil...</option>
                                         <option value="Formación docente">Formación docente</option>
@@ -60,7 +60,7 @@
                                     </x-input.select>
                                 </div>
                             </div>
-    
+
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -103,7 +103,7 @@
                         Grupo
                     </x-table.header>
                     <x-table.header wire:click="sortBy('clave')" sortable :direction="$sortField === 'gnom' ? $sortDirection : null">
-                        Periodo
+                        Período
                     </x-table.header>
 
                 </x-slot>

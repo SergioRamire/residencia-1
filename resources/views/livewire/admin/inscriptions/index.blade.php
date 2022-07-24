@@ -16,7 +16,7 @@
                             <x-slot name="head">
                                 {{-- <x-table.header>course_id</x-table.header> --}}
                                 <x-table.header>Curso</x-table.header>
-                                <x-table.header>Periodo</x-table.header>
+                                <x-table.header>Período</x-table.header>
                                 <x-table.header>Perfil</x-table.header>
                                 <x-table.header>Departamento Dirigido</x-table.header>
                                 <x-table.header>Horario</x-table.header>
@@ -244,7 +244,7 @@
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>
         </div>
         <div class="p-8 w-full bg-white rounded-b-lg">
-            <p class="font-normal text-gray-700">No hay grupos registrados aún en este periodo.</p>
+            <p class="font-normal text-gray-700">No hay grupos registrados aún en este período.</p>
         </div>
     </div>
 @endif

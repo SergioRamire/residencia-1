@@ -4,9 +4,9 @@
     </x-slot>
     <x-slot name="content">
         @if ($flag)
-            <p>¿Seguro que desea publicar el periodo?</p>
+            <p>¿Seguro que desea publicar el período?</p>
         @else
-            <p>¿Seguro que desea ocultar el periodo?</p>            
+            <p>¿Seguro que desea ocultar el período?</p>
         @endif
     </x-slot>
     {{-- botones --}}

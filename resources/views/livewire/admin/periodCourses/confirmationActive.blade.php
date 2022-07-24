@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea activar el periodo <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
+        ¿Seguro que desea activar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
     </x-slot>
 
     {{-- botones --}}

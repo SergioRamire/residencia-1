@@ -113,7 +113,7 @@
         <div class="linea container col  col-sm-14"></div>
         <h6 class="container col  col-sm-14 ">NOMBRE DEL INSTRUCTOR: {{mb_strtoupper($ins[0]->nombre,'utf-8')}}</h6>
         <div class="linea container col  col-sm-14"></div>
-        <h6 class="container col  col-sm-14">PERIODO DE REALIZACIÓN: {{mb_strtoupper($fecha_i,'utf-8')}} AL {{mb_strtoupper($fecha_f,'utf-8')}}</h6>
+        <h6 class="container col  col-sm-14">PERÍODO DE REALIZACIÓN: {{mb_strtoupper($fecha_i,'utf-8')}} AL {{mb_strtoupper($fecha_f,'utf-8')}}</h6>
         <div class="linea container col  col-sm-14"></div>
         <table>
             <thead>

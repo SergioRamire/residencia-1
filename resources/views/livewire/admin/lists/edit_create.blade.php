@@ -10,7 +10,7 @@
                     @livewire('admin.participante-select')
                 </div>
                 <div class="mt-4 flex-1">
-                    <x-jet-label value="Seleccione el periodo"/>
+                    <x-jet-label value="Seleccione el período"/>
                     @livewire('admin.period-select2')
                 </div>
             @endif
@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="mt-4 flex-1">
-                    <x-jet-label value="Periodo"/>
+                    <x-jet-label value="Período"/>
                     <p class="text-black py-2">{{$periodo->clave}}</p>
                 </div>
             @endif

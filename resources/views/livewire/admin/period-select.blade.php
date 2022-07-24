@@ -19,7 +19,7 @@
             height:200px;
             overflow-y: scroll;
         ">
-            Buscar por la "clave del periodo"
+            Buscar por la "clave del período"
             @if (!empty($datos))
                 @foreach ($datos as $i => $data)
                     <br><a

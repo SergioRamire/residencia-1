@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea guardar cambios del periodo de  <strong>{{$periods->clave}}</strong>?
+        ¿Seguro que desea guardar cambios del período de  <strong>{{$periods->clave}}</strong>?
     </x-slot>
 
     {{-- botones --}}

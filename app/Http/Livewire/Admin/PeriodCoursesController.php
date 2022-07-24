@@ -132,7 +132,7 @@ class PeriodCoursesController extends Component
 
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
-            'message' =>  $this->edit ? 'Periodo actualizado exitosamente' : 'Periodo creado exitosamente',
+            'message' =>  $this->edit ? 'Período actualizado exitosamente' : 'Período creado exitosamente',
         ]);
         $this->edit = false;
         $this->create = false;
@@ -153,7 +153,7 @@ class PeriodCoursesController extends Component
         $this->confirming_period_deletion = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
-            'message' =>  'Periodo eliminado exitosamente',
+            'message' =>  'Período eliminado exitosamente',
         ]);
     }
 

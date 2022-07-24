@@ -60,7 +60,7 @@
         </tr>
         <tr>
             <th></th>
-            <th style="text-align:right;">PERIODO:</th>
+            <th style="text-align:right;">PERÍODO:</th>
             @php
             $startdate = new \Carbon\Carbon($data[0]->fi);
             $enddate = new \Carbon\Carbon($data[0]->ff);

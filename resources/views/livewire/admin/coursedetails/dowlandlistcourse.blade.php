@@ -87,7 +87,7 @@
     <h3></h3>
     <h4>PROGRAMA INSTITUCIONAL DE FORMACIÓN DOCENTE Y ACTUALIZACIÓN PROFESIONAL</h4>
     <h4>INSTITUTO TECNOLÓGICO DE OAXACA</h4>
-    <h4>PERIODO {{$courses[0]->claves}}</h4>
+    <h4>PERÍODO {{$courses[0]->claves}}</h4>
 
     <div class="container py-2 col-sm-11">
         {{-- <h5 class=" font-weight-bold">DOMPDF Tutorial</h5> --}}
@@ -98,7 +98,7 @@
                     <th>Nombre de los cursos</th>
                     <th>Objetivo</th>
                     <th>Perfil de Curso</th>
-                    <th>Periodo de Realización</th>
+                    <th>Período de Realización</th>
                     <th>Lugar</th>
                     <th>No. de horas por Curso</th>
                     <th>Nombre y grado máximo del Instructor (a)</th>

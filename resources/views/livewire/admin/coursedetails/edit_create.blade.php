@@ -15,7 +15,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Periodo -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="periodo">Periodo <span class="text-red-600">*</span></x-jet-label>
+                    <x-jet-label for="periodo">Período <span class="text-red-600">*</span></x-jet-label>
                     @livewire('admin.period-select2')
                 </div>
                 <!-- Modalidad -->

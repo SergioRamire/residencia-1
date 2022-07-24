@@ -1,11 +1,11 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
 <x-jet-confirmation-modal wire:model="confirming_period_deletion">
     <x-slot name="title">
-        Eliminar Periodo.
+        Eliminar Período.
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea eliminar el Periodo de <strong>{{$periods->clave}}</strong> ?
+        ¿Seguro que desea eliminar el Período de <strong>{{$periods->clave}}</strong> ?
     </x-slot>
 
     {{-- botones --}}

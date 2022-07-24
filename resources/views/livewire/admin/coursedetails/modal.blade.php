@@ -23,7 +23,7 @@
         <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
             <!-- Periodo -->
             <div class="mt-4 sm:flex-1">
-                <x-jet-label for="periodo" value="Periodo" />
+                <x-jet-label for="periodo" value="Período" />
                 <x-input.select wire:model.defer="period" name="fecha_inicio" id="fecha_inicio"
                     class="text-sm block mt-1 w-full" required>
                     <option value="" disabled>Periodos</option>

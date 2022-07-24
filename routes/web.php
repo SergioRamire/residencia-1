@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Livewire\Admin\ActivatePeriodController;
-use App\Http\Livewire\Admin\ActiveInscriptionController;
+use App\Http\Livewire\Admin\PostPeriodController;
 use App\Http\Livewire\Admin\AreaController;
 use App\Http\Livewire\Admin\AssignedInstructorController;
 use App\Http\Livewire\Admin\ConstanciasController;
@@ -52,8 +51,6 @@ Route::get('/', function () {
 
 Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', fn () => view('dashboard'))->name('dashboard');
-
-    Route::get('/activatePeriod', ActivatePeriodController::class);
 
     Route::middleware('can:user.show')->prefix('admin')->name('admin.')
         ->get('usuarios', UserController::class)->name('usuarios');
@@ -153,7 +150,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         ->get('historial-instructor', HistoryInstructorController::class)->name('historyinstructor');
 
     Route::middleware('can:activeinscription.show')->prefix('admin')->name('admin.')
-        ->get('activar-inscripciones', ActiveInscriptionController ::class)->name('activeinscription');
+        ->get('activar-inscripciones', PostPeriodController ::class)->name('activeinscription');
 
     Route::middleware('can:teaching.show')->prefix('admin')->name('instructor.')
         ->get('teaching', TeachingController::class)->name('teaching');

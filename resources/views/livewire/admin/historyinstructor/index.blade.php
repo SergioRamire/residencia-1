@@ -115,7 +115,7 @@
                         Grupo
                     </x-table.header>
                     <x-table.header wire:click="sortBy('clave')" sortable :direction="$sortField === 'gnom' ? $sortDirection : null">
-                        Periodo
+                        Período
                     </x-table.header>
 
                 </x-slot>

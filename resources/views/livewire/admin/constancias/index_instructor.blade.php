@@ -8,7 +8,7 @@
     {{-- <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5"> --}}
         <div>
             <div class="mt-4 w-1/2">
-                <x-jet-label value="Seleccione el periodo"/>
+                <x-jet-label value="Seleccione el período"/>
                 @livewire('admin.period-select')
             </div>
         </div>

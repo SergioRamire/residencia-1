@@ -8,7 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class ActiveInscriptionController extends Component
+class PostPeriodController extends Component
 {
 
     public $hoy;
@@ -31,14 +31,23 @@ class ActiveInscriptionController extends Component
 
     public function render(){
         $this->fecha = $this->consulta();
-        return view('livewire.admin.activeinscription.index');
+        return view('livewire.admin.postPeriod.index');
     }
 
     public function abrir_confirmacion_publicar($id){
         $this->flag = true;
         $this->periodos = Period::find($id);
-        $this->aux_id = $id;
-        $this->confirming_change = true;
+        $periodos_publicados = Period::
+                where('periods.ofertado', "=",1)
+                ->selectRaw('count(*) as period_count')
+                ->first();
+            if($periodos_publicados->period_count < 2){
+                $this->aux_id = $id;
+                $this->confirming_change = true;
+            }
+            else{
+                $this-> noti('info','No se pueden publicar mas de dos periodos ');
+            }
 
     }
     public function abrir_confirmacion_ocultar($id){
@@ -52,14 +61,15 @@ class ActiveInscriptionController extends Component
     public function publicar(){
         if ($this->flag) {
             DB::table('periods')
-                ->where('periods.id','=',$this->aux_id)
-                ->update(['ofertado' => 1]);
+            ->where('periods.id','=',$this->aux_id)
+            ->update(['ofertado' => 1]);
             $this-> noti('success','Inscripciones publicas');
+
         }else {
             DB::table('periods')
             ->where('periods.id','=',$this->aux_id)
             ->update(['ofertado' => 0]);
-            $this-> noti('success','Inscripciones ocultas');
+            $this-> noti('success','Período oculto');
         }
         $this->confirming_change = false;
     }
