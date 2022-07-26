@@ -62,6 +62,7 @@ class JetstreamServiceProvider extends ServiceProvider
                             $user->syncRoles('Instructor'); // entrará como instructor siempre aunque no sea de un periodo activo
                             return $user; //entra
                         }
+                        $user->syncRoles('Participante');
                     }
                     if($request->rol=='Participante'){ //si selecciono el rb participante
                         if($rol !== 'Participante'){ //y no tiene el rol participante
@@ -76,8 +77,9 @@ class JetstreamServiceProvider extends ServiceProvider
                         $user->syncRoles($request->rol); //se le cambia el rol
                         return $user; //retorna el usuario
                     }
-                    if($request->rol=='Instructor'){ //si selecciono el rb instrctor y esta en periodo activo (porque previamente ya se evaluó cuando no están activo su periodo)
-                        return $user; //entra
+                    if($request->rol=='Instructor' and $estatus!==null){ //si selecciono el rb instrctor y esta en periodo activo
+                        $user->syncRoles('Instructor'); // entrará como instructor siempre aunque no sea de un periodo activo
+                            return $user; //entra
                     }
                 }
                 return $user; //entra al sistema si es admin, super admin, o el nuevo rol que no se si ya lo agregaron "coordinador"
