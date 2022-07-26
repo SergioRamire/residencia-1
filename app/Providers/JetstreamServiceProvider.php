@@ -52,40 +52,35 @@ class JetstreamServiceProvider extends ServiceProvider
                 ->where('inscriptions.estatus_participante','=','Instructor')
                 ->where('periods.estado','=',1)
                 ->first();
-                // dd($estatus);
-                if($rol!=='Super admin' and $rol!=='Administrador'){
-                    if($request->rol=='Instructor' and $estatus==null){
-                        if($organizacion_origen=='Tecnologico de oaxaca' and $rol == 'Instructor'){
-                            $user->syncRoles('Participante');
+
+                if($rol!=='Super admin' and $rol!=='Administrador'){ //a los usuarios que tienen estos roles no se les cambia el rol nunca, ni con los valores del rb
+                    if($request->rol=='Instructor' and $estatus==null){ //si seleccionó el rb instrcutor y no es intructor en el periodo activo
+                        if($organizacion_origen=='Tecnologico de oaxaca' and $rol == 'Instructor'){ //Si es del Tec y su rol es intructor
+                            $user->syncRoles('Participante'); //cambiale el rol a participante(por si se haya quedado con el rol Instructor)
                         }
-                        if($organizacion_origen!=='Tecnologico de oaxaca' and $rol == 'Participante'){
-                            $user->syncRoles('Instructor');
-                            return $user;
-                        }
-                        if($organizacion_origen!=='Tecnologico de oaxaca'){
-                            return $user;
+                        if($organizacion_origen!=='Tecnologico de oaxaca' and $rol == 'Participante'){ //si no es del tec y por equivocación lo hayan guardado con el rol participante
+                            $user->syncRoles('Instructor'); // entrará como instructor siempre aunque no sea de un periodo activo
+                            return $user; //entra
                         }
                     }
-                    if($request->rol=='Participante'){
-                        if($rol !== 'Participante'){
-                            $user->syncRoles($request->rol);
-                            return $user;
+                    if($request->rol=='Participante'){ //si selecciono el rb participante
+                        if($rol !== 'Participante'){ //y no tiene el rol participante
+                            $user->syncRoles($request->rol); //se le asigna ese rol
+                            return $user; //entra
                         }
                         else{
-                            return $user;
+                            return $user; //si ya tiene el rol participante simplemente entra
                         }
                     }
-                    if($request->rol=='Instructor' and $estatus!==null and $rol == 'Participante'){
-                        $user->syncRoles($request->rol);
-                        return $user;
+                    if($request->rol=='Instructor' and $rol == 'Participante'){ //si selecciono el rb instructor y tiene el rol parti
+                        $user->syncRoles($request->rol); //se le cambia el rol
+                        return $user; //retorna el usuario
                     }
-                    if($request->rol=='Instructor' and $rol == 'Instructor'){
-                        return $user;
+                    if($request->rol=='Instructor'){ //si selecciono el rb instrctor y esta en periodo activo (porque previamente ya se evaluó cuando no están activo su periodo)
+                        return $user; //entra
                     }
                 }
-                if($rol=='Super admin' or $rol=='Administrador'){
-                    return $user;
-                }
+                return $user; //entra al sistema si es admin, super admin, o el nuevo rol que no se si ya lo agregaron "coordinador"
             }
 
         });
