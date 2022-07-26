@@ -64,14 +64,12 @@ class JetstreamServiceProvider extends ServiceProvider
                         }
                         $user->syncRoles('Participante');
                     }
-                    if($request->rol=='Participante'){ //si selecciono el rb participante
+                    if($request->rol=='Participante' and $organizacion_origen=='Tecnologico de oaxaca'){ //si selecciono el rb participante
                         if($rol !== 'Participante'){ //y no tiene el rol participante
                             $user->syncRoles($request->rol); //se le asigna ese rol
                             return $user; //entra
                         }
-                        else{
-                            return $user; //si ya tiene el rol participante simplemente entra
-                        }
+                        return $user; //si ya tiene el rol participante simplemente entra
                     }
                     if($request->rol=='Instructor' and $rol == 'Participante'){ //si selecciono el rb instructor y tiene el rol parti
                         $user->syncRoles($request->rol); //se le cambia el rol
