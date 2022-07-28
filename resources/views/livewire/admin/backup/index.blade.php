@@ -15,6 +15,27 @@
                 </x-jet-secondary-button>
             </div>
 
+            <!-- Opciones de tabla -->
+            <div class="md:flex md:justify-between space-y-2 md:space-y-0">
+                <!-- Parte izquierda -->
+                <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
+                    <!-- Barra de búsqueda -->
+
+                </div>
+                <!-- Parte derecha -->
+                <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
+                    <!-- Selección de paginación -->
+                    <div>
+                        <x-input.select wire:model="perPage" class="block w-full">
+                            <option value=8>8 por página</option>
+                            <option value=10>10 por página</option>
+                            <option value=25>25 por página</option>
+                            <option value=50>50 por página</option>
+                        </x-input.select>
+                    </div>
+                </div>
+            </div>
+
             <!-- Tabla -->
             <div class="flex flex-col space-y-2">
                 <x-table>
@@ -68,7 +89,7 @@
                     @endforelse
                 </x-table>
                 <div>
-{{--                    {{ $backups->links() }}--}}
+                    {{ $backups->links() }}
                 </div>
 
             </div>

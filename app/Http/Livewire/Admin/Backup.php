@@ -8,10 +8,18 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Backup extends Component
 {
+    use WithPagination;
     use WithSorting;
+
+    public int $perPage = 8;
+
+    protected $queryString = [
+        'perPage' => ['except' => 8, 'as' => 'p'],
+    ];
 
     public function create()
     {
@@ -87,7 +95,9 @@ class Backup extends Component
         }
 
         $backups = array_reverse($backups);
-        $backups = collect($backups)->sortBy($this->sortField, descending: $this->sortDirection === 'desc');
+        $backups = collect($backups)
+            ->sortBy($this->sortField, descending: $this->sortDirection === 'desc')
+            ->paginate($this->perPage);
 
         return view('livewire.admin.backup.index', ['backups' => $backups]);
     }
