@@ -62,11 +62,14 @@
                             <x-table.cell>{{ $backup['file_date'] }}</x-table.cell>
                             <x-table.cell>{{ $backup['file_relative_date'] }}</x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
-                                <button wire:click="download('{{ $backup['path'] }}')" type="button" title="Descargar respaldo (zip)" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                <button wire:click="download('{{ $backup['file_name'] }}')" type="button" title="Descargar respaldo (zip)" class="mr-1 px-2 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                     Descargar
                                 </button>
-                                <button wire:click="delete('{{ $backup['path'] }}', '{{ $backup['file_name'] }}')" type="button" title="Eliminar respaldo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                <button wire:click="delete('{{ $backup['file_name'] }}', '{{ $backup['file_name'] }}')" type="button" title="Eliminar respaldo" class="ml-1 px-2 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                     Eliminar
+                                </button>
+                                <button wire:click="restoreConfirm('{{ $backup['file_name'] }}', '{{ $backup['file_name'] }}')" type="button" title="Restaurar respaldo" class="ml-1 px-2 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                    Restaurar
                                 </button>
                             </x-table.cell>
                         </tr>

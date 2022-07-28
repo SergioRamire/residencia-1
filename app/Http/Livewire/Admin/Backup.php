@@ -22,6 +22,7 @@ class Backup extends Component
 
     public bool $showConfirmationModal = false;
     public bool $delete = false;
+    public bool $restore = false;
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -30,6 +31,7 @@ class Backup extends Component
     public function create()
     {
         $this->delete = false;
+        $this->restore = false;
         $this->showConfirmationModal = true;
     }
 
@@ -38,8 +40,8 @@ class Backup extends Component
         $exitCode = Artisan::call('snapshot:create');
         $output = Artisan::output();
 
+        $this->showConfirmationModal = false;
         if ($exitCode === 1) {
-            $this->showConfirmationModal = false;
 
             Log::info("DB-Snapshot -- Creando un nuevo respaldo \r\n
             $output\r\n
@@ -51,8 +53,6 @@ class Backup extends Component
             ]);
             return;
         }
-
-        $this->showConfirmationModal = false;
 
         Log::info("DB-Snapshot -- Creando un nuevo respaldo \r\n
             $output\r\n
@@ -78,6 +78,7 @@ class Backup extends Component
         $this->file_name = $file_name;
 
         $this->delete = true;
+        $this->restore = false;
         $this->showConfirmationModal = true;
     }
 
@@ -91,6 +92,31 @@ class Backup extends Component
             'icon' => 'trash',
             'message' => 'Respaldo eliminado exitosamente',
         ]);
+    }
+
+    public function restoreConfirm(string $file_path, string $file_name)
+    {
+        $this->file_path = $file_path;
+        $this->file_name = $file_name;
+
+        $this->delete = false;
+        $this->restore = true;
+        $this->showConfirmationModal = true;
+    }
+
+    public function restore()
+    {
+        $filename_without_ext = pathinfo($this->file_path, PATHINFO_FILENAME);
+        Artisan::call("snapshot:load $filename_without_ext");
+
+        $this->showConfirmationModal = false;
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'success',
+            'message' => 'Respaldo restaurado exitosamente',
+        ]);
+        sleep(2);
+
+        return redirect()->route('admin.backup');
     }
 
     private function relativeDate($disk, string $file): string
@@ -132,7 +158,6 @@ class Backup extends Component
                     'file_size' => $this->size($disk, $file),
                     'file_date' => $this->absoluteDate($disk, $file),
                     'file_relative_date' => $this->relativeDate($disk, $file),
-                    'path' => $file,
                     'size' => $disk->size($file),
                     'date' => $disk->lastModified($file),
                 ];
