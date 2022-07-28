@@ -10,24 +10,73 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+/**
+ * Controla la vista de respaldos
+ *
+ * Libreria utlizada: {@link https://github.com/spatie/laravel-db-snapshots laravel-db-snapshots}
+*/
 class BackupController extends Component
 {
     use WithPagination;
     use WithSorting;
 
+    /**
+     * Ruta del respaldo relativa al `disk` utilizado
+     *
+     * Ejemplo: `backup/2022-02-01.sql`
+     */
     public string $file_path;
+
+    /**
+     * Nombre del respaldo
+     *
+     * Ejemplo: `2022-02-01.sql`
+     */
     public string $file_name;
 
+    /**
+     * Determina el valor inicial de la paginación.
+     */
     public int $perPage = 8;
 
+    /**
+     * Controla visibilidad del modal de confirmación
+     */
     public bool $showConfirmationModal = false;
+
+    /**
+     * Refleja la acción que se ejecutará: Eliminar un respaldo
+     *
+     * Es utilizada en la vista del modal de confirmación para cambiar el texto y el botón
+     */
     public bool $delete = false;
+
+    /**
+     * Refleja la acción que se ejecutará: Restaurar un respaldo
+     *
+     * Es utilizada en la vista del modal de confirmación para cambiar el texto y el botón
+     */
     public bool $restore = false;
 
+    /**
+     * Permite personalizar el query string del navegador
+     *
+     * - La paginación por defecto (8) se omite
+     * - Se usa un alias para la paginación: `p`
+     *
+     * Ejemplo: `http://localhost/admin/backup?p=16`
+     *
+     * @var array[]
+     */
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
+    /**
+     * Refleja la acción de crear respaldo y activa el modal de confirmación
+     *
+     * @return void
+     */
     public function create()
     {
         $this->delete = false;
@@ -35,6 +84,11 @@ class BackupController extends Component
         $this->showConfirmationModal = true;
     }
 
+    /**
+     * Ejecuta el comando de creación de respaldos, notifica en el sistema y en el registro de Laravel
+     *
+     * @return void
+     */
     public function save()
     {
         $exitCode = Artisan::call('snapshot:create');
@@ -64,6 +118,15 @@ class BackupController extends Component
         ]);
     }
 
+    /**
+     * Descarga el respaldo seleccionado
+     *
+     * - Sea obtiene el almacenamiento usado por la librería
+     * - Se obtiene el directorio asociado a dicho almacenamiento y se le anexa el nombre del respaldo
+     *
+     * @param string $file_path Ruta/Nombre del respaldo
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function download(string $file_path)
     {
         $snapshotDir = config('db-snapshots.disk');
@@ -72,6 +135,13 @@ class BackupController extends Component
         return response()->download($path);
     }
 
+    /**
+     * Refleja la acción de eliminar respaldo y activa el modal de confirmación
+     *
+     * @param string $file_path Ruta del respaldo
+     * @param string $file_name Nombre del respaldo
+     * @return void
+     */
     public function delete(string $file_path, string $file_name)
     {
         $this->file_path = $file_path;
@@ -82,6 +152,11 @@ class BackupController extends Component
         $this->showConfirmationModal = true;
     }
 
+    /**
+     * Elimina el respaldo seleccionado, notifica en el sistema y en el registro de Laravel
+     *
+     * @return void
+     */
     public function destroy()
     {
         $disk = Storage::disk(config('db-snapshots.disk'));
@@ -94,6 +169,13 @@ class BackupController extends Component
         ]);
     }
 
+    /**
+     * Refleja la acción de restaurar respaldo y activa el modal de confirmación
+     *
+     * @param string $file_path Ruta del respaldo
+     * @param string $file_name Nombre del respaldo
+     * @return void
+     */
     public function restoreConfirm(string $file_path, string $file_name)
     {
         $this->file_path = $file_path;
@@ -104,6 +186,14 @@ class BackupController extends Component
         $this->showConfirmationModal = true;
     }
 
+    /**
+     * Restaura el respaldo seleccionado, notifica en el sistema y en el registro de Laravel
+     *
+     * Puede que la sesión activa se pierda, por lo que se redirecciona a la ruta actual.
+     * Esto para que vuelva a iniciar sesión si fuese necesario
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restore()
     {
         $filename_without_ext = pathinfo($this->file_path, PATHINFO_FILENAME);
@@ -119,6 +209,15 @@ class BackupController extends Component
         return redirect()->route('admin.backup');
     }
 
+    /**
+     * Convierte un timestamp a una fecha relativa a la actual
+     *
+     * Ejemplo: `Hace 1 hora`
+     *
+     * @param \Illuminate\Contracts\Filesystem\Filesystem $disk Almacenamiento con el que se interactuará
+     * @param string $file Nombre del archivo
+     * @return string Fecha relativa
+     */
     private function relativeDate($disk, string $file): string
     {
         $lastModified = $disk->lastModified($file);
@@ -126,6 +225,15 @@ class BackupController extends Component
         return ucfirst($diff4Humans);
     }
 
+    /**
+     * Convierte un timestamp a una fecha con formato 'MMMM D, YYYY, HH:mm:ss'
+     *
+     * Ejemplo: `Julio 28, 2022, 00:57:20 (GMT-5)`
+     *
+     * @param \Illuminate\Contracts\Filesystem\Filesystem $disk Almacenamiento con el que se interactuará
+     * @param string $file Nombre del archivo
+     * @return string Fecha con formato
+     */
     private function absoluteDate($disk, string $file): string
     {
         $lastModified = $disk->lastModified($file);
@@ -133,6 +241,15 @@ class BackupController extends Component
         return ucfirst("$date (GMT-5)");
     }
 
+    /**
+     * Convierte el tamaño en bytes a KB, MB, GB y TB
+     *
+     * Ejemplo: `14.12 KB`
+     *
+     * @param \Illuminate\Contracts\Filesystem\Filesystem $disk Almacenamiento con el que se interactuará
+     * @param string $file Nombre del archivo
+     * @return string Tamaño en formato legible
+     */
     private function size($disk, string $file): string
     {
         $suffixes = ['bytes', 'KB', 'MB', 'GB', 'TB'];
@@ -145,6 +262,11 @@ class BackupController extends Component
         return "$diff4Humans $chosenSuffix";
     }
 
+    /**
+     * Renderiza la vista y se actualiza cada vez que haya un cambio
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function render()
     {
         $disk = Storage::disk(config('db-snapshots.disk'));
