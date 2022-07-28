@@ -15,7 +15,13 @@ class Backup extends Component
     use WithPagination;
     use WithSorting;
 
+    public string $file_path;
+    public string $file_name;
+
     public int $perPage = 8;
+
+    public bool $showConfirmationModal = false;
+    public bool $delete = false;
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -23,10 +29,18 @@ class Backup extends Component
 
     public function create()
     {
+        $this->delete = false;
+        $this->showConfirmationModal = true;
+    }
+
+    public function save()
+    {
         $exitCode = Artisan::call('snapshot:create');
         $output = Artisan::output();
 
         if ($exitCode === 1) {
+            $this->showConfirmationModal = false;
+
             Log::info("DB-Snapshot -- Creando un nuevo respaldo \r\n
             $output\r\n
             DB-Snapshot -- Respaldo no creado");
@@ -37,6 +51,8 @@ class Backup extends Component
             ]);
             return;
         }
+
+        $this->showConfirmationModal = false;
 
         Log::info("DB-Snapshot -- Creando un nuevo respaldo \r\n
             $output\r\n
@@ -56,11 +72,25 @@ class Backup extends Component
         return response()->download($path);
     }
 
-    public function delete(string $file_path)
+    public function delete(string $file_path, string $file_name)
+    {
+        $this->file_path = $file_path;
+        $this->file_name = $file_name;
+
+        $this->delete = true;
+        $this->showConfirmationModal = true;
+    }
+
+    public function destroy()
     {
         $disk = Storage::disk(config('db-snapshots.disk'));
+        $disk->delete($this->file_path);
+        $this->showConfirmationModal = false;
 
-        $disk->delete($file_path);
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'trash',
+            'message' => 'Respaldo eliminado exitosamente',
+        ]);
     }
 
     private function relativeDate($disk, string $file): string

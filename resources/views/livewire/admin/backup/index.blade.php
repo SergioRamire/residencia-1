@@ -65,7 +65,7 @@
                                 <button wire:click="download('{{ $backup['path'] }}')" type="button" title="Descargar respaldo (zip)" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                     Descargar
                                 </button>
-                                <button wire:click="delete('{{ $backup['path'] }}')" type="button" title="Eliminar respaldo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                <button wire:click="delete('{{ $backup['path'] }}', '{{ $backup['file_name'] }}')" type="button" title="Eliminar respaldo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                     Eliminar
                                 </button>
                             </x-table.cell>
@@ -95,4 +95,7 @@
             </div>
         </div>
     </div>
+
+    <!-- Modales -->
+    @include('livewire.admin.backup.confirmation')
 </div>
