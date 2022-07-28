@@ -48,6 +48,21 @@ class Backup extends Component
         ]);
     }
 
+    public function download(string $file_path)
+    {
+        $snapshotDir = config('db-snapshots.disk');
+        $path = config("filesystems.disks.$snapshotDir.root")."/$file_path";
+
+        return response()->download($path);
+    }
+
+    public function delete(string $file_path)
+    {
+        $disk = Storage::disk(config('db-snapshots.disk'));
+
+        $disk->delete($file_path);
+    }
+
     private function relativeDate($disk, string $file): string
     {
         $lastModified = $disk->lastModified($file);
