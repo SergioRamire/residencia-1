@@ -121,9 +121,6 @@ class BackupController extends Component
     /**
      * Descarga el respaldo seleccionado
      *
-     * - Sea obtiene el almacenamiento usado por la librería
-     * - Se obtiene el directorio asociado a dicho almacenamiento y se le anexa el nombre del respaldo
-     *
      * @param string $file_path Ruta/Nombre del respaldo
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
