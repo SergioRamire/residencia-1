@@ -76,7 +76,7 @@
                     @empty
                         <tr>
                             {{-- Cambia el número según el numero de columnas --}}
-                            <x-table.cell colspan="3">
+                            <x-table.cell colspan="5">
                                 <div class="flex justify-center items-center space-x-2">
                                     <!-- Icono -->
                                     <svg class="inline-block h-8 w-8 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -84,7 +84,7 @@
                                     </svg>
                                     <!-- Texto -->
                                     <span class="py-4 text-xl text-gray-400 font-medium">
-                                    No se encontraron resultados ...
+                                    No hay respaldos ...
                                 </span>
                                 </div>
                             </x-table.cell>
