@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Admin\Backup;
 use App\Http\Livewire\Admin\PostPeriodController;
 use App\Http\Livewire\Admin\AreaController;
 use App\Http\Livewire\Admin\AssignedInstructorController;
@@ -54,6 +55,9 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:user.show')->prefix('admin')->name('admin.')
         ->get('usuarios', UserController::class)->name('usuarios');
+
+    Route::middleware('can:user.show')->prefix('admin')->name('admin.')
+        ->get('backup', Backup::class)->name('backup');
 
     Route::middleware('can:constancy.show')->prefix('admin')->name('admin.')
         ->get('constancias', ConstanciasController::class)->name('constancias');
