@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Backup extends Component
+class BackupController extends Component
 {
     use WithPagination;
     use WithSorting;
