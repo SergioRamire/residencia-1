@@ -28,13 +28,6 @@ class BackupController extends Component
     public string $file_path;
 
     /**
-     * Nombre del respaldo
-     *
-     * Ejemplo: `2022-02-01.sql`
-     */
-    public string $file_name;
-
-    /**
      * Determina el valor inicial de la paginación.
      */
     public int $perPage = 8;
@@ -142,7 +135,6 @@ class BackupController extends Component
     public function delete(string $file_path, string $file_name)
     {
         $this->file_path = $file_path;
-        $this->file_name = $file_name;
 
         $this->delete = true;
         $this->restore = false;
@@ -176,7 +168,6 @@ class BackupController extends Component
     public function restoreConfirm(string $file_path, string $file_name)
     {
         $this->file_path = $file_path;
-        $this->file_name = $file_name;
 
         $this->delete = false;
         $this->restore = true;

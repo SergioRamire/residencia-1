@@ -5,10 +5,10 @@
 
     <x-slot name="content">
         @if($delete)
-            ¿Seguro que desea eliminar el respaldo <strong>{{ $file_name }}</strong>?
+            ¿Seguro que desea eliminar el respaldo <strong>{{ $file_path }}</strong>?
         @else
             @if($restore)
-                <p>¿Seguro que desea restaurar el respaldo <strong>{{ $file_name }}</strong>?</p>
+                <p>¿Seguro que desea restaurar el respaldo <strong>{{ $file_path }}</strong>?</p>
                 <p wire:loading.delay class="text-red-600">Por favor espere, y <span class="font-bold">no salga del modal</span></p>
             @else
                 ¿Seguro que desea crear un respaldo?
