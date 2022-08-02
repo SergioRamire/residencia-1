@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Admin\BackupController;
 use App\Http\Livewire\Admin\PostPeriodController;
 use App\Http\Livewire\Admin\AreaController;
 use App\Http\Livewire\Admin\AssignedInstructorController;
@@ -161,4 +162,6 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:limitAsignGrades.edit')->prefix('jefa')->name('jefa.')
         ->get('fecha-limite', LimitForInstructorsController::class)->name('limit');
 
+    Route::middleware('can:limitAsignGrades.edit')->prefix('admin')->name('admin.')
+        ->get('respaldo-bd', BackupController::class)->name('backup');
 });

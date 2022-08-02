@@ -15,6 +15,7 @@
         "livewire/livewire": "^2.5",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "1.0",
+        "spatie/laravel-db-snapshots": "^2.3",
         "spatie/laravel-permission": "^5.5"
     },
     "require-dev": {

@@ -100,6 +100,8 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'limitAsignGrades.edit', 'human_name' => 'Limitar calificaciones'])->assignRole(['Jefa de departamento','Coordinador']);
 
+        Permission::create(['name' => 'backup.edit', 'human_name' => 'respaldo de bd'])->assignRole(['Administrador']);
+
         Permission::create(['name' => 'historycourse.show', 'human_name' => 'Historial cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'historyparticipant.show', 'human_name' => 'Historial Participantes'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'historyinstructor.show', 'human_name' => 'Historial Instructores'])->assignRole(['Administrador', 'Jefa de departamento']);

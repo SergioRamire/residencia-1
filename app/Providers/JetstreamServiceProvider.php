@@ -82,6 +82,7 @@ class JetstreamServiceProvider extends ServiceProvider
                 }
                 return $user; //entra al sistema si es admin, super admin, o el nuevo rol que no se si ya lo agregaron "coordinador"
             }
+            return false;
 
         });
     }
