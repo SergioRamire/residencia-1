@@ -158,6 +158,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:sendemail.show')->prefix('admin')->name('admin.')
         ->get('email', EmailController::class)->name('email');
 
-    Route::get('/limit', LimitForInstructorsController::class)->name('limit');
+    Route::middleware('can:limitAsignGrades.edit')->prefix('jefa')->name('jefa.')
+        ->get('fecha-limite', LimitForInstructorsController::class)->name('limit');
 
 });

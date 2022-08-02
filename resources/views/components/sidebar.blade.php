@@ -188,22 +188,26 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     Asignar Calificaciones
                 </x-sidebar.link>
                 @endcan --}}
-
-                @can('qualification.edit')
-                    <x-sidebar.dropdown title="Calificaciones" dp-id="1">
-                        <x-slot name="icon" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </x-slot>
-                        <x-sidebar.link class="pl-11" :href='route("jefa.limit")' :active="request()->routeIs('jefa.limit')">
-                            Limitar fecha de calificaciones
-                        </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("instr.grades")' :active="request()->routeIs('instr.grades')">
-                            Asignar calificaciones
-                        </x-sidebar.link>
-                    </x-sidebar.dropdown>
+                @can('limitAsignGrades.edit')
+                <x-sidebar.link :href='route("jefa.limit")' :active="request()->routeIs('jefa.limit')">
+                    <x-slot name="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </x-slot>
+                    Fecha de asignación de calificaciones
+                </x-sidebar.link>
                 @endcan
 
-                @can('limitAsignGrades.edit')
+                @can('qualification.edit')
+                <x-sidebar.link :href='route("instr.grades")' :active="request()->routeIs('instr.grades')">
+                    <x-slot name="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </x-slot>
+                    Asignar Calificaciones
+                </x-sidebar.link>
+                @endcan
+
+
+                {{-- @can('limitAsignGrades.edit')
                     <x-sidebar.dropdown title="Calificaciones" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -215,7 +219,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                             Asignar calificaciones
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
-                @endcan
+                @endcan --}}
 
 
                 @can('constancias.show')
@@ -271,7 +275,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
 
                 <x-sidebar.link >
                     <x-slot name="icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                     </x-slot>
                     Base de datos
                 </x-sidebar.link>
@@ -445,17 +449,25 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan --}}
+                @can('limitAsignGrades.edit')
+                <x-sidebar.link :href='route("jefa.limit")' :active="request()->routeIs('jefa.limit')">
+                    <x-slot name="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </x-slot>
+                    Fecha de asignación de calificaciones
+                </x-sidebar.link>
+                @endcan
 
-                {{-- @can('qualification.edit')
+                @can('qualification.edit')
                 <x-sidebar.link :href='route("instr.grades")' :active="request()->routeIs('instr.grades')">
                     <x-slot name="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </x-slot>
                     Asignar Calificaciones
                 </x-sidebar.link>
-                @endcan --}}
+                @endcan
 
-                @can('limitAsignGrades.edit')
+                {{-- @can('limitAsignGrades.edit')
                     <x-sidebar.dropdown title="Calificaciones" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -467,7 +479,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                             Asignar calificaciones
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
-                @endcan
+                @endcan --}}
 
                 @can('constancias.show')
                     <x-sidebar.dropdown title="Constancias" dp-id="1">
@@ -538,7 +550,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
 
                 <x-sidebar.link >
                     <x-slot name="icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                     </x-slot>
                     Base de datos
                 </x-sidebar.link>
