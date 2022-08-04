@@ -121,8 +121,9 @@ class EmailController extends Component
     }
 
     protected $rules = [
-        'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
-        'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
+        'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+        'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,.,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:250'],
+        'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
     ];
 
     public function updated($propertyName)
@@ -146,12 +147,10 @@ class EmailController extends Component
     public function store()
     {
         $this->validate();
-        // $users=User::all();
         $iduser = Auth::id();
         $correo = Email::create($this->arr);
         $users = $this->consulta($this->arr['role']);
 
-        // dd($users);
         foreach ($users as $u) {
             if ($u->id != $iduser) {
                 Mail::to($u->email)

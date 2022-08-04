@@ -17,8 +17,6 @@ class PostController extends Component
 {
     use WithPagination;
     use WithSearching;
-    // public Post $post;
-
 
     public $posts;
     public $title;
@@ -153,8 +151,8 @@ class PostController extends Component
     }
 
     protected $rules = [
-        'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
-        'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
+        'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+        'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,.,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:250'],
         'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
     ];
 
@@ -213,6 +211,7 @@ class PostController extends Component
     //     $this->delete_todas_notifi= false;
     // }
 
+    //Marca todas las notificaciones no lídas como leídas
     public function mark_as_read(){
         auth()->user()->unreadNotifications->mark_as_read();
         $this->dispatchBrowserEvent('notify', [
@@ -220,7 +219,7 @@ class PostController extends Component
             'message' =>  'Notificaciones marcada como leídas',
         ]);
     }
-
+    //Marca todas una notficacion no lída como leída
     public function markone_as_read($id){
         auth()->user()->unreadNotifications->where('id', $id)->mark_as_read();
         $this->dispatchBrowserEvent('notify', [
@@ -228,7 +227,7 @@ class PostController extends Component
             'message' =>  'Notificación marcada como leída',
         ]);
     }
-
+    //Elimina todas las notificaciones leídas
     public function delet_full_notify_read(){
         auth()->user()->readNotifications->each->delete();
         $this->dispatchBrowserEvent('notify', [

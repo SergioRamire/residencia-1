@@ -107,7 +107,7 @@ class ConstanciaInstructorController extends Component
         $i=1;
         $numlist='';
         $num=0;
-        $aux=$this->consultaBase()
+        $aux=$this->consulta_base()
                  ->orderBy('app', 'asc')->get();
 
         foreach($aux as $a){
@@ -128,7 +128,7 @@ class ConstanciaInstructorController extends Component
     public function descargar_constancia($id)
     {
         $numlista=$this->obtenernumlist($id);
-        $datos = $this->consultaBase()
+        $datos = $this->consulta_base()
             ->where('users.id', '=', $id)
             ->get()->first();
         list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($datos);
@@ -147,7 +147,7 @@ class ConstanciaInstructorController extends Component
         \Storage::makeDirectory('pdf');
 
         foreach ($consulta as $item) {
-            list($fecha_inicial, $fecha_final, $dia_actual) = $this->getDates($item);
+            list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($item);
             $numlista=$this->obtenernumlist($item->iduser);
 
             $pdf = Pdf::loadView('livewire.admin.constancias.download_instructor', ['datos' => $item,'fi'=> $fecha_inicial,'ff'=> $fecha_final,'day'=> $dia_actual, 'numlist'=> $numlista]);
@@ -181,9 +181,7 @@ class ConstanciaInstructorController extends Component
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->where('inscriptions.estatus_participante', '=', 'Instructor')
             ->where('course_details.period_id', '=', $this->filters['fecha'])
-            // ->where('course_details.course_id', '=', $this->filters['filtro_curso'])
             ->select(['users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.sexo as sexo', 'courses.nombre as curso', 'groups.nombre as grupo', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
-            // ->when($this->filters['filtro_curso'], fn ($query, $filtro_curso) => $query->where('course_details.nombre', '=', $filtro_curso));
     }
 
     private function get_dates(?User $datos): array
