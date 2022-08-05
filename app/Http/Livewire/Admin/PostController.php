@@ -23,16 +23,33 @@ class PostController extends Component
 
     //variables de modales
     public $edit = false;
+    /**
+     * Controla la visibilidad del modal de creación
+     */
     public $create = false;
-    public $show_edit_modal = 0;
+    /**
+     * Controla la visibilidad de editar modal
+     */
+    public $show_edit_modal = false;
+    /**
+     * Controla el modal de inspeccionar notificación
+     */
     public $show_view_modal =false;
+    /**
+     * Controla la visibilida del modal de eliminar una notificación
+     */
     public $confirming_part_deletion = false;
-    public $confirming_save_parti = false;
+    /**
+     * Controla la visibilida del modal de eliminar todas las notificaciones enviadas
+     */
     public $confirmin_notificacion=false;
     public $delete_todas_notifi= false;
     public $confirming_save_notificacion=false;
 
     //Variables de busqueda y paginación
+    /**
+     * Determina el valor inicial de la paginación.
+     */
     public int $perPage = 8;
     protected array $cleanStringsExcept = ['search'];
 
