@@ -82,7 +82,7 @@ class StudyingController extends Component
             ->get();;
     }
 
-    public function consulta_ins($idcurso)
+    public function consulta_instructor($idcurso)
     {
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
@@ -90,12 +90,12 @@ class StudyingController extends Component
             ->select('users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"))
             ->where('course_details.id', $idcurso)
             ->where("inscriptions.estatus_participante", 'Instructor')
-            ->get();;
+            ->get();
     }
 
     public function download_pdf($iduser,$idcurso){
         $coursesdetails = $this->consulta_pdf($iduser, $idcurso);
-        $instructor = $this->consulta_ins( $idcurso);
+        $instructor = $this->consulta_instructor( $idcurso);
         list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($coursesdetails[0]);
 
         $pdf = Pdf::loadView('livewire.admin.studying.download_cedula', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fecha_inicial,'fecha_f'=> $fecha_final,'day_actual'=> $dia_actual]);

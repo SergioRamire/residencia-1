@@ -20,7 +20,6 @@ class PostController extends Component
 
     public $posts;
     public $title;
-    public Post $postt;
 
     //variables de modales
     public $edit = false;
@@ -47,6 +46,12 @@ class PostController extends Component
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
+    ];
+
+    protected $validationAttributes = [
+        'arr.title' => 'asunto',
+        'arr.description' => 'cuerpo',
+        'arr.role' => 'destinatario',
     ];
 
     public function render()
@@ -85,8 +90,6 @@ class PostController extends Component
     // private function validateInputs()
     // {
     //     $this->validate([
-    //         'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
-    //         'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
     //         'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
     //     ]);
     // }
@@ -198,7 +201,6 @@ class PostController extends Component
     }
 
     public function delete_todas_noti(){
-        // $this->delete_todas_notifi=true;
         auth()->user()->Notifications->each->delete();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
@@ -206,14 +208,9 @@ class PostController extends Component
         ]);
     }
 
-    // public function delete_notificationsleidas(){
-    //     auth()->user()->Notifications->each->delete();
-    //     $this->delete_todas_notifi= false;
-    // }
-
     //Marca todas las notificaciones no lídas como leídas
     public function mark_as_read(){
-        auth()->user()->unreadNotifications->mark_as_read();
+        auth()->user()->unreadNotifications->markAsread();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Notificaciones marcada como leídas',
@@ -221,7 +218,7 @@ class PostController extends Component
     }
     //Marca todas una notficacion no lída como leída
     public function markone_as_read($id){
-        auth()->user()->unreadNotifications->where('id', $id)->mark_as_read();
+        auth()->user()->unreadNotifications->where('id', $id)->markAsread();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Notificación marcada como leída',

@@ -8,9 +8,7 @@ use App\Http\Traits\WithSearching;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\EnviarEmailCurso;
 use App\Mail\OrderShipped;
-
 Use App\Models\CourseDetail;
-use Illuminate\Support\Arr;
 use App\Models\Email;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -23,15 +21,13 @@ class EmailController extends Component
     public Email $correo;
 
     public $posts;
-    // public $title='hola';
-    // public $description;
 
     public $post;
     public $edit = false;
     public $create = false;
     public $show_edit_modal = 0;
     public $show_view_modal =false;
-    public $confirming_part_deletion = false;
+    public $confirmin_part_deletion = false;
     public $confirming_save_parti = false;
     public $confirmin_notificacion=false;
     public $delete_todas_notifi= false;
@@ -46,6 +42,12 @@ class EmailController extends Component
         'title' => '',
         'description' =>'',
         'role' =>'',
+    ];
+
+    protected $validationAttributes = [
+        'arr.title' => 'asunto',
+        'arr.description' => 'cuerpo',
+        'arr.role' => 'destinatario',
     ];
 
     protected $queryString = [
@@ -116,7 +118,7 @@ class EmailController extends Component
         $email = Email::findOrFail($id);
         $this->title= $email->title;
         $this->description= $email->description;
-        // $this->role= $post->role;
+        $this->role= $email->role;
         $this->show_view_modal = true;
     }
 
@@ -167,6 +169,26 @@ class EmailController extends Component
         $this->create = false;
         $this->confirming_save_email = false;
         $this->close_modal();
+        $this->resetInputFields();
+    }
+
+    //Eliminar un email
+    public function delete_post($id, $title)
+    {
+        $this->posts = Email::findOrFail($id);
+        $this->title = $title;
+        $this->confirmin_part_deletion = true;
+    }
+
+    public function delete()
+    {
+        $this->posts->delete();
+        // Notification::where('data[1]', '=', $title)->each->delete();
+        $this->confirmin_part_deletion = false;
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => 'trash',
+            'message' =>  'Mensaje eliminado exitosamente',
+        ]);
         $this->resetInputFields();
     }
 
