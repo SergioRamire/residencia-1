@@ -73,7 +73,7 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
         ->get('mis-cursos', StudyingController::class)->name('studying');
 
     Route::middleware('can:studying.show')->prefix('participat')->name('participant.')
-        ->get('subir-cedula', SubirConstanciaController::class)->name('subir-cedula');
+        ->get('subir-cedula/{id_user}/{id_course_detail}', SubirConstanciaController::class)->name('subir-cedula');
 
     Route::middleware('can:area.show')->prefix('admin')->name('admin.')
         ->get('areas', AreaController::class)->name('area');
