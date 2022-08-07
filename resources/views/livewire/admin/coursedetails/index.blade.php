@@ -76,7 +76,7 @@
                     <x-table.header wire:click="sortBy('grupo')" sortable :direction="$sortField === 'grupo' ? $sortDirection : null">
                         Grupo
                     </x-table.header>
-                    <x-table.header>acciones</x-table.header>
+                    <x-table.header class="text-center">acciones</x-table.header>
                 </x-slot>
 
                 @forelse($detalles as $d)
