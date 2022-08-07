@@ -3,6 +3,14 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
             Subir constancia
         </h2>
+        <div>
+            <p>Curso: {{ $course_detail->course->nombre }}</p>
+            <p>Grupo: {{ $course_detail->group->nombre }}</p>
+            <p>Periodo: {{ $course_detail->period->clave }}</p>
+            <p>Fecha: {{ $course_detail->period->fecha_inicio }} a {{ $course_detail->period->fecha_fin }}</p>
+            <p>Hora: {{ $course_detail->hora_inicio }} a {{ $course_detail->hora_fin }}</p>
+
+        </div>
     </x-slot>
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">

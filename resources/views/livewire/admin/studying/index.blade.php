@@ -45,7 +45,7 @@
                                     Ver cédula firmada
                                 </button>
                             @else
-                                <a href="{{ route('participant.subir-cedula') }}" title="Subir cédula firmada" class="mb-1 bg-white border border-amber-800 hover:bg-amber-400 text-amber-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                                <a href="{{ route('participant.subir-cedula', [$data->iduser, $data->idcurso]) }}" title="Subir cédula firmada" class="mb-1 bg-white border border-amber-800 hover:bg-amber-400 text-amber-800 font-bold py-1 px-1 rounded inline-flex items-center">
                                     Subir cédula firmada
                                 </a>
                             @endif
