@@ -150,6 +150,10 @@ class CourseDetailsController extends Component
             'group_id'=>$this->grupo_id,
             'period_id'=>$this->period,
         ]);
+        $this->dispatchBrowserEvent('notify', [
+            'icon' => $this->edit ? 'pencil' : 'success',
+            'message' =>  $this->edit ? 'Detalles actualizados exitosamente' : 'Detalles creados exitosamente',
+        ]);
         $this->edit = false;
         $this->create = false;
         $this->confirming_save_details = false;
@@ -160,10 +164,6 @@ class CourseDetailsController extends Component
         $this->close_modal();
         $this->resetInputFields();
 
-        $this->dispatchBrowserEvent('notify', [
-            'icon' => $this->edit ? 'pencil' : 'success',
-            'message' =>  $this->edit ? 'Detalles actualizados exitosamente' : 'Detalles creados exitosamente',
-        ]);
     }
     public function edit($id){
         $this->resetErrorBag();
