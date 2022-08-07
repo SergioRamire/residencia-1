@@ -41,7 +41,11 @@
 
                         <div class="text-center">
                             @if($data->url_cedula)
-                                <button wire:click="ver_constancia_firmada({{ $data->idcurso }})" title="Subir cédula firmada" class="mb-1 bg-white border border-blue-800 hover:bg-blue-400 text-blue-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                                <a href="{{ route('participant.subir-cedula', [$data->iduser, $data->idcurso]) }}" title="Subir cédula firmada" class="mb-1 bg-white border border-amber-800 hover:bg-amber-400 text-amber-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                                    Volver a subir cédula firmada
+                                </a>
+
+                                <button wire:click="ver_constancia_firmada({{ $data->idcurso }})" title="Ver cédula firmada" class="mb-1 bg-white border border-blue-800 hover:bg-blue-400 text-blue-800 font-bold py-1 px-1 rounded inline-flex items-center">
                                     Ver cédula firmada
                                 </button>
                             @else
