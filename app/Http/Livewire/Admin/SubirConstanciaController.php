@@ -15,6 +15,11 @@ class SubirConstanciaController extends Component
         'constancia' => ['file', 'mimes:pdf', 'max:2048'],
     ];
 
+    public function updatedConstancia()
+    {
+        $this->validate();
+    }
+
     public function save()
     {
         $this->validate();
