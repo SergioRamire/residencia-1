@@ -24,7 +24,7 @@ class SubirConstanciaController extends Component
     }
 
     protected $rules = [
-        'constancia' => ['file', 'mimes:pdf', 'max:2048'],
+        'constancia' => ['file', 'mimes:pdf', 'max:5120'],
     ];
 
     public function updatedConstancia()
@@ -40,11 +40,19 @@ class SubirConstanciaController extends Component
 
     public function save()
     {
+        $url_cedula_before = $this->user->courseDetails()->find(8)->inscription->url_cedula;
         $path = $this->constancia->store('constancias-firmadas', 'public');
 
         $this->user->courseDetails()->sync([
             $this->course_detail->id => ['url_cedula' => $path]
         ], false);
+
+        $this->showConfirmationModal = false;
+        $this->dispatchBrowserEvent('notify', [
+            'icon' =>  $url_cedula_before ? 'pencil' : 'success',
+            'message' => $url_cedula_before ? 'Constancia editada exitosamente' : 'Constancia subida exitosamente',
+        ]);
+        return redirect()->route('participant.studying');
     }
 
     public function render()
