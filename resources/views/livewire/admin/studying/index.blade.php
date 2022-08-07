@@ -41,7 +41,7 @@
 
                         <div class="text-center">
                             @if($data->url_cedula)
-                                <button wire:click="" title="Subir cédula firmada" class="mb-1 bg-white border border-blue-800 hover:bg-blue-400 text-blue-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                                <button wire:click="ver_constancia_firmada({{ $data->idcurso }})" title="Subir cédula firmada" class="mb-1 bg-white border border-blue-800 hover:bg-blue-400 text-blue-800 font-bold py-1 px-1 rounded inline-flex items-center">
                                     Ver cédula firmada
                                 </button>
                             @else

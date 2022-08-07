@@ -54,7 +54,7 @@ class StudyingController extends Component
             )
             ->where("users.id", $this->user->id)
             ->where("inscriptions.estatus_participante", $this->estatus)
-            ->get();;
+            ->get();
     }
 
     public function consulta_pdf($iduser,$idcurso)
@@ -80,7 +80,7 @@ class StudyingController extends Component
             ->where("users.id", $iduser)
             ->where('course_details.id', $idcurso)
             ->where("inscriptions.estatus_participante", $this->estatus)
-            ->get();;
+            ->get();
     }
 
     public function consulta_ins($idcurso)
@@ -91,7 +91,7 @@ class StudyingController extends Component
             ->select('users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"))
             ->where('course_details.id', $idcurso)
             ->where("inscriptions.estatus_participante", 'Instructor')
-            ->get();;
+            ->get();
     }
 
     public function download_pdf($iduser,$idcurso){
@@ -104,6 +104,12 @@ class StudyingController extends Component
         $pdf->setPaper("A4",'landscape');
         $pdf->save($pdf_file);
         return response()->download($pdf_file)->deleteFileAfterSend();
+    }
+
+    public function ver_constancia_firmada($id_course_detail)
+    {
+        $url_cedula = $this->user->courseDetails()->find($id_course_detail)->inscription->url_cedula;
+        return redirect("storage/$url_cedula");
     }
 
     private function get_dates(?CourseDetail $coursesdetails): array
