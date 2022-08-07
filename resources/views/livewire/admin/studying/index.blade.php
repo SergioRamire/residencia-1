@@ -40,11 +40,18 @@
                         <p><span class="font-bold">Horario: </span>{{ date("H:i", strtotime($data->h1))}} hrs. - {{ date("H:i", strtotime($data->h2))}} hrs.</p>
 
                         <div class="text-center">
-                            <x-table.cell class="text-center">
-                                <button wire:click="download_pdf({{$data->iduser}},{{$data->idcurso}})" title="Descargar cédula sin firma" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-1 px-1 rounded inline-flex items-center">
-                                    Cédula de inscripción
+                            @if($data->url_cedula)
+                                <button wire:click="" title="Subir cédula firmada" class="mb-1 bg-white border border-blue-800 hover:bg-blue-400 text-blue-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                                    Ver cédula firmada
                                 </button>
-                            </x-table.cell>
+                            @else
+                                <a href="{{ route('participant.subir-cedula') }}" title="Subir cédula firmada" class="mb-1 bg-white border border-amber-800 hover:bg-amber-400 text-amber-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                                    Subir cédula firmada
+                                </a>
+                            @endif
+                            <button wire:click="download_pdf({{$data->iduser}},{{$data->idcurso}})" title="Descargar cédula sin firma" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                                Cédula de inscripción
+                            </button>
                         </div>
                     </div>
 
