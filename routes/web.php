@@ -20,6 +20,7 @@ use App\Http\Livewire\Admin\PeriodCoursesController;
 use App\Http\Livewire\Admin\ProfileController;
 use App\Http\Livewire\Admin\RoleController;
 use App\Http\Livewire\Admin\StudyingController;
+use App\Http\Livewire\Admin\SubirConstanciaController;
 use App\Http\Livewire\Admin\UserController;
 use App\Http\Livewire\Admin\PostController;
 use App\Http\Livewire\Admin\TeachingController;
@@ -70,6 +71,9 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:studying.show')->prefix('participat')->name('participant.')
         ->get('mis-cursos', StudyingController::class)->name('studying');
+
+    Route::middleware('can:studying.show')->prefix('participat')->name('participant.')
+        ->get('subir-cedula', SubirConstanciaController::class)->name('subir-cedula');
 
     Route::middleware('can:area.show')->prefix('admin')->name('admin.')
         ->get('areas', AreaController::class)->name('area');
