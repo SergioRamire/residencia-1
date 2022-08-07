@@ -16,7 +16,13 @@
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
 
-            <div class="flex justify-center items-center w-full">
+            <div class="flex justify-center items-center w-full"
+                 x-data="{ isUploading: false, progress: 0 }"
+                 x-on:livewire-upload-start="isUploading = true"
+                 x-on:livewire-upload-finish="isUploading = false"
+                 x-on:livewire-upload-error="isUploading = false"
+                 x-on:livewire-upload-progress="progress = $event.detail.progress"
+            >
                 <label for="dropzone-file" class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 border-gray-300 rounded-lg border-2 border-dashed cursor-pointer">
                     <div class="flex flex-col justify-center items-center pt-5 pb-6">
                         {{-- Icono --}}
@@ -26,9 +32,9 @@
 
                         {{-- Texto --}}
                         @unless($constancia)
-                            <div class="text-gray-500">
-                                <p class="mb-2 text-sm text-center"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="text-xs">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                            <div class="text-gray-500 text-center">
+                                <p class="mb-2 text-sm"><span class="font-semibold">Da click</span> para subir la constancia</p>
+                                <p class="text-xs">PDF (MAX. 2Mb)</p>
                             </div>
                         @else
                             <div class="text-gray-800">
@@ -39,7 +45,14 @@
                         @endunless
                     </div>
 
-                    <form wire:submit.prevent="save">
+                    {{-- Animación de progreso --}}
+                    <div class="w-1/3 bg-gray-200 rounded-full mb-4" x-show="isUploading">
+                        <div class="bg-blue-300 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                             x-bind:style="{width: isUploading ? progress+'%' : '0%'}"
+                        > <span x-html="progress"></span>%</div>
+                    </div>
+
+                    <form wire:submit.prevent="store()">
                         <input wire:model="constancia" id="dropzone-file" name="constancia" type="file" class="hidden"/>
                         <x-jet-button class="ml-3 bg-[#1b396a]">
                             Subir
@@ -54,4 +67,6 @@
 
         </div>
     </div>
+
+    @include('livewire.admin.subirContancia.confirmation')
 </div>

@@ -15,6 +15,8 @@ class SubirConstanciaController extends Component
     public CourseDetail $course_detail;
     public User $user;
 
+    public bool $showConfirmationModal = false;
+
     public function mount($id_user, $id_course_detail)
     {
         $this->user = User::find($id_user);
@@ -30,11 +32,15 @@ class SubirConstanciaController extends Component
         $this->validate();
     }
 
-    public function save()
+    public function store()
     {
         $this->validate();
+        $this->showConfirmationModal = true;
+    }
 
-        $path = $this->constancia->store('constancias-subidas');
+    public function save()
+    {
+        $path = $this->constancia->store('constancias-firmadas', 'public');
 
         $this->user->courseDetails()->sync([
             $this->course_detail->id => ['url_cedula' => $path]
@@ -43,6 +49,6 @@ class SubirConstanciaController extends Component
 
     public function render()
     {
-        return view('livewire.admin.subir-constancia');
+        return view('livewire.admin.subirContancia.index');
     }
 }
