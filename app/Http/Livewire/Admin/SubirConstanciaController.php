@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\CourseDetail;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -40,19 +41,29 @@ class SubirConstanciaController extends Component
 
     public function save()
     {
-        $url_cedula_before = $this->user->courseDetails()->find(8)->inscription->url_cedula;
-        $path = $this->constancia->store('constancias-firmadas', 'public');
+        $existe_cedula = $this->remover_cedula_pasada($this->user->courseDetails()->find(8)->inscription->url_cedula);
 
+        $path = $this->constancia->store('constancias-firmadas', 'public');
         $this->user->courseDetails()->sync([
             $this->course_detail->id => ['url_cedula' => $path]
         ], false);
 
         $this->showConfirmationModal = false;
         $this->dispatchBrowserEvent('notify', [
-            'icon' =>  $url_cedula_before ? 'pencil' : 'success',
-            'message' => $url_cedula_before ? 'Constancia editada exitosamente' : 'Constancia subida exitosamente',
+            'icon' => $existe_cedula ? 'pencil' : 'success',
+            'message' => $existe_cedula ? 'Constancia editada exitosamente' : 'Constancia subida exitosamente',
         ]);
+
         return redirect()->route('participant.studying');
+    }
+
+    private function remover_cedula_pasada(string $cedula): bool
+    {
+        if ($cedula) {
+            Storage::disk('public')->delete($cedula);
+            return true;
+        }
+        return false;
     }
 
     public function render()
