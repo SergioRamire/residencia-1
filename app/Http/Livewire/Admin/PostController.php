@@ -17,25 +17,39 @@ class PostController extends Component
 {
     use WithPagination;
     use WithSearching;
-    // public Post $post;
-
 
     public $posts;
     public $title;
-    public Post $postt;
 
     //variables de modales
     public $edit = false;
+    /**
+     * Controla la visibilidad del modal de creación
+     */
     public $create = false;
-    public $show_edit_modal = 0;
+    /**
+     * Controla la visibilidad de editar modal
+     */
+    public $show_edit_modal = false;
+    /**
+     * Controla el modal de inspeccionar notificación
+     */
     public $show_view_modal =false;
+    /**
+     * Controla la visibilida del modal de eliminar una notificación
+     */
     public $confirming_part_deletion = false;
-    public $confirming_save_parti = false;
+    /**
+     * Controla la visibilida del modal de eliminar todas las notificaciones enviadas
+     */
     public $confirmin_notificacion=false;
     public $delete_todas_notifi= false;
     public $confirming_save_notificacion=false;
 
     //Variables de busqueda y paginación
+    /**
+     * Determina el valor inicial de la paginación.
+     */
     public int $perPage = 8;
     protected array $cleanStringsExcept = ['search'];
 
@@ -49,6 +63,12 @@ class PostController extends Component
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
+    ];
+
+    protected $validationAttributes = [
+        'arr.title' => 'asunto',
+        'arr.description' => 'cuerpo',
+        'arr.role' => 'destinatario',
     ];
 
     public function render()
@@ -87,8 +107,6 @@ class PostController extends Component
     // private function validateInputs()
     // {
     //     $this->validate([
-    //         'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
-    //         'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
     //         'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
     //     ]);
     // }
@@ -153,8 +171,8 @@ class PostController extends Component
     }
 
     protected $rules = [
-        'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
-        'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,1-9][A-Z,a-z, ,,1-9,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:100'],
+        'arr.title' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+        'arr.description' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,.,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:250'],
         'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
     ];
 
@@ -200,7 +218,6 @@ class PostController extends Component
     }
 
     public function delete_todas_noti(){
-        // $this->delete_todas_notifi=true;
         auth()->user()->Notifications->each->delete();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
@@ -208,27 +225,23 @@ class PostController extends Component
         ]);
     }
 
-    // public function delete_notificationsleidas(){
-    //     auth()->user()->Notifications->each->delete();
-    //     $this->delete_todas_notifi= false;
-    // }
-
+    //Marca todas las notificaciones no lídas como leídas
     public function mark_as_read(){
-        auth()->user()->unreadNotifications->mark_as_read();
+        auth()->user()->unreadNotifications->markAsread();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Notificaciones marcada como leídas',
         ]);
     }
-
+    //Marca todas una notficacion no lída como leída
     public function markone_as_read($id){
-        auth()->user()->unreadNotifications->where('id', $id)->mark_as_read();
+        auth()->user()->unreadNotifications->where('id', $id)->markAsread();
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' =>  'Notificación marcada como leída',
         ]);
     }
-
+    //Elimina todas las notificaciones leídas
     public function delet_full_notify_read(){
         auth()->user()->readNotifications->each->delete();
         $this->dispatchBrowserEvent('notify', [

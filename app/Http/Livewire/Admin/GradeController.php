@@ -185,8 +185,9 @@ class GradeController extends Component
             $this->curso=$cur[0]->nombre;
             $this->id_course=$cur[0]->id;
         }
-        $this->validar_limite();
+        // dd($this->disponible);
         // ($this->aux_fecha!=null) ? $this->validar_limite() : $this->disponible=false;
+        $this->validar_limite();
         return view('livewire.admin.grades.index', [
             'grades' => User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
             ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
@@ -211,11 +212,11 @@ class GradeController extends Component
             'courses' => $this->consultar_cursos(),
             'groups' => $this->consultar_grupos()
         ]);
+
     }
 
     public function descarga(){
         $data=$this->participants();
-
         return Excel::download(new ListExport($data), 'Lista_Asistencia.xlsx');
     }
 

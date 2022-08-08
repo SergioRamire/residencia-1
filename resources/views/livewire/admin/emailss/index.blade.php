@@ -65,12 +65,12 @@
                                 <x-table.cell>{{ $r->role}}</x-table.cell>
                                 <x-table.cell>{{ $r->created_at->diffForHumans()}}</x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                    <button wire:click="view({{$r->id }})" type="button" class="mx-2 text-indigo-600 hover:text-indigo-900">
-                                        <x-icon.eye class="h-6 w-6"/>
+                                    <button  wire:click="view({{$r->id}})" type="button" title="Editar período" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                        Ver
                                     </button>
-                                    {{-- <button  wire:click="deletePost('{{$r->id}}' , '{{$r->title}}')" type="button" class="text-red-600 hover:text-red-900">
-                                        <x-icon.trash class="h-6 w-6"/>
-                                    </button> --}}
+                                    <button wire:click="delete_post('{{$r->id}}' , '{{$r->title}}')" type="button" title="Eliminar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                        Eliminar
+                                    </button>
                                 </x-table.cell>
                             </tr>
                     @empty
@@ -100,6 +100,9 @@
     <!-- Modales -->
     @if($create)
         @include('livewire.admin.emailss.edit')
+    @endif
+    @if($confirmin_part_deletion)
+        @include('livewire.admin.emailss.destroy_email')
     @endif
     @if($confirmin_notificacion)
         @include('livewire.admin.emailss.destroy')

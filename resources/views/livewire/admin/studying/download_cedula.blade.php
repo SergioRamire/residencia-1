@@ -53,22 +53,16 @@
             }
             table {
                 width: 100%;
-                /* border: 2px solid #000; */
                 border-collapse: collapse;
             }
             th{
-                /* width: 25%; */
                 text-align: left;
-                /* vertical-align: top; */
-                /* border: 1px solid #000; */
-                /* border-spacing: 0; */
             }
 
             td {
                 /* width: 25%; */
                 text-align: left;
                 vertical-align: top;
-                /* border: 2px solid #000; */
                 border-collapse: collapse;
                 border-spacing: 0;
             }
