@@ -41,7 +41,7 @@ class SubirConstanciaController extends Component
 
     public function save()
     {
-        $existe_cedula = $this->remover_cedula_pasada($this->user->courseDetails()->find(8)->inscription->url_cedula);
+        $existe_cedula = $this->remover_cedula_pasada($this->user->courseDetails()->find($this->course_detail->id)->inscription->url_cedula);
 
         $path = $this->constancia->store('constancias-firmadas', 'public');
         $this->user->courseDetails()->sync([
