@@ -54,7 +54,7 @@
                         <x-table.header class="text-center">Curso</x-table.header>
                         <x-table.header class="text-center">Grupo</x-table.header>
                         <x-table.header class="text-center">Lugar</x-table.header>
-                        <x-table.header class="text-center">Horario</x-table.header>
+                        <x-table.header class="text-center">FECHA</x-table.header>
                         <x-table.header class="text-center">Acción</x-table.header>
                     </x-slot>
 

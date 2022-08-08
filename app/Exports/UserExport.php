@@ -28,7 +28,6 @@ class UserExport implements FromView
 
     public function view(): View
     {
-
         return view('livewire.admin.excel.viewexcel',[
             'data' => $this->data,
             'instructor' => $this->ins,

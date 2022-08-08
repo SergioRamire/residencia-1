@@ -24,7 +24,7 @@ class AssignedInstructorController extends Component
 
     public $id_detalle_curso;
     public $id_ins;
-    
+
     public $modal_edit = false;
     public $id_per;
     public $create = false;
@@ -32,7 +32,7 @@ class AssignedInstructorController extends Component
     public $delet = false;
 
     public $id_detalle_curso2;
-    
+
     public $id_ins_delete;
     public $modal_delete = false;
     public bool $modal_confirmacion;
@@ -151,7 +151,7 @@ class AssignedInstructorController extends Component
                 'groups.nombre as gnombre',
                 'course_details.lugar as lugar',
                 'periods.fecha_inicio as f1',
-                'periods.fecha_inicio as f2',
+                'periods.fecha_fin as f2',
                 'course_details.id as idcurdet',
             )
             ->where(function ($query) use ($buscar) {

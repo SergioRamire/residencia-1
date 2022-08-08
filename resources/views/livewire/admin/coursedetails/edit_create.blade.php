@@ -86,7 +86,7 @@
         </x-jet-secondary-button>
 
         <x-jet-button class="ml-3" wire:loading.attr="disabled" form="courseForm">
-            Datos
+            Guardar
         </x-jet-button>
         @if ($confirming_save_details)
             @include('livewire.admin.coursedetails.confirmation')
