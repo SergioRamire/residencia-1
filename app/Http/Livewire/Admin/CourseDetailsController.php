@@ -38,6 +38,7 @@ class CourseDetailsController extends Component
     public $hora_fin;
     public $capacidad;
     public $modalidad;
+    public $numero_curso;
     public $lugar;
     public $busq;
     public $edit = false;
@@ -48,7 +49,7 @@ class CourseDetailsController extends Component
     public $confirming_details_deletion = false;
     public $confirming_save_details = false;
     public bool $show_view_modal = false;
-    
+
     protected $listeners = [
         'per_send',
         'per_send2',
@@ -66,7 +67,7 @@ class CourseDetailsController extends Component
     protected $queryString = [
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
-    
+
     public function create(){
         $this->resetErrorBag();
         $this->resetInputFields();
@@ -93,6 +94,7 @@ class CourseDetailsController extends Component
         $this->modalidad = '';
         $this->lugar = '';
         $this->busq = '';
+        $this->numero_curso = '';
     }
     private function validateInputs(){
         $this->validate([
@@ -100,12 +102,14 @@ class CourseDetailsController extends Component
             'period' => ['required',  'exists:periods,id'],
             'hora_inicio' => ['required', new Time('07:00:00', '17:00:00')],
             'hora_fin' => ['required', new Time('08:00:00', '18:00:00')],
-            'lugar' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'lugar' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
             'modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
+            'numero_curso'=>['required', 'numeric'],
             'capacidad' => ['required', 'numeric'],
             'grupo_id' => ['required',  'exists:groups,id'],
         ]);
     }
+
     public function update_details(){
         $this->validateInputs();
         $this->confirming_save_details = true;
@@ -128,6 +132,7 @@ class CourseDetailsController extends Component
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
         $this->modalidad = $coursedetail->modalidad;
+        $this->numero_curso = $coursedetail->numero_curso;
         $this->lugar = $coursedetail->lugar;
 
         $this->curso = Course::find($coursedetail->course_id)->nombre;
@@ -146,6 +151,7 @@ class CourseDetailsController extends Component
             'lugar'=>$this->lugar,
             'capacidad'=>$this->capacidad,
             'modalidad'=>$this->modalidad,
+            'numero_curso'=>$this->numero_curso,
             'course_id'=>$this->curso,
             'group_id'=>$this->grupo_id,
             'period_id'=>$this->period,
@@ -177,6 +183,7 @@ class CourseDetailsController extends Component
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
         $this->modalidad = $coursedetail->modalidad;
+        $this->numero_curso= $coursedetail->numero_curso;
         $this->lugar = $coursedetail->lugar;
         $this->emit('valorCurso',$this->curso);
         $this->emit('valorPerio',$this->period);
@@ -255,7 +262,6 @@ class CourseDetailsController extends Component
         ->get();
 
         $pdf = Pdf::loadView('livewire.admin.coursedetails.dowlandlistcourse', ['courses' => $coursesdetails]);
-        // $pdf_file = storage_path('app/')."ListadoCursos-$coursesdetails->claves.pdf";
         $pdf_file = storage_path('app/')."Listado de cursos.pdf";
         $pdf->setPaper("A4",'landscape');
         $pdf->save($pdf_file);

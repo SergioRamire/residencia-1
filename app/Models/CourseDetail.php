@@ -16,6 +16,7 @@ class CourseDetail extends Model
         'lugar',
         'capacidad',
         'modalidad',
+        'numero_curso',
         'course_id',
         'group_id',
         'period_id',

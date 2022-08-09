@@ -41,7 +41,7 @@
 
                 <!-- Hora fin -->
                 <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="hora_fin">"Hora fin <span class="text-red-600">*</span></x-jet-label>
+                    <x-jet-label for="hora_fin">Hora fin <span class="text-red-600">*</span></x-jet-label>
                     <x-datepicker wire:model.defer="hora_fin" class="block mt-1 w-full" ref="hora_fin1" name="hora_fin1"
                                   :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="hora_fin" />
@@ -75,6 +75,13 @@
                             <option value="{{ $group->id }}">{{ $group->nombre }}</option>
                         @endforeach
                     </x-input.select>
+                </div>
+
+                <!-- Numero de curso para las constancias -->
+                <div class="mt-4">
+                    <x-jet-label for="numero_curso">Numero de curso <span class="text-red-600">*</span></x-jet-label>
+                    <x-input.error wire:model.defer="numero_curso" class="block mt-1 w-full" type="number" id="numero_curso"
+                        name="numero_curso" for="numero_curso" maxlength="2" required />
                 </div>
             </div>
         </form>

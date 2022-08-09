@@ -181,7 +181,7 @@ class ConstanciaInstructorController extends Component
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->where('inscriptions.estatus_participante', '=', 'Instructor')
             ->where('course_details.period_id', '=', $this->filters['fecha'])
-            ->select(['users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.sexo as sexo', 'courses.nombre as curso', 'groups.nombre as grupo', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
+            ->select(['users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.sexo as sexo', 'courses.nombre as curso', 'groups.nombre as grupo', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion','course_details.numero_curso']);
     }
 
     private function get_dates(?User $datos): array
@@ -191,19 +191,4 @@ class ConstanciaInstructorController extends Component
         $dia_actual = Carbon::now()->isoFormat('D \d\e MMMM \d\e YYYY');
         return [$fechaini, $fecha_fin, $dia_actual];
     }
-
-    // private function consultaInstructores()
-    // {
-    //     return User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
-    //         ->join('areas', 'areas.id', '=', 'users.area_id')
-    //         ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
-    //         ->join('courses', 'courses.id', '=', 'course_details.course_id')
-    //         ->join('groups', 'groups.id', '=', 'course_details.group_id')
-    //         ->join('periods', 'periods.id', '=', 'course_details.period_id')
-    //         ->where('inscriptions.estatus_participante', '=', 'Instructor')
-    //         ->where('course_details.period_id', '=', $this->filters['fecha'])
-    //         // ->where('course_details.course_id', '=', $this->filters['filtro_curso'])
-    //         ->select(['users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.sexo as sexo', 'courses.nombre as curso', 'groups.nombre as grupo', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
-    //         // ->when($this->filters['filtro_curso'], fn ($query, $filtro_curso) => $query->where('course_details.nombre', '=', $filtro_curso));
-    // }
 }
