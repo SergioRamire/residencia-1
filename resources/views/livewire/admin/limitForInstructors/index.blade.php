@@ -15,13 +15,13 @@
             <p class="p-2 text-xl">Período Activo: </p>
             <x-table>
                 <x-slot name="head">
-                    <x-table.header>Clave</x-table.header>
-                    <x-table.header>Período</x-table.header>
-                    <x-table.header>fecha límite para cargar calificaciones</x-table.header>
-                    <x-table.header>acciones</x-table.header>
+                    <x-table.header class="text-center">Clave</x-table.header>
+                    <x-table.header class="text-center">Período</x-table.header>
+                    <x-table.header class="text-center">fecha límite para cargar calificaciones</x-table.header>
+                    <x-table.header class="text-center">acciones</x-table.header>
                 </x-slot>
                 @if (!empty($periodos))
-                    <tr wire:loading.class.delay="opacity-50">
+                    <tr wire:loading.class.delay="opacity-50" class="text-center">
                         <x-table.cell>{{ $periodos->clave }}</x-table.cell>
                         <x-table.cell>Del {{ date('d-m-Y', strtotime($periodos->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($periodos->fecha_fin)) }}</x-table.cell>
                         <x-table.cell>{{ $periodos->fecha_limite_para_calificar }}</x-table.cell>

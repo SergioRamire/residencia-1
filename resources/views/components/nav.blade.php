@@ -97,20 +97,17 @@
                             <p class="italic text-xs text-right leading-3">{{$notification->created_at->diffForHumans()}}</p>
                         </x-nav.link>
                     @empty
-                        <x-nav.link disabled>Sin notificaciones leídas</x-nav.link>
+                        <x-nav.link disabled class="text-right">Sin notificaciones leídas</x-nav.link>
                     @endforelse
 
                     <div class="border-t border-gray-200"></div>
-                    {{-- <div>
-                        <a href="{{route('mark_as_read')}}">dddd</a>
-                    </div> --}}
                     <div>
-                        <button href="{{route('mark_as_read')}}" class="mt-2 mx-auto inline-flex items-center w-full py-1 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring focus:ring-indigo-300 disabled:opacity-25 transition"
+                        <a href="{{route('mark_as_read')}}" class="mt-2 mx-auto inline-flex items-center w-full py-1 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring focus:ring-indigo-300 disabled:opacity-25 transition"
                                 title="Marcar todo como leído">
                             <svg class="h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
                             </svg>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

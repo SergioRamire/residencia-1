@@ -15,7 +15,7 @@
                 <x-input.textarea wire:model.defer="description" id="arr.description" class="block mt-1 w-full" name="description" disabled/>
             </div>
             <div class="mt-4">
-                <x-jet-label value="Para"/>
+                <x-jet-label value="Destinatario"/>
                 <x-jet-input wire:model.defer="role" class="block mt-1 w-full" type="text" disabled/>
             </div>
         {{-- </form> --}}

@@ -92,7 +92,7 @@ class User extends Authenticatable
     public function courseDetails()
     {
         return $this->belongsToMany(CourseDetail::class, 'inscriptions')
-            ->withPivot('calificacion', 'estatus_participante', 'asistencias_minimas')
+            ->withPivot('calificacion', 'estatus_participante', 'asistencias_minimas', 'url_cedula')
             ->as('inscription')
             ->withTimestamps();
     }

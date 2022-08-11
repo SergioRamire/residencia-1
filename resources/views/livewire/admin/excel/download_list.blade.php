@@ -2,9 +2,7 @@
 
     <thead>
         <tr>
-            {{-- <td rowspan="6"></td> --}}
             <td style="text-align:center; font-weight: 500;  border: 1px solid # 000000;" rowspan="6" colspan="2">
-                {{-- <img src="{{ public_path().'/img/sep.png' }}" width="60" height="80" align="left"/> --}}
                 <img src="{{ public_path().'/img/sep-tecnm.png' }}" width="100" height="57" align="rigth"/>
             </td>
             <td style="text-align:center; vertical-align: bottom; font-weight: 500;  border: 1px solid # 000000;" rowspan="3" colspan="7">
@@ -122,7 +120,6 @@
             <td style="text-align:center; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 45px;">{{$k}}</td>
             <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border: 1px solid # 000000; width: 235px;">{{ $invoice->nombre}}</td>
             <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 110px;">{{$invoice->rfc}}</td>
-            {{-- <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 285px;">{{ $invoice->area}}</td> --}}
             <td style="text-align:left; border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; width: 285px;">{{mb_strtoupper(Str::of($invoice->area)->after('Departamento de'),'utf-8')}}</td>
             <td style="text-align:center; background: #ebebeb; border: 1px solid # 000000;"> </td>
             <td style="text-align:center; background: #ebebeb; border: 1px solid # 000000;"> </td>

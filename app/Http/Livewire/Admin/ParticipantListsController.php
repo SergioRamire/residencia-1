@@ -158,6 +158,10 @@ class ParticipantListsController extends Component
                 'calificacion' => 0,
                 'estatus_participante' => 'Participante',
                 'asistencias_minimas' => 0,
+                'url_cedula' => '',
+                // 'calificacion' => 0,
+                // 'estatus_participante' => 'Participante',
+                // 'asistencias_minimas' => 0,
             ]
         );
         $this->noti('success','Participante creado');
@@ -235,7 +239,7 @@ class ParticipantListsController extends Component
         ->where('inscriptions.estatus_participante', '=', $user)
         ->where('course_details.period_id', '=', $periodo)
         ->where('course_details.course_id', '=', $curso)
-        ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,
+        ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,  
         ' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.rfc as rfc','users.curp as curp','users.sexo as sex','courses.clave as clave','courses.duracion as duracion','courses.nombre as curso','groups.nombre as grupo','course_details.modalidad as modalidad',
         'areas.nombre as area', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','course_details.hora_inicio as hi','course_details.hora_fin as hf')
         ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
