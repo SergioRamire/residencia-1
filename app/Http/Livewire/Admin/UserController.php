@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire\Admin;
-
+use App\Http\Traits\WithFilters;
 use App\Http\Traits\WithSearching;
 use App\Http\Traits\WithSorting;
 use App\Http\Traits\WithTrimAndNullEmptyStrings;
@@ -18,6 +18,7 @@ class UserController extends Component
 {
     use AuthorizesRequests;
     use WithPagination;
+    use WithFilters;
     use WithSearching;
     use WithSorting;
     use WithTrimAndNullEmptyStrings;
@@ -35,13 +36,19 @@ class UserController extends Component
     public bool $show_confirmation_modal = false;
     public bool $edit = false;
     public bool $delete = false;
-    
+
     public $no_ap1 = false;
     public $no_ap2 = false;
+    public $estado = 0;
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
+
+    public array $filters = [
+        'estatus' => '',
+    ];
+
 
     public function rules(): array
     {
@@ -53,6 +60,7 @@ class UserController extends Component
                 'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
                 'password_confirmation' => ['present', 'string', 'min:8'],
                 'password' => ['present', 'confirmed'],
+                'user.estado'=>'required',
             ];
         }
 
@@ -63,6 +71,7 @@ class UserController extends Component
             'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password_confirmation' => ['required', 'string', 'min:8'],
             'password' => ['required', 'confirmed'],
+            'user.estado'=>'required',
         ];
     }
 
@@ -162,6 +171,7 @@ class UserController extends Component
             $this->user->update([
                 'name' => $this->user->name,
                 'email' => $this->user->email,
+                'estado' =>$this->user->estado,
             ]);
             $this->user->syncRoles($this->role);
         } else {
@@ -198,6 +208,7 @@ class UserController extends Component
                     $query->where(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 })
+                ->when($this->filters['estatus'], fn ($query, $estatus) => $query->where('estado', $estatus))
                 ->when($this->sortField === 'nombre_completo', function ($query) {
                     $query->orderByRaw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ') $this->sortDirection");
                 }, function ($query) {

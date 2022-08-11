@@ -178,7 +178,7 @@ class ConstanciasController extends Component
             ->where('course_details.period_id', '=', $this->classification['periodo'])
             ->where('course_details.course_id', '=', $this->classification['curso'])
             ->select(['inscriptions.id', 'users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name', 'users.apellido_paterno', 'users.apellido_materno',
-                'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion','inscriptions.asistencias_minimas', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion']);
+                'courses.nombre as curso', 'groups.nombre as grupo', 'inscriptions.calificacion','inscriptions.asistencias_minimas', 'areas.nombre as area','periods.fecha_inicio as fi', 'periods.fecha_fin as ff','courses.duracion as duracion','course_details.numero_curso']);
     }
 
     private function get_dates(?User $datos): array

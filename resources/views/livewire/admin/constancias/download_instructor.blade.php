@@ -38,9 +38,9 @@
 
 
 @if ($datos->sexo == 'F')
-    <p id="texto-principal">POR SU PARTICIPACIÓN COMO INSTRUCTORA DEL CURSO "{{ mb_strtoupper($datos->curso,'utf-8') }}" CON EL NÚMERO DE REGISTRO: "TNM-135-42-{{$year->format('Y')}}/{{$numlist}}", LLEVADO A CABO EN LINEA DEL {{mb_strtoupper($fi,'utf-8')}} AL {{mb_strtoupper( $ff,'utf-8')}}, CON UNA DURACIÓN DE {{$datos->duracion}} HORAS.</p>
+    <p id="texto-principal">POR SU PARTICIPACIÓN COMO INSTRUCTORA DEL CURSO "{{ mb_strtoupper($datos->curso,'utf-8') }}" CON EL NÚMERO DE REGISTRO: "TNM-135-{{$datos->numero_curso}}-{{$year->format('Y')}}/{{$numlist}}", LLEVADO A CABO EN LINEA DEL {{mb_strtoupper($fi,'utf-8')}} AL {{mb_strtoupper( $ff,'utf-8')}}, CON UNA DURACIÓN DE {{$datos->duracion}} HORAS.</p>
 @elseif($datos->sexo == 'M')
-    <p id="texto-principal">POR SU PARTICIPACIÓN COMO INSTRUCTOR DEL CURSO "{{ mb_strtoupper($datos->curso,'utf-8') }}" CON EL NÚMERO DE REGISTRO: "TNM-135-42-{{$year->format('Y')}}/{{$numlist}}", LLEVADO A CABO EN LINEA DEL {{mb_strtoupper($fi,'utf-8')}} AL {{mb_strtoupper($ff,'utf-8')}}, CON UNA DURACIÓN DE {{$datos->duracion}} HORAS.</p>
+    <p id="texto-principal">POR SU PARTICIPACIÓN COMO INSTRUCTOR DEL CURSO "{{ mb_strtoupper($datos->curso,'utf-8') }}" CON EL NÚMERO DE REGISTRO: "TNM-135-{{$datos->numero_curso}}-{{$year->format('Y')}}/{{$numlist}}", LLEVADO A CABO EN LINEA DEL {{mb_strtoupper($fi,'utf-8')}} AL {{mb_strtoupper($ff,'utf-8')}}, CON UNA DURACIÓN DE {{$datos->duracion}} HORAS.</p>
 @endif
 
 

@@ -60,6 +60,12 @@
                     <x-jet-label for="grupo" value="Grupo"/>
                     <x-jet-input wire:model.defer="grupo_id" class="block mt-1 w-full" type="text" disabled/>
                 </div>
+
+                <!-- Numero de curso para las constancias -->
+                <div class="mt-4">
+                    <x-jet-label for="numero_curso" value="Número de curso" />
+                    <x-jet-input wire:model.defer="numero_curso" class="block mt-1 w-full" type="number" disabled />
+                </div>
             </div>
     </x-slot>
 
