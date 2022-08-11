@@ -223,7 +223,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
 
 
                 @can('constancias.show')
-                <x-sidebar.dropdown title="Constancias" dp-id="1">
+                <x-sidebar.dropdown title="Generar constancias" dp-id="1">
                     <x-slot name="icon" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </x-slot>
@@ -236,6 +236,14 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                 </x-sidebar.dropdown>
                 @endcan
 
+                @can('const_firmada.show')
+                <x-sidebar.link :href='route("admin.ver-constancias-firmadas")' :active="request()->routeIs('admin.ver-constancias-firmadas')">
+                    <x-slot name="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </x-slot>
+                    Cedulas de inscripción
+                </x-sidebar.link>
+                @endcan
 
                 @can('historycourse.show')
                     <x-sidebar.dropdown title="Historial" dp-id="1">
@@ -273,12 +281,14 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     Notificationes recibidas
                 </x-sidebar.link>
 
-                <x-sidebar.link href="{{route('admin.backup')}}" :active="request()->routeIs('admin.backup')">
-                    <x-slot name="icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-                    </x-slot>
-                    Base de datos
-                </x-sidebar.link>
+                @can('backup.edit')
+                    <x-sidebar.link href="{{route('admin.backup')}}" :active="request()->routeIs('admin.backup')">
+                        <x-slot name="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                        </x-slot>
+                        Base de datos
+                    </x-sidebar.link>
+                @endcan
             </nav>
         </div>
     </div>
@@ -477,7 +487,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                 @endcan --}}
 
                 @can('constancias.show')
-                    <x-sidebar.dropdown title="Constancias" dp-id="1">
+                    <x-sidebar.dropdown title="Generar constancias" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </x-slot>
@@ -488,6 +498,15 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                             Instructores
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
+                @endcan
+
+                @can('const_firmada.show')
+                <x-sidebar.link :href='route("admin.ver-constancias-firmadas")' :active="request()->routeIs('admin.ver-constancias-firmadas')">
+                    <x-slot name="icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </x-slot>
+                    Cedulas de inscripción
+                </x-sidebar.link>
                 @endcan
 
 
@@ -542,13 +561,14 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" clip-rule="evenodd" /></x-slot>
                     Notificationes recibidas
                 </x-sidebar.link>
-
-                <x-sidebar.link href="{{route('admin.backup')}}" :active="request()->routeIs('admin.backup')">
-                    <x-slot name="icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-                    </x-slot>
-                    Base de datos
-                </x-sidebar.link>
+                @can('backup.edit')
+                    <x-sidebar.link href="{{route('admin.backup')}}" :active="request()->routeIs('admin.backup')">
+                        <x-slot name="icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+                        </x-slot>
+                        Base de datos
+                    </x-sidebar.link>
+                @endcan
             </nav>
         </div>
     </div>
