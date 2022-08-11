@@ -195,7 +195,7 @@ class InscriptionsController extends Component
         return $users->user_count;
     }
 
-    public function evaluar_cantidad_cursos_seleccionados(){
+    public function evaluar_tabla_cursos_seleccionados(){
         if(count($this->consultar_cursos_seleccionados())!==0)
             $this->btn_continuar = true;
         else
@@ -233,7 +233,7 @@ class InscriptionsController extends Component
     }
 
     public function render(){
-        $this->evaluar_cantidad_cursos_seleccionados();
+        $this->evaluar_tabla_cursos_seleccionados();
         $this->consulta_periodos_a_publicar();
         $this->verficar_mostrar_cursos();
         $this->verificar_inscripciones_recientes_de_usuario();
@@ -339,9 +339,6 @@ class InscriptionsController extends Component
 
     public function store(){
         $this->confirming_save_inscription = false;
-        // $this->show_horario = false;
-        // $this->show_horario = false;
-
         $this->user = User::find(auth()->user()->id);
         foreach ($this->unionarreglos as $id) {
             $courseDetails = CourseDetail::find($id);
@@ -352,13 +349,9 @@ class InscriptionsController extends Component
                         'url_cedula' => '',
                     ]);
         }
-
         $this->show_mensaje = true;
         app(EmailController::class)->cursos($this->user, $this->unionarreglos);
-
-
         $this-> noti('success','Horario creado Exitosamente');
-
     }
 
     public function noti($icon,$txt){

@@ -48,7 +48,7 @@ class CourseDetailsController extends Component
     public $confirming_details_deletion = false;
     public $confirming_save_details = false;
     public bool $show_view_modal = false;
-    
+
     protected $listeners = [
         'per_send',
         'per_send2',
@@ -66,7 +66,7 @@ class CourseDetailsController extends Component
     protected $queryString = [
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
-    
+
     public function create(){
         $this->resetErrorBag();
         $this->resetInputFields();
@@ -76,12 +76,15 @@ class CourseDetailsController extends Component
         $this->edit = false;
         $this->create = true;
     }
+
     public function open_modal(){
         $this->show_edit_createModal = true;
     }
+
     public function close_modal(){
         $this->show_edit_createModal = false;
     }
+
     private function resetInputFields(){
         $this->curso = '';
         $this->curso_elegido = '';
@@ -94,6 +97,7 @@ class CourseDetailsController extends Component
         $this->lugar = '';
         $this->busq = '';
     }
+
     private function validateInputs(){
         $this->validate([
             'curso' => ['required',  'exists:courses,id'],
@@ -106,10 +110,12 @@ class CourseDetailsController extends Component
             'grupo_id' => ['required',  'exists:groups,id'],
         ]);
     }
+
     public function update_details(){
         $this->validateInputs();
         $this->confirming_save_details = true;
     }
+
     public function view($id){
         $coursedetail = CourseDetail::find($id);
         // $this->curso = $coursedetail->curso;
@@ -138,6 +144,7 @@ class CourseDetailsController extends Component
         $this->lugar = $coursedetail->lugar;
         $this->show_view_modal = true;
     }
+
     public function store(){
         $this->validateInputs();
         CourseDetail::updateOrCreate(['id' => $this->coursedetail_id], [
@@ -153,18 +160,16 @@ class CourseDetailsController extends Component
         $this->edit = false;
         $this->create = false;
         $this->confirming_save_details = false;
-        /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
-
         $this->close_modal();
         $this->resetInputFields();
-
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
             'message' =>  $this->edit ? 'Detalles actualizados exitosamente' : 'Detalles creados exitosamente',
         ]);
     }
+
     public function edit($id){
         $this->resetErrorBag();
         $this->resetInputFields();
@@ -185,6 +190,7 @@ class CourseDetailsController extends Component
         $this->open_modal();
 
     }
+
     public function delete_details($id){
         $this->coursedetail = CourseDetail::findOrFail($id);
         $course = CourseDetail::join('courses','courses.id','course_details.course_id')
@@ -194,6 +200,7 @@ class CourseDetailsController extends Component
         $this->curso_elegido=$course->curso;
         $this->confirming_details_deletion = true;
     }
+
     public function delete(){
         $this->coursedetail->delete();
         $this->confirming_details_deletion= false;
@@ -202,6 +209,7 @@ class CourseDetailsController extends Component
             'message' =>  'Los detalles se han eliminado exitosamente',
         ]);
     }
+
     public function mostrar(){
         $buscar=$this->search;
         return CourseDetail::join('courses', 'courses.id', 'course_details.course_id')
@@ -224,24 +232,30 @@ class CourseDetailsController extends Component
         })
         ->orderBy($this->sortField, $this->sortDirection);
     }
+
     public function render(){
         return view('livewire.admin.coursedetails.index', [
             'detalles'=>$this->mostrar()->paginate($this->perPage),
         ]);
     }
+
     public function per_send($valor){
         $this->classification['periodo'] = $valor;
     }
+
     public function per_send2($valor){
         $this->period = $valor;
     }
+
     public function data_send($valor){
         $this->classification['curso'] = $valor;
         $this->id_detalle_curso = $valor;
     }
+
     public function send_curso($valor){
         $this->curso = $valor;
     }
+
     public function download_pdf(){
         $coursesdetails = CourseDetail::join('courses', 'courses.id','=', 'course_details.course_id')
         ->join('groups', 'groups.id', '=','course_details.group_id')

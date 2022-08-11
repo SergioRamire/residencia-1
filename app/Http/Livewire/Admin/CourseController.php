@@ -98,18 +98,12 @@ class CourseController extends Component
     public function edit(Course $course)
     {
         $this->authorize('course.edit');
-
-        /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
-
         $this->course = $course;
-
-        /* Convierte la cadena a arreglo para su uso en el <select> */
         if (is_string($this->course->dirigido)) {
             $this->course->dirigido = array_map('trim', explode(',', $this->course->dirigido));
         }
-
         $this->edit = true;
         $this->delete = false;
         $this->showEditCreateModal = true;
@@ -133,9 +127,7 @@ class CourseController extends Component
     public function delete(Course $course)
     {
         $this->authorize('course.delete');
-
         $this->course = $course;
-
         $this->edit = false;
         $this->delete = true;
         $this->showConfirmationModal = true;
@@ -149,14 +141,10 @@ class CourseController extends Component
 
     public function save()
     {
-        /* Convierte el arreglo a cadena para su uso inserción en la BD */
         $this->course->dirigido = implode(', ', $this->course->dirigido);
-
         $this->course->save();
-
         $this->showConfirmationModal = false;
         $this->showEditCreateModal = false;
-
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
             'message' => $this->edit ? 'Course actualizado exitosamente' : 'Course creado exitosamente',
@@ -167,7 +155,6 @@ class CourseController extends Component
     {
         $this->course->delete();
         $this->showConfirmationModal = false;
-
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',
             'message' => 'Course eliminado exitosamente',

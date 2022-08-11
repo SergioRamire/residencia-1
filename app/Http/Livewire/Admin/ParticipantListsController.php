@@ -152,7 +152,6 @@ class ParticipantListsController extends Component
     public function store(){
         $aux_user = $this->id_usuario;
         $aux_detallercurso = $this->id_curso_grupo;
-
         $user = User::find($aux_user);
         $courseDetails = CourseDetail::find($aux_detallercurso);
         $user->courseDetails()->attach( $courseDetails, [
@@ -161,12 +160,12 @@ class ParticipantListsController extends Component
                 'asistencias_minimas' => 0,
             ]
         );
-
         $this->noti('success','Participante creado');
         $this->showEdit_create_modal = false;
         $this->confirming_participant_deletion = false;
         $this->confirming_save_participant = false;
     }
+
     public $edit_user;
     public $edit_curso;
 
@@ -180,9 +179,6 @@ class ParticipantListsController extends Component
         $user->courseDetails()->updateExistingPivot( $courseDetails, [
                 'user_id' => $this->id_usuario,
                 'course_detail_id' => $this->id_curso_grupo,
-                // 'calificacion' => 0,
-                // 'estatus_participante' => 'Participante',
-                // 'asistencias_minimas' => 0,
             ]
         );
 

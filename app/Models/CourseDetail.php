@@ -58,10 +58,4 @@ class CourseDetail extends Model
         );
     }
 
-    /* public function periods()
-    {
-        return $this->belongsToMany(Period::class, 'period_details')
-            ->as('period_detail')
-            ->withTimestamps();
-    } */
 }

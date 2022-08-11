@@ -16,7 +16,6 @@ class GroupController extends Component
     use WithPagination;
     use WithSorting;
     use AuthorizesRequests;
-
     public $groups;
 
     public $edit = false;
@@ -87,10 +86,8 @@ class GroupController extends Component
         ]);
         $this->edit = false;
         $this->create = false;
-        /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
-
         $this->close_modal();
         $this->confirming_save_group = false;
         $this->confirming_group_deletion = false;

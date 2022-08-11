@@ -121,15 +121,11 @@ class PeriodCoursesController extends Component
         $this->periods->ofertado = 0;
         $this->periods->fecha_limite_para_calificar = $this->periods->fecha_fin;
         $this->periods->save();
-
-        /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
-
         $this->show_edit_create_modal = false;
         $this->confirming_period_deletion = false;
         $this->confirming_save_period = false;
-
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
             'message' =>  $this->edit ? 'Período actualizado exitosamente' : 'Período creado exitosamente',

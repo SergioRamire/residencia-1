@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('lugar');
             $table->tinyInteger('capacidad');
             $table->string('modalidad', 20);
-            // $table->boolean('estatus')->nullable();
             $table->timestamps();
             $table->foreignId('course_id')
                 ->nullable()

@@ -12,8 +12,6 @@
     </x-slot>
 
     <div class="space-y-2">
-
-        <div class="pt-12">
             <p class="p-2 text-xl">Período Activo: </p>
             <x-table>
                 <x-slot name="head">
@@ -52,8 +50,6 @@
             @if ($modal_edit)
                 @include('livewire.admin.limitForInstructors.edit_create')
             @endif
-        </div>
-
     </div>
 
 </div>
