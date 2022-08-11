@@ -25,6 +25,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'Dr. Rubén Doroteo Castillejos',
             'telefono' =>9515015016,
             'extension' =>136,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '9123',
@@ -32,6 +33,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'M.A. Efrén Normando Enríquez Porras',
             'telefono' =>9515015016,
             'extension' =>138,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '2351',
@@ -39,6 +41,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'M.C. Maricela Morales Hernández',
             'telefono' =>9515015016,
             'extension' =>123,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '9234',
@@ -46,6 +49,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'M.A. Edgar Alberto Cortes Jiménez',
             'telefono' =>9515015016,
             'extension' =>130,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '1062',
@@ -53,6 +57,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'M.C. Minerva Donají Méndez López',
             'telefono' =>9515015016,
             'extension' =>117,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '3145',
@@ -60,6 +65,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'M.C. Martha Hilaria Bartolo Alemán',
             'telefono' =>9515015016,
             'extension' =>117,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '1034',
@@ -67,6 +73,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'Ing. Adrián Gómez Ordaz',
             'telefono' =>9515015016,
             'extension' =>128,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '2761',
@@ -74,6 +81,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'Ing. Roberto Tamar Castellanos Baltazar',
             'telefono' =>9515015016,
             'extension' =>126,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '9162',
@@ -81,6 +89,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'José Alfredo Reyes Juárez',
             'telefono' =>9515015016,
             'extension' =>132,
+            'estatus' =>'1',
           ]);
         DB::table('areas')->insert([
             'clave' => '3211',
@@ -88,6 +97,7 @@ class AreaSeeder extends Seeder
             'jefe_area' => 'L.I. Virginia Ortíz Méndez',
             'telefono' =>9515015016,
             'extension' =>134,
+            'estatus' =>'1',
           ]);
     }
 }

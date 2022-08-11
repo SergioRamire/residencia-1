@@ -71,7 +71,7 @@
                     <x-input.select wire:model.defer="grupo_id" class="mt-1 w-full" id="grupo_id" name="grupo_id"
                         required>
                         <option value="" disabled>Selecciona el grupo</option>
-                        @foreach (\App\Models\Group::all() as $group)
+                        @foreach (\App\Models\Group::where('estatus','1')->get() as $group)
                             <option value="{{ $group->id }}">{{ $group->nombre }}</option>
                         @endforeach
                     </x-input.select>

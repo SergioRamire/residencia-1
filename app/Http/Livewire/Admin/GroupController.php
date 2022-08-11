@@ -9,6 +9,7 @@ use App\Models\Group;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class GroupController extends Component
@@ -24,6 +25,9 @@ class GroupController extends Component
     public $is_open = false;
     public $confirming_group_deletion = false;
     public $confirming_save_group = false;
+    public bool $confirming_group_active =false;
+    public bool $confirming_group_Inactive =false;
+    public $groups_id;
 
     public $perPage = '8';
     public $search = '';
@@ -132,6 +136,31 @@ class GroupController extends Component
             'message' =>  'Grupo eliminado exitosamente',
         ]);
     }
+
+    public function group_activar($id){
+        $this->groups_id = $id;
+        $this->confirming_group_active=true;
+    }
+
+    public function group_desactivar($id){
+        $this->groups_id = $id;
+        $this->confirming_group_Inactive=true;
+    }
+
+    public function activar(){
+        DB::table('groups')
+            ->where('groups.id','=',$this->groups_id)
+            ->update(['estatus' => 1]);
+        $this->confirming_group_active=false;
+    }
+
+    public function desactivar(){
+        DB::table('groups')
+            ->where('groups.id','=',$this->groups_id)
+            ->update(['estatus' => 0]);
+        $this->confirming_group_Inactive=false;
+    }
+
 
     public function render(){
         return view('livewire.admin.groups.index', [

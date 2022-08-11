@@ -107,7 +107,10 @@
                         <x-table.header wire:click="sortBy('perfil')" sortable :direction="$sortField === 'perfil' ? $sortDirection : null">
                             perfil
                         </x-table.header>
-                        <x-table.header>acciones</x-table.header>
+                        <x-table.header>
+                            estado
+                        </x-table.header>
+                        <x-table.header class="text-center">acciones</x-table.header>
                     </x-slot>
 
                     @forelse($courses as $c)
@@ -116,6 +119,13 @@
                             <x-table.cell>{{ $c->clave }}</x-table.cell>
                             <x-table.cell>{{ $c->nombre }}</x-table.cell>
                             <x-table.cell>{{ $c->perfil }}</x-table.cell>
+                            <x-table.cell>
+                                @if($c->estatus === 1)
+                                    <x-badge.basic value="Activo" color="green" large/>
+                                @elseif($c->estatus === 0)
+                                    <x-badge.basic value="Inactivo" color="red" large/>
+                                @endif
+                            </x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
                                 <button  wire:click="view({{ $c->id }})" type="button" title="Ver más información" class="px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                     Ver
@@ -126,6 +136,15 @@
                                 <button wire:click="delete({{ $c->id }})" type="button" title="Eliminar curso" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                     Eliminar
                                 </button>
+                                @if($c->estatus === 1)
+                            <button wire:click="area_desactivar({{ $c->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
+                                Desactivar
+                            </button>
+                            @elseif($c->estatus === 0)
+                                <button wire:click="area_activar({{ $c->id }})" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                    Activar
+                                </button>
+                            @endif
                             </x-table.cell>
                         </tr>
                     @empty
@@ -156,4 +175,10 @@
     @include('livewire.admin.courses.edit_create')
     @include('livewire.admin.courses.show')
     @include('livewire.admin.courses.confirmation')
+
+    @if ($confirming_curse_active)
+            @include('livewire.admin.courses.confirmationActive')
+    @elseif($confirming_course_Inactive)
+            @include('livewire.admin.courses.confirmationInactive')
+    @endif
 </div>

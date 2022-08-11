@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->string('dirigido');
             $table->text('observaciones')->nullable();
+            $table->boolean('estatus');
             $table->timestamps();
         });
     }

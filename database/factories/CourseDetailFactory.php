@@ -36,6 +36,7 @@ class CourseDetailFactory extends Factory
             'lugar' => $lugar,
             'capacidad' => $this->faker->numberBetween(10, 30),
             'modalidad' => $this->faker->randomElement(['Presencial', 'Semi-presencial', 'En linea']),
+            'estatus'=>'1',
             'course_id' => Course::inRandomOrder()->first()->id,
             'group_id' => Group::inRandomOrder()->first()->id,
             'period_id' => Period::inRandomOrder()->first()->id,

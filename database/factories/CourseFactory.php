@@ -73,6 +73,7 @@ class CourseFactory extends Factory
             'objetivo' =>"$verbo $obj $pre",
             'duracion' => $this->faker->numberBetween(1, 5),
             'observaciones' => '',
+            'estatus'=>'1',
             'dirigido' => implode(', ', $dirigido),
             'perfil' => $this->faker->randomElement(['Formación docente', 'Actualización profesional']),
         ];
