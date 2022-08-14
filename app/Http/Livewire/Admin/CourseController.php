@@ -41,18 +41,31 @@ class CourseController extends Component
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
-    public function rules(): array
-    {
-        return [
-            'course.clave' => ['required', 'alpha_dash', 'max:10', Rule::unique('courses', 'clave')->ignore($this->course)],
-            'course.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
-            'course.objetivo' => ['required', 'max:255'],
-            'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
-            'course.duracion' => ['required', 'integer', 'min:30', 'max:50'],
-            'course.dirigido' => ['required', 'max:255'],
-            'course.observaciones' => ['nullable', 'max:255'],
-        ];
-    }
+    protected $rules = [
+        // 'course.clave' => ['required', 'alpha_dash', 'max:10', Rule::unique('courses', 'clave')->ignore($this->course)],
+        'course.clave' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+        'course.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+        // 'course.objetivo' => ['required', 'max:255'],
+        'course.objetivo' =>['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+        'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
+        'course.duracion' => ['required', 'integer', 'min:30', 'max:50'],
+        'course.dirigido' => ['required', 'max:255'],
+        'course.observaciones' => ['nullable', 'max:255'],
+];
+
+    // public function rules(): array
+    // {
+    //     return [
+    //         'course.clave' => ['required', 'alpha_dash', 'max:10', Rule::unique('courses', 'clave')->ignore($this->course)],
+    //         'course.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+    //         'course.objetivo' => ['required', 'max:255'],
+    //         'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
+    //         'course.duracion' => ['required', 'integer', 'min:30', 'max:50'],
+    //         'course.dirigido' => ['required', 'max:255'],
+    //         'course.observaciones' => ['nullable', 'max:255'],
+    //     ];
+    // }
+
 
     public function updated($propertyName)
     {
@@ -80,7 +93,6 @@ class CourseController extends Component
     public function create()
     {
         $this->authorize('course.create');
-
         /* Reinicia los errores */
         $this->resetErrorBag();
         $this->resetValidation();
@@ -135,13 +147,15 @@ class CourseController extends Component
 
     public function confirm_save()
     {
-        $this->validate();
+        // $this->validate();
         $this->showConfirmationModal = true;
     }
 
     public function save()
     {
+        // $this->validate();
         $this->course->dirigido = implode(', ', $this->course->dirigido);
+        $this->validate();
         $this->course->save();
         $this->showConfirmationModal = false;
         $this->showEditCreateModal = false;
