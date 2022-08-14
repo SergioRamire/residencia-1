@@ -32,8 +32,8 @@ class RoleController extends Component
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
-    protected array $rules = [
-        'role.name' => ['required'],
+    protected $rules = [
+        'role.name' =>  ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
     ];
 
     public function updated($propertyName)
@@ -112,6 +112,7 @@ class RoleController extends Component
     public function save()
     {
         $this->role->syncPermissions($this->permissions);
+        $this->validate();
         $this->role->save();
 
         $this->show_confirmation_modal = false;
