@@ -21,7 +21,6 @@ class UserController extends Component
     use WithFilters;
     use WithSearching;
     use WithSorting;
-    use WithTrimAndNullEmptyStrings;
 
     public User $user;
     public string $role = '';
@@ -29,7 +28,6 @@ class UserController extends Component
     public string $password_confirmation = '';
 
     public int $perPage = 8;
-    protected array $cleanStringsExcept = ['search'];
 
     public bool $show_edit_create_modal = false;
     public bool $show_view_modal = false;
