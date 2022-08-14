@@ -31,28 +31,23 @@
             </div>
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Apellido paterno -->
-                <div class="mt-4 sm:mt-0 sm:flex-1">
+                <div class="mt-4 sm:flex-1">
                     <x-jet-label for="apellido_paterno">Apellido paterno <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="user.apellido_paterno" class="block mt-1 w-full" type="text" id="apellido_paterno" name="apellido_paterno" for="user.apellido_paterno"/>
-                </div>
 
-                <!-- Apellido materno -->
-                <div class="mt-4 sm:mt-0 sm:flex-1">
-                    <x-jet-label for="apellido_materno">Apellido materno <span class="text-red-600">*</span></x-jet-label>
-                    <x-input.error wire:model="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno"/>
-                </div>
-            </div>
-
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                <div class="sm:flex-1">
-                    <label class="items-center m-2">
-                        <input wire:model="no_ap1" name="noape" value="1" id="noape" type="checkbox"  class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
+                    <label class="items-center">
+                        <input wire:model="no_ap1" name="noape" value="1" id="noape" type="checkbox"  class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 rounded">
                         <span class="ml-2 text-sm font-medium text-gray-900 ">No Aplica</span>
                     </label>
                 </div>
-                <div class="sm:flex-1">
-                    <label class="items-center m-2">
-                        <input wire:model="no_ap2" name="noape" value="1" id="noape" type="checkbox" class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2">
+
+                <!-- Apellido materno -->
+                <div class="mt-4 sm:flex-1">
+                    <x-jet-label for="apellido_materno">Apellido materno <span class="text-red-600">*</span></x-jet-label>
+                    <x-input.error wire:model="user.apellido_materno" class="block mt-1 w-full" type="text" id="apellido_materno" name="apellido_materno" for="user.apellido_materno"/>
+
+                    <label class="items-center">
+                        <input wire:model="no_ap2" name="noape" value="1" id="noape" type="checkbox" class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 rounded">
                         <span class="ml-2 text-sm font-medium text-gray-900 ">No Aplica</span>
                     </label>
                 </div>
