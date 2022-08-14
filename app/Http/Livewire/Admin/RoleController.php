@@ -33,7 +33,7 @@ class RoleController extends Component
     ];
 
     protected array $rules = [
-        'role.name' => ['required'],
+        'role.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:40'],
     ];
 
     public function updated($propertyName)
