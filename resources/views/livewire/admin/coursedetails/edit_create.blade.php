@@ -21,7 +21,7 @@
                 <!-- Modalidad -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="modalidad">Modalidad <span class="text-red-600">*</span></x-jet-label>
-                    <x-input.select wire:model.defer="modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
+                    <x-input.select wire:model="modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
                         <option value="" disabled>Selecciona modalidad...</option>
                         <option value="Presencial" selected>Presencial</option>
                         <option value="Semi-presencial">Semi-presencial</option>
@@ -34,7 +34,7 @@
                 <!-- Hora inicio -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="hora_inicio">Hora inicio <span class="text-red-600">*</span></x-jet-label>
-                    <x-datepicker wire:model.defer="hora_inicio" class="block mt-1 w-full" ref="hora_inicio1" name="hora_inicio1"
+                    <x-datepicker wire:model="hora_inicio" class="block mt-1 w-full" ref="hora_inicio1" name="hora_inicio1"
                                   :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="hora_inicio" />
                 </div>
@@ -42,7 +42,7 @@
                 <!-- Hora fin -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="hora_fin">Hora fin <span class="text-red-600">*</span></x-jet-label>
-                    <x-datepicker wire:model.defer="hora_fin" class="block mt-1 w-full" ref="hora_fin1" name="hora_fin1"
+                    <x-datepicker wire:model="hora_fin" class="block mt-1 w-full" ref="hora_fin1" name="hora_fin1"
                                   :config="['enableTime' => true, 'noCalendar' => true, 'dateFormat' => 'H:i', 'time_24hr' => true]"/>
                     <x-jet-input-error for="hora_fin" />
                 </div>
@@ -51,7 +51,7 @@
             <!-- Lugar -->
             <div class="mt-4">
                 <x-jet-label for="lugar">Lugar <span class="text-red-600">*</span></x-jet-label>
-                <x-input.error wire:model.defer="lugar" class="block mt-1 w-full" type="text" id="lugar" name="lugar"
+                <x-input.error wire:model="lugar" class="block mt-1 w-full" type="text" id="lugar" name="lugar"
                     for="lugar" required />
             </div>
 
@@ -61,14 +61,14 @@
                 <!-- Capacidad -->
                 <div class="mt-4">
                     <x-jet-label for="capacidad">Capacidad <span class="text-red-600">*</span></x-jet-label>
-                    <x-input.error wire:model.defer="capacidad" class="block mt-1 w-full" type="number" id="capacidad"
+                    <x-input.error wire:model="capacidad" class="block mt-1 w-full" type="number" id="capacidad"
                         name="capacidad" for="capacidad" maxlength="2" required />
                 </div>
 
                 <!-- Grupo -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="grupo">Grupo <span class="text-red-600">*</span></x-jet-label>
-                    <x-input.select wire:model.defer="grupo_id" class="mt-1 w-full" id="grupo_id" name="grupo_id"
+                    <x-input.select wire:model="grupo_id" class="mt-1 w-full" id="grupo_id" name="grupo_id"
                         required>
                         <option value="" disabled>Selecciona el grupo</option>
                         @foreach (\App\Models\Group::all() as $group)
@@ -80,7 +80,7 @@
                 <!-- Numero de curso para las constancias -->
                 <div class="mt-4">
                     <x-jet-label for="numero_curso">Numero de curso <span class="text-red-600">*</span></x-jet-label>
-                    <x-input.error wire:model.defer="numero_curso" class="block mt-1 w-full" type="number" id="numero_curso"
+                    <x-input.error wire:model="numero_curso" class="block mt-1 w-full" type="number" id="numero_curso"
                         name="numero_curso" for="numero_curso" maxlength="2" required />
                 </div>
             </div>

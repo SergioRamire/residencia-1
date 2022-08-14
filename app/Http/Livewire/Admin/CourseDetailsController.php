@@ -56,17 +56,40 @@ class CourseDetailsController extends Component
         'data_send',
         'send_curso',
     ];
+
     public array $classification = [
         'curso' => '',
         'periodo' => '',
     ];
+
     public array $filters = [
         'curso' => '',
         'modalidad' => '',
     ];
+
+    public function rules(): array
+    {
+        return [
+            'curso' => ['required',  'exists:courses,id'],
+            'period' => ['required',  'exists:periods,id'],
+            'hora_inicio' => ['required', new Time('07:00:00', '17:00:00')],
+            'hora_fin' => ['required', new Time('08:00:00', '18:00:00')],
+            'lugar' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
+            'numero_curso'=>['required', 'numeric'],
+            'capacidad' => ['required', 'numeric'],
+            'grupo_id' => ['required',  'exists:groups,id'],
+        ];
+    }
+
     protected $queryString = [
         'perPage' => ['except' => 1, 'as' => 'p'],
     ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
 
     public function create(){
         $this->resetErrorBag();
@@ -100,22 +123,8 @@ class CourseDetailsController extends Component
         $this->numero_curso = '';
     }
 
-    private function validateInputs(){
-        $this->validate([
-            'curso' => ['required',  'exists:courses,id'],
-            'period' => ['required',  'exists:periods,id'],
-            'hora_inicio' => ['required', new Time('07:00:00', '17:00:00')],
-            'hora_fin' => ['required', new Time('08:00:00', '18:00:00')],
-            'lugar' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
-            'modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
-            'numero_curso'=>['required', 'numeric'],
-            'capacidad' => ['required', 'numeric'],
-            'grupo_id' => ['required',  'exists:groups,id'],
-        ]);
-    }
-
     public function update_details(){
-        $this->validateInputs();
+        $this->validate();
         $this->confirming_save_details = true;
     }
 
@@ -150,7 +159,7 @@ class CourseDetailsController extends Component
     }
 
     public function store(){
-        $this->validateInputs();
+        $this->validate();
         CourseDetail::updateOrCreate(['id' => $this->coursedetail_id], [
             'hora_inicio'=>$this->hora_inicio,
             'hora_fin'=>$this->hora_fin,
