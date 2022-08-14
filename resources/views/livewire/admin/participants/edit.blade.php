@@ -3,8 +3,9 @@
         Editar user
     </x-slot>
     <x-slot name="content">
-        {{$entroonoentro}}
-        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios" /><br>
+        {{ $entroonoentro }}
+        <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios"/>
+        <br>
         <form wire:submit.prevent="confirm_save()" id="participantForm">
             <!-- RFC y CURP -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
@@ -46,7 +47,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <div class="sm:flex-1">
                     <label class="items-center m-2">
-                        <input wire:model="no_ap1" name="noape" value="1" id="noape" type="checkbox"  class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
+                        <input wire:model="no_ap1" name="noape" value="1" id="noape" type="checkbox" class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
                         <span class="ml-2 text-sm font-medium text-gray-900 ">No Aplica</span>
                     </label>
                 </div>
@@ -112,7 +113,7 @@
 
             <!-- Carrera-->
             <div class="mt-4">
-                <x-jet-label for="carrera" >Carrera <span class="text-red-600">*</span></x-jet-label>
+                <x-jet-label for="carrera">Carrera <span class="text-red-600">*</span></x-jet-label>
                 <x-input.error wire:model="user.carrera" class="block mt-1 w-full" type="text" id="carrera" name="carrera" for="user.carrera" required/>
             </div>
 
@@ -120,7 +121,7 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Tipo -->
                 <div class="mt-4">
-                    <x-jet-label for="tipo" >Tipo <span class="text-red-600">*</span></x-jet-label>
+                    <x-jet-label for="tipo">Tipo <span class="text-red-600">*</span></x-jet-label>
                     <x-input.select wire:model="user.tipo" class="mt-1 w-full" id="tipo" name="tipo" required>
                         <option value="" disabled>Selecciona el tipo</option>
                         <option value="Base">Base</option>
