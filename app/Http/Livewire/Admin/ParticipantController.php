@@ -22,12 +22,10 @@ class ParticipantController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
-    use WithTrimAndNullEmptyStrings;
 
     public User $user;
 
     public int $perPage = 8;
-    protected array $cleanStringsExcept = ['search'];
     public array $filters = [
         'area' => '',
         'tipo' => '',
