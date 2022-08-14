@@ -43,6 +43,11 @@ class ParticipantController extends Component
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function rules(): array
     {
         return [
@@ -54,7 +59,6 @@ class ParticipantController extends Component
             'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
             'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.tipo' => ['required', 'in:Base,Interinato,Honorarios'],
-            // TO-DO: Crear regex de clave_presupuestal según ejemplos reales
             'user.clave_presupuestal' => ['required', 'max:255'],
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
@@ -158,7 +162,7 @@ class ParticipantController extends Component
         ]);
     }
 
-    
+
     public $no_ap1 = false;
     public $no_ap2 = false;
     public $entroonoentro;
