@@ -33,7 +33,7 @@
                         {{-- Texto --}}
                         @unless($constancia)
                             <div class="text-gray-500 text-center">
-                                <p class="mb-2 text-sm"><span class="font-semibold">Da click</span> para subir la constancia</p>
+                                <p class="mb-2 text-sm"><span class="font-semibold">Da click</span> para cargar la constancia firmada</p>
                                 <p class="text-xs">PDF (MAX. 2Mb)</p>
                             </div>
                         @else
@@ -52,18 +52,18 @@
                         > <span x-html="progress"></span>%</div>
                     </div>
 
-                    <form wire:submit.prevent="store()">
-                        <input wire:model="constancia" id="dropzone-file" name="constancia" type="file" class="hidden"/>
-                        <x-jet-button class="ml-3 bg-[#1b396a]">
-                            Subir
-                        </x-jet-button>
-                    </form>
-
                     @error('constancia')
                         <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </label>
             </div>
+
+            <form wire:submit.prevent="store()" class="flex justify-center">
+                <input wire:model="constancia" id="dropzone-file" name="constancia" type="file" class="hidden"/>
+                <x-jet-button class="ml-3 bg-[#1b396a]">
+                    Subir
+                </x-jet-button>
+            </form>
 
         </div>
     </div>
