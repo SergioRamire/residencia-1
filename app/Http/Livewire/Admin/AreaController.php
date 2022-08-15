@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Traits\WithSorting;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class AreaController extends Component
@@ -22,6 +23,11 @@ class AreaController extends Component
     public $showEditCreateModal = false;
     public $confirmingAreaDeletion = false;
     public $confirmingSaveArea = false;
+
+    //variables de activar area
+    public bool $confirming_area_active =false;
+    public bool $confirming_area_Inactive =false;
+    public $area_id;
 
     public $perPage = '8';
     public $search = '';
@@ -128,6 +134,30 @@ class AreaController extends Component
             'icon' => 'trash',
             'message' =>  'Área eliminada exitosamente',
         ]);
+    }
+
+    public function area_activar($id){
+        $this->area_id = $id;
+        $this->confirming_area_active=true;
+    }
+
+    public function area_desactivar($id){
+        $this->area_id = $id;
+        $this->confirming_area_Inactive=true;
+    }
+
+    public function activar(){
+        DB::table('areas')
+            ->where('areas.id','=',$this->area_id)
+            ->update(['estatus' => 1]);
+        $this->confirming_area_active=false;
+    }
+
+    public function desactivar(){
+        DB::table('areas')
+            ->where('areas.id','=',$this->area_id)
+            ->update(['estatus' => 0]);
+        $this->confirming_area_Inactive=false;
     }
 
     public function render(){

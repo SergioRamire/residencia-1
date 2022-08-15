@@ -22,6 +22,7 @@ class GroupFactory extends Factory
         return [
             // 'nombre' => rtrim($this->faker->sentence(1), '.'),
             'nombre'=> $nombre,
+            'estatus'=>'1',
         ];
     }
 }

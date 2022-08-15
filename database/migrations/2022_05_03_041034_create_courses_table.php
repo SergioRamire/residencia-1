@@ -22,6 +22,7 @@ return new class extends Migration
             $table->tinyInteger('duracion');
             $table->string('dirigido');
             $table->text('observaciones')->nullable();
+            $table->boolean('estatus');
             $table->timestamps();
         });
     }
