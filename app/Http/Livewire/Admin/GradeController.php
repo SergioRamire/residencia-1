@@ -173,7 +173,7 @@ class GradeController extends Component
 
     public function validar_limite(){
         $hoy2 = date('Y-m-d', strtotime(date('Y-m-d')));
-        $this->aux_fecha = Period::where('periods.estado','1')
+        $this->aux_fecha = Period::where('periods.fecha_inicio','>',$this->hoy2)
             ->select('periods.fecha_limite_para_calificar')->first();
         ($hoy2 <= $this->aux_fecha->fecha_limite_para_calificar) ? $this->disponible=true : $this->disponible=false ;
     }

@@ -12,11 +12,11 @@ class LimitForInstructorsController extends Component{
     use AuthorizesRequests;
 
     public Period $period;
-
+    public bool $disponible=true;
     public bool $modal_edit = false;
     public bool $modal_confirmacion = false;
 
-    
+
     public function mount(){
         $this->blank_period();
     }
@@ -32,27 +32,31 @@ class LimitForInstructorsController extends Component{
     public function rules(): array{
         return ['period.fecha_limite_para_calificar' => ['required', 'date']];
     }
-    
+
     public function periodo_activo(){
         $period = Period::select('periods.id','periods.clave','periods.fecha_inicio','periods.fecha_fin','periods.fecha_limite_para_calificar')
             ->where('periods.estado','=',1)
             ->first();
-        return $period;
+        if($period!=null)
+            return $period;
+        $this->disponible=false;
     }
 
     public function render(){
-        $this->consultar_clave();
+        $this->periodo_activo();
         // dd($p->clave);
         return view('livewire.admin.limitForInstructors.index',[
            'periodos' => $this->periodo_activo()
         ]);
     }
-    public function consultar_clave(){
-        $p= $this->periodo_activo();
-        $this->period_id=$p->id;
-    }
+    // public function consultar_clave(){
+    //     $p= $this->periodo_activo();
+    //     $this->period_id=$p->id;
+    // }
 
     public function actualizar_fecha_limite(){
+        $p= $this->periodo_activo();
+        $this->period_id=$p->id;
         DB::table('periods')
             ->where('periods.id','=',$this->period_id)
             ->update(['fecha_limite_para_calificar' => $this->limite_fecha]);

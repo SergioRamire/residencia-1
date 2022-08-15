@@ -4,6 +4,7 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
+@if($disponible==true)
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
@@ -51,6 +52,16 @@
                 @include('livewire.admin.limitForInstructors.edit_create')
             @endif
     </div>
-
+@endif
+@if ($disponible == false)
+    <div class="flex flex-col rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
+        <div class="px-4 w-full bg-gray-200  rounded-t-lg">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>
+        </div>
+        <div class="p-8 w-full bg-white rounded-b-lg">
+            <p class="font-normal text-gray-700">No hay algún período activo</p>
+        </div>
+    </div>
+@endif
 </div>
 
