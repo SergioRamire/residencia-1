@@ -61,6 +61,14 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            /* 
+                Windows
+                Descomentar y en archivo .env la ruta del bin de mysql
+                el ejemplo esta en .env.example
+            */
+            // 'dump' => [
+            //     'dump_binary_path' => env('DB_MYSQL_PACH'),
+            //  ],
         ],
 
         'pgsql' => [
