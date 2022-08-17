@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+// use App\Models\Course;
 
 class CourseController extends Component
 {
@@ -174,26 +175,28 @@ class CourseController extends Component
         ]);
     }
 
-    public function area_activar($id){
-        $this->curse_id = $id;
+    public function course_activar($id){
+        $usuario=Course::find($id);
+        $this->curse_id = $usuario;
         $this->confirming_curse_active=true;
     }
 
-    public function area_desactivar($id){
-        $this->curse_id = $id;
+    public function course_desactivar($id){
+        $usuario=Course::find($id);
+        $this->curse_id = $usuario;
         $this->confirming_course_Inactive=true;
     }
 
     public function activar(){
         DB::table('courses')
-            ->where('courses.id','=',$this->curse_id)
+            ->where('courses.id','=',$this->curse_id->id)
             ->update(['estatus' => 1]);
         $this->confirming_curse_active=false;
     }
 
     public function desactivar(){
         DB::table('courses')
-            ->where('courses.id','=',$this->curse_id)
+            ->where('courses.id','=',$this->curse_id->id)
             ->update(['estatus' => 0]);
         $this->confirming_course_Inactive=false;
     }

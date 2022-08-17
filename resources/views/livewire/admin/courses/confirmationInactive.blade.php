@@ -6,7 +6,7 @@
 
     <x-slot name="content">
         ¿Seguro que desea inhabilitar el curso  <strong>
-            {{ $c->nombre}}</strong>?
+            {{$this->curse_id->nombre}}</strong>?
     </x-slot>
 
     {{-- botones --}}

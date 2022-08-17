@@ -103,11 +103,11 @@
                             <x-table.cell>{{ $u->getRoleNames()->first() }}</x-table.cell>
                             <x-table.cell class="text-center">
                                 @if($u->estatus == 1)
-                                <button wire:click="user_desactivar({{$u->id}}, '{{$u->nombre_completo}}')">
+                                <button wire:click="user_desactivar({{$u->id}})">
                                     <x-badge.basic value="Activo" color="green" large/>
                                 </button>
                                 @elseif($u->estatus == 0)
-                               <button wire:click="user_activar({{$u->id}}, '{{$u->nombre_completo}}')">
+                               <button wire:click="user_activar({{$u->id}})">
                                 <x-badge.basic value="Inactivo" color="red" large/>
                                </button>
                                 @endif

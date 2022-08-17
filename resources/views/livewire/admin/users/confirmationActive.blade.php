@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea activar el usuario <strong> {{$nombre_completo }}</strong>?
+        ¿Seguro que desea activar el usuario <strong> {{$this->user_id->name }} {{$this->user_id->apellido_paterno}} {{" "}}{{$this->user_id->apellido_materno}}</strong>?
     </x-slot>
 
     {{-- botones --}}

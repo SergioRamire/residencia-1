@@ -6,7 +6,7 @@
 
     <x-slot name="content">
         ¿Seguro que desea activar el grupo <strong>
-            {{ $g->nombre}}</strong>?
+            {{ $this->groups_id->nombre}}</strong>?
     </x-slot>
 
     {{-- botones --}}

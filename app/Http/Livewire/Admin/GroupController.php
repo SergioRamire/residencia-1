@@ -144,25 +144,28 @@ class GroupController extends Component
     }
 
     public function group_activar($id){
-        $this->groups_id = $id;
+        $grupo=Group::find($id);
+        $this->groups_id = $grupo;
+        // $this->groups_id = $id;
         $this->confirming_group_active=true;
     }
 
     public function group_desactivar($id){
-        $this->groups_id = $id;
+        $grupo=Group::find($id);
+        $this->groups_id = $grupo;
         $this->confirming_group_Inactive=true;
     }
 
     public function activar(){
         DB::table('groups')
-            ->where('groups.id','=',$this->groups_id)
+            ->where('groups.id','=',$this->groups_id->id)
             ->update(['estatus' => 1]);
         $this->confirming_group_active=false;
     }
 
     public function desactivar(){
         DB::table('groups')
-            ->where('groups.id','=',$this->groups_id)
+            ->where('groups.id','=',$this->groups_id->id)
             ->update(['estatus' => 0]);
         $this->confirming_group_Inactive=false;
     }

@@ -236,27 +236,27 @@ class UserController extends Component
         return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255','required'];
     }
 
-    public function user_activar($id, $nombre){
-        $this->user_id = $id;
-        $this->nombre_completo=$nombre;
+    public function user_activar($id){
+        $user=User::find($id);
+        $this->user_id = $user;
         $this->confirming_user_active=true;
     }
-    public function user_desactivar($id, $nombre){
-        $this->user_id = $id;
-        $this->nombre_completo=$nombre;
+    public function user_desactivar($id){
+        $user=User::find($id);
+        $this->user_id = $user;
         $this->confirming_user_Inactive=true;
     }
 
     public function activar(){
         DB::table('users')
-            ->where('users.id','=',$this->user_id)
+            ->where('users.id','=',$this->user_id->id)
             ->update(['estatus' => 1]);
         $this->confirming_user_active=false;
     }
 
     public function desactivar(){
         DB::table('users')
-            ->where('users.id','=',$this->user_id)
+            ->where('users.id','=',$this->user_id->id)
             ->update(['estatus' => 0]);
         $this->confirming_user_Inactive=false;
     }

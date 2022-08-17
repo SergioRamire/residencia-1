@@ -134,12 +134,12 @@
                                     Editar
                                 </button>
                                 @if($c->estatus === 1)
-                                    <button wire:click="area_desactivar({{ $c->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
+                                    <button wire:click="course_desactivar({{ $c->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
                                         Inhabilitar
                                     </button>
                                 @endif
                                 @if($c->estatus === 0)
-                                    <button wire:click="area_activar({{ $c->id }})" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                    <button wire:click="course_activar({{ $c->id }})" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
                                         Habilitar
                                     </button>
                                 @endif
