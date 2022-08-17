@@ -214,19 +214,27 @@ class InscriptionsController extends Component
             ->whereIn('course_details.id', $i)
             ->get();
     }
-
+    public function buscar_curso_user($id_user,$id_course){
+        return CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
+        ->where('inscriptions.user_id', $id_user)
+        ->where('inscriptions.course_detail_id', $id_course)
+        ->count();
+    }
     public function consultar_cursos_disponibles($fecha_inicio){
         $a=$this->id_arreglo;
         $b=$this->id_arreglo1;
         return Period::query()
             ->join('course_details', 'periods.id', '=', 'course_details.period_id')
             ->join('courses', 'course_details.course_id', '=', 'courses.id')
+            // ->leftJoin('inscriptions','inscriptions.course_detail_id','course_details.id')
             ->select(
                 'course_details.id as curdet','course_details.*',
                 'courses.nombre','courses.dirigido','courses.perfil',
 
             )
             ->where('periods.fecha_inicio', '=', $fecha_inicio)
+            // ->where('inscriptions.user_id', '=', auth()->user()->id)
+            // ->where('inscriptions.estatus_participante', '!=', 'Instructor')
             ->whereNotIn('course_details.id',$a)
             ->whereNotIn('course_details.id',$b)
             ;
@@ -336,18 +344,23 @@ class InscriptionsController extends Component
     public function abrir_horario(){
         $this->open_show_horario();
     }
-
+    public function buscar_inscripcion($id_user,$id_course){
+        return CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
+        ->where('inscriptions.user_id', $id_user)
+        ->where('inscriptions.course_detail_id', $id_course)
+        ->count();
+    }
     public function store(){
         $this->confirming_save_inscription = false;
         $this->user = User::find(auth()->user()->id);
         foreach ($this->unionarreglos as $id) {
             $courseDetails = CourseDetail::find($id);
-                $this->user->courseDetails()->attach( $courseDetails, [
-                        'calificacion' => 0,
-                        'estatus_participante' => 'Participante',
-                        'asistencias_minimas' => 0,
-                        'url_cedula' => '',
-                    ]);
+            $this->user->courseDetails()->attach( $courseDetails, [
+                    'calificacion' => 0,
+                    'estatus_participante' => 'Participante',
+                    'asistencias_minimas' => 0,
+                    'url_cedula' => '',
+                ]);
         }
         $this->show_mensaje = true;
         app(EmailController::class)->cursos($this->user, $this->unionarreglos);

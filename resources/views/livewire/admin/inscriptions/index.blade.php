@@ -97,12 +97,8 @@
                                 {{ date('d-m-Y', strtotime($fecha_fin_periodo1)) }} --}}
                             </h5>
                             <div class="flex flex-col space-y-2">
-
-
                                 <x-table>
                                     <x-slot name="head">
-                                        {{-- <x-table.header>id</x-table.header> --}}
-                                        {{-- <x-table.header>course_id</x-table.header> --}}
                                         <x-table.header>Curso</x-table.header>
                                         <x-table.header>Perfil</x-table.header>
                                         <x-table.header class="w-1/4">Departamento dirigido</x-table.header>
@@ -111,28 +107,33 @@
                                         <x-table.header>acciones</x-table.header>
                                     </x-slot>
                                     @forelse($semana1 as $c)
-                                        <tr wire:key="semana1-{{ $loop->index }}"
-                                            wire:loading.class.delay="opacity-50">
-                                            {{-- <x-table.cell>{{ $c->curdet }} </x-table.cell> --}}
-                                            {{-- <x-table.cell>{{ $c->id }} </x-table.cell> --}}
-                                            <x-table.cell>{{ $c->nombre }} </x-table.cell>
-                                            <x-table.cell>{{ $c->perfil }} </x-table.cell>
-                                            <x-table.cell>{{ $c->dirigido }} </x-table.cell>
-                                            <x-table.cell>{{ date("g:i a", strtotime($c->hora_inicio)) }} a
-                                                {{ date("g:i a", strtotime($c->hora_fin)) }}
-                                            </x-table.cell>
 
-                                            <x-table.cell>
-                                                {{$this->consultar_inscritos_en_curso($c->curdet)}}
-                                                / {{ $c->capacidad }}
-                                            </x-table.cell>
+                                        @if (App\Models\CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
+                                            ->where('inscriptions.user_id', auth()->user()->id)
+                                            ->where('inscriptions.course_detail_id', $c->curdet)
+                                            ->count() == 0)
+                                            <tr wire:key="semana1-{{ $loop->index }}"
+                                                wire:loading.class.delay="opacity-50">
+                                                <x-table.cell>{{ $c->nombre }} </x-table.cell>
+                                                <x-table.cell>{{ $c->perfil }} </x-table.cell>
+                                                <x-table.cell>{{ $c->dirigido }} </x-table.cell>
+                                                <x-table.cell>{{ date("g:i a", strtotime($c->hora_inicio)) }} a
+                                                    {{ date("g:i a", strtotime($c->hora_fin)) }}
+                                                </x-table.cell>
 
-                                            <x-table.cell width='200' class="whitespace-nowrap">
-                                                <button  wire:click="seleccionar_curso_tabla1({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
-                                                    Seleccionar
-                                                </button>
-                                            </x-table.cell>
-                                        </tr>
+                                                <x-table.cell>
+                                                    {{$this->consultar_inscritos_en_curso($c->curdet)}}
+                                                    / {{ $c->capacidad }}
+                                                </x-table.cell>
+
+                                                <x-table.cell width='200' class="whitespace-nowrap">
+                                                    <button  wire:click="seleccionar_curso_tabla1({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
+                                                        Seleccionar
+                                                    </button>
+                                                </x-table.cell>
+                                            </tr>
+                                        @endif
+                                       
                                     @empty
                                         <tr>
                                             <x-table.cell colspan="4">
@@ -185,25 +186,31 @@
                                                 <x-table.header>acciones</x-table.header>
                                             </x-slot>
                                             @forelse($semana2 as $c)
-                                                <tr wire:key="semana2-{{ $loop->index }}"
-                                                    wire:loading.class.delay="opacity-50">
-                                                    {{-- <x-table.cell>{{ $c->curdet }} </x-table.cell> --}}
-                                                    {{-- <x-table.cell>{{ $c->id }} </x-table.cell> --}}
-                                                    <x-table.cell>{{ $c->nombre }} </x-table.cell>
-                                                    <x-table.cell>{{ $c->perfil }} </x-table.cell>
-                                                    <x-table.cell>{{ $c->dirigido }} </x-table.cell>
-                                                    <x-table.cell>{{ $c->hora_inicio }} a {{ $c->hora_fin }}
-                                                    </x-table.cell>
-                                                    <x-table.cell>
-                                                        {{$this->consultar_inscritos_en_curso($c->curdet)}}
-                                                        / {{ $c->capacidad }}
-                                                    </x-table.cell>
-                                                    <x-table.cell width='200' class="whitespace-nowrap">
-                                                        <button wire:click="seleccionar_curso_tabla2({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100  text-black font-bold border border-[#1b396a] rounded shadow" >
-                                                            Seleccionar
-                                                        </button>
-                                                    </x-table.cell>
-                                                </tr>
+                                                @if (App\Models\CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
+                                                    ->where('inscriptions.user_id', auth()->user()->id)
+                                                    ->where('inscriptions.course_detail_id', $c->curdet)
+                                                    ->count() == 0)
+                                                    <tr wire:key="semana2-{{ $loop->index }}"
+                                                        wire:loading.class.delay="opacity-50">
+                                                        <x-table.cell>{{ $c->nombre }} </x-table.cell>
+                                                        <x-table.cell>{{ $c->perfil }} </x-table.cell>
+                                                        <x-table.cell>{{ $c->dirigido }} </x-table.cell>
+                                                        <x-table.cell>{{ date("g:i a", strtotime($c->hora_inicio)) }} a
+                                                            {{ date("g:i a", strtotime($c->hora_fin)) }}
+                                                        </x-table.cell>
+        
+                                                        <x-table.cell>
+                                                            {{$this->consultar_inscritos_en_curso($c->curdet)}}
+                                                            / {{ $c->capacidad }}
+                                                        </x-table.cell>
+        
+                                                        <x-table.cell width='200' class="whitespace-nowrap">
+                                                            <button  wire:click="seleccionar_curso_tabla1({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
+                                                                Seleccionar
+                                                            </button>
+                                                        </x-table.cell>
+                                                    </tr>
+                                                @endif
                                             @empty
                                                 <tr>
                                                     <x-table.cell colspan="4">
