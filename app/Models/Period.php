@@ -14,6 +14,7 @@ class Period extends Model
         'fecha_inicio',
         'fecha_fin',
         'estado',
+        'estatus',
     ];
 
     /* public function courseDetails()

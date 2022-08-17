@@ -40,6 +40,7 @@ class CourseDetailFactory extends Factory
             'course_id' => Course::inRandomOrder()->first()->id,
             'group_id' => Group::inRandomOrder()->first()->id,
             'period_id' => Period::inRandomOrder()->first()->id,
+            'estatus'=>'1',
         ];
     }
 }

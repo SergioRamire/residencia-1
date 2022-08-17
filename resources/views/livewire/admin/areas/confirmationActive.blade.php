@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea activar el area <strong>
+        ¿Seguro que desea habilitar el departamento <strong>
             {{ $a->nombre}}</strong>?
     </x-slot>
 

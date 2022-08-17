@@ -76,6 +76,7 @@ class CourseFactory extends Factory
             'estatus'=>'1',
             'dirigido' => implode(', ', $dirigido),
             'perfil' => $this->faker->randomElement(['Formación docente', 'Actualización profesional']),
+            'estatus'=>'1',
         ];
     }
 }

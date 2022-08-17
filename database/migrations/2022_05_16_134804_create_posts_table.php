@@ -19,16 +19,9 @@ return new class extends Migration
             $table->string('description');
             $table->string('role')->nullable();
             $table->timestamps();
-            // $table->integer('roles_id')->unsigned();
-            // $table->foreign('roles_id')->references('id')->on('roles');
-
             $table->foreignId('user_id') ->nullable()
             ->constrained()
             ->onDelete('set null');
-            // $table->foreignId('role_id') ->nullable()
-            // ->constrained()
-            // ->onDelete('set null');
-
         });
     }
 

@@ -36,7 +36,7 @@ class GradeController extends Component
     public $id_group;
 
     public $cuenta =0;
-    //
+    public $cuenta_periodos;
 
     public $course_details_id;
     public $grupo;
@@ -117,19 +117,21 @@ class GradeController extends Component
     }
 
     public function consultar_cursos(){
-        // $user = User::find(auth()->user()->id);
-        // $fecha_actual = date("Y-m-d");
-        // $this->id_user=$user->id;
         $this->obtener_usuario();
-        return CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
+        if($this->cuenta_periodos>0){
+            foreach($this->consultar_periodos() as $periodo){
+                return CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
                     ->join('users','users.id','inscriptions.user_id')
                     ->join('courses','courses.id','course_details.course_id')
                     ->join('periods','periods.id','course_details.period_id')
                     ->where('users.id','=',$this->user->id)
                     ->where('inscriptions.estatus_participante','=','Instructor')
-                    ->where('periods.estado','=',1)
+                    ->where('periods.id','=',$periodo->id)
                     ->select('course_details.id','courses.nombre')
                     ->get();
+            }
+        }
+
     }
 
     public function consultar_grupos(){
@@ -141,10 +143,6 @@ class GradeController extends Component
                     ->get();
     }
 
-    public function consulta_periodos(){
-        $fecha_actual = date("Y-m-d");
-        return Period::where('periods.fecha_inicio','<',$fecha_actual);
-    }
 
     public function cuenta_cursos(){
         $cursosTotales=$this->consultar_cursos();
@@ -172,43 +170,34 @@ class GradeController extends Component
     }
 
     public function validar_limite(){
-        $hoy2 = date('Y-m-d', strtotime(date('Y-m-d')));
-        $this->aux_fecha = Period::where('periods.fecha_inicio','>',$this->hoy2)
-            ->select('periods.fecha_limite_para_calificar')->first();
-        ($hoy2 <= $this->aux_fecha->fecha_limite_para_calificar) ? $this->disponible=true : $this->disponible=false ;
+        ($this->cuenta_periodos != null) ? $this->disponible=true : $this->disponible=false ;
+    }
+
+    public function consultar_periodos(){
+        $dia_actual = date('Y-m-d', strtotime(date('Y-m-d')));
+        $dia_pasado = date("Y-m-d",strtotime($dia_actual."- 10 days"));
+        $dia_futuro = date("Y-m-d",strtotime($dia_actual."+ 10 days"));
+        $consulta = Period::where('periods.fecha_inicio','>',$dia_pasado)
+                            ->where('periods.fecha_inicio','<',$dia_futuro)
+                            ->where('periods.fecha_limite_para_calificar','>=',$dia_actual)
+                            ->select('periods.id')
+                            ->get();
+        $this->cuenta_periodos = count($consulta);
+        $this->validar_limite();
+        return $consulta;
     }
 
     public function render(){
+        $this->consultar_periodos();
         $this->cuenta_cursos();
         $cur=$this->consultar_cursos();
         if($this->cuenta==1){
             $this->curso=$cur[0]->nombre;
             $this->id_course=$cur[0]->id;
         }
-        // dd($this->disponible);
-        // ($this->aux_fecha!=null) ? $this->validar_limite() : $this->disponible=false;
-        $this->validar_limite();
+        // $this->validar_limite();
         return view('livewire.admin.grades.index', [
-            'grades' => User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
-            ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
-            ->join('courses', 'courses.id', '=', 'course_details.course_id')
-            ->join('groups', 'groups.id', '=', 'course_details.group_id')
-            ->join('periods', 'periods.id', '=', 'course_details.period_id')
-            ->where('inscriptions.estatus_participante', '=','Participante')
-            ->where('course_details.id', '=',$this->id_course)
-            ->select('users.id','users.name', 'users.apellido_paterno', 'users.apellido_materno'
-                    ,'inscriptions.calificacion','inscriptions.asistencias_minimas','courses.nombre as curso','groups.nombre as grupo',
-                    'periods.fecha_inicio', 'periods.fecha_fin')
-            ->when($this->search, function ($query) {
-                return $query->where(function ($q) {
-                    $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
-                      ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%')
-                      ->orWhere('groups.nombre', 'like', '%'.$this->search.'%')
-                      ->orWhere('inscriptions.calificacion', 'like', '%'.$this->search.'%');
-                });
-            })
-            ->orderBy($this->sortField, $this->sortDirection)
-                        ->paginate($this->perPage),
+            'grades' => $this->mostrar_cursos()->paginate($this->perPage),
             'courses' => $this->consultar_cursos(),
             'groups' => $this->consultar_grupos()
         ]);

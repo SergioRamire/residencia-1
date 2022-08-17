@@ -50,7 +50,7 @@ class JetstreamServiceProvider extends ServiceProvider
                 ->select('inscriptions.estatus_participante')
                 ->where('inscriptions.user_id','=',$id_user)
                 ->where('inscriptions.estatus_participante','=','Instructor')
-                ->where('periods.estado','=',1)
+                ->where('periods.perfil','=',1)
                 ->first();
 
                 if($rol!=='Super admin' and $rol!=='Administrador'){ //a los usuarios que tienen estos roles no se les cambia el rol nunca, ni con los valores del rb

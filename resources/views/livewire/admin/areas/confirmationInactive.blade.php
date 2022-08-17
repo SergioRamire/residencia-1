@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea desactivar el <strong>
+        ¿Seguro que desea inhabilitar el departamento<strong>
             {{ $a->nombre}}</strong>?
     </x-slot>
 

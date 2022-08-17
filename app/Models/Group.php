@@ -11,6 +11,7 @@ class Group extends Model
 
     protected $fillable = [
         'nombre',
+        'estatus',
     ];
 
     public function courseDetails()

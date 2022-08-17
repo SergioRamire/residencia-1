@@ -29,6 +29,8 @@ class AreaController extends Component
     public bool $confirming_area_Inactive =false;
     public $area_id;
 
+    public bool $permiso_eliminicacion = false;
+
     public $perPage = '8';
     public $search = '';
     protected $queryString = [
@@ -117,6 +119,13 @@ class AreaController extends Component
         $this->edit = true;
         $this->create = false;
         $this->showEditCreateModal = true;
+    }
+
+    public function permiso_para_eliminar($id){
+        $consulta = Area::join('users','users.area_id','=','areas.id')
+                          ->where('areas.id','=',$id)
+                          ->first();
+        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
     }
     /**
      * @throws AuthorizationException

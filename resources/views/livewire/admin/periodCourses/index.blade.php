@@ -56,8 +56,9 @@
                     </x-table.header>
                     <x-table.header wire:click="sortBy('fecha_fin')" sortable :direction="$sortField === 'fecha_fin' ? $sortDirection : null">
                         Fecha de finalización</x-table.header>
+                    <x-table.header>Perfil</x-table.header>
                     <x-table.header>Estado</x-table.header>
-                    <x-table.header>acciones</x-table.header>
+                    <x-table.header>Acciones</x-table.header>
 
                 </x-slot>
 
@@ -67,29 +68,46 @@
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
                         <x-table.cell>
-                            @if($p->estado === 1)
+                            @if($p->perfil === 1)
                                 <x-badge.basic value="Activo" color="green" large/>
-                            @elseif($p->estado === 0)
+                            @elseif($p->perfil === 0)
                                 <x-badge.basic value="Inactivo" color="red" large/>
+                            @endif
+                        </x-table.cell>
+                        <x-table.cell>
+                            @if($p->estatus === 1)
+                                <x-badge.basic value="Habilitado" color="green" large/>
+                            @elseif($p->estatus === 0)
+                                <x-badge.basic value="Inhabilitado" color="red" large/>
                             @endif
                         </x-table.cell>
                         <x-table.cell width='200' class="whitespace-nowrap">
                             <button  wire:click="edit({{ $p->id }})" type="button" title="Editar período" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            <button wire:click="delete_period('{{ $p->id }}')" type="button" title="Eliminar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                Eliminar
-                            </button>
-                            @if($p->estado === 1)
-                            <button wire:click="periodo_desactivar({{ $p->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
-                                Desactivar
-                            </button>
-                            @elseif($p->estado === 0)
+                            @if($p->perfil === 1)
+                                <button wire:click="periodo_desactivar({{ $p->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
+                                    Desactivar
+                                </button>
+                            @elseif($p->perfil === 0)
                                 <button wire:click="periodo_activar({{ $p->id }})" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
                                     Activar
                                 </button>
                             @endif
-
+                            @if($p->estatus === 1)
+                                <button wire:click="periodo_inhabilitar({{ $p->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
+                                    Inhabilitar
+                                </button>
+                            @elseif($p->estatus === 0)
+                                <button wire:click="periodo_habilitar({{ $p->id }})" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
+                                    Habilitar
+                                </button>
+                            @endif
+                            @if($p->ofertado === 0)
+                            <button wire:click="delete_period('{{ $p->id }}')" type="button" title="Eliminar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                Eliminar
+                            </button>
+                            @endif
                         </x-table.cell>
                     </tr>
                     {{-- @php $numero=$numero+1 @endphp --}}
@@ -121,11 +139,12 @@
             @if ($confirming_period_deletion)
                 @include('livewire.admin.periodCourses.destroy')
             @endif
-            @if ($confirming_period_active)
+            @if ($showConfirmationModal)
                 @include('livewire.admin.periodCourses.confirmationActive')
-            @elseif($confirming_period_Inactive)
-                @include('livewire.admin.periodCourses.confirmationInactive')
             @endif
+            {{-- @elseif($confirming_period_Inactive)
+                @include('livewire.admin.periodCourses.confirmationInactive')
+            @endif --}}
         </div>
     </div>
 </div>

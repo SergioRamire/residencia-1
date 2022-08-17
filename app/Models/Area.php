@@ -15,6 +15,7 @@ class Area extends Model
         'jefe_area',
         'telefono',
         'extension',
+        'estatus',
     ];
 
     public function users()

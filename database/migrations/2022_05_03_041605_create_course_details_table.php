@@ -21,7 +21,7 @@ return new class extends Migration
             $table->tinyInteger('capacidad');
             $table->string('modalidad', 20);
             $table->integer('numero_curso')->nullable();
-            // $table->boolean('estatus')->nullable();
+            $table->boolean('estatus')->nullable();
             $table->timestamps();
             $table->foreignId('course_id')
                 ->nullable()

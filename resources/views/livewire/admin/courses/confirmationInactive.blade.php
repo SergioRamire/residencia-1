@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea desactivar el curso  <strong>
+        ¿Seguro que desea inhabilitar el curso  <strong>
             {{ $c->nombre}}</strong>?
     </x-slot>
 

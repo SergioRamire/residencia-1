@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('clave')->unique();
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
-            $table->boolean('estado');
+            $table->boolean('perfil');
+            $table->boolean('estatus')->nullable();
             $table->boolean('ofertado');
             $table->date('fecha_limite_para_calificar');
             $table->timestamps();

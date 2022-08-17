@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->boolean('estatus');
+            $table->boolean('estatus')->nullable();
             $table->timestamps();
         });
     }

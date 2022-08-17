@@ -111,9 +111,12 @@
                                 <button  wire:click="edit({{ $u->id }})" type="button" title="Editar usuario" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                     Editar
                                 </button>
-                                <button wire:click="delete({{ $u->id }})" type="button" title="Eliminar usuario" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                    Eliminar
-                                </button>
+                                {{$this->permiso_para_eliminar($u->id)}}
+                                @if($this->permiso_eliminicacion)
+                                    <button wire:click="delete({{ $u->id }})" type="button" title="Eliminar usuario" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                        Eliminar
+                                    </button>
+                                @endif
                             </x-table.cell>
                         </tr>
                     @empty

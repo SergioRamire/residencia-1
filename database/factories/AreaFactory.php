@@ -31,7 +31,7 @@ class AreaFactory extends Factory
             'jefe_area' => $this->faker->name(),
             'telefono' => $this->faker->regexify('951[0-9]{3}[0-9]{4}'),
             'extension' => $this->faker->randomNumber('3', true),
-            'estatus'=>$this->faker->randomNumber('1',true),
+            'estatus'=>'1',
         ];
     }
 }

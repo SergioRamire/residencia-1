@@ -1,21 +1,48 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
-<x-jet-confirmation-modal wire:model="confirming_period_active">
+<x-jet-confirmation-modal wire:model="showConfirmationModal">
     <x-slot name="title">
         Confirmación
     </x-slot>
 
     <x-slot name="content">
+        @if($confirming_period_active)
         ¿Seguro que desea activar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
+        @endif
+        @if($confirming_period_Inactive)
+            ¿Seguro que desea desactivar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
+        @endif
+        @if($confirming_period_habil)
+            ¿Seguro que desea habilitar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
+        @endif
+        @if($confirming_period_inhabil)
+            ¿Seguro que desea inhabilitar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
+        @endif
     </x-slot>
 
     {{-- botones --}}
     <x-slot name="footer">
-        <x-jet-secondary-button wire:click="$toggle('confirming_period_active')" wire:loading.attr="disabled">
+        <x-jet-secondary-button wire:click="$toggle('showConfirmationModal')" wire:loading.attr="disabled">
             Cancelar
         </x-jet-secondary-button>
-
+        @if($confirming_period_active)
         <x-jet-danger-button class="ml-3" wire:click="activar()" wire:loading.attr="disabled">
             Aceptar
         </x-jet-danger-button>
+        @endif
+        @if($confirming_period_Inactive)
+        <x-jet-danger-button class="ml-3" wire:click="desactivar()" wire:loading.attr="disabled">
+            Aceptar
+        </x-jet-danger-button>
+        @endif
+        @if($confirming_period_habil)
+        <x-jet-danger-button class="ml-3" wire:click="habilitar()" wire:loading.attr="disabled">
+            Aceptar
+        </x-jet-danger-button>
+        @endif
+        @if($confirming_period_inhabil)
+        <x-jet-danger-button class="ml-3" wire:click="inhabilitar()" wire:loading.attr="disabled">
+            Aceptar
+        </x-jet-danger-button>
+        @endif
     </x-slot>
 </x-jet-confirmation-modal>

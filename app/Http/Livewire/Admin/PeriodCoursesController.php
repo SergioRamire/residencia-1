@@ -35,17 +35,19 @@ class PeriodCoursesController extends Component
     public bool $edit = false;
     public bool $create = false;
     public bool $show_edit_create_modal = false;
+    public bool $showConfirmationModal = false;
     public bool $confirming_period_deletion = false;
     public bool $confirming_save_period = false;
     public bool $confirming_period_active =false;
     public bool $confirming_period_Inactive =false;
+    public bool $confirming_period_habil = false;
+    public bool $confirming_period_inhabil = false;
+    public bool $permiso_eliminacion = false;
 
     public $f_i;
     public $f_f;
-    public $arreglo_id=[];
-    public $arreglo_estatus=[];
 
-    public bool $estado_x = false;
+    public bool $perfil_x = false;
 
     public function rules(){
         if ($this->edit) {
@@ -117,7 +119,7 @@ class PeriodCoursesController extends Component
     }
 
     public function save(){
-        $this->periods->estado = 0;
+        $this->periods->perfil = 0;
         $this->periods->ofertado = 0;
         $this->periods->fecha_limite_para_calificar = $this->periods->fecha_fin;
         $this->periods->save();
@@ -133,6 +135,7 @@ class PeriodCoursesController extends Component
         $this->edit = false;
         $this->create = false;
     }
+
     /**
      * @throws AuthorizationException
      */
@@ -156,39 +159,74 @@ class PeriodCoursesController extends Component
     public function periodo_activar($id){
         $this->periodo_id = $id;
         $this->confirming_period_active=true;
+        $this->showConfirmationModal = true;
+
     }
     public function periodo_desactivar($id){
         $this->periodo_id = $id;
         $this->confirming_period_Inactive=true;
+        $this->showConfirmationModal = true;
+
+    }
+
+    public function periodo_habilitar($id){
+        $this->periodo_id = $id;
+        $this->showConfirmationModal = true;
+        $this->confirming_period_habil=true;
+    }
+    public function periodo_inhabilitar($id){
+        $this->periodo_id = $id;
+        $this->showConfirmationModal = true;
+        $this->confirming_period_inhabil=true;
     }
 
     public function desactivar_todos(){
         DB::table('periods')
-            ->update(['estado' => 0]);
+            ->update(['perfil' => 0]);
     }
 
     public function activar(){
         $this->desactivar_todos();
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
-            ->update(['estado' => 1]);
+            ->update(['perfil' => 1]);
+        $this->showConfirmationModal = false;
         $this->confirming_period_active=false;
     }
 
     public function desactivar(){
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
-            ->update(['estado' => 0]);
+            ->update(['perfil' => 0]);
+        $this->showConfirmationModal = false;
         $this->confirming_period_Inactive=false;
     }
 
+    public function habilitar(){
+        DB::table('periods')
+            ->where('periods.id','=',$this->periodo_id)
+            ->update(['estatus' => 1]);
+            $this->showConfirmationModal = false;
+        $this->confirming_period_habil=false;
+    }
+
+    public function inhabilitar(){
+        DB::table('periods')
+            ->where('periods.id','=',$this->periodo_id)
+            ->update(['estatus' => 0]);
+            $this->showConfirmationModal = false;
+        $this->confirming_period_inhabil=false;
+    }
+
+
+
     public function obtener_fechas_activas(){
         $fecha_i_1=Period::select('periods.fecha_inicio')
-                               ->where('periods.estado','=',1)
+                               ->where('periods.perfil','=',1)
                                ->first();
 
         $fecha_f_1=Period::select('periods.fecha_fin')
-                                ->where('periods.estado','=',1)
+                                ->where('periods.perfil','=',1)
                                ->first();
         $this->f_i= $fecha_i_1->fecha_inicio;
         $this->f_f= $fecha_f_1->fecha_fin;
@@ -210,10 +248,10 @@ class PeriodCoursesController extends Component
     }
 
     public function confirmar(){
-        if ($this->estado_x) {
-            $this->estado_x = false;
+        if ($this->perfil_x) {
+            $this->perfil_x = false;
         }else {
-            $this->estado_x = true;
+            $this->perfil_x = true;
         }
     }
 }

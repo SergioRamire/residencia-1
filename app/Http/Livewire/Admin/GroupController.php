@@ -27,6 +27,7 @@ class GroupController extends Component
     public bool $confirming_group_active =false;
     public bool $confirming_group_Inactive =false;
     public $groups_id;
+    public bool $permiso_eliminicacion =false;
 
     public $perPage = '8';
     public $search = '';
@@ -132,6 +133,13 @@ class GroupController extends Component
             'icon' => 'trash',
             'message' =>  'Grupo eliminado exitosamente',
         ]);
+    }
+
+    public function permiso_para_eliminar($id){
+        $consulta = Group::join('course_details','course_details.group_id','=','groups.id')
+                          ->where('groups.id','=',$id)
+                          ->first();
+        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
     }
 
     public function group_activar($id){

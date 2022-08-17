@@ -39,9 +39,11 @@ class CourseController extends Component
     public bool $delete = false;
 
      //variables de activar curso
-     public bool $confirming_curse_active =false;
-     public bool $confirming_course_Inactive =false;
-     public $curse_id;
+    public bool $confirming_curse_active =false;
+    public bool $confirming_course_Inactive =false;
+    public $curse_id;
+
+    public bool $permiso_eliminicacion = false;
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -155,6 +157,13 @@ class CourseController extends Component
             'icon' => $this->edit ? 'pencil' : 'success',
             'message' => $this->edit ? 'Course actualizado exitosamente' : 'Course creado exitosamente',
         ]);
+    }
+
+    public function permiso_para_eliminar($id){
+        $consulta = Course::join('course_details','course_details.course_id','=','courses.id')
+                          ->where('courses.id','=',$id)
+                          ->first();
+        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
     }
 
     public function destroy()

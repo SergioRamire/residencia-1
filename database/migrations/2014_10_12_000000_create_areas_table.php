@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('jefe_area');
             $table->string('telefono', 12);
             $table->integer('extension');
-            $table->boolean('estatus');
+            $table->boolean('estatus')->nullable();;
             $table->timestamps();
         });
     }

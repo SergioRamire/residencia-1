@@ -20,6 +20,7 @@ class CourseDetail extends Model
         'course_id',
         'group_id',
         'period_id',
+        'estatus',
     ];
 
     public function users()
