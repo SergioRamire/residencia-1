@@ -32,8 +32,8 @@ class RoleController extends Component
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
-    protected $rules = [
-        'role.name' =>  ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
+    protected array $rules = [
+        'role.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:40'],
     ];
 
     public function updated($propertyName)
