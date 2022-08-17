@@ -42,9 +42,13 @@ class CourseSelect  extends Component{
     public function consulta(){
         $this->valor = $this->query;/* cambio de valor en segunda variable, no afecta por el momento */
         if (strcmp(strtolower($this->valor), 'todos') === 0) {
-            return Course::query()->select('courses.id as idc', 'courses.nombre', 'courses.clave')->get();
+            return Course::query()
+            ->where('courses.estatus', 1)
+            ->select('courses.id as idc', 'courses.nombre', 'courses.clave')->get();
         } else {
-            return Course::query()->select('courses.id as idc', 'courses.nombre', 'courses.clave')
+            return Course::query()
+            ->where('courses.estatus', 1)
+            ->select('courses.id as idc', 'courses.nombre', 'courses.clave')
             ->when($this->valor, fn ($query2, $b) => $query2
                 ->where('courses.nombre', 'like', "%$b%")
                 ->orWhere('courses.clave', 'like', "%$b%"))

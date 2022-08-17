@@ -52,6 +52,7 @@ class CourseDetailsSelect extends Component
             return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->where('course_details.period_id', '=', $this->id_periodo )
+            ->where('course_details.estatus', 1)
             ->select('courses.id as idc', 'courses.nombre', 'courses.clave as clav')
             ->distinct()
             ->get();
@@ -59,6 +60,7 @@ class CourseDetailsSelect extends Component
             return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->where('course_details.period_id', '=', $this->id_periodo )
+            ->where('course_details.estatus', 1)
             ->when($this->valor, fn ($query2, $b) => $query2
                 ->where('courses.nombre', 'like', "%$b%")
                 ->orWhere('courses.clave', 'like', "%$b%"))
