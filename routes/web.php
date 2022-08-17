@@ -26,6 +26,7 @@ use App\Http\Livewire\Admin\PostController;
 use App\Http\Livewire\Admin\TeachingController;
 use App\Http\Livewire\Admin\ConstanciaInstructorController;
 use App\Http\Livewire\Admin\EmailController;
+use App\Http\Livewire\Admin\VerConstanciasFirmadasController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -86,6 +87,9 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
 
     Route::middleware('can:period.show')->prefix('admin')->name('admin.')
         ->get('periodos-cursos', PeriodCoursesController::class)->name('periods-courses');
+
+    Route::middleware('can:const_firmada.show')->prefix('admin')->name('admin.')
+        ->get('ver-constancias-firmadas', VerConstanciasFirmadasController::class)->name('ver-constancias-firmadas');
 
     Route::middleware('can:coursedetails.show')->prefix('admin')->name('admin.')
         ->get('detalles-cursos', CourseDetailsController::class)->name('coursedetail');
