@@ -36,6 +36,9 @@ class AssignedInstructorController extends Component
     public $id_ins_delete;
     public $modal_delete = false;
     public bool $modal_confirmacion;
+    
+    public $cont_instructores;
+    public bool $flag_cont_inst;
 
 
 
@@ -66,6 +69,13 @@ class AssignedInstructorController extends Component
         $this->id_instructor = $valor;
         // dd($this->id_instructor);
     }
+    public function prueba($id_detaller_curso){
+        $this->cont_instructores = CourseDetail::join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
+            ->where('inscriptions.estatus_participante','Instructor')
+            ->where('course_details.id',$id_detaller_curso)
+            ->count();
+        return $this->cont_instructores;
+    }
     public function registrar(){
         $this->user = User::find($this->id_instructor);
         $courseDetails = CourseDetail::find($this->id_detalle_curso);
@@ -78,10 +88,16 @@ class AssignedInstructorController extends Component
         $this->noti('success', 'Instructor asignado correctamente');
     }
     public function asignar(){
-        // $this->id_instructor = $this->id_ins;
-        $this->registrar();
-        $this->close_modal();
-        $this->modal_confirmacion = false;
+        if ((int)$this->prueba($this->id_detalle_curso) < (int)2) {
+            $this->registrar();
+            $this->close_modal();
+            $this->modal_confirmacion = false;
+            $this->noti('info', 'si asigna');
+        }else {
+            $this->close_modal();
+            $this->modal_confirmacion = false;
+            $this->noti('info', 'No se pueden asignar mas de 2 instructores');
+        }
     }
     public function resetFilters(){
         $this->reset('curso');
