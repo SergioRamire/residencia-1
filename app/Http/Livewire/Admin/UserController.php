@@ -40,7 +40,11 @@ class UserController extends Component
 
     public $no_ap1 = false;
     public $no_ap2 = false;
-    public $estado = 0;
+
+    public bool $confirming_user_active =false;
+    public bool $confirming_user_Inactive =false;
+    public $user_id;
+    public $nombre_completo='';
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -179,7 +183,6 @@ class UserController extends Component
             $this->user->update([
                 'name' => $this->user->name,
                 'email' => $this->user->email,
-                'estado' =>$this->user->estado,
             ]);
             $this->user->syncRoles($this->role);
         } else {
@@ -231,5 +234,30 @@ class UserController extends Component
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
         }
         return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255','required'];
+    }
+
+    public function user_activar($id, $nombre){
+        $this->user_id = $id;
+        $this->nombre_completo=$nombre;
+        $this->confirming_user_active=true;
+    }
+    public function user_desactivar($id, $nombre){
+        $this->user_id = $id;
+        $this->nombre_completo=$nombre;
+        $this->confirming_user_Inactive=true;
+    }
+
+    public function activar(){
+        DB::table('users')
+            ->where('users.id','=',$this->user_id)
+            ->update(['estado' => 1]);
+        $this->confirming_user_active=false;
+    }
+
+    public function desactivar(){
+        DB::table('users')
+            ->where('users.id','=',$this->user_id)
+            ->update(['estado' => 0]);
+        $this->confirming_user_Inactive=false;
     }
 }
