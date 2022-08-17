@@ -38,9 +38,10 @@ class PeriodSelect extends Component
     }
     public function consulta(){
         if (strcmp(strtolower($this->query), 'todos') === 0) {
-            return Period::all();
+            return Period::where('estatus',1)->get();
         }else{
-            return Period::when($this->query, fn ($query2, $b) => $query2
+            return Period::where('estatus',1)
+            ->when($this->query, fn ($query2, $b) => $query2
             ->where('periods.fecha_inicio', 'like', "%$b%")
             ->orWhere('periods.fecha_fin', 'like', "%$b%"))
             ->get();

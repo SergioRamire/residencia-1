@@ -39,9 +39,10 @@ class PeriodSelect2 extends Component
     
     public function consulta(){
         if (strcmp(strtolower($this->query), 'todos') === 0) {
-            return Period::all();
+            return Period::where('estatus',1)->get();
         }else{
-            return Period::when($this->query, fn ($query2, $b) => $query2
+            return Period::where('estatus',1)
+            ->when($this->query, fn ($query2, $b) => $query2
             ->where('periods.fecha_inicio', 'like', "%$b%")
             ->orWhere('periods.fecha_fin', 'like', "%$b%"))
             ->get();
@@ -62,7 +63,7 @@ class PeriodSelect2 extends Component
     ];
     public $id_escojido;
     public function valorPerio($valor){
-        $this->txt = 'Buscar Curso';
+        $this->txt = 'Buscar Periodo';
         if (!empty($valor)) {
             $this->txt = Period::where('periods.id', '=', $valor)->get()[0]->clave;
         }
