@@ -181,11 +181,11 @@ class UserController extends Component
             $this->user->update([
                 'name' => $this->user->name,
                 'email' => $this->user->email,
-                'estatus' => $this->user->estatus = 1;
+                'estatus' => $this->user->estatus = 1,
             ]);
             $this->user->syncRoles($this->role);
         } else {
-            'estatus' => $this->user->estatus = 1;
+            $this->user->estatus = 1;
             $this->user->password = Hash::make($this->password);
             $this->user->syncRoles($this->role);
             $this->user->save();
