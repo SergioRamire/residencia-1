@@ -82,6 +82,7 @@ class PeriodCoursesController extends Component
     public function open_modal(){
         $this->show_edit_create_modal = true;
     }
+
     public function close_modal(){
         $this->show_edit_create_modal = false;
     }
@@ -112,6 +113,7 @@ class PeriodCoursesController extends Component
         $this->create = false;
         $this->open_modal();
     }
+
     public function update_period()
     {
         $this->validate();
@@ -163,6 +165,7 @@ class PeriodCoursesController extends Component
         $this->showConfirmationModal = true;
 
     }
+
     public function periodo_desactivar($id){
         $this->periodo_id = $id;
         $this->confirming_period_Inactive=true;
@@ -175,6 +178,7 @@ class PeriodCoursesController extends Component
         $this->showConfirmationModal = true;
         $this->confirming_period_habil=true;
     }
+
     public function periodo_inhabilitar($id){
         $this->periodo_id = $id;
         $this->showConfirmationModal = true;
@@ -218,8 +222,6 @@ class PeriodCoursesController extends Component
             $this->showConfirmationModal = false;
         $this->confirming_period_inhabil=false;
     }
-
-
 
     public function obtener_fechas_activas(){
         $fecha_i_1=Period::select('periods.fecha_inicio')

@@ -49,6 +49,7 @@ class CourseDetailsController extends Component
     public $confirming_details_deletion = false;
     public $confirming_save_details = false;
     public bool $show_view_modal = false;
+    public bool $permiso_eliminicacion = false;
 
     protected $listeners = [
         'per_send',
@@ -130,30 +131,16 @@ class CourseDetailsController extends Component
 
     public function view($id){
         $coursedetail = CourseDetail::find($id);
-        // $this->curso = $coursedetail->curso;
-        // $this->grupo_elegido = $coursedetail->grupo;
-        // $this->periodo_elegido = $coursedetail->fi.' a '.$coursedetail->ff;
-        // $this->hora_inicio = $coursedetail->hora_inicio;
-        // $this->hora_fin = $coursedetail->hora_fin;
-        // $this->capacidad = $coursedetail->capacidad;
-        // $this->modalidad = $coursedetail->modalidad;
-
         $this->coursedetail_id = $id;
-        // $this->grupo_id = $coursedetail->group_id;
-        // $this->curso = $coursedetail->course_id;
-        // $this->period = $coursedetail->period_id;
         $this->hora_inicio = $coursedetail->hora_inicio;
         $this->hora_fin = $coursedetail->hora_fin;
         $this->capacidad = $coursedetail->capacidad;
         $this->modalidad = $coursedetail->modalidad;
         $this->numero_curso = $coursedetail->numero_curso;
         $this->lugar = $coursedetail->lugar;
-
         $this->curso = Course::find($coursedetail->course_id)->nombre;
         $this->period = Period::find($coursedetail->period_id)->clave;
         $this->grupo_id = Group::find($coursedetail->group_id)->nombre;
-
-
         $this->lugar = $coursedetail->lugar;
         $this->show_view_modal = true;
     }
@@ -170,6 +157,7 @@ class CourseDetailsController extends Component
             'course_id'=>$this->curso,
             'group_id'=>$this->grupo_id,
             'period_id'=>$this->period,
+            'estatus'=>1,
         ]);
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
@@ -203,7 +191,13 @@ class CourseDetailsController extends Component
         $this->edit = true;
         $this->create = false;
         $this->open_modal();
+    }
 
+    public function permiso_para_eliminar($id){
+        $consulta = CourseDetail::join('inscriptions','inscriptions.course_detail_id','=','course_details.id')
+                          ->where('course_details.id','=',$id)
+                          ->first();
+        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
     }
 
     public function delete_details($id){
