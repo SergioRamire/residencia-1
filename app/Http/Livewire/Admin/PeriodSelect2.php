@@ -62,7 +62,7 @@ class PeriodSelect2 extends Component
     ];
     public $id_escojido;
     public function valorPerio($valor){
-        $this->txt = 'Buscar Curso';
+        $this->txt = 'Buscar Periodo';
         if (!empty($valor)) {
             $this->txt = Period::where('periods.id', '=', $valor)->get()[0]->clave;
         }
