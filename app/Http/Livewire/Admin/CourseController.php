@@ -21,12 +21,10 @@ class CourseController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
-    use WithTrimAndNullEmptyStrings;
 
     public Course $course;
 
     public int $perPage = 8;
-    protected array $cleanStringsExcept = ['search'];
     public array $filters = [
         // 'modalidad' => '',
         'perfil' => '',

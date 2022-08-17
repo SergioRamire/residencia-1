@@ -15,7 +15,7 @@
                 <!-- Perfil -->
                 <div class="sm:flex-1">
                     <x-jet-label for="perfil">Perfil <span class="text-red-600">*</span></x-jet-label>
-                    <x-input.select wire:model.defer="course.perfil" id="perfil" class="mt-1 w-full" name="perfil" required>
+                    <x-input.select wire:model="course.perfil" id="perfil" class="mt-1 w-full" name="perfil" required>
                         <option value="" disabled>Selecciona perfil...</option>
                         <option value="Formación docente">Formación docente</option>
                         <option value="Actualización profesional">Actualización profesional</option>
