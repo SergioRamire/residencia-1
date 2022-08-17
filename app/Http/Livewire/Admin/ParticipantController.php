@@ -22,12 +22,10 @@ class ParticipantController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
-    use WithTrimAndNullEmptyStrings;
 
     public User $user;
 
     public int $perPage = 8;
-    protected array $cleanStringsExcept = ['search'];
     public array $filters = [
         'area' => '',
         'tipo' => '',
@@ -43,6 +41,11 @@ class ParticipantController extends Component
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
     public function rules(): array
     {
         return [
@@ -50,11 +53,10 @@ class ParticipantController extends Component
             'user.name' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.apellido_paterno' => $this->vali_ap($this->no_ap1),
             'user.apellido_materno' => $this->vali_ap($this->no_ap2),
-            'user.sexo' => ['required',  'in:M,F'],
+            'user.sexo' => ['required', 'in:M,F'],
             'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
             'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.tipo' => ['required', 'in:Base,Interinato,Honorarios'],
-            // TO-DO: Crear regex de clave_presupuestal según ejemplos reales
             'user.clave_presupuestal' => ['required', 'max:255'],
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
@@ -62,10 +64,10 @@ class ParticipantController extends Component
             'user.puesto_en_area' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
             'user.hora_entrada' => ['required', new Time('07:00:00', '17:00:00')],
             'user.hora_salida' => ['required', new Time('08:00:00', '18:00:00')],
-            'user.cuenta_moodle' => ['required',  'in:0,1'],
+            'user.cuenta_moodle' => ['required', 'in:0,1'],
             'user.organizacion_origen' => ['required', 'max:255'],
             'user.jefe_inmediato' => ['required', 'regex:/^[\pL\pM\s.]+$/u', 'max:255'],
-            'user.area_id' => ['required',  'exists:areas,id'],
+            'user.area_id' => ['required', 'exists:areas,id'],
         ];
     }
 
@@ -87,12 +89,12 @@ class ParticipantController extends Component
         $this->authorize('participant.edit');
         if (empty($user->apellido_paterno)) {
             $this->no_ap1 = 1;
-        }else {
+        } else {
             $this->no_ap1 = 0;
         }
         if (empty($user->apellido_materno)) {
             $this->no_ap2 = 1;
-        }else {
+        } else {
             $this->no_ap2 = 0;
         }
         $this->resetErrorBag();
@@ -125,8 +127,10 @@ class ParticipantController extends Component
             'message' => 'Participante actualizado exitosamente',
         ]);
     }
+
     public $idper;
     public $idcur;
+
     public function render()
     {
         return view('livewire.admin.participants.index', [
@@ -137,11 +141,10 @@ class ParticipantController extends Component
                     return $query->where(function ($q) {
                         $q->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
                           ' ', users.apellido_materno)"), 'like', '%'.$this->search.'%')
-                          ->orWhere('users.rfc', 'like', '%'.$this->search.'%')
-                          ->orWhere('areas.nombre', 'like', '%'.$this->search.'%');
+                            ->orWhere('users.rfc', 'like', '%'.$this->search.'%')
+                            ->orWhere('areas.nombre', 'like', '%'.$this->search.'%');
                     });
                 })
-
                 ->when($this->filters['area'], fn ($query, $area) => $query->where('area_id', $area))
                 ->when($this->filters['tipo'], fn ($query, $tipo) => $query->where('tipo', $tipo))
                 ->when($this->filters['sexo'], fn ($query, $sexo) => $query->where('sexo', $sexo))
@@ -158,16 +161,18 @@ class ParticipantController extends Component
         ]);
     }
 
-    
+
     public $no_ap1 = false;
     public $no_ap2 = false;
     public $entroonoentro;
-    public function vali_ap($valor){
+
+    public function vali_ap($valor)
+    {
         if ((int)$valor == 1) {
             $this->entroonoentro = 'ENtro al if';
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
         }
         $this->entroonoentro = 'No entro al if';
-        return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255','required'];
+        return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255', 'required'];
     }
 }
