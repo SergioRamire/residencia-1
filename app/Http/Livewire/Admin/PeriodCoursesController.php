@@ -122,6 +122,7 @@ class PeriodCoursesController extends Component
         $this->periods->perfil = 0;
         $this->periods->ofertado = 0;
         $this->periods->fecha_limite_para_calificar = $this->periods->fecha_fin;
+        $this->periods->estatus = 1;
         $this->periods->save();
         $this->resetErrorBag();
         $this->resetValidation();

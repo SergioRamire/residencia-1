@@ -181,9 +181,11 @@ class UserController extends Component
             $this->user->update([
                 'name' => $this->user->name,
                 'email' => $this->user->email,
+                'estatus' => $this->user->estatus = 1;
             ]);
             $this->user->syncRoles($this->role);
         } else {
+            'estatus' => $this->user->estatus = 1;
             $this->user->password = Hash::make($this->password);
             $this->user->syncRoles($this->role);
             $this->user->save();
@@ -248,14 +250,14 @@ class UserController extends Component
     public function activar(){
         DB::table('users')
             ->where('users.id','=',$this->user_id)
-            ->update(['estado' => 1]);
+            ->update(['estatus' => 1]);
         $this->confirming_user_active=false;
     }
 
     public function desactivar(){
         DB::table('users')
             ->where('users.id','=',$this->user_id)
-            ->update(['estado' => 0]);
+            ->update(['estatus' => 0]);
         $this->confirming_user_Inactive=false;
     }
 }

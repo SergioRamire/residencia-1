@@ -146,6 +146,7 @@ class CourseController extends Component
     public function save()
     {
         $this->course->dirigido = implode(', ', $this->course->dirigido);
+        $this->periods->estatus = 1;
         $this->validate();
         $this->course->save();
         $this->showConfirmationModal = false;

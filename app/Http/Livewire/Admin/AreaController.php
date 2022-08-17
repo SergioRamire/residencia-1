@@ -86,6 +86,7 @@ class AreaController extends Component
 
     public function save(){
         $this->validate();
+        $this->periods->estatus = 1;
         $this->areas->save();
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',

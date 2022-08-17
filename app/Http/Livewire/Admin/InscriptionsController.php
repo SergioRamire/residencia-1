@@ -296,17 +296,12 @@ class InscriptionsController extends Component
             ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
         $count=0;
-        // if(count($this->arreglo_fecha)==4){
             foreach($periodos as $p){
                 $this->arreglo_fecha[$count] = $p->fecha_inicio;
                 $count = $count + 1;
                 $this->arreglo_fecha[$count] = $p->fecha_fin;
                 $count = $count + 1;
             }
-        // }
-        // else{
-        //     $this->disponible =false;
-        // }
     }
 
     public function descartar_curso($id){
