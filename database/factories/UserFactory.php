@@ -113,6 +113,7 @@ class UserFactory extends Factory
             'hora_salida' => date('H:i', strtotime($hora_entrada.'+5 hour')),
             'correo_tecnm' => "$correo_id@oaxaca.tecnm.mx",
             'area_id' => Area::inRandomOrder()->first()->id,
+            'estatus'=>'1',
         ];
     }
 
