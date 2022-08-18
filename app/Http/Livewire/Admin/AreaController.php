@@ -43,14 +43,14 @@ class AreaController extends Component
         if ($this->edit) {
             return [
                 'areas.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u',Rule::unique('areas', 'nombre')->ignore($this->areas)],
-                'areas.jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+                'areas.jefe_area' => ['required', 'regex:/^[\pL\pM\s\.]+$/u'],
                 'areas.extension' => ['required', 'numeric'],
                 'areas.clave' => ['required', 'alpha_num',Rule::unique('areas', 'clave')->ignore($this->areas)],
                 'areas.telefono' => ['required', 'numeric'],
         ];}
         return [
             'areas.nombre' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'unique:areas'],
-            'areas.jefe_area' => ['required', 'regex:/^[\pL\pM\s]+$/u'],
+            'areas.jefe_area' => ['required', 'regex:/^[\pL\pM\s\.]+$/u'],
             'areas.extension' => ['required', 'numeric'],
             'areas.clave' => ['required', 'alpha_num', 'unique:areas'],
             'areas.telefono' => ['required', 'numeric'],

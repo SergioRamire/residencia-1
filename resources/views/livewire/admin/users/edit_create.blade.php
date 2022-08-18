@@ -6,19 +6,6 @@
         <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios"/>
 
         <form wire:submit.prevent="confirm_save()" id="userForm">
-            <div class=" text-right">
-                {{-- <span class="text-gray-700">Account Type</span> --}}
-                <div class="mt-4 mt-1">
-                  <label class="inline-flex items-center">
-                    <input wire:model="user.estatus" type="radio" class="form-radio" name="estatus" value="0">
-                    <span class="ml-2">Inactivo</span>
-                  </label>
-                  <label class="inline-flex items-center ml-6">
-                    <input wire:model="user.estatus" type="radio" class="form-radio" name="estatus" value="1" for="user.estatus" required>
-                    <span class="ml-2">Activo</span>
-                  </label>
-                </div>
-            </div>
             <!-- Nombre y Apellidos -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
 
