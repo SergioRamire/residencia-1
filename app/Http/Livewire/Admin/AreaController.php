@@ -27,7 +27,8 @@ class AreaController extends Component
     //variables de activar area
     public bool $confirming_area_active =false;
     public bool $confirming_area_Inactive =false;
-    public $area_id;
+    public $area;
+    public bool $showConfirmationModal = false;
 
     public bool $permiso_eliminicacion = false;
 
@@ -86,7 +87,7 @@ class AreaController extends Component
 
     public function save(){
         $this->validate();
-        $this->periods->estatus = 1;
+        $this->areas->estatus = 1;
         $this->areas->save();
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
@@ -146,28 +147,32 @@ class AreaController extends Component
         ]);
     }
 
-    public function area_activar($id){
-        $this->area_id = $id;
+    public function area_habilitar($id){
+        $this->area =Area::find($id);
         $this->confirming_area_active=true;
+        $this->showConfirmationModal = true;
     }
 
-    public function area_desactivar($id){
-        $this->area_id = $id;
+    public function area_inhabilitar($id){
+        $this->area =Area::find($id);
         $this->confirming_area_Inactive=true;
+        $this->showConfirmationModal = true;
     }
 
-    public function activar(){
+    public function habilitar(){
         DB::table('areas')
-            ->where('areas.id','=',$this->area_id)
+            ->where('areas.id','=',$this->area->id)
             ->update(['estatus' => 1]);
         $this->confirming_area_active=false;
+        $this->showConfirmationModal = false;
     }
 
-    public function desactivar(){
+    public function inhabilitar(){
         DB::table('areas')
-            ->where('areas.id','=',$this->area_id)
+            ->where('areas.id','=',$this->area->id)
             ->update(['estatus' => 0]);
         $this->confirming_area_Inactive=false;
+        $this->showConfirmationModal = false;
     }
 
     public function render(){

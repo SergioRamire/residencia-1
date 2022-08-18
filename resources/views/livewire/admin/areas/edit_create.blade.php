@@ -45,7 +45,7 @@
            {{$modo}} Datos
         </x-jet-button>
         @if($confirmingSaveArea)
-                    @include('livewire.admin.areas.confirmation')
+        @include('livewire.admin.areas.confirmation')
         @endif
     </x-slot>
 </x-jet-dialog-modal>

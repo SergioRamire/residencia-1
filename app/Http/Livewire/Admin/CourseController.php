@@ -34,13 +34,14 @@ class CourseController extends Component
     public bool $showEditCreateModal = false;
     public bool $showViewModal = false;
     public bool $showConfirmationModal = false;
+    public bool $showConfirmationEstatus = false;
     public bool $edit = false;
     public bool $delete = false;
 
      //variables de activar curso
-    public bool $confirming_curse_active =false;
+    public bool $confirming_course_active =false;
     public bool $confirming_course_Inactive =false;
-    public $curse_id;
+    public $curso;
 
     public bool $permiso_eliminicacion = false;
 
@@ -175,30 +176,32 @@ class CourseController extends Component
         ]);
     }
 
-    public function course_activar($id){
-        $usuario=Course::find($id);
-        $this->curse_id = $usuario;
-        $this->confirming_curse_active=true;
+    public function course_habilitar($id){
+        $this->curso = Course::find($id);
+        $this->confirming_course_active=true;
+        $this->showConfirmationEstatus = true;
     }
 
-    public function course_desactivar($id){
-        $usuario=Course::find($id);
-        $this->curse_id = $usuario;
+    public function course_inhabilitar($id){
+        $this->curso = Course::find($id);
         $this->confirming_course_Inactive=true;
+        $this->showConfirmationEstatus = true;
     }
 
-    public function activar(){
+    public function habilitar(){
         DB::table('courses')
-            ->where('courses.id','=',$this->curse_id->id)
+            ->where('courses.id','=',$this->curso->id)
             ->update(['estatus' => 1]);
-        $this->confirming_curse_active=false;
+        $this->confirming_course_active=false;
+        $this->showConfirmationEstatus = false;
     }
 
-    public function desactivar(){
+    public function inhabilitar(){
         DB::table('courses')
-            ->where('courses.id','=',$this->curse_id->id)
+            ->where('courses.id','=',$this->curso->id)
             ->update(['estatus' => 0]);
         $this->confirming_course_Inactive=false;
+        $this->showConfirmationEstatus = false;
     }
 
     public function render()

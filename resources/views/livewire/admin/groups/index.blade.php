@@ -59,26 +59,19 @@
                         <x-table.cell>{{ $g->nombre }}</x-table.cell>
                         <x-table.cell>
                             @if($g->estatus === 1)
+                            <button wire:click="group_inhabilitar({{ $g->id }})">
                                 <x-badge.basic value="Habilitado" color="green" large/>
+                            </button>
                             @elseif($g->estatus === 0)
+                            <button wire:click="group_habilitar({{ $g->id }})">
                                 <x-badge.basic value="Inhabilitado" color="red" large/>
+                            </button>
                             @endif
                         </x-table.cell>
                         <x-table.cell width='200' class="whitespace-nowrap">
                             <button  wire:click="edit({{ $g->id }})" type="button" title="Editar grupo" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-
-                            @if($g->estatus === 1)
-                                <button wire:click="group_desactivar({{ $g->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
-                                    Inhabilitar
-                                </button>
-                            @endif
-                            @if($g->estatus === 0)
-                                <button wire:click="group_activar({{ $g->id }})" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
-                                    Habilitar
-                                </button>
-                            @endif
                             {{$this->permiso_para_eliminar($g->id)}}
                             @if($this->permiso_eliminicacion)
                             <button wire:click="delete_group({{ $g->id }})" type="button" title="Eliminar grupo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
@@ -107,20 +100,10 @@
             <div>
                 {{ $datos->links() }}
             </div>
-            @if($create)
-                        @include('livewire.admin.groups.edit_create',['modo'=>'Crear'])
-
-            @elseif($edit)
-                        @include('livewire.admin.groups.edit_create',['modo'=>'Actualizar'])
-            @endif
-            @if($confirming_group_deletion)
-                        @include('livewire.admin.groups.destroy')
-            @endif
-            @if ($confirming_group_active)
-                @include('livewire.admin.groups.confirmationActive')
-            @elseif($confirming_group_Inactive)
-                @include('livewire.admin.groups.confirmationInactive')
-            @endif
+            @include('livewire.admin.groups.edit_create',['modo'=>'Crear'])
+            @include('livewire.admin.groups.edit_create',['modo'=>'Actualizar'])
+            @include('livewire.admin.groups.destroy')
+            @include('livewire.admin.groups.confirmationStatus')
         </div>
     </div>
 </div>

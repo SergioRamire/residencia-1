@@ -21,7 +21,7 @@
                 <!-- Modalidad -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="modalidad">Modalidad <span class="text-red-600">*</span></x-jet-label>
-                    <x-input.select wire:model="modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
+                    <x-input.select wire:model="modalidad" id="modalidad" class="w-full" name="modalidad" required>
                         <option value="" disabled>Selecciona modalidad...</option>
                         <option value="Presencial" selected>Presencial</option>
                         <option value="Semi-presencial">Semi-presencial</option>
@@ -95,8 +95,7 @@
         <x-jet-button class="ml-3" wire:loading.attr="disabled" form="courseForm">
             Guardar
         </x-jet-button>
-        @if ($confirming_save_details)
-            @include('livewire.admin.coursedetails.confirmation')
-        @endif
+        @include('livewire.admin.coursedetails.confirmation')
+        @include('livewire.admin.coursedetails.aviso')
     </x-slot>
 </x-jet-dialog-modal>

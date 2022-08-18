@@ -26,8 +26,9 @@ class GroupController extends Component
     public $confirming_save_group = false;
     public bool $confirming_group_active =false;
     public bool $confirming_group_Inactive =false;
-    public $groups_id;
+    public $grupo;
     public bool $permiso_eliminicacion =false;
+    public bool $showConfirmationModal = false;
 
     public $perPage = '8';
     public $search = '';
@@ -143,31 +144,32 @@ class GroupController extends Component
         ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
     }
 
-    public function group_activar($id){
-        $grupo=Group::find($id);
-        $this->groups_id = $grupo;
-        // $this->groups_id = $id;
+    public function group_habilitar($id){
+        $this->grupo=Group::find($id);
         $this->confirming_group_active=true;
+        $this->showConfirmationModal = true;
     }
 
-    public function group_desactivar($id){
-        $grupo=Group::find($id);
-        $this->groups_id = $grupo;
+    public function group_inhabilitar($id){
+        $this->grupo=Group::find($id);
         $this->confirming_group_Inactive=true;
+        $this->showConfirmationModal = true;
     }
 
-    public function activar(){
+    public function habilitar(){
         DB::table('groups')
-            ->where('groups.id','=',$this->groups_id->id)
+            ->where('groups.id','=',$this->grupo->id)
             ->update(['estatus' => 1]);
         $this->confirming_group_active=false;
+        $this->showConfirmationModal = false;
     }
 
-    public function desactivar(){
+    public function inhabilitar(){
         DB::table('groups')
-            ->where('groups.id','=',$this->groups_id->id)
+            ->where('groups.id','=',$this->grupo->id)
             ->update(['estatus' => 0]);
         $this->confirming_group_Inactive=false;
+        $this->showConfirmationModal = false;
     }
 
 

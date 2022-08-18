@@ -41,7 +41,7 @@ class UserController extends Component
 
     public bool $confirming_user_active =false;
     public bool $confirming_user_Inactive =false;
-    public $user_id;
+    public bool $confirmationStatus =false;
     public $nombre_completo='';
 
     protected $queryString = [
@@ -236,28 +236,30 @@ class UserController extends Component
         return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255','required'];
     }
 
-    public function user_activar($id){
-        $user=User::find($id);
-        $this->user_id = $user;
+    public function user_habilitar($id){
+        $this->user=User::find($id);
         $this->confirming_user_active=true;
+        $this->confirmationStatus =true;
     }
-    public function user_desactivar($id){
-        $user=User::find($id);
-        $this->user_id = $user;
+    public function user_inhabilitar($id){
+        $this->user=User::find($id);
         $this->confirming_user_Inactive=true;
+        $this->confirmationStatus =true;
     }
 
-    public function activar(){
+    public function habilitar(){
         DB::table('users')
-            ->where('users.id','=',$this->user_id->id)
+            ->where('users.id','=',$this->user->id)
             ->update(['estatus' => 1]);
         $this->confirming_user_active=false;
+        $this->confirmationStatus =false;
     }
 
-    public function desactivar(){
+    public function inhabilitar(){
         DB::table('users')
-            ->where('users.id','=',$this->user_id->id)
+            ->where('users.id','=',$this->user->id)
             ->update(['estatus' => 0]);
         $this->confirming_user_Inactive=false;
+        $this->confirmationStatus =false;
     }
 }

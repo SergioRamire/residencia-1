@@ -103,12 +103,12 @@
                             <x-table.cell>{{ $u->getRoleNames()->first() }}</x-table.cell>
                             <x-table.cell class="text-center">
                                 @if($u->estatus == 1)
-                                <button wire:click="user_desactivar({{$u->id}})">
-                                    <x-badge.basic value="Activo" color="green" large/>
+                                <button wire:click="user_inhabilitar({{$u->id}})">
+                                    <x-badge.basic value="Habilitado" color="green" large/>
                                 </button>
                                 @elseif($u->estatus == 0)
-                               <button wire:click="user_activar({{$u->id}})">
-                                <x-badge.basic value="Inactivo" color="red" large/>
+                               <button wire:click="user_habilitar({{$u->id}})">
+                                <x-badge.basic value="Inhabilitado" color="red" large/>
                                </button>
                                 @endif
                             </x-table.cell>
@@ -153,9 +153,5 @@
     <!-- Modales -->
     @include('livewire.admin.users.edit_create')
     @include('livewire.admin.users.confirmation')
-    @if($confirming_user_active)
-        @include('livewire.admin.users.confirmationActive')
-    @elseif($confirming_user_Inactive)
-        @include('livewire.admin.users.confirmationInactive')
-    @endif
+    @include('livewire.admin.users.confirmationStatus')
 </div>

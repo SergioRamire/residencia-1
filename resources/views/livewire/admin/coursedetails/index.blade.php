@@ -76,7 +76,6 @@
                     <x-table.header wire:click="sortBy('grupo')" sortable :direction="$sortField === 'grupo' ? $sortDirection : null">
                         Grupo
                     </x-table.header>
-                    <x-table.header class="text-center">Estado</x-table.header>
                     <x-table.header class="text-center">Acciones</x-table.header>
                 </x-slot>
 
@@ -88,13 +87,6 @@
                             {{ $d->hora_fin }}</x-table.cell>
                         <x-table.cell>{{ $d->lugar }}</x-table.cell>
                         <x-table.cell>{{ $d->grupo }}</x-table.cell>
-                        <x-table.cell>
-                            @if($d->estatus === 1)
-                                <x-badge.basic value="Habilitado" color="green" large/>
-                            @elseif($d->estatus === 0)
-                                <x-badge.basic value="Inhabilitado" color="red" large/>
-                            @endif
-                        </x-table.cell>
                         <x-table.cell width='200' class="whitespace-nowrap">
                             <button  wire:click="view({{ $d->id }})" type="button" title="Ver más información" class="px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                 Ver
@@ -102,15 +94,6 @@
                             <button  wire:click="edit({{ $d->id }})" type="button" title="Editar información" class="mx-2 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            @if($d->estatus === 1)
-                                <button wire:click="" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
-                                    Habilitado
-                                </button>
-                            @elseif($d->estatus === 0)
-                                <button wire:click="" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
-                                    Inhabilitado
-                                </button>
-                            @endif
                             {{$this->permiso_para_eliminar($d->id)}}
                             @if($this->permiso_eliminicacion)
                             <button wire:click="delete_details('{{ $d->id }}')" type="button" title="Eliminar detalles" class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">

@@ -50,6 +50,7 @@ class CourseDetailsController extends Component
     public $confirming_save_details = false;
     public bool $show_view_modal = false;
     public bool $permiso_eliminicacion = false;
+    public bool $aviso = false;
 
     protected $listeners = [
         'per_send',
@@ -126,7 +127,9 @@ class CourseDetailsController extends Component
 
     public function update_details(){
         $this->validate();
-        $this->confirming_save_details = true;
+        if($this->evaluar_cursos_iguales())
+        $this->aviso=true;
+        else $this->confirming_save_details = true;
     }
 
     public function view($id){
@@ -143,6 +146,17 @@ class CourseDetailsController extends Component
         $this->grupo_id = Group::find($coursedetail->group_id)->nombre;
         $this->lugar = $coursedetail->lugar;
         $this->show_view_modal = true;
+    }
+
+    public function evaluar_cursos_iguales(){
+        $consulta=CourseDetail::where('course_details.lugar','=',$this->lugar)
+                                ->where('course_details.hora_inicio','=',$this->hora_inicio)
+                                ->where('course_details.period_id','=',$this->period)
+                                ->select('course_details.id')
+                                ->first();
+        if( $consulta!= null)
+            return true;
+        return false;
     }
 
     public function store(){
