@@ -29,7 +29,7 @@
                         tracking-widest shadow-sm hover:text-white hover:bg-blue-600
                         focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200
                         active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">
-                        {{$data->rfc}} {{$data->name}} {{$data->apellido_paterno}} {{$data->apellido_materno}}
+                        {{$data->rfc}} <strong class="text-red-500"> | </strong> {{$data->name}} {{$data->apellido_paterno}} {{$data->apellido_materno}}
                     </a>
                 @endforeach
             @else

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class InstructorSelect extends Component
@@ -40,12 +41,15 @@ class InstructorSelect extends Component
 
     public function consulta(){
         if (strcmp(strtolower($this->query), 'todos') === 0) {
-            return User::all();
+            return User::where('estatus',1)->get();
         } else {
-            return User::when($this->query, fn ($query2, $b) => $query2
+            return User::where('estatus',1)
+                ->when($this->query, fn ($query2, $b) => $query2
                 ->where('users.rfc', 'like', "%$b%")
-                ->orWhere('users.name', 'like', "%$b%"))
-            ->select('users.id as id', 'users.name')
+                ->orWhere('users.curp', 'like', "%$b%")
+                ->orWhere(DB::raw("concat(users.name,' ',users.apellido_paterno,
+                ' ', users.apellido_materno)"), 'like', '%'.$b.'%'))
+            ->select('users.id as id', 'users.*')
             ->get();
         }
     }

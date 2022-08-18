@@ -40,11 +40,14 @@ class ParticipanteSelect extends Component
 
     public function consulta(){
         if (strcmp(strtolower($this->query), 'todos') === 0) {
-            return User::where('organizacion_origen', 'like', $this->inst_ori)->get();
+            return User::where('estatus',1)
+                ->where('organizacion_origen', 'like', $this->inst_ori)->get();
         } else {
-            return User::where('organizacion_origen', 'like', $this->inst_ori)
+            return User::where('estatus',1)
+                ->where('organizacion_origen', 'like', $this->inst_ori)
                 ->when($this->query, fn ($query2, $b) => $query2
                     ->where('users.rfc', 'like', "%$b%")
+                    ->orWhere('users.curp', 'like', "%$b%")
                     ->orWhere(DB::raw("concat(users.name,' ',users.apellido_paterno,
                     ' ', users.apellido_materno)"), 'like', '%'.$b.'%'))
             ->select('users.*')
