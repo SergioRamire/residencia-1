@@ -4,7 +4,6 @@
             ASIGNACIÓN DE INSTRUCTORES A CURSOS
         </h2>
     </x-slot>
-
     <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
         <div class="mt-4 flex-1">
             <x-jet-label value="Seleccione el período"/>
@@ -62,18 +61,21 @@
                         <tr wire:key="instructor-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell >{{ $g->cnombre }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->gnombre }}</x-table.cell>
-                            <x-table.cell class="text-center">{{ $g->lugar }}</x-table.cell>
-                            <x-table.cell class="text-center">{{ date('d-m-Y', strtotime($g->f1)) }} a
+                            <x-table.cell class="text-center whitespace-nowrap">{{ $g->lugar }}</x-table.cell>
+                            <x-table.cell class="text-center whitespace-nowrap">{{ date('d-m-Y', strtotime($g->f1)) }} a
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
-                                <x-table.cell width='200' class="whitespace-nowrap">
-                                <button  wire:click="open_modal_create({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="mr-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
-                                    Añadir
-                                </button>
-                                <button  wire:click="open_modal_show({{ $g->idcurdet }})" type="button" title="Ver instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
-                                    Ver
-                                </button>
-
-
+                                <x-table.cell width='200' class="text-center whitespace-nowrap">
+                                    @if (App\Models\CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
+                                    ->where('inscriptions.estatus_participante', 'Instructor')
+                                    ->where('inscriptions.course_detail_id', $g->idcurdet)
+                                    ->count() < 2)
+                                        <button  wire:click="open_modal_create({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="mr-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
+                                            Añadir
+                                        </button>
+                                    @endif
+                                    <button  wire:click="open_modal_show({{ $g->idcurdet }})" type="button" title="Ver instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
+                                        Ver
+                                    </button>
                             </x-table.cell>
                         </tr>
                     @empty

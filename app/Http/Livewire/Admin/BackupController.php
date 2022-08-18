@@ -65,6 +65,10 @@ class BackupController extends Component
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
+    public bool $modal_ayuda = false;
+
+
+
     /**
      * Refleja la acción de crear respaldo y activa el modal de confirmación
      *
@@ -280,5 +284,9 @@ class BackupController extends Component
             ->paginate($this->perPage);
 
         return view('livewire.admin.backup.index', ['backups' => $backups]);
+    }
+
+    public function mostrar_ayuda(){
+        $this->modal_ayuda = true;
     }
 }

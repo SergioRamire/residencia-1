@@ -5,6 +5,13 @@
         </h2>
     </x-slot>
 
+    <div class="flex justify-end">
+        <button wire:click="mostrar_ayuda" class="text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+            <x-icon.info solid alt="sm" class="inline-block h-7 w-7"/>
+        </button>
+    </div>
+
+
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
             <!-- Botón de nuevo -->
@@ -101,4 +108,5 @@
 
     <!-- Modales -->
     @include('livewire.admin.backup.confirmation')
+    @include('livewire.admin.backup.ayuda')
 </div>

@@ -174,5 +174,5 @@
     @include('livewire.admin.courses.edit_create')
     @include('livewire.admin.courses.show')
     @include('livewire.admin.courses.confirmation')
-    @include('livewire.admin.courses.confirmationActive')
+    @include('livewire.admin.courses.confirmationStatus')
 </div>

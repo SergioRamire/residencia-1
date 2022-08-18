@@ -37,6 +37,9 @@ class AssignedInstructorController extends Component
     public $modal_delete = false;
     public bool $modal_confirmacion;
 
+    public $cont_instructores;
+    public bool $flag_cont_inst;
+
 
 
     public int $perPage = 8;
@@ -66,22 +69,46 @@ class AssignedInstructorController extends Component
         $this->id_instructor = $valor;
         // dd($this->id_instructor);
     }
+    public function prueba($id_detaller_curso){
+        $this->cont_instructores = CourseDetail::join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
+            ->where('inscriptions.estatus_participante','Instructor')
+            ->where('course_details.id',$id_detaller_curso)
+            ->count();
+        return $this->cont_instructores;
+    }
+    public function buscar_dcurso($id_user,$id_course){
+        return CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
+        ->where('inscriptions.user_id', $id_user)
+        ->where('inscriptions.course_detail_id', $id_course)
+        ->count();
+    }
     public function registrar(){
-        $this->user = User::find($this->id_instructor);
-        $courseDetails = CourseDetail::find($this->id_detalle_curso);
-        $this->user->courseDetails()->attach($courseDetails, [
-            'calificacion' => 0,
-            'estatus_participante' => 'Instructor',
-            'asistencias_minimas' => 0,
-            'url_cedula' => '',
-        ]);
-        $this->noti('success', 'Instructor asignado correctamente');
+        if ($this->buscar_dcurso($this->id_instructor, $this->id_detalle_curso) == 0) {
+            $this->user = User::find($this->id_instructor);
+            $courseDetails = CourseDetail::find($this->id_detalle_curso);
+            $this->user->courseDetails()->attach($courseDetails, [
+                'calificacion' => 0,
+                'estatus_participante' => 'Instructor',
+                'asistencias_minimas' => 0,
+                'url_cedula' => '',
+            ]);
+            $this->noti('success', 'Instructor asignado correctamente');
+        }else {
+            $this->noti('info', 'Ya se encutra asignar a este curso como participante');
+        }
+
     }
     public function asignar(){
-        // $this->id_instructor = $this->id_ins;
-        $this->registrar();
-        $this->close_modal();
-        $this->modal_confirmacion = false;
+        if ((int)$this->prueba($this->id_detalle_curso) < (int)2) {
+            $this->registrar();
+            $this->close_modal();
+            $this->modal_confirmacion = false;
+            // $this->noti('info', 'si asigna');
+        }else {
+            $this->close_modal();
+            $this->modal_confirmacion = false;
+            $this->noti('info', 'No se pueden asignar mas de 2 instructores');
+        }
     }
     public function resetFilters(){
         $this->reset('curso');

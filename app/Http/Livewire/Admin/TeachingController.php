@@ -23,6 +23,7 @@ class TeachingController extends Component{
         ]);
     }
     public function consulta(){
+        $this->hoy = date('Y/m/d');
         return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('periods', 'periods.id', '=', 'course_details.period_id')
             ->join('groups', 'groups.id', '=', 'course_details.group_id')
@@ -42,8 +43,11 @@ class TeachingController extends Component{
                 'course_details.hora_fin as h2',
                 'course_details.lugar',
             )
+            ->where('periods.fecha_inicio','>',$this->hoy)
             ->where("users.id", $this->user->id)
             ->where("inscriptions.estatus_participante", $this->estatus)
+            ->orderBy('periods.fecha_inicio', 'asc')
             ->get();;
     }
+
 }
