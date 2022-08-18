@@ -123,8 +123,12 @@
             <div>
                 {{ $datosareas->links() }}
             </div>
-            @include('livewire.admin.areas.edit_create',['modo'=>'Crear'])
-            @include('livewire.admin.areas.edit_create',['modo'=>'Actualizar'])
+            @if ($create)
+                @include('livewire.admin.areas.edit_create',['modo'=>'Crear'])
+            @endif
+            @if ($edit)
+                @include('livewire.admin.areas.edit_create',['modo'=>'Actualizar'])  
+            @endif
             @include('livewire.admin.areas.destroy')
             @include('livewire.admin.areas.confirmationStatus')
         </div>

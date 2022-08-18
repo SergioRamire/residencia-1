@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea agregar el insctructor?
+        ¿Seguro que desea agregar el instructor?
     </x-slot>
 
     {{-- botones --}}

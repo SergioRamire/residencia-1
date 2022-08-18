@@ -100,8 +100,12 @@
             <div>
                 {{ $datos->links() }}
             </div>
-            @include('livewire.admin.groups.edit_create',['modo'=>'Crear'])
-            @include('livewire.admin.groups.edit_create',['modo'=>'Actualizar'])
+            @if ($create)
+                @include('livewire.admin.groups.edit_create',['modo'=>'Crear'])
+            @endif
+            @if ($edit)
+                @include('livewire.admin.groups.edit_create',['modo'=>'Actualizar'])
+            @endif
             @include('livewire.admin.groups.destroy')
             @include('livewire.admin.groups.confirmationStatus')
         </div>
