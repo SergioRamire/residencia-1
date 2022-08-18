@@ -121,20 +121,11 @@
             <div>
                 {{ $datos->links() }}
             </div>
-            @if ($create)
-                @include('livewire.admin.periodCourses.edit_create', ['modo' => 'Crear'])
-            @elseif($edit)
-                @include('livewire.admin.periodCourses.edit_create', [ 'modo' => 'Actualizar', ])
-            @endif
-            @if ($confirming_period_deletion)
-                @include('livewire.admin.periodCourses.destroy')
-            @endif
-            @if ($showConfirmationModal)
-                @include('livewire.admin.periodCourses.confirmationActive')
-            @endif
-            {{-- @elseif($confirming_period_Inactive)
-                @include('livewire.admin.periodCourses.confirmationInactive')
-            @endif --}}
+            @include('livewire.admin.periodCourses.edit_create', ['modo' => 'Crear'])
+            @include('livewire.admin.periodCourses.edit_create', [ 'modo' => 'Actualizar', ])
+            @include('livewire.admin.periodCourses.destroy')
+            @include('livewire.admin.periodCourses.destroy')
+            @include('livewire.admin.periodCourses.confirmationStatus')
         </div>
     </div>
 </div>
