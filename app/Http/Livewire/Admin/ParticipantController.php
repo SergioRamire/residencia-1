@@ -164,15 +164,12 @@ class ParticipantController extends Component
 
     public $no_ap1 = false;
     public $no_ap2 = false;
-    public $entroonoentro;
 
     public function vali_ap($valor)
     {
         if ((int)$valor == 1) {
-            $this->entroonoentro = 'ENtro al if';
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
         }
-        $this->entroonoentro = 'No entro al if';
         return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255', 'required'];
     }
 }

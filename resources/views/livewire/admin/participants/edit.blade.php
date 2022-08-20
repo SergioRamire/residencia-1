@@ -3,7 +3,6 @@
         Editar user
     </x-slot>
     <x-slot name="content">
-        {{ $entroonoentro }}
         <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios"/>
         <br>
         <form wire:submit.prevent="confirm_save()" id="participantForm">
