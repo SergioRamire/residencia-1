@@ -33,20 +33,23 @@ class LimitForInstructorsController extends Component{
         return ['period.fecha_limite_para_calificar' => ['required', 'date']];
     }
 
-    public function periodo_activo(){
-        $period = Period::select('periods.id','periods.clave','periods.fecha_inicio','periods.fecha_fin','periods.fecha_limite_para_calificar')
-            ->where('periods.estado','=',1)
-            ->first();
+    public function periodos_proximos(){
+        $fecha_actual=date('Y/m/d');
+        $period = Period::where('periods.fecha_fin','>=',$fecha_actual)
+        ->select('periods.id','periods.clave','periods.fecha_inicio',
+        'periods.fecha_fin','periods.fecha_limite_para_calificar')
+        ->get();
+        // dd($period);
         if($period!=null)
             return $period;
         $this->disponible=false;
     }
 
     public function render(){
-        $this->periodo_activo();
+        $this->periodos_proximos();
         // dd($p->clave);
         return view('livewire.admin.limitForInstructors.index',[
-           'periodos' => $this->periodo_activo()
+           'periodos' => $this->periodos_proximos(),
         ]);
     }
     // public function consultar_clave(){
@@ -55,7 +58,7 @@ class LimitForInstructorsController extends Component{
     // }
 
     public function actualizar_fecha_limite(){
-        $p= $this->periodo_activo();
+        $p= $this->periodos_proximos();
         $this->period_id=$p->id;
         DB::table('periods')
             ->where('periods.id','=',$this->period_id)

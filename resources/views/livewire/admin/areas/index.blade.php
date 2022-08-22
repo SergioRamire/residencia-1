@@ -85,16 +85,6 @@
                             <button  wire:click="edit({{ $a->id }})" type="button" title="Editar información" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                 Editar
                             </button>
-                            {{-- @if($a->estatus === 1)
-                            <button wire:click="area_desactivar({{ $a->id }})" type="button" title="Desactivar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-stone-600 text-black font-bold border border-stone-400 rounded shadow">
-                                Inhabilitar
-                            </button>
-                            @endif
-                            @if($a->estatus === 0)
-                                <button wire:click="area_activar({{ $a->id }})" type="button" title="Activar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
-                                    Habilitar
-                                </button>
-                            @endif --}}
                             {{$this->permiso_para_eliminar($a->id)}}
                             @if($this->permiso_eliminicacion)
                             <button wire:click="delete_area('{{ $a->id }}')" type="button" title="Eliminar área" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
@@ -123,8 +113,12 @@
             <div>
                 {{ $datosareas->links() }}
             </div>
-            @include('livewire.admin.areas.edit_create',['modo'=>'Crear'])
+            @if($create)
+                @include('livewire.admin.areas.edit_create',['modo'=>'Crear'])
+            @endif
+            @if($edit)
             @include('livewire.admin.areas.edit_create',['modo'=>'Actualizar'])
+            @endif
             @include('livewire.admin.areas.destroy')
             @include('livewire.admin.areas.confirmationStatus')
         </div>

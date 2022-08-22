@@ -159,52 +159,18 @@ class PeriodCoursesController extends Component
         ]);
     }
 
-    public function periodo_activar($id){
-        $this->periodo_id = $id;
-        $this->confirming_period_active=true;
-        $this->showConfirmationModal = true;
-
-    }
-
-    public function periodo_desactivar($id){
-        $this->periodo_id = $id;
-        $this->confirming_period_Inactive=true;
-        $this->showConfirmationModal = true;
-
-    }
-
     public function periodo_habilitar($id){
         $this->periodo_id = $id;
+        $this->periods = Period::findOrFail($id);
         $this->showConfirmationModal = true;
         $this->confirming_period_habil=true;
     }
 
     public function periodo_inhabilitar($id){
         $this->periodo_id = $id;
+        $this->periods = Period::findOrFail($id);
         $this->showConfirmationModal = true;
         $this->confirming_period_inhabil=true;
-    }
-
-    public function desactivar_todos(){
-        DB::table('periods')
-            ->update(['perfil' => 0]);
-    }
-
-    public function activar(){
-        $this->desactivar_todos();
-        DB::table('periods')
-            ->where('periods.id','=',$this->periodo_id)
-            ->update(['perfil' => 1]);
-        $this->showConfirmationModal = false;
-        $this->confirming_period_active=false;
-    }
-
-    public function desactivar(){
-        DB::table('periods')
-            ->where('periods.id','=',$this->periodo_id)
-            ->update(['perfil' => 0]);
-        $this->showConfirmationModal = false;
-        $this->confirming_period_Inactive=false;
     }
 
     public function habilitar(){

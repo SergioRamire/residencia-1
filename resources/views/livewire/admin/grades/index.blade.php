@@ -39,7 +39,7 @@
                         <x-input.icon wire:model="search" class="w-full" type="text" placeholder="Buscar participante...">
                             <x-icon.search solid class="h-5 w-5 text-gray-400"/>
                         </x-input.icon>
-                        <label><p class="text-xs font-bold">Buscar por: nombre de participante, grupo, o calificación</p></label>
+                        <label><p class="text-xs font-bold">Buscar por: nombre de participante o calificación</p></label>
                     </div>
 
                     <!-- Filtros -->
@@ -70,7 +70,7 @@
                             Grupo</x-table.header>
                         <x-table.header wire:click="sortBy('calificacion')" sortable :direction="$sortField === 'calificacion' ? $sortDirection : null">
                             Calificación</x-table.header>
-                        <x-table.header wire:click="sortBy('asistencias_minimas')" sortable :direction="$sortField === 'asistencias_minimas' ? $sortDirection : null">
+                        <x-table.header wire:click="sortBy('asistencias_min')" sortable :direction="$sortField === 'asistencias_min' ? $sortDirection : null">
                             Asistencias Mínimas</x-table.header>
                         <x-table.header>acciones</x-table.header>
                     </x-slot>
@@ -83,9 +83,10 @@
                             <x-table.cell>{{ $g->grupo }}</x-table.cell>
                             <x-table.cell>{{ $g->calificacion }}</x-table.cell>
                             <x-table.cell>
-                                @if($g->asistencias_minimas === 1)
+                                @if($g->asistencias_min==1)
                                     <x-badge.basic value="Tiene" color="green" large/>
-                                @elseif($g->asistencias_minimas === 0)
+                                @endif
+                                @if($g->asistencias_min==0)
                                     <x-badge.basic value="No tiene" color="red" large/>
                                 @endif
                             </x-table.cell>

@@ -26,10 +26,9 @@ class PeriodFactory extends Factory
             'clave' => $this->faker->unique()->randomElement(['1-ENE/JUN2022', '2-ENE/JUN2022']),
             'fecha_inicio' => $fechaInicio,
             'fecha_fin' => date('Y-m-d', strtotime($fechaInicio."+${fechaMasDias} day")),
-            'perfil' => 0,
             'ofertado' => 0,
             'fecha_limite_para_calificar' => date('Y-m-d', strtotime($fechaInicio."+${fechaMasDias} day")),
-            'estatus'=>'1',
+            'estatus'=>1,
         ];
     }
 }

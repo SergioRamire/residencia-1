@@ -6,9 +6,9 @@
 
     <x-slot name="content">
         @if($edit)
-                ¿Seguro que desea guardar los cambios del área <strong>{{ $areas->nombre }}</strong>
+                ¿Seguro que desea guardar los cambios del área <strong>{{ $areas->nombre }}</strong>?
             @else
-                ¿Seguro que desea crear el área <strong>{{ $areas->nombre }}</strong>
+                ¿Seguro que desea crear el área <strong>{{ $areas->nombre }}</strong> ?
             @endif
     </x-slot>
 

@@ -68,7 +68,7 @@ class UserFactory extends Factory
         ]);
 
         $organizacion=$this->faker->randomElement([
-            'Tecnologico de oaxaca',
+            'Tecnológico de oaxaca',
             'Cisco','Fundacion Carlos Slim'
         ]);
 
@@ -113,7 +113,7 @@ class UserFactory extends Factory
             'hora_salida' => date('H:i', strtotime($hora_entrada.'+5 hour')),
             'correo_tecnm' => "$correo_id@oaxaca.tecnm.mx",
             'area_id' => Area::inRandomOrder()->first()->id,
-            'estatus'=>'1',
+            'estatus'=>1,
         ];
     }
 

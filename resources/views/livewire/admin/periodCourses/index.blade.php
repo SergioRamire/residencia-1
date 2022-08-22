@@ -56,7 +56,6 @@
                     </x-table.header>
                     <x-table.header wire:click="sortBy('fecha_fin')" sortable :direction="$sortField === 'fecha_fin' ? $sortDirection : null">
                         Fecha de finalización</x-table.header>
-                    <x-table.header>Perfil</x-table.header>
                     <x-table.header>Estado</x-table.header>
                     <x-table.header>Acciones</x-table.header>
 
@@ -67,17 +66,6 @@
                         <x-table.cell>{{ $p->clave }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
-                        <x-table.cell>
-                            @if($p->perfil === 1)
-                            <button wire:click="periodo_desactivar({{ $p->id }})">
-                                <x-badge.basic value="Activo" color="green" large/>
-                            </button>
-                            @elseif($p->perfil === 0)
-                            <button wire:click="periodo_activar({{ $p->id }})">
-                                <x-badge.basic value="Inactivo" color="red" large/>
-                            </button>
-                            @endif
-                        </x-table.cell>
                         <x-table.cell>
                             @if($p->estatus === 1)
                             <button wire:click="periodo_inhabilitar({{ $p->id }})">
@@ -121,8 +109,12 @@
             <div>
                 {{ $datos->links() }}
             </div>
-            @include('livewire.admin.periodCourses.edit_create', ['modo' => 'Crear'])
-            @include('livewire.admin.periodCourses.edit_create', [ 'modo' => 'Actualizar', ])
+            @if($create)
+                @include('livewire.admin.periodCourses.edit_create', ['modo' => 'Crear'])
+            @endif
+            @if($edit)
+                @include('livewire.admin.periodCourses.edit_create', [ 'modo' => 'Actualizar', ])
+            @endif
             @include('livewire.admin.periodCourses.destroy')
             @include('livewire.admin.periodCourses.destroy')
             @include('livewire.admin.periodCourses.confirmationStatus')

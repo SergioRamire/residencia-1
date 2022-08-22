@@ -158,7 +158,7 @@ class GradeController extends Component
             ->where('inscriptions.estatus_participante', '=','Participante')
             ->where('course_details.id', '=',$this->id_course)
             ->select('users.id','users.name', 'users.apellido_paterno', 'users.apellido_materno'
-                    ,'inscriptions.calificacion','courses.nombre as curso','groups.nombre as grupo',
+                    ,'inscriptions.calificacion','inscriptions.asistencias_minimas as asistencias_min','courses.nombre as curso','groups.nombre as grupo',
                     'periods.fecha_inicio', 'periods.fecha_fin')
             ->when($this->search, function ($query) {
                 return $query->where(function ($q) {
@@ -174,17 +174,17 @@ class GradeController extends Component
     }
 
     public function consultar_periodos(){
-        $dia_actual = date('Y-m-d', strtotime(date('Y-m-d')));
-        $dia_pasado = date("Y-m-d",strtotime($dia_actual."- 10 days"));
-        $dia_futuro = date("Y-m-d",strtotime($dia_actual."+ 10 days"));
-        $consulta = Period::where('periods.fecha_inicio','>',$dia_pasado)
-                            ->where('periods.fecha_inicio','<',$dia_futuro)
-                            ->where('periods.fecha_limite_para_calificar','>=',$dia_actual)
+        $fecha_actual = date('Y-m-d', strtotime(date('Y-m-d')));
+        $consulta = Period::where('periods.fecha_inicio','<=',$fecha_actual)
+                            ->where('periods.fecha_limite_para_calificar','>=',$fecha_actual)
                             ->select('periods.id')
                             ->get();
         $this->cuenta_periodos = count($consulta);
+        // dd($this->cuenta_periodos);
         $this->validar_limite();
         return $consulta;
+
+
     }
 
     public function render(){
@@ -195,7 +195,6 @@ class GradeController extends Component
             $this->curso=$cur[0]->nombre;
             $this->id_course=$cur[0]->id;
         }
-        // $this->validar_limite();
         return view('livewire.admin.grades.index', [
             'grades' => $this->mostrar_cursos()->paginate($this->perPage),
             'courses' => $this->consultar_cursos(),
