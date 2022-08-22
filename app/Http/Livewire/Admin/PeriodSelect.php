@@ -43,7 +43,8 @@ class PeriodSelect extends Component
             return Period::where('estatus',1)
             ->when($this->query, fn ($query2, $b) => $query2
             ->where('periods.fecha_inicio', 'like', "%$b%")
-            ->orWhere('periods.fecha_fin', 'like', "%$b%"))
+            ->orWhere('periods.fecha_fin', 'like', "%$b%")
+            ->orWhere('periods.clave', 'like', "%$b%"))
             ->get();
         }
 

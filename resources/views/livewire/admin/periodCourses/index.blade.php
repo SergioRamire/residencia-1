@@ -109,13 +109,12 @@
             <div>
                 {{ $datos->links() }}
             </div>
-            @if($create)
+            @if ($create)
                 @include('livewire.admin.periodCourses.edit_create', ['modo' => 'Crear'])
             @endif
-            @if($edit)
+            @if ($edit)
                 @include('livewire.admin.periodCourses.edit_create', [ 'modo' => 'Actualizar', ])
             @endif
-            @include('livewire.admin.periodCourses.destroy')
             @include('livewire.admin.periodCourses.destroy')
             @include('livewire.admin.periodCourses.confirmationStatus')
         </div>

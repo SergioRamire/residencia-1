@@ -31,7 +31,7 @@
                         tracking-widest shadow-sm hover:text-white hover:bg-blue-600
                         focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200
                         active:text-gray-800 active:bg-gray-50 disabled:opacity-25 transition">
-                        {{$data->clave}} {{$data->nombre}}
+                        {{$data->clave}} <strong class="text-red-500"> | </strong> {{$data->nombre}}
                     </a>
                 @endforeach
             @else
