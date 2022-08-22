@@ -299,8 +299,10 @@ class InscriptionsController extends Component
     }
 
     public function consulta_periodos_a_publicar(){
+        $fecha_actual=date('Y-m-d');
         $periodos = Period::select('periods.fecha_inicio','periods.fecha_fin')
-            ->where('ofertado' , '=', 1)
+            ->where('periods.ofertado' , '=', 1)
+            ->where('periods.fecha_inicio','>',$fecha_actual)
             ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
         $count=0;
