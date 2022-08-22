@@ -51,10 +51,9 @@ class StudyingController extends Component
                 'course_details.id as idcurso',
                 'inscriptions.url_cedula'
             )
-            ->where('periods.fecha_inicio','>',$this->hoy)
+            ->where('periods.fecha_fin','>=',$this->hoy)
             ->where("users.id", $this->user->id)
             ->where("inscriptions.estatus_participante", $this->estatus)
-            ->orderBy('periods.fecha_inicio', 'asc')
             ->get();
     }
     // public function consulta()
