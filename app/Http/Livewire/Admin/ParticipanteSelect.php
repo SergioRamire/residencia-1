@@ -74,7 +74,7 @@ class ParticipanteSelect extends Component
     }
     public function valorParticipante($valor){
         $aux = User::find($valor);
-        $this->txt = 'Buscar Instructor';
+        $this->txt = 'Buscar Participante';
         if (!empty($valor)) {
             $this->txt = $aux->rfc.' '.$aux->name.' '.$aux->apellido_paterno.' '.$aux->apellido_materno;
         }
