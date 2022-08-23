@@ -251,13 +251,13 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
                         </x-slot>
 
-                        <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active='request()->route("admin.historycourse")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active="request()->routeIs('admin.historycourse')">
                             Cursos
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active='request()->route("admin.historyparticipant")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active="request()->routeIs('admin.historyparticipant')">
                             Participantes
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active='request()->route("admin.historyinstructor")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active="request()->routeIs('admin.historyinstructor')">
                             Instructores
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
@@ -267,10 +267,10 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
                         </x-slot>
-                        <x-sidebar.link class="pl-11" :href='route("admin.email")' :active='request()->route("admin.email")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.email")' :active="request()->routeIs('admin.email')">
                             Notificaciones via email
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.post")' :active='request()->route("admin.post")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.post")' :active="request()->routeIs('admin.post')">
                             Notificaciones en el sistema
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
@@ -516,13 +516,13 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
                         </x-slot>
 
-                        <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active='request()->route("admin.historycourse")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active="request()->routeIs('admin.historycourse')">
                             Cursos
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active='request()->route("admin.historyparticipant")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active="request()->routeIs('admin.historyparticipant')">
                             Participantes
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active='request()->route("admin.historyinstructor")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active="request()->routeIs('admin.historyinstructor')">
                             Instructores
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
@@ -533,10 +533,10 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
                         </x-slot>
-                        <x-sidebar.link class="pl-11" :href='route("admin.email")' :active='request()->route("admin.email")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.email")' :active="request()->routeIs('admin.email')">
                             Notificaciones via email
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.post")' :active='request()->route("admin.post")'>
+                        <x-sidebar.link class="pl-11" :href='route("admin.post")' :active="request()->routeIs('admin.post')">
                             Notificaciones en el sistema
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
