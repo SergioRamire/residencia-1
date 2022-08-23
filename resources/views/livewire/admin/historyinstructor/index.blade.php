@@ -64,7 +64,7 @@
                                 <div>
                                     <x-jet-label for="perfil" value="Organización"/>
                                     <x-input.select wire:model="filters.filtro_organizacion" id="perfil" class="mt-1 w-full" name="perfil" required>
-                                        <option value="" disabled>Selecciona perfil...</option>
+                                        <option value="" disabled>Selecciona organización...</option>
                                         @foreach (App\Models\User::select('users.organizacion_origen')->distinct()->get() as $item)
                                             <option value="{{$item->organizacion_origen}}">{{$item->organizacion_origen}}</option>
                                         @endforeach
