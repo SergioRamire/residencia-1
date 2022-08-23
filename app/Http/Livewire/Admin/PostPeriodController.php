@@ -41,13 +41,8 @@ class PostPeriodController extends Component
                 where('periods.ofertado', "=",1)
                 ->selectRaw('count(*) as period_count')
                 ->first();
-            if($periodos_publicados->period_count < 2){
                 $this->aux_id = $id;
                 $this->confirming_change = true;
-            }
-            else{
-                $this-> noti('info','No se pueden publicar mas de dos periodos ');
-            }
 
     }
     public function abrir_confirmacion_ocultar($id){

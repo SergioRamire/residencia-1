@@ -13,7 +13,8 @@ class Period extends Model
         'clave',
         'fecha_inicio',
         'fecha_fin',
-        'estado',
+        'ofertado',
+        'fecha_limite_para_calificar',
         'estatus',
     ];
 

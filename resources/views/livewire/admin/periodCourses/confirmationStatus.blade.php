@@ -5,17 +5,11 @@
     </x-slot>
 
     <x-slot name="content">
-        @if($confirming_period_active)
-        ¿Seguro que desea activar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
-        @endif
-        @if($confirming_period_Inactive)
-            ¿Seguro que desea desactivar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
-        @endif
         @if($confirming_period_habil)
-            ¿Seguro que desea habilitar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
+            ¿Seguro que desea habilitar el período <strong> {{ date('d-m-Y', strtotime($periods->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($periods->fecha_fin)) }}</strong>?
         @endif
         @if($confirming_period_inhabil)
-            ¿Seguro que desea inhabilitar el período <strong> {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</strong>?
+            ¿Seguro que desea inhabilitar el período <strong> {{ date('d-m-Y', strtotime($periods->fecha_inicio)) }} a {{ date('d-m-Y', strtotime($periods->fecha_fin)) }}</strong>?
         @endif
     </x-slot>
 

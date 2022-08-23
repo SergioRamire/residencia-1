@@ -56,7 +56,6 @@
                     </x-table.header>
                     <x-table.header wire:click="sortBy('fecha_fin')" sortable :direction="$sortField === 'fecha_fin' ? $sortDirection : null">
                         Fecha de finalización</x-table.header>
-                    <x-table.header>Perfil</x-table.header>
                     <x-table.header>Estado</x-table.header>
                     <x-table.header>Acciones</x-table.header>
 
@@ -68,6 +67,7 @@
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
                         <x-table.cell>
+<<<<<<< HEAD
                             @if($p->perfil === 1)
                             <button wire:click="periodo_desactivar({{ $p->id }})" title="Desactivar el periodo">
                                 <x-badge.basic value="Activo" color="green" large/>
@@ -79,6 +79,8 @@
                             @endif
                         </x-table.cell>
                         <x-table.cell>
+=======
+>>>>>>> e059311f40137e7e2f2d7fc24b0e4d338cfa588c
                             @if($p->estatus === 1)
                             <button wire:click="periodo_inhabilitar({{ $p->id }})" title="Inhabilitar el período">
                                 <x-badge.basic value="Habilitado" color="green" large/>
@@ -127,7 +129,6 @@
             @if ($edit)
                 @include('livewire.admin.periodCourses.edit_create', [ 'modo' => 'Actualizar', ])
             @endif
-            @include('livewire.admin.periodCourses.destroy')
             @include('livewire.admin.periodCourses.destroy')
             @include('livewire.admin.periodCourses.confirmationStatus')
         </div>
