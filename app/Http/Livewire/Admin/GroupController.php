@@ -85,7 +85,7 @@ class GroupController extends Component
 
     public function save(){
         $this->validate();
-        $this->periods->estatus = 1;
+        $this->groups->estatus = 1;
         $this->groups->save();
         $this->dispatchBrowserEvent('notify', [
             'icon' => $this->edit ? 'pencil' : 'success',
