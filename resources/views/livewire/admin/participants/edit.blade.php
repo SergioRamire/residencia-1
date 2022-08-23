@@ -1,9 +1,9 @@
 <x-jet-dialog-modal wire:ignore.self wire:model.defer="show_edit_modal">
     <x-slot name="title">
-        Editar user
+        Editar participante
     </x-slot>
     <x-slot name="content">
-        {{ $entroonoentro }}
+        {{-- {{ $entroonoentro }} --}}
         <x-jet-label for="x" class="text-red-600" value="Los campos con * son obligatorios"/>
         <br>
         <form wire:submit.prevent="confirm_save()" id="participantForm">

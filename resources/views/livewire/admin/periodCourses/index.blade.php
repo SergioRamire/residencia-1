@@ -69,22 +69,22 @@
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
                         <x-table.cell>
                             @if($p->perfil === 1)
-                            <button wire:click="periodo_desactivar({{ $p->id }})">
+                            <button wire:click="periodo_desactivar({{ $p->id }})" title="Desactivar el periodo">
                                 <x-badge.basic value="Activo" color="green" large/>
                             </button>
                             @elseif($p->perfil === 0)
-                            <button wire:click="periodo_activar({{ $p->id }})">
+                            <button wire:click="periodo_activar({{ $p->id }})" title="Activar el periodo">
                                 <x-badge.basic value="Inactivo" color="red" large/>
                             </button>
                             @endif
                         </x-table.cell>
                         <x-table.cell>
                             @if($p->estatus === 1)
-                            <button wire:click="periodo_inhabilitar({{ $p->id }})">
+                            <button wire:click="periodo_inhabilitar({{ $p->id }})" title="Inhabilitar el período">
                                 <x-badge.basic value="Habilitado" color="green" large/>
                             </button>
                             @elseif($p->estatus === 0)
-                            <button wire:click="periodo_habilitar({{ $p->id }})">
+                            <button wire:click="periodo_habilitar({{ $p->id }})" title="Habilitar el período">
                                 <x-badge.basic value="Inhabilitado" color="red" large/>
                             </button>
                             @endif

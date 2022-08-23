@@ -190,7 +190,7 @@
             </div>
         </div>
         @if ($create)
-        @include('livewire.admin.lists.edit_create', ['modo' => 'Crear'])
+        @include('livewire.admin.lists.edit_create', ['modo' => 'Registrar'])
         @elseif($edit)
             @include('livewire.admin.lists.edit_create', ['modo' => 'Actualizar'])
         @endif

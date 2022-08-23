@@ -1,5 +1,5 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
-<x-jet-confirmation-modal wire:model="confirming_save_participant">
+<x-jet-confirmation-modal wire:model.defer="confirming_save_participant">
     <x-slot name="title">
         Confirmación
     </x-slot>
@@ -22,6 +22,6 @@
                 Guardar
             </x-jet-danger-button>
         @endif
-        
+
     </x-slot>
 </x-jet-confirmation-modal>

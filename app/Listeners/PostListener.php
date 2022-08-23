@@ -32,14 +32,14 @@ class PostListener
     public function handle($event)
     {
         if ($event->post->role == 'Participante' || $event->post->role == 'Instructor')
-            $this->user = User::where('users.estado', '=', '1')
+            $this->user = User::where('users.estatus', '=', '1')
                 ->whereRelation('roles', 'name', '=', $event->post->role)->get()
                 ->except($event->post->user_id)
                 ->each(function ($user) use ($event) {
                     Notification::send($user, new PostNotification($event->post));
                 });
         elseif ($event->post->role == 'Todos')
-            $this->user = User::where('users.estado', '=', '1')
+            $this->user = User::where('users.estatus', '=', '1')
                 ->whereHas('roles', function ($query) {
                     $query->where('name', '=', 'Instructor')->orWhere('name', '=', 'Participante');
                 })->get()

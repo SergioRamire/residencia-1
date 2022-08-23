@@ -59,11 +59,11 @@
                         <x-table.cell>{{ $g->nombre }}</x-table.cell>
                         <x-table.cell>
                             @if($g->estatus === 1)
-                            <button wire:click="group_inhabilitar({{ $g->id }})">
+                            <button wire:click="group_inhabilitar({{ $g->id }})" title="Inhabilitar el grupo">
                                 <x-badge.basic value="Habilitado" color="green" large/>
                             </button>
                             @elseif($g->estatus === 0)
-                            <button wire:click="group_habilitar({{ $g->id }})">
+                            <button wire:click="group_habilitar({{ $g->id }})" title="Habilitar el grupo">
                                 <x-badge.basic value="Inhabilitado" color="red" large/>
                             </button>
                             @endif
