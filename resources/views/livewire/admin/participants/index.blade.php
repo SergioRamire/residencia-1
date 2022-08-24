@@ -58,7 +58,7 @@
                                     <x-jet-label for="area_filter" value="Área"/>
                                     <x-input.select wire:model="filters.area" id="area_filter" class="text-sm block mt-1 w-full" name="area_filter" required>
                                         <option value="" disabled>Selecciona la área</option>
-                                        @foreach(\App\Models\Area::all() as $area)
+                                        @foreach(\App\Models\Area::where('estatus','1')->get() as $area)
                                             <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                         @endforeach
                                     </x-input.select>

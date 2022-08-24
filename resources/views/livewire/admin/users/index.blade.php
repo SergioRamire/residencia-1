@@ -57,8 +57,8 @@
                                     <x-jet-label for="estatus_filter" value="Estatus"/>
                                     <x-input.select wire:model="filters.estatus" id="estatus_filter" class="text-sm block mt-1 w-full" name="estatus_filter" required>
                                         <option value="" disabled>Selecciona estatus</option>
-                                        <option value="1">Activo</option>
-                                        <option value=null>Inactivo</option>
+                                        <option value="1">Habilitado</option>
+                                        <option value=null>Inhabilitado</option>
                                     </x-input.select>
                                 </div>
                             </div>
@@ -103,11 +103,11 @@
                             <x-table.cell>{{ $u->getRoleNames()->first() }}</x-table.cell>
                             <x-table.cell class="text-center">
                                 @if($u->estatus == 1)
-                                <button wire:click="user_inhabilitar({{$u->id}})">
+                                <button wire:click="user_inhabilitar({{$u->id}})" title="Inhabilitar usuario">
                                     <x-badge.basic value="Habilitado" color="green" large/>
                                 </button>
                                 @elseif($u->estatus == 0)
-                               <button wire:click="user_habilitar({{$u->id}})">
+                               <button wire:click="user_habilitar({{$u->id}})" title="Habilitar usuario">
                                 <x-badge.basic value="Inhabilitado" color="red" large/>
                                </button>
                                 @endif

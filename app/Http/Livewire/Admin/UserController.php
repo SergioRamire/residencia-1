@@ -219,7 +219,7 @@ class UserController extends Component
                     $query->where(DB::raw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ')"), 'like', "%$search%")
                         ->orWhere('email', 'like', "%$search%");
                 })
-                ->when($this->filters['estatus'], fn ($query, $estatus) => $query->where('estado', $estatus))
+                ->when($this->filters['estatus'], fn ($query, $estatus) => $query->where('estatus', $estatus))
                 ->when($this->sortField === 'nombre_completo', function ($query) {
                     $query->orderByRaw("REPLACE(CONCAT_WS(' ', name, apellido_paterno, apellido_materno), '  ', ' ') $this->sortDirection");
                 }, function ($query) {
