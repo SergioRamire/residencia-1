@@ -64,7 +64,7 @@
                                     <x-jet-label for="departamento_filter" value="Departamento"/>
                                     <x-input.select wire:model="filters.departamento" id="departamento_filter" class="text-sm block mt-1 w-full" name="departamento_filter" required>
                                         <option value="" disabled>Selecciona departamento...</option>
-                                        @foreach(\App\Models\Area::all() as $area)
+                                        @foreach(\App\Models\Area::where('estatus','1')->get() as $area)
                                                 <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                         @endforeach
                                     </x-input.select>
@@ -76,12 +76,13 @@
                                 <div>
                                     <x-jet-label for="grupo_filter" value="Grupo"/>
                                     <x-input.select wire:model="filters.grupo" id="grupo_filter" class="text-sm block mt-1 w-full" name="grupo_filter" required>
-                                        <option value="" disabled>Selecciona modalidad...</option>
+                                        <option value="" disabled>Selecciona grupo...</option>
                                         @foreach(\App\Models\CourseDetail::join('groups','groups.id','=','course_details.group_id')
                                             ->join('periods','periods.id','=', 'course_details.period_id')
                                             ->join('courses','courses.id','=', 'course_details.course_id')
                                             ->where('course_details.period_id','=',$classification['periodo'])
                                             ->where('course_details.course_id','=',$classification['curso'])
+                                            ->where('groups.estatus','=','1')
                                             ->select('course_details.group_id as id','groups.nombre')
                                             ->distinct()
                                             ->get() as $group)

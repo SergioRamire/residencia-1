@@ -71,7 +71,7 @@
                                     <x-jet-label for="departamento_filter" value="Departamento"/>
                                     <x-input.select wire:model="filters.departamento" id="departamento_filter" class="text-sm block mt-1 w-full" name="departamento_filter" required>
                                         <option value="" disabled>Selecciona departamento...</option>
-                                        @foreach(\App\Models\Area::all() as $area)
+                                        @foreach(\App\Models\Area::where('estatus','1')->get() as $area)
                                                 <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                         @endforeach
                                     </x-input.select>
@@ -190,7 +190,7 @@
             </div>
         </div>
         @if ($create)
-        @include('livewire.admin.lists.edit_create', ['modo' => 'Crear'])
+        @include('livewire.admin.lists.edit_create', ['modo' => 'Registrar'])
         @elseif($edit)
             @include('livewire.admin.lists.edit_create', ['modo' => 'Actualizar'])
         @endif

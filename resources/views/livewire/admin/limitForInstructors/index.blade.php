@@ -24,8 +24,8 @@
                 @forelse($periodos as $p)
                         <tr wire:key="period-{{ $p->id }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell>{{ $p->clave }}</x-table.cell>
-                            <x-table.cell>Del {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
-                            <x-table.cell>{{ $p->fecha_limite_para_calificar }}</x-table.cell>
+                            <x-table.cell class="text-center">Del {{ date('d-m-Y', strtotime($p->fecha_inicio)) }} al {{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
+                            <x-table.cell class="text-center">{{ $p->fecha_limite_para_calificar }}</x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
                                 <button wire:click="edit({{$p->id}})" type="button" class="ml-1 px-4 bg-white hover:text-white hover:bg-amber-600 text-black font-bold border border-amber-400 rounded shadow">
                                     Editar fecha límite
