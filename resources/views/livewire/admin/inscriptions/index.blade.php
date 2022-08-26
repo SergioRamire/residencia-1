@@ -32,7 +32,7 @@
                                     <x-table.cell>{{ $c->dirigido }} </x-table.cell>
                                     <x-table.cell> De {{ date("g:i a", strtotime($c->hora_inicio))}} a {{ date("g:i a", strtotime($c->hora_fin))}}</x-table.cell>
                                         <x-table.cell width='200' class="whitespace-nowrap">
-                                        <button wire:click="descartar_curso({{ $c->curdet }})" type="button"
+                                        <button wire:click="descartar_curso({{ $c->curdet }})" type="button" title="Descartar curso seleeccionado"
                                             class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                             Descartar Curso
                                         </button>
@@ -72,13 +72,13 @@
     <div class="space-y-2 pt-8">
         <div class="grid grid-cols-2 justify-center">
             <div class="grid justify-center">
-                <x-jet-secondary-button wire:click="btn_switch_1()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
+                <x-jet-secondary-button wire:click="btn_switch_1()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" title="Mostrar cusos de la semana 1">
                         Cursos de la Semana 1
                 </x-jet-secondary-button>
             </div>
             @if($segunda_semana_activa)
                 <div class="grid justify-center">
-                    <x-jet-secondary-button wire:click="btn_switch_2()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500">
+                    <x-jet-secondary-button wire:click="btn_switch_2()" class="border-[#1b396a] text-sky-700 hover:text-white hover:bg-[#1b396a] active:text-sky-50 active:bg-sky-500" title="Mostrar cusos de la semana 2">
                             Cursos de la Semana 2
                     </x-jet-secondary-button>
                 </div>

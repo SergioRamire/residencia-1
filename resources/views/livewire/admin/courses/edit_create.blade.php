@@ -37,7 +37,7 @@
                 <x-jet-input-error for="course.objetivo"/>
             </div>
 
-            <!-- Duración y Modalidad -->
+            <!-- Duración-->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 <!-- Duración -->
                 <div class="mt-4 sm:flex-1">
@@ -45,17 +45,6 @@
                     <x-input.addon wire:model="course.duracion" right addon="hrs" class="block mt-1 w-full" type="number" id="duracion" name="duracion" required/>
                     <x-jet-input-error for="course.duracion"/>
                 </div>
-                {{-- <!-- Modalidad -->
-                <div class="mt-4 sm:flex-1">
-                    <x-jet-label for="modalidad" value="Modalidad"/>
-                    <x-input.select wire:model="course.modalidad" id="modalidad" class="mt-1 w-full" name="modalidad" required>
-                        <option value="" disabled>Selecciona modalidad...</option>
-                        <option value="Presencial" selected>Presencial</option>
-                        <option value="Semi-presencial">Semi-presencial</option>
-                        <option value="En linea">En linea</option>
-                    </x-input.select>
-                    <x-jet-input-error for="course.modalidad"/>
-                </div> --}}
             </div>
 
             <!-- Dirigido -->
