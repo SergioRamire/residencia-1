@@ -104,6 +104,7 @@
                                         <x-table.header class="w-1/4">Departamento dirigido</x-table.header>
                                         <x-table.header>Horario</x-table.header>
                                         <x-table.header>Inscritos</x-table.header>
+                                        <x-table.header>Instructores</x-table.header>
                                         <x-table.header>acciones</x-table.header>
                                     </x-slot>
                                     @forelse($semana1 as $c)
@@ -120,12 +121,13 @@
                                                 <x-table.cell>{{ date("g:i a", strtotime($c->hora_inicio)) }} a
                                                     {{ date("g:i a", strtotime($c->hora_fin)) }}
                                                 </x-table.cell>
-
                                                 <x-table.cell>
                                                     {{$this->consultar_inscritos_en_curso($c->curdet)}}
                                                     / {{ $c->capacidad }}
                                                 </x-table.cell>
-
+                                                <x-table.cell>
+                                                    {{$this->consultar_instructores($c->curdet)}}
+                                                </x-table.cell>
                                                 <x-table.cell width='200' class="whitespace-nowrap">
                                                     <button  wire:click="seleccionar_curso_tabla1({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
                                                         Seleccionar
@@ -133,7 +135,7 @@
                                                 </x-table.cell>
                                             </tr>
                                         @endif
-                                       
+
                                     @empty
                                         <tr>
                                             <x-table.cell colspan="4">
@@ -183,6 +185,7 @@
                                                 <x-table.header>Departamento dirigido</x-table.header>
                                                 <x-table.header>Horario</x-table.header>
                                                 <x-table.header>Inscritos</x-table.header>
+                                                <x-table.header>Instructores</x-table.header>
                                                 <x-table.header>acciones</x-table.header>
                                             </x-slot>
                                             @forelse($semana2 as $c)
@@ -198,12 +201,14 @@
                                                         <x-table.cell>{{ date("g:i a", strtotime($c->hora_inicio)) }} a
                                                             {{ date("g:i a", strtotime($c->hora_fin)) }}
                                                         </x-table.cell>
-        
+
                                                         <x-table.cell>
                                                             {{$this->consultar_inscritos_en_curso($c->curdet)}}
                                                             / {{ $c->capacidad }}
                                                         </x-table.cell>
-        
+                                                        <x-table.cell>
+                                                            {{$this->consultar_instructores($c->curdet)}}
+                                                        </x-table.cell>
                                                         <x-table.cell width='200' class="whitespace-nowrap">
                                                             <button  wire:click="seleccionar_curso_tabla1({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
                                                                 Seleccionar

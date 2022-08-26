@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Livewire\Admin\EmailController;
 use Illuminate\Support\Facades\Mail;
@@ -241,6 +242,7 @@ class InscriptionsController extends Component
     }
 
     public function render(){
+        // $this->consultar_instructores(1);
         $this->evaluar_tabla_cursos_seleccionados();
         $this->consulta_periodos_a_publicar();
         $this->verficar_mostrar_cursos();
@@ -312,6 +314,23 @@ class InscriptionsController extends Component
                 $this->arreglo_fecha[$count] = $p->fecha_fin;
                 $count = $count + 1;
             }
+    }
+
+    public function consultar_instructores($id){
+        // $arreglo = [4,3,2,1,5,6,7,8,9];
+        $consulta = CourseDetail::Join('inscriptions','inscriptions.course_detail_id','course_details.id')
+                                    ->join('users','users.id','inscriptions.user_id')
+                                    ->where('inscriptions.estatus_participante','=','Instructor')
+                                    ->select('course_details.id as c',DB::raw('group_concat(users.name, \' \',
+                                    users.apellido_paterno, \' \',users.apellido_materno) as usuarios') )
+                                    ->groupBy('c')
+                                    ->where('course_details.id','=',$id)
+                                    // ->get();
+                                    ->first();
+        // dd($consulta->usuarios);
+        if($consulta == null)
+            return ' ';
+        return $consulta->usuarios;
     }
 
     public function descartar_curso($id){
