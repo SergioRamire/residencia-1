@@ -40,8 +40,7 @@ class ParticipanteSelect extends Component
 
     public function consulta(){
         if (strcmp(strtolower($this->query), 'todos') === 0) {
-            return User::where('estatus',1)
-                ->where('organizacion_origen', 'like', $this->inst_ori)->get();
+            return User::where('estatus',1)->get();
         } else {
             return User::where('estatus',1)
                 ->where('organizacion_origen', 'like', $this->inst_ori)
