@@ -46,6 +46,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'role.delete', 'human_name' => 'Eliminar roles'])->assignRole(['Administrador']);
 
         Permission::create(['name' => 'profile.show', 'human_name' => 'Visualizar Perfil'])->assignRole(['Administrador','Instructor','Participante', 'Jefa de departamento']);
+        Permission::create(['name' => 'profile.edit', 'human_name' => 'Editar Perfil'])->assignRole(['Administrador','Instructor','Participante', 'Jefa de departamento']);
 
         Permission::create(['name' => 'user.show', 'human_name' => 'Visualizar usuarios'])->assignRole(['Administrador','Coordinador']);
         Permission::create(['name' => 'user.create', 'human_name' => 'Crear usuarios'])->assignRole(['Administrador','Coordinador']);
