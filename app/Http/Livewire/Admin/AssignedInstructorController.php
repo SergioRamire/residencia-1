@@ -94,9 +94,8 @@ class AssignedInstructorController extends Component
             ]);
             $this->noti('success', 'Instructor asignado correctamente');
         }else {
-            $this->noti('info', 'Ya se encutra asignar a este curso como participante');
+            $this->noti('info', 'Ya se encuentra asignado al curso');
         }
-
     }
     public function asignar(){
         if ((int)$this->prueba($this->id_detalle_curso) < (int)2) {
