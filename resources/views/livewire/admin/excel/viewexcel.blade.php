@@ -152,7 +152,7 @@
         <td style="text-decoration: underline; text-align:center; font-weight: 500;">{{mb_strtoupper($instructor[0]->nombre,'utf-8')}}</td>
         <td></td>
         <td></td>
-        <td style="text-decoration: underline; text-align:center; font-weight: 500;" colspan="6">{{mb_strtoupper(Str::words($cordinador[0]->estudio_maximo,1,' '))}}{{mb_strtoupper($cordinador[0]->name,'utf-8')}} {{mb_strtoupper($cordinador[0]->apellido_paterno,'utf-8')}} {{mb_strtoupper($cordinador[0]->apellido_materno,'utf-8')}}</td>
+        <td style="text-decoration: underline; text-align:center; font-weight: 500;" colspan="6">{{mb_strtoupper(Str::words($cordinador[0]->estudio_maximo,1,' '))}}{{' '}}{{mb_strtoupper($cordinador[0]->name,'utf-8')}} {{mb_strtoupper($cordinador[0]->apellido_paterno,'utf-8')}} {{mb_strtoupper($cordinador[0]->apellido_materno,'utf-8')}}</td>
     </tr>
     <tr>
         <td></td>
