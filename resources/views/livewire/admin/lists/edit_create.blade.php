@@ -40,11 +40,14 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3" wire:click.prevent="update_participant()" wire:loading.attr="disabled" form="courseForm">
+        <x-jet-button class="ml-3" wire:click.prevent="evaluar_inscripcion()" wire:loading.attr="disabled" form="courseForm">
             {{$modo}} Datos
          </x-jet-button>
         @if($confirming_save_participant)
             @include('livewire.admin.lists.confirmation')
+        @endif
+        @if($inscripcion_denegada)
+            @include('livewire.admin.lists.mensaje')
         @endif
     </x-slot>
 </x-jet-dialog-modal>

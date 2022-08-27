@@ -27,7 +27,7 @@ class GroupController extends Component
     public bool $confirming_group_active =false;
     public bool $confirming_group_Inactive =false;
     public $grupo;
-    public bool $permiso_eliminicacion =false;
+    public bool $permiso_eliminacion =false;
     public bool $showConfirmationModal = false;
 
     public $perPage = '8';
@@ -141,7 +141,7 @@ class GroupController extends Component
         $consulta = Group::join('course_details','course_details.group_id','=','groups.id')
                           ->where('groups.id','=',$id)
                           ->first();
-        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
+        ($consulta != null) ? $this->permiso_eliminacion = false : $this->permiso_eliminacion = true;
     }
 
     public function group_habilitar($id){

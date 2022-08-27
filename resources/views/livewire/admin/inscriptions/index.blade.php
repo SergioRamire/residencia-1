@@ -210,7 +210,7 @@
                                                             {{$this->consultar_instructores($c->curdet)}}
                                                         </x-table.cell>
                                                         <x-table.cell width='200' class="whitespace-nowrap">
-                                                            <button  wire:click="seleccionar_curso_tabla1({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
+                                                            <button  wire:click="seleccionar_curso_tabla2({{ $c->curdet }})" type="button" title="Seleccionar curso" class="px-4 bg-white hover:bg-blue-100 text-black font-bold border border-[#1b396a] rounded shadow" >
                                                                 Seleccionar
                                                             </button>
                                                         </x-table.cell>

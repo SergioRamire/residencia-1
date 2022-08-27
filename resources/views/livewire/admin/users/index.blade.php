@@ -117,7 +117,7 @@
                                     Editar
                                 </button>
                                 {{$this->permiso_para_eliminar($u->id)}}
-                                @if($this->permiso_eliminicacion)
+                                @if($this->permiso_eliminacion)
                                     <button wire:click="delete({{ $u->id }})" type="button" title="Eliminar usuario" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                         Eliminar
                                     </button>

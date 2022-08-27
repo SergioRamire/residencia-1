@@ -40,7 +40,11 @@ class ParticipantListsController extends Component
     public $id_curso_grupo;
     public $id_per_;
     public $peri;
-    public $curso;
+    public $nombre_curso;
+    public bool $aceptado=true;
+    public bool $inscripcion_denegada=false;
+    public $hora_inicio;
+    public $hora_fin;
     public User $participante;
     public Period $periodo;
 
@@ -141,13 +145,60 @@ class ParticipantListsController extends Component
         $this->showEdit_create_modal = true;
     }
 
-    public function update_participant(){
-        if ($this->edit) {
-            $this->confirming_save_participant = true;
+    public function evaluar_inscripcion(){
+        $this->inspeccionar_horarios();
+        $this->inspeccionar_instructor();
+        if($this->aceptado== false){
+            $this->inscripcion_denegada=true;
         }else{
-            $this->confirming_save_participant = true;
+            $this->inscripcion_denegada=false;
+            $this->confirming_save_participant = true;}
+    }
+
+    public function inspeccionar_horarios(){
+        $horario= CourseDetail::select('course_details.hora_inicio','course_details.hora_fin','course_details.period_id')
+                                ->where('course_details.id','=',$this->id_curso_grupo)
+                                ->first();
+        $consulta = User::join('inscriptions','inscriptions.user_id','users.id')
+                        ->join('course_details','course_details.id','inscriptions.course_detail_id')
+                        ->join('courses','courses.id','course_details.course_id')
+                        ->where('users.id','=',$this->id_usuario)
+                        ->where('course_details.period_id','=',$horario->period_id)
+                        ->where('course_details.hora_inicio','=',$horario->hora_inicio)
+                        ->select('courses.nombre')
+                        ->first();
+        if($consulta!==null){
+            $this->aceptado=false;
+            $this->nombre_curso= $consulta->nombre;
+            $this->hora_inicio = $horario->hora_inicio;
+            $this->hora_fin = $horario->hora_fin;
+        }
+        else{
+            $this->aceptado=true;
         }
     }
+
+    // public function inspeccionar_instructor(){
+    //     $id_curso = CourseDetail::join('courses','courses.id','course_details.course_id')
+    //                             ->select('courses.id')
+    //                             ->where('course_details.id','=',$this->id_curso_grupo)
+    //                             ->first();
+    //     $id=$id_curso->id;
+    //     $consultar_curso_instruido =  User::join('inscriptions','inscriptions.user_id','users.id')
+    //                             ->join('course_details','course_details.id','inscriptions.course_detail_id')
+    //                             ->join('courses','courses.id','course_details.course_id')
+    //                             ->select('courses.id')
+    //                             ->where('users.id','=',$this->id_usuario)
+    //                             ->where('inscriptions.estatus_participante','=','Instructor')
+    //                             ->get();
+    //     $cursos_instruidos = [];
+    //     foreach($consultar_curso_instruido as $curso){
+    //         array_push($cursos_instruidos, $curso->id);
+    //     }
+    //     if(in_array($id,$cursos_instruidos))
+    //         $this->instructor=true;
+    //     $this->instructor=false;
+    // }
 
     public function store(){
         $aux_user = $this->id_usuario;

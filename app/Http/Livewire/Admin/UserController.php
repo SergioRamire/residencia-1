@@ -34,7 +34,7 @@ class UserController extends Component
     public bool $show_confirmation_modal = false;
     public bool $edit = false;
     public bool $delete = false;
-    public bool $permiso_eliminicacion = false;
+    public bool $permiso_eliminacion = false;
 
     public $no_ap1 = false;
     public $no_ap2 = false;
@@ -152,7 +152,7 @@ class UserController extends Component
         $consulta = User::join('inscriptions','inscriptions.user_id','=','users.id')
                           ->where('users.id','=',$id)
                           ->first();
-        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
+        ($consulta != null) ? $this->permiso_eliminacion = false : $this->permiso_eliminacion = true;
     }
 
     /**

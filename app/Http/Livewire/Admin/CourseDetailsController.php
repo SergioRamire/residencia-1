@@ -49,7 +49,7 @@ class CourseDetailsController extends Component
     public $confirming_details_deletion = false;
     public $confirming_save_details = false;
     public bool $show_view_modal = false;
-    public bool $permiso_eliminicacion = false;
+    public bool $permiso_eliminacion = false;
     public bool $aviso = false;
 
     protected $listeners = [
@@ -211,7 +211,7 @@ class CourseDetailsController extends Component
         $consulta = CourseDetail::join('inscriptions','inscriptions.course_detail_id','=','course_details.id')
                           ->where('course_details.id','=',$id)
                           ->first();
-        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
+        ($consulta != null) ? $this->permiso_eliminacion = false : $this->permiso_eliminacion = true;
     }
 
     public function delete_details($id){

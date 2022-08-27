@@ -30,7 +30,7 @@ class AreaController extends Component
     public $area;
     public bool $showConfirmationModal = false;
 
-    public bool $permiso_eliminicacion = false;
+    public bool $permiso_eliminacion = false;
 
     public $perPage = '8';
     public $search = '';
@@ -127,7 +127,7 @@ class AreaController extends Component
         $consulta = Area::join('users','users.area_id','=','areas.id')
                           ->where('areas.id','=',$id)
                           ->first();
-        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
+        ($consulta != null) ? $this->permiso_eliminacion = false : $this->permiso_eliminacion = true;
     }
     /**
      * @throws AuthorizationException

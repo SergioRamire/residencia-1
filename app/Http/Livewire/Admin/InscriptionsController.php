@@ -101,7 +101,6 @@ class InscriptionsController extends Component
     public function open_confir(){
 
         $this->confirming_save_inscription = true;
-        // $this->showOneModal = false;
     }
 
     public function reset_arreglo(){
@@ -118,8 +117,8 @@ class InscriptionsController extends Component
             if($participantes_inscritos<$cap[0]->capacidad){
                 $h2=CourseDetail::select('course_details.hora_inicio')
                             ->where('course_details.id', "=",$id)
-                            ->get();
-                $hi2=$h2[0]->hora_inicio;
+                            ->first();
+                $hi2=$h2->hora_inicio;
                 if(in_array($hi2,$this->horas_inicio_semana2)){
                     $this-> noti('info','Ya escogiste un curso con este horario');
                 }
@@ -163,8 +162,8 @@ class InscriptionsController extends Component
             if($participantes_inscritos<$cap[0]->capacidad){
                 $h=CourseDetail::select('course_details.hora_inicio')
                             ->where('course_details.id', "=",$id)
-                            ->get();
-                $hi=$h[0]->hora_inicio;
+                            ->first();
+                $hi=$h->hora_inicio;
                 if(in_array($hi,$this->horas_inicio_semana1)){
                     $this-> noti('info','Ya escogiste un curso con este horario');
                 }
@@ -227,22 +226,18 @@ class InscriptionsController extends Component
         return Period::query()
             ->join('course_details', 'periods.id', '=', 'course_details.period_id')
             ->join('courses', 'course_details.course_id', '=', 'courses.id')
-            // ->leftJoin('inscriptions','inscriptions.course_detail_id','course_details.id')
             ->select(
                 'course_details.id as curdet','course_details.*',
                 'courses.nombre','courses.dirigido','courses.perfil',
 
             )
             ->where('periods.fecha_inicio', '=', $fecha_inicio)
-            // ->where('inscriptions.user_id', '=', auth()->user()->id)
-            // ->where('inscriptions.estatus_participante', '!=', 'Instructor')
             ->whereNotIn('course_details.id',$a)
             ->whereNotIn('course_details.id',$b)
             ;
     }
 
     public function render(){
-        // $this->consultar_instructores(1);
         $this->evaluar_tabla_cursos_seleccionados();
         $this->consulta_periodos_a_publicar();
         $this->verficar_mostrar_cursos();
@@ -291,13 +286,7 @@ class InscriptionsController extends Component
                         ->where('inscriptions.estatus_participante','=','Participante')
                         ->where('periods.ofertado','=',1)
                         ->get();
-        if(count($inscripciones)!==0){
-            $this->permiso=false;
-        }
-        else{
-            $this->permiso=true;
-        }
-
+        (count($inscripciones)!==0) ? $this->permiso=false : $this->permiso=true;
     }
 
     public function consulta_periodos_a_publicar(){
@@ -317,7 +306,6 @@ class InscriptionsController extends Component
     }
 
     public function consultar_instructores($id){
-        // $arreglo = [4,3,2,1,5,6,7,8,9];
         $consulta = CourseDetail::Join('inscriptions','inscriptions.course_detail_id','course_details.id')
                                     ->join('users','users.id','inscriptions.user_id')
                                     ->where('inscriptions.estatus_participante','=','Instructor')
@@ -325,12 +313,10 @@ class InscriptionsController extends Component
                                     users.apellido_paterno, \' \',users.apellido_materno) as usuarios') )
                                     ->groupBy('c')
                                     ->where('course_details.id','=',$id)
-                                    // ->get();
                                     ->first();
-        // dd($consulta->usuarios);
-        if($consulta == null)
-            return ' ';
-        return $consulta->usuarios;
+        if($consulta !== null)
+            return $consulta->usuarios;
+        return 'SIN ASIGNAR';
     }
 
     public function descartar_curso($id){
@@ -348,10 +334,17 @@ class InscriptionsController extends Component
             unset($this->arreglo1[$indice3]);
             unset($this->id_arreglo1[$indice4]);
         }
-        $indice5=array_search($id, $this->horas_inicio_semana1);
-        unset($this->horas_inicio_semana1[$indice5]);
-        $indice6=array_search($id, $this->horas_inicio_semana2);
-        unset($this->horas_inicio_semana2[$indice6]);
+        $h=CourseDetail::select('course_details.hora_inicio')
+                            ->where('course_details.id', "=",$id)
+                            ->first();
+        if(in_array($h->hora_inicio,$this->horas_inicio_semana1)){
+            $indice5=array_search($h->hora_inicio, $this->horas_inicio_semana1);
+            unset($this->horas_inicio_semana1[$indice5]);
+        }
+        elseif(in_array($h->hora_inicio,$this->horas_inicio_semana2)){
+            $indice6=array_search($h->hora_inicio, $this->horas_inicio_semana2);
+            unset($this->horas_inicio_semana2[$indice6]);
+        }
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $this->consultar_cursos_seleccionados();
         $this-> noti('trash','Curso descartado');

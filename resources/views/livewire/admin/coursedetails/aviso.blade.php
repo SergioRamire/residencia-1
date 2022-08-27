@@ -1,7 +1,7 @@
 {{-- mensage de confimacion de eliminar registro con jetstream --}}
 <x-jet-confirmation-modal wire:model="aviso">
     <x-slot name="title">
-        Confirmación
+        AVISO
     </x-slot>
 
     <x-slot name="content">

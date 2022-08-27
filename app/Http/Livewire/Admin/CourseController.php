@@ -43,7 +43,7 @@ class CourseController extends Component
     public bool $confirming_course_Inactive =false;
     public $curso;
 
-    public bool $permiso_eliminicacion = false;
+    public bool $permiso_eliminacion = false;
 
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
@@ -161,7 +161,7 @@ class CourseController extends Component
         $consulta = Course::join('course_details','course_details.course_id','=','courses.id')
                           ->where('courses.id','=',$id)
                           ->first();
-        ($consulta != null) ? $this->permiso_eliminicacion = false : $this->permiso_eliminicacion = true;
+        ($consulta != null) ? $this->permiso_eliminacion = false : $this->permiso_eliminacion = true;
     }
 
     public function destroy()
