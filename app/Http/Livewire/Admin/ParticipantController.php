@@ -55,7 +55,7 @@ class ParticipantController extends Component
             'user.apellido_materno' => $this->vali_ap($this->no_ap2),
             'user.sexo' => ['required', 'in:M,F'],
             'user.curp' => ['required', 'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'],
-            'user.estudio_maximo' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'user.estudio_maximo' => ['required', 'regex:/^[A-Z,Ñ,a-z][A-Z,a-z, ,,.,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:255'],
             'user.tipo' => ['required', 'in:Base,Interinato,Honorarios'],
             'user.clave_presupuestal' => ['required', 'max:255'],
             'user.carrera' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],

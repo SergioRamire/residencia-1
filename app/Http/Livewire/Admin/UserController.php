@@ -63,7 +63,6 @@ class UserController extends Component
                 'user.email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($this->user)],
                 'password_confirmation' => ['present', 'string', 'min:8'],
                 'password' => ['present', 'confirmed'],
-                'user.estatus'=>'required',
             ];
         }
 
@@ -74,7 +73,6 @@ class UserController extends Component
             'user.email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'password_confirmation' => ['required', 'string', 'min:8'],
             'password' => ['required', 'confirmed'],
-            'user.estatus'=>'required',
         ];
     }
 
