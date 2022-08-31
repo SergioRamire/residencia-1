@@ -136,7 +136,7 @@
         </div>
     @endif
 
-    @if ($disponible == false)
+    @if ($disponible == false || $cuenta==0) 
         <div class="flex flex-col rounded-lg border border-gray-200 shadow-md hover:bg-gray-100">
             <div class="px-4 w-full bg-gray-200  rounded-t-lg">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>

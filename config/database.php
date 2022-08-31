@@ -66,9 +66,9 @@ return [
                 Descomentar y en archivo .env la ruta del bin de mysql
                 el ejemplo esta en .env.example
             */
-            // 'dump' => [
-            //     'dump_binary_path' => env('DB_MYSQL_PACH'),
-            //  ],
+            'dump' => [
+                'dump_binary_path' => env('DB_MYSQL_PACH'),
+             ],
         ],
 
         'pgsql' => [
