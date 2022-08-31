@@ -147,6 +147,8 @@ class GradeController extends Component
     public function cuenta_cursos(){
         $cursosTotales=$this->consultar_cursos();
         $this->cuenta=count($cursosTotales);
+        // dd( $this->cuenta);
+        // $this->cuenta=0;
     }
 
     public function mostrar_cursos(){

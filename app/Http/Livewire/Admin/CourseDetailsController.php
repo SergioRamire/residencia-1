@@ -76,7 +76,7 @@ class CourseDetailsController extends Component
             'period' => ['required',  'exists:periods,id'],
             'hora_inicio' => ['required', new Time('07:00:00', '17:00:00')],
             'hora_fin' => ['required', new Time('08:00:00', '18:00:00')],
-            'lugar' => ['required', 'regex:/^[\pL\pM\s]+$/u', 'max:255'],
+            'lugar' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,.,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:255'],
             'modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
             'numero_curso'=>['required', 'numeric'],
             'capacidad' => ['required', 'numeric'],
