@@ -52,10 +52,12 @@ class CourseGrupoSelect extends Component{
         $this->query = 'todos';
     }
     public function selectCur($valor){
-        $aux = Course::where('courses.id', '=', $valor)
-        ->select('courses.nombre as name','courses.clave as clav')
-        ->get();
-        $this->txt =  $aux[0]->clav.' '.$aux[0]->name;
+        $aux = CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
+            ->join('groups', 'groups.id', '=', 'course_details.group_id')
+            ->where('course_details.id', '=', $valor)
+            ->select('courses.nombre as name', 'courses.clave as clav', 'groups.nombre as gruponombre')
+            ->get();
+        $this->txt =  $aux[0]->clav.' '.$aux[0]->name.' '.$aux[0]->gruponombre;
         $this->emit('send_curso_grupo',$valor);
         $this->reset2();
     }
@@ -68,18 +70,14 @@ class CourseGrupoSelect extends Component{
     public $id_escojido;
 
     public function valorCursoGrupo($valor){
-        // $aux = Course::where('courses.id', '=', $valor)
-        //     ->select('courses.nombre as name','courses.clave as clav')
-        //     ->get();
         $aux = CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
                 ->join('groups', 'groups.id', '=', 'course_details.group_id')
                 ->where('course_details.id', '=', $valor)
-                ->select('courses.id as idc', 'courses.nombre as name', 
-                    'courses.clave as clav', 'groups.nombre as gruponombre')
+                ->select('courses.nombre as name', 'courses.clave as clav', 'groups.nombre as gruponombre')
                 ->get();
         $this->txt = 'Buscar Curso';
         if (!empty($valor)) {
-            $this->txt = $aux[0]->gruponombre.' '.$aux[0]->clav.' '.$aux[0]->name;
+            $this->txt =$aux[0]->clav.' '.$aux[0]->name .' '.$aux[0]->gruponombre;
         }
         $this->id_escojido = $valor;
     }

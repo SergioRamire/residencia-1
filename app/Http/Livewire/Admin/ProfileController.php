@@ -69,7 +69,7 @@ class ProfileController extends Component
         return view('livewire.admin.users.profile');
     }
     public function edi_iInfo(){
-        $this->authorize('user.edit');
+        $this->authorize('profile.edit');
         if (empty($this->user->apellido_paterno)) {
             $this->no_ap1 = true;
         }else {

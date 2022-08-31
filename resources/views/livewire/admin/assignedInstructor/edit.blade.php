@@ -33,7 +33,7 @@
                                 </x-slot>
 
                                 @forelse($lista_ins as $item)
-                                    <tr wire:key="instructor-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
+                                    <tr wire:key="instructor-{{ $item->idu}}" wire:loading.class.delay="opacity-50">
                                         <x-table.cell >{{ $item->n }} {{ $item->ap1 }} {{ $item->ap2 }}</x-table.cell>
                                         <x-table.cell class="text-center">
                                             <button wire:click="delete2({{$item->idi}})" type="button" class="text-red-600 hover:text-red-900">
