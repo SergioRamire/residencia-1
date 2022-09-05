@@ -183,7 +183,6 @@ class EmailController extends Component
     public function delete()
     {
         $this->posts->delete();
-        // Notification::where('data[1]', '=', $title)->each->delete();
         $this->confirmin_part_deletion = false;
         $this->dispatchBrowserEvent('notify', [
             'icon' => 'trash',

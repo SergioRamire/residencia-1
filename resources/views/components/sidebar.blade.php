@@ -95,15 +95,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                 </x-sidebar.link>
                 @endcan
 
-                {{-- @can('activeinscription.show')
-                    <x-sidebar.link :href='route("admin.activeinscription")' :active="request()->routeIs('admin.activeinscription')">
-                        <x-slot name="icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </x-slot>
-                        Activar Inscripciones
-                    </x-sidebar.link>
-                @endcan --}}
-
                 @can('inscription.create')
                     <x-sidebar.link :href='route("part.inscription")' :active="request()->routeIs('part.inscription')">
                         <x-slot name="icon">
@@ -127,9 +118,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         <x-sidebar.link class="pl-11" :href='route("admin.participante")' :active="request()->routeIs('admin.participante')">
                             Participantes
                         </x-sidebar.link>
-                        {{-- <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active="request()->routeIs('admin.instructores')">
-                            Instructores
-                        </x-sidebar.link> --}}
                     </x-sidebar.dropdown>
                 @endcan
 
@@ -180,14 +168,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                 </x-sidebar.link>
                 @endcan
 
-                {{-- @can('qualification.edit')
-                <x-sidebar.link :href='route("instr.grades")' :active="request()->routeIs('instr.grades')">
-                    <x-slot name="icon">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </x-slot>
-                    Asignar Calificaciones
-                </x-sidebar.link>
-                @endcan --}}
                 @can('limitAsignGrades.edit')
                 <x-sidebar.link :href='route("jefa.limit")' :active="request()->routeIs('jefa.limit')">
                     <x-slot name="icon">
@@ -205,21 +185,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     Asignar Calificaciones
                 </x-sidebar.link>
                 @endcan
-
-
-                {{-- @can('limitAsignGrades.edit')
-                    <x-sidebar.dropdown title="Calificaciones" dp-id="1">
-                        <x-slot name="icon" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </x-slot>
-                        <x-sidebar.link class="pl-11" :href='route("instr.grades")' :active="request()->routeIs('instr.grades')">
-                            Limitar fecha de calificaciones
-                        </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("instr.grades")' :active="request()->routeIs('instr.grades')">
-                            Asignar calificaciones
-                        </x-sidebar.link>
-                    </x-sidebar.dropdown>
-                @endcan --}}
 
 
                 @can('constancias.show')
@@ -378,9 +343,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         <x-sidebar.link class="pl-11" :href='route("admin.participante")' :active="request()->routeIs('admin.participante')">
                             Participantes
                         </x-sidebar.link>
-                        {{-- <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active="request()->routeIs('admin.instructores')">
-                            Instructores
-                        </x-sidebar.link> --}}
                     </x-sidebar.dropdown>
                 @endcan
 
@@ -401,19 +363,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     Periodos
                 </x-sidebar.link>
                 @endcan
-
-                {{-- @can('user_show')
-                <x-sidebar.dropdown title="Grupos" dp-id="1">
-                    <x-slot name="icon" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </x-slot>
-                    <x-sidebar.link class="pl-11" :href='route("admin.group")' :active='request()->route("admin.group")'>
-                        Mostrar
-                    </x-sidebar.link>
-                </x-sidebar.dropdown>
-                @endcan --}}
-
-
 
                 @can('course.show')
                     <x-sidebar.dropdown title="Cursos" dp-id="1">
@@ -444,16 +393,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                 </x-sidebar.link>
                 @endcan
 
-                {{-- @can('user_show')
-                    <x-sidebar.dropdown title="Departamentos" dp-id="1">
-                        <x-slot name="icon" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </x-slot>
-                        <x-sidebar.link class="pl-11" :href='route("admin.area")' :active='request()->route("admin.area")'>
-                            Mostrar
-                        </x-sidebar.link>
-                    </x-sidebar.dropdown>
-                @endcan --}}
                 @can('limitAsignGrades.edit')
                 <x-sidebar.link :href='route("jefa.limit")' :active="request()->routeIs('jefa.limit')">
                     <x-slot name="icon">
@@ -471,20 +410,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     Asignar Calificaciones
                 </x-sidebar.link>
                 @endcan
-
-                {{-- @can('limitAsignGrades.edit')
-                    <x-sidebar.dropdown title="Calificaciones" dp-id="1">
-                        <x-slot name="icon" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </x-slot>
-                        <x-sidebar.link class="pl-11" :href='route("jefa.limit")' :active="request()->routeIs('jefa.limit')">
-                            Limitar fecha de calificaciones
-                        </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("instr.grades")' :active="request()->routeIs('instr.grades')">
-                            Asignar calificaciones
-                        </x-sidebar.link>
-                    </x-sidebar.dropdown>
-                @endcan --}}
 
                 @can('constancias.show')
                     <x-sidebar.dropdown title="Generar constancias" dp-id="1">
@@ -541,21 +466,6 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan
-
-                {{-- @can('user_show')
-                    <x-sidebar.dropdown title="Constancias" dp-id="1">
-                        <x-slot name="icon" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></x-slot>
-                        <x-sidebar.link class="pl-11" :href='route("admin.constancias")' :active='request()->route("admin.constancias")'>
-                            Generar
-                        </x-sidebar.link>
-                    </x-sidebar.dropdown>
-                @endcan --}}
-
-                {{-- <x-sidebar.link href="#">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></x-slot>
-                    Reports
-                </x-sidebar.link> --}}
 
                 <x-sidebar.link href="{{route('post.index')}}" :active="request()->routeIs('post.index')">
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" clip-rule="evenodd" /></x-slot>

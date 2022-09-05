@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea enviar la notifications?
+        ¿Seguro que desea enviar la notificación?
     </x-slot>
 
     <x-slot name="footer">

@@ -1,10 +1,10 @@
 <x-jet-confirmation-modal wire:model="confirming_part_deletion">
     <x-slot name="title">
-        {{ __('Eliminar Post.') }}
+        {{ __('Eliminar notificación.') }}
     </x-slot>
 
     <x-slot name="content">
-        ¿Seguro que desea eliminar el post
+        ¿Seguro que desea eliminar la notificación
         <span class="font-bold text-red-900">{{ $title }}</span>?
     </x-slot>
 

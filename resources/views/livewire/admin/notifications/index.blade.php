@@ -58,7 +58,7 @@
                         <x-table.header>cuerpo</x-table.header>
                         <x-table.header>Destinatario</x-table.header>
                         <x-table.header class="text-center">Enviado</x-table.header>
-                        <x-table.header class="text-center">Opción</x-table.header>
+                        <x-table.header class="text-center">Acciones</x-table.header>
                     </x-slot>
 
                     @forelse($postss as $r)
@@ -68,10 +68,10 @@
                                 <x-table.cell class="text-center">{{ $r->role}}</x-table.cell>
                                 <x-table.cell class="text-center">{{ $r->created_at->diffForHumans()}}</x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                    <button  wire:click="view({{$r->id}})" type="button" title="Editar período" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                    <button  wire:click="view({{$r->id}})" type="button" title="Ver notificación enviada" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
                                         Ver
                                     </button>
-                                    <button wire:click="delete_post('{{$r->id}}' , '{{$r->title}}')" type="button" title="Eliminar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                    <button wire:click="delete_post('{{$r->id}}' , '{{$r->title}}')" type="button" title="Eliminar notificación" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                         Eliminar
                                     </button>
                                 </x-table.cell>
