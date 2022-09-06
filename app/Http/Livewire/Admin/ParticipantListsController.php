@@ -52,7 +52,7 @@ class ParticipantListsController extends Component
         $this->participante = User::make();
         $this->periodo = Period::make();
     }
-    // public $periodo;
+
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
@@ -87,14 +87,14 @@ class ParticipantListsController extends Component
         ->where('inscriptions.estatus_participante', '=', 'Participante')
         ->where('course_details.period_id', '=', $periodo)
         ->where('course_details.course_id', '=', $curso)
-        ->select('inscriptions.id','users.id as id_user',
-            'users.name','users.apellido_paterno','users.apellido_materno','users.rfc',
+        ->select('inscriptions.id','users.id as id_user', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"), 'users.name','users.apellido_paterno','users.apellido_materno','users.rfc',
             'courses.nombre as curso','groups.nombre as grupo',
             'areas.nombre as area', 'periods.id as id_periodo', 'periods.fecha_inicio',
             'periods.fecha_fin', 'course_details.id as id_detallecurso')
-
             ->where(function ($query) use ($buscar) {
-                $query->where('users.name', 'like', '%'.$buscar.'%')
+                $query->Where(DB::raw("concat(users.name,' ',users.apellido_paterno,
+                ' ', users.apellido_materno)"), 'like', '%'.$buscar.'%')
+                      ->orwhere('users.name', 'like', '%'.$buscar.'%')
                       ->orWhere('areas.nombre', 'like', '%'.$buscar.'%')
                       ->orWhere('users.apellido_materno', 'like', '%'.$buscar.'%')
                       ->orWhere('users.apellido_paterno', 'like', '%'.$buscar.'%')
