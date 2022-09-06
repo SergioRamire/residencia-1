@@ -118,20 +118,22 @@ class GradeController extends Component
 
     public function consultar_cursos(){
         $this->obtener_usuario();
+        $periodos=[];
         if($this->cuenta_periodos>0){
-            foreach($this->consultar_periodos() as $periodo){
-                return CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
+            foreach($this->consultar_periodos() as $pe){
+                array_push($periodos,$pe->id);
+            }
+        }
+        $consulta= CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
                     ->join('users','users.id','inscriptions.user_id')
                     ->join('courses','courses.id','course_details.course_id')
                     ->join('periods','periods.id','course_details.period_id')
                     ->where('users.id','=',$this->user->id)
                     ->where('inscriptions.estatus_participante','=','Instructor')
-                    ->where('periods.id','=',$periodo->id)
+                    ->whereIn('periods.id',$periodos)
                     ->select('course_details.id','courses.nombre')
                     ->get();
-            }
-        }
-
+        return $consulta;
     }
 
     public function consultar_grupos(){
@@ -146,9 +148,7 @@ class GradeController extends Component
 
     public function cuenta_cursos(){
         $cursosTotales=$this->consultar_cursos();
-        if($cursosTotales != null)
-            $this->cuenta=count($cursosTotales);
-        $this->cuenta=0;
+        ($cursosTotales != null) ? $this->cuenta=count($cursosTotales) : $this->cuenta=0; 
         // $this->cuenta=count($cursosTotales);
         // dd($cursosTotales);
         // $this->cuenta=0;
@@ -196,10 +196,12 @@ class GradeController extends Component
         $this->consultar_periodos();
         $this->cuenta_cursos();
         $cur=$this->consultar_cursos();
+        // dd($cur[0]->id);
         if($this->cuenta==1){
             $this->curso=$cur[0]->nombre;
             $this->id_course=$cur[0]->id;
         }
+        // dd($this->id_course);
         return view('livewire.admin.grades.index', [
             'grades' => $this->mostrar_cursos()->paginate($this->perPage),
             'courses' => $this->consultar_cursos(),

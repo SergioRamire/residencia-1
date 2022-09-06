@@ -6,9 +6,9 @@
     </x-slot>
 
     <div class="flex justify-end">
-        <button wire:click="mostrar_ayuda" class="text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
-            <x-icon.info solid alt="sm" class="inline-block h-7 w-7"/>
-        </button>
+        <x-jet-secondary-button wire:click="mostrar_ayuda" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+            AYUDA
+        </x-jet-secondary-button>
     </div>
 
 
