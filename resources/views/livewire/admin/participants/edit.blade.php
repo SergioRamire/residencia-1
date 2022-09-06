@@ -146,6 +146,7 @@
                         <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                     @endforeach
                 </x-input.select>
+                <x-jet-input-error for="user.area_id"/>
             </div>
 
             <!-- Jefe Inmediato -->
