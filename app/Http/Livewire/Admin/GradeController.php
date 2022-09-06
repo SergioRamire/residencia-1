@@ -61,7 +61,7 @@ class GradeController extends Component
 
     private function validateInputs(){
         $this->validate([
-            'calificacion' => ['required', 'numeric', 'min:1', 'max:100'],
+            'calificacion' => ['required', 'numeric', 'min:0', 'max:100'],
         ]);
     }
 
@@ -148,7 +148,7 @@ class GradeController extends Component
 
     public function cuenta_cursos(){
         $cursosTotales=$this->consultar_cursos();
-        ($cursosTotales != null) ? $this->cuenta=count($cursosTotales) : $this->cuenta=0; 
+        ($cursosTotales != null) ? $this->cuenta=count($cursosTotales) : $this->cuenta=0;
         // $this->cuenta=count($cursosTotales);
         // dd($cursosTotales);
         // $this->cuenta=0;
