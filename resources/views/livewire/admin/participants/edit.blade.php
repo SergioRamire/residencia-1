@@ -141,7 +141,7 @@
             <div class="mt-4">
                 <x-jet-label for="area" value="Área de adscripción"/>
                 <x-input.select wire:model="user.area_id" class="mt-1 w-full" id="area_id" name="area_id" required>
-                    <option value="" disabled>Selecciona el área</option>
+                    <option value="0" disabled>Selecciona el área</option>
                     @foreach(\App\Models\Area::where('estatus','1')->get() as $area)
                         <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                     @endforeach

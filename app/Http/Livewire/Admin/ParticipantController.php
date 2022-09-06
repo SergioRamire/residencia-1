@@ -100,6 +100,21 @@ class ParticipantController extends Component
         $this->resetErrorBag();
         $this->resetValidation();
         $this->user = $user;
+
+        /* Manejo de <select> */
+        if ($this->user->sexo === null) {
+            $this->user->sexo = '';
+        }
+        if ($this->user->tipo === null) {
+            $this->user->tipo = '';
+        }
+        if ($this->user->cuenta_moodle === null) {
+            $this->user->cuenta_moodle = '';
+        }
+        if ($this->user->area_id === null) {
+            $this->user->area_id = 0;
+        }
+
         $this->show_edit_modal = true;
     }
 
