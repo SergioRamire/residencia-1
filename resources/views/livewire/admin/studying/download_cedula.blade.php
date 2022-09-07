@@ -110,7 +110,7 @@
                 @forelse ($ins as $i)
                     {{mb_strtoupper($i->nombre,'utf-8')}} &nbsp; &nbsp; &nbsp; &nbsp;
                 @empty
-                    Sin instructor
+                    
                 @endforelse 
         </h6>
         <div class="linea container col  col-sm-14"></div>
