@@ -56,35 +56,6 @@ class StudyingController extends Component
             ->where("inscriptions.estatus_participante", $this->estatus)
             ->get();
     }
-    // public function consulta()
-        // {
-        //     return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
-        //         ->join('periods', 'periods.id', '=', 'course_details.period_id')
-        //         ->join('groups', 'groups.id', '=', 'course_details.group_id')
-        //         ->join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
-        //         ->join('users', 'users.id', '=', 'inscriptions.user_id')
-        //         // ->when($this->classification['periodo'], fn ($query, $search) => $query
-        //         //     ->where('periods.id', '=', $search))
-        //         ->select(
-        //             'courses.clave as curso_clave',
-        //             'courses.nombre as curso_nombre',
-        //             'groups.nombre as nombre_grupo',
-        //             //
-        //             'inscriptions.calificacion as califi',
-        //             'periods.fecha_inicio as f1',
-        //             'periods.fecha_fin as f2',
-        //             'course_details.hora_inicio as h1',
-        //             'course_details.hora_fin as h2',
-        //             'course_details.lugar',
-        //             'users.id as iduser',
-        //             'course_details.id as idcurso',
-        //             'inscriptions.url_cedula'
-        //         )
-        //         ->where("periods.estado",0)
-        //         ->where("users.id", $this->user->id)
-        //         ->where("inscriptions.estatus_participante", $this->estatus)
-        //         ->get();
-        // }
 
     public function consulta_pdf($iduser,$idcurso)
     {
@@ -112,20 +83,21 @@ class StudyingController extends Component
             ->get();
     }
 
-    public function consulta_instructor($idcurso)
-    {
-        return CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
+    public function consulta_instructor($idcurso){   
+        return  CourseDetail::join('courses', 'courses.id', '=', 'course_details.course_id')
             ->join('inscriptions', 'inscriptions.course_detail_id', '=', 'course_details.id')
             ->join('users', 'users.id', '=', 'inscriptions.user_id')
             ->select('users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"))
             ->where('course_details.id', $idcurso)
             ->where("inscriptions.estatus_participante", 'Instructor')
             ->get();
+
+
     }
 
     public function download_pdf($iduser,$idcurso){
         $coursesdetails = $this->consulta_pdf($iduser, $idcurso);
-        $instructor = $this->consulta_instructor( $idcurso);
+        $instructor = $this->consulta_instructor($idcurso);
         list($fecha_inicial, $fecha_final, $dia_actual) = $this->get_dates($coursesdetails[0]);
 
         $pdf = Pdf::loadView('livewire.admin.studying.download_cedula', ['courses' => $coursesdetails,'ins'=>$instructor,'fecha_i'=> $fecha_inicial,'fecha_f'=> $fecha_final,'day_actual'=> $dia_actual]);

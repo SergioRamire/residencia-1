@@ -45,6 +45,7 @@ class TeachingController extends Component{
             )
             ->where('periods.fecha_fin','>=',$this->hoy)
             ->where("users.id", $this->user->id)
+            ->where("periods.estatus", 1)
             ->where("inscriptions.estatus_participante", $this->estatus)
             ->get();;
     }
