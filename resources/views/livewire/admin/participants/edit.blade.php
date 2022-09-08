@@ -81,7 +81,18 @@
             <!-- Organización de origen -->
             <div class="mt-4">
                 <x-jet-label for="organizacion_origen">Organización de origen <span class="text-red-600">*</span></x-jet-label>
-                <x-input.error wire:model="user.organizacion_origen" class="block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" for="user.organizacion_origen" required/>
+                @if($org_es_tec_oax)
+                    @php
+                        $user->organizacion_origen = 'Instituto Tecnológico de Oaxaca';
+                    @endphp
+                    <x-jet-input wire:model="user.organizacion_origen" class="text-gray-400 border-gray-400 focus:border-gray-400 focus:ring focus:ring-gray-200 focus:ring-opacity-50 block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" disabled/>
+                    <x-jet-input-error for="user.organizacion_origen"/>
+                @else
+                    <x-input.error wire:model="user.organizacion_origen" class="block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" for="user.organizacion_origen" required/>
+                @endif
+
+                <input wire:model="org_es_tec_oax" name="org_oaxaca" value="asdad" type="checkbox" class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
+                <span class="ml-2 text-sm font-medium text-gray-900 ">Pertenece al ITO</span>
             </div>
 
             <!-- Correo ITO y TECNM -->
@@ -138,16 +149,18 @@
             </div>
 
             <!-- Area -->
-            <div class="mt-4">
-                <x-jet-label for="area" value="Área de adscripción"/>
-                <x-input.select wire:model="user.area_id" class="mt-1 w-full" id="area_id" name="area_id" required>
-                    <option value="0" disabled>Selecciona el área</option>
-                    @foreach(\App\Models\Area::where('estatus','1')->get() as $area)
-                        <option value="{{ $area->id }}">{{ $area->nombre }}</option>
-                    @endforeach
-                </x-input.select>
-                <x-jet-input-error for="user.area_id"/>
-            </div>
+            @if($org_es_tec_oax)
+                <div class="mt-4">
+                    <x-jet-label for="area" value="Área de adscripción"/>
+                    <x-input.select wire:model="user.area_id" class="mt-1 w-full" id="area_id" name="area_id" required>
+                        <option value="null" disabled>Selecciona el área</option>
+                        @foreach(\App\Models\Area::where('estatus','1')->get() as $area)
+                            <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                        @endforeach
+                    </x-input.select>
+                    <x-jet-input-error for="user.area_id"/>
+                </div>
+            @endif
 
             <!-- Jefe Inmediato -->
             <div class="mt-4">

@@ -24,6 +24,7 @@ class ParticipantController extends Component
     use WithSorting;
 
     public User $user;
+    public $org_es_tec_oax = false;
 
     public int $perPage = 8;
     public array $filters = [
@@ -67,7 +68,7 @@ class ParticipantController extends Component
             'user.cuenta_moodle' => ['required', 'in:0,1'],
             'user.organizacion_origen' => ['required', 'max:255'],
             'user.jefe_inmediato' => ['required', 'regex:/^[\pL\pM\s.]+$/u', 'max:255'],
-            'user.area_id' => ['required', 'exists:areas,id'],
+            'user.area_id' => $this->validar_area($this->org_es_tec_oax),
         ];
     }
 
@@ -112,7 +113,14 @@ class ParticipantController extends Component
             $this->user->cuenta_moodle = '';
         }
         if ($this->user->area_id === null) {
-            $this->user->area_id = 0;
+            $this->user->area_id = null;
+        }
+
+        /* Manejo de Organización */
+        if ($this->user->organizacion_origen === 'Instituto Tecnológico de Oaxaca') {
+            $this->org_es_tec_oax = true;
+        } else {
+            $this->org_es_tec_oax = false;
         }
 
         $this->show_edit_modal = true;
@@ -132,6 +140,9 @@ class ParticipantController extends Component
 
     public function save()
     {
+        if (! $this->org_es_tec_oax) {
+            $this->user->area_id = null;
+        }
         $this->user->save();
 
         $this->showConfirmationModal = false;
@@ -186,5 +197,10 @@ class ParticipantController extends Component
             return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255'];
         }
         return ['nullable', 'regex:/^[\pL\pM\s]+$/u', 'max:255', 'required'];
+    }
+
+    public function validar_area($organizacion)
+    {
+        return $organizacion ? ['required', 'exists:areas,id'] : ['nullable'];
     }
 }
