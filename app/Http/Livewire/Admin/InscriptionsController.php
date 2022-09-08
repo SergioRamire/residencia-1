@@ -337,17 +337,6 @@ class InscriptionsController extends Component
             unset($this->id_arreglo1[$indice4]);
             $this->descartar_horario_semana2($id);
         }
-        // $h=CourseDetail::select('course_details.hora_inicio')
-        //                     ->where('course_details.id', "=",$id)
-        //                     ->first();
-        // if(in_array($h->hora_inicio,$this->horas_inicio_semana1)){
-        //     $indice5=array_search($h->hora_inicio, $this->horas_inicio_semana1);
-        //     unset($this->horas_inicio_semana1[$indice5]);
-        // }
-        // elseif(in_array($h->hora_inicio,$this->horas_inicio_semana2)){
-        //     $indice6=array_search($h->hora_inicio, $this->horas_inicio_semana2);
-        //     unset($this->horas_inicio_semana2[$indice6]);
-        // }
         $this->unionarreglos=array_merge($this->arreglo,$this->arreglo1);
         $this->consultar_cursos_seleccionados();
         $this-> noti('trash','Curso descartado');

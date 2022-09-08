@@ -21,6 +21,7 @@
                                 <x-table.header>Departamento Dirigido</x-table.header>
                                 <x-table.header>Horario</x-table.header>
                                 <x-table.header>Grupo</x-table.header>
+                                <x-table.header>Instructores</x-table.header>
                                 <x-table.header>acciones</x-table.header>
                             </x-slot>
                             @forelse($tabla as $c)
@@ -33,6 +34,9 @@
                                     <x-table.cell>{{ $c->dirigido }} </x-table.cell>
                                     <x-table.cell> De {{ date("g:i a", strtotime($c->hora_inicio))}} a {{ date("g:i a", strtotime($c->hora_fin))}}</x-table.cell>
                                     <x-table.cell>{{ $c->grupo }} </x-table.cell>
+                                    <x-table.cell>
+                                        {{$this->consultar_instructores($c->curdet)}}
+                                    </x-table.cell>
                                     <x-table.cell width='200' class="whitespace-nowrap">
                                         <button wire:click="descartar_curso({{ $c->curdet }})" type="button" title="Descartar curso seleeccionado"
                                             class="px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
