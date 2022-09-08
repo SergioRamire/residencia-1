@@ -53,7 +53,8 @@
                         <x-table.header class="text-center">Curso</x-table.header>
                         <x-table.header class="text-center">Grupo</x-table.header>
                         <x-table.header class="text-center">Lugar</x-table.header>
-                        <x-table.header class="text-center">FECHA</x-table.header>
+                        <x-table.header class="text-center">Período</x-table.header>
+                        <x-table.header class="text-center">Instructores</x-table.header>
                         <x-table.header class="text-center">Acción</x-table.header>
                     </x-slot>
 
@@ -64,6 +65,9 @@
                             <x-table.cell class="text-center whitespace-nowrap">{{ $g->lugar }}</x-table.cell>
                             <x-table.cell class="text-center whitespace-nowrap">{{ date('d-m-Y', strtotime($g->f1)) }} a
                                 {{ date('d-m-Y', strtotime($g->f2)) }}</x-table.cell>
+                            <x-table.cell>
+                                    {{$this->consultar_instructores($g->idcurdet)}}
+                            </x-table.cell>
                                 <x-table.cell width='200' class="text-center whitespace-nowrap">
                                     @if (App\Models\CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
                                     ->where('inscriptions.estatus_participante', 'Instructor')
@@ -73,8 +77,8 @@
                                             Añadir
                                         </button>
                                     @endif
-                                    <button  wire:click="open_modal_show({{ $g->idcurdet }})" type="button" title="Ver instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
-                                        Ver
+                                    <button wire:click="open_modal_show({{ $g->idcurdet }})" type="button" title="Eliminar instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                        Eliminar Instructor
                                     </button>
                             </x-table.cell>
                         </tr>

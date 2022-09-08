@@ -191,6 +191,22 @@ class AssignedInstructorController extends Component
             // ->get()
             ;
     }
+
+    public function consultar_instructores($id){
+        $consulta = CourseDetail::Join('inscriptions','inscriptions.course_detail_id','course_details.id')
+                                    ->join('users','users.id','inscriptions.user_id')
+                                    ->where('inscriptions.estatus_participante','=','Instructor')
+                                    ->select('course_details.id as c',DB::raw('group_concat(users.name, \' \',
+                                    users.apellido_paterno, \' \',users.apellido_materno) as usuarios') )
+                                    ->groupBy('c')
+                                    ->where('course_details.id','=',$id)
+                                    ->first();
+        if($consulta !== null){
+            return $consulta->usuarios;}
+            else{
+        return 'SIN ASIGNAR';}
+    }
+
     public function open_modal_create($id){
         $this->id_detalle_curso = $id;
         $this->modal_edit = true;
