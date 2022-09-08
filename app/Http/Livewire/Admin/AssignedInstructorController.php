@@ -94,7 +94,7 @@ class AssignedInstructorController extends Component
             ]);
             $this->noti('success', 'Instructor asignado correctamente');
         }else {
-            $this->noti('info', 'Ya se encuentra asignado al curso');
+            $this->noti('info', 'Ya se encuentra inscrito al curso');
         }
     }
     public function asignar(){
@@ -187,9 +187,7 @@ class AssignedInstructorController extends Component
                 }
                 )
 
-            ->distinct()
-            // ->get()
-            ;
+            ->distinct();
     }
 
     public function consultar_instructores($id){
