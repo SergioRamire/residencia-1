@@ -15,7 +15,6 @@
             @php
                 $day= date("Y-m-d");
                 $date= date("Y-m-d",strtotime($day."+ 1 days"));
-                $date2= date("Y-m-d",strtotime($date."+ 15 days"));
             @endphp
             <!-- fecha inicio y fecha fin -->
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
@@ -23,13 +22,15 @@
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="FechaInicio" >Fecha Inicio <span class="text-red-600">*</span></x-jet-label>
                     <x-input.error wire:model="periods.fecha_inicio" class="block mt-1 w-full" type="date" id="fecha_inicio" name="fecha_inicio" min="{{$date}}" for="periods.fecha_inicio" required/>
+
                 </div>
                 <!-- fecha fin -->
                 <div class="mt-4 sm:flex-1">
                     <x-jet-label for="FechaFin">Fecha Fin <span class="text-red-600">*</span></x-jet-label>
-                    <x-input.error wire:model="periods.fecha_fin" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" min="{{$date}}" for="periods.fecha_fin" required/>
+                    <x-input.error wire:model="periods.fecha_fin" class="block mt-1 w-full" type="date" id="fecha_fin" name="fecha_fin" min="{{$aux}}" for="periods.fecha_fin" required/>
                 </div>
             </div>
+
         </form>
     </x-slot>
 

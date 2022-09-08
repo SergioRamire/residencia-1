@@ -46,6 +46,7 @@ class PeriodCoursesController extends Component
 
     public $f_i;
     public $f_f;
+    public $aux;
 
     public bool $perfil_x = false;
 
@@ -120,6 +121,11 @@ class PeriodCoursesController extends Component
         $this->confirming_save_period = true;
     }
 
+    public function updatedPeriods(){
+        $this->periods->fecha_fin=date('Y-m-d', strtotime($this->periods->fecha_inicio."+4 days"));
+        $this->aux=date('Y-m-d', strtotime($this->periods->fecha_inicio."+4 days"));
+    }
+
     public function save(){
         $this->periods->ofertado = 0;
         $this->periods->fecha_limite_para_calificar = $this->periods->fecha_fin;
@@ -136,6 +142,7 @@ class PeriodCoursesController extends Component
         ]);
         $this->edit = false;
         $this->create = false;
+
     }
 
     /**
