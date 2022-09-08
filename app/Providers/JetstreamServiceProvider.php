@@ -77,6 +77,8 @@ class JetstreamServiceProvider extends ServiceProvider
                                 return $user; //entra
                             }
                         }
+                        if($request->rol=='Participante' and $rol == 'Participante')
+                            return $user;
                         if($request->rol=='Participante' and $organizacion_origen=='Tecnológico de oaxaca'){ //si selecciono el rb participante
                             $user->syncRoles($request->rol); //se le asigna ese rol
                             return $user; //entra
