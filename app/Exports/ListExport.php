@@ -30,7 +30,7 @@ class ListExport implements FromView
         return view('livewire.admin.excel.download_list',[
             'data' => $this->data,
             'instructor'=>User::find(auth()->user()->id),
-            'cordinador' => User::whereRelation('roles', 'name', '=', 'Coordinador')->get(),
+            'coordinador' => User::whereRelation('roles', 'name', '=', 'Coordinador')->first(),
         ]);
     }
 }

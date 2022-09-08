@@ -59,10 +59,13 @@ class GradeController extends Component
         $this->reset('search');
     }
 
-    private function validateInputs(){
-        $this->validate([
-            'calificacion' => ['required', 'numeric', 'min:0', 'max:100'],
-        ]);
+    protected $rules = [
+        'calificacion' => ['required', 'numeric', 'min:0', 'max:100'],
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
     }
 
     public function open_modal(){
@@ -74,7 +77,7 @@ class GradeController extends Component
     }
 
     public function store(){
-        $this->validateInputs();
+        $this->validate();
         $this->obtener_usuario();
         $user_parti= User::find($this->id_user_participant);
         $user_parti->courseDetails()->syncWithPivotValues($this->course_details_id, ['calificacion' => $this->calificacion, 'asistencias_minimas'=>$this->asistencias_minimas]);
@@ -104,11 +107,11 @@ class GradeController extends Component
         $this->calificacion = $grade->calificacion;
         $this->asistencias_minimas=$grade->asistencias_minimas;
         $this->open_modal();
-        $this->validateInputs();
+        $this->validate();
     }
 
     public function update_grade(){
-        $this->validateInputs();
+        // $this->validateInputs();
         $this->confirming_save_grade = true;
     }
 

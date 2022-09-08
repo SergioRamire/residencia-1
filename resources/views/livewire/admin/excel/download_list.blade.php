@@ -142,18 +142,19 @@
     <tr>
         <td></td>
     </tr>
-    {{-- <tr>
-        <td></td>
-    </tr>
-    <tr>
-        <td></td>
-    </tr> --}}
+
     <tr>
         <td></td>
         <td style="text-decoration: underline; text-align:center; font-weight: 500;">{{mb_strtoupper($instructor->name,'utf-8')}} {{mb_strtoupper($instructor->apellido_paterno,'utf-8')}} {{mb_strtoupper($instructor->apellido_materno,'utf-8')}}</td>
         <td></td>
         <td></td>
-        <td style="text-decoration: underline; text-align:center; font-weight: 500;" colspan="6">{{mb_strtoupper(Str::words($cordinador[0]->estudio_maximo,1,' '))}}{{' '}}{{mb_strtoupper($cordinador[0]->name,'utf-8')}} {{mb_strtoupper($cordinador[0]->apellido_paterno,'utf-8')}} {{mb_strtoupper($cordinador[0]->apellido_materno,'utf-8')}}</td>
+        @if($coordinador == null)
+            <td style="text-decoration: underline; text-align:center; font-weight: 500;" colspan="6">   </td>
+        @else
+            <td style="text-decoration: underline; text-align:center; font-weight: 500;" colspan="6">
+                {{mb_strtoupper(Str::words($coordinador->estudio_maximo,1,' '))}}{{' '}}{{mb_strtoupper($coordinador->name,'utf-8')}} {{mb_strtoupper($coordinador->apellido_paterno,'utf-8')}} {{mb_strtoupper($coordinador->apellido_materno,'utf-8')}}
+            </td>
+        @endif
     </tr>
     <tr>
         <td></td>
@@ -167,14 +168,26 @@
         <td>{{strtoupper($instructor->rfc)}}</td>
         <td></td>
         <td style="text-align:right;">R.F.C</td>
-        <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">{{strtoupper($cordinador[0]->rfc)}}</td>
+        @if($coordinador == null)
+            <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">   </td>
+        @else
+            <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">
+                {{strtoupper($coordinador->rfc)}}
+            </td>
+        @endif
     </tr>
     <tr>
         <td style="text-align:right;">C.U.R.P:</td>
         <td>{{strtoupper($instructor->curp)}}</td>
         <td></td>
         <td style="text-align:right;">C.U.R.P:</td>
-        <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">{{strtoupper($cordinador[0]->curp)}}</td>
+        @if($coordinador == null)
+          <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">   </td>
+        @else
+            <td style="text-align:center; border-bottom: 1px solid #000000;" colspan="6">
+                {{strtoupper($coordinador->curp)}}
+            </td>
+        @endif
     </tr>
     </tbody>
 </table>
