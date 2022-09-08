@@ -70,10 +70,10 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('roles', RoleController::class)->name('roles');
 
-    Route::middleware('can:studying.show')->prefix('participat')->name('participant.')
+    Route::middleware('can:studying.show')->prefix('participantes')->name('participant.')
         ->get('mis-cursos', StudyingController::class)->name('studying');
 
-    Route::middleware('can:studying.show')->prefix('participat')->name('participant.')
+    Route::middleware('can:studying.show')->prefix('participates')->name('participant.')
         ->get('subir-cedula/{id_user}/{id_course_detail}', SubirConstanciaController::class)->name('subir-cedula');
 
     Route::middleware('can:area.show')->prefix('admin')->name('admin.')
@@ -100,8 +100,8 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:participant.show')->prefix('admin')->name('admin.')
         ->get('participante', ParticipantController::class)->name('participante');
 
-    Route::middleware('can:inscription.create')->prefix('participant')->name('part.')
-        ->get('inscription', InscriptionsController::class)->name('inscription');
+    Route::middleware('can:inscription.create')->prefix('participantes')->name('part.')
+        ->get('inscripciones', InscriptionsController::class)->name('inscription');
 
     Route::middleware('can:assigninstructor.show')->prefix('admin')->name('admin.')
         ->get('asignar-instructor', AssignedInstructorController::class)->name('asignarinstructor');
