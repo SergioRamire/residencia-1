@@ -81,7 +81,7 @@
             <!-- Organización de origen -->
             <div class="mt-4">
                 <x-jet-label for="organizacion_origen">Organización de origen <span class="text-red-600">*</span></x-jet-label>
-                @if($org_es_tec_oax)
+                @if($org)
                     @php
                         $user->organizacion_origen = 'Instituto Tecnológico de Oaxaca';
                     @endphp
@@ -91,7 +91,7 @@
                     <x-input.error wire:model="user.organizacion_origen" class="block mt-1 w-full" type="text" id="organizacion_origen" name="organizacion_origen" for="user.organizacion_origen" required/>
                 @endif
 
-                <input wire:model="org_es_tec_oax" name="org_oaxaca" value="asdad" type="checkbox" class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
+                <input wire:model="org" name="org_oaxaca" value="asdad" type="checkbox" class="text-[#1b396a] bg-gray-100 border-gray-300 focus:ring-sky-700 focus:ring-2 ">
                 <span class="ml-2 text-sm font-medium text-gray-900 ">Pertenece al ITO</span>
             </div>
 
@@ -149,7 +149,7 @@
             </div>
 
             <!-- Area -->
-            @if($org_es_tec_oax)
+            @if($org)
                 <div class="mt-4">
                     <x-jet-label for="area" value="Área de adscripción"/>
                     <x-input.select wire:model="user.area_id" class="mt-1 w-full" id="area_id" name="area_id" required>
