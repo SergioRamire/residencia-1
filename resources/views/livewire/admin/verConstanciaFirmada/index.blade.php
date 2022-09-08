@@ -80,7 +80,7 @@
                             </x-table.cell>
                         </tr>
                     @empty
-                        <tr
+                        <tr>
                             <x-table.cell colspan="5">
                                 <div class="flex justify-center items-center space-x-2">
                                     <!-- Icono -->

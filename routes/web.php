@@ -30,9 +30,8 @@ use App\Http\Livewire\Admin\VerConstanciasFirmadasController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-use App\Exports\UserExport;
 use App\Http\Livewire\Admin\LimitForInstructorsController;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 // Use App\Models\User;
 /*
@@ -70,7 +69,8 @@ Route::middleware(['auth:web', config('jetstream.auth_session'), 'verified'])->g
     Route::middleware('can:role.show')->prefix('admin')->name('admin.')
         ->get('roles', RoleController::class)->name('roles');
 
-    Route::middleware('can:studying.show')->prefix('participantes')->name('participant.')
+    // Route::middleware('can:studying.show')->prefix('participantes')->name('participant.')
+    Route::middleware('can:studying.show')->prefix('participat')->name('participante.')
         ->get('mis-cursos', StudyingController::class)->name('studying');
 
     Route::middleware('can:studying.show')->prefix('participates')->name('participant.')

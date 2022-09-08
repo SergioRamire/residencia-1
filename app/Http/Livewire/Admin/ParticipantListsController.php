@@ -275,8 +275,9 @@ class ParticipantListsController extends Component
 
     public function descarga(){
         $data=$this->participants($this->classification['periodo'], $this->classification['curso'],'Participante',$this->filters['grupo']);
-        $ins=$this->participants($this->classification['periodo'], $this->classification['curso'],'Instructor',$this->filters['grupo']);
+        $ins=$this->instructor($this->classification['periodo'], $this->classification['curso'],$this->filters['grupo']);
         return Excel::download(new UserExport($data, $ins), 'Lista_Asistencia.xlsx');
+        // dd($ins);
     }
 
     public function participants($periodo, $curso, $user, $grupo)
@@ -297,6 +298,23 @@ class ParticipantListsController extends Component
         ->orderBy('app', 'asc')->get();
     }
 
+    public function instructor($periodo, $curso, $grupo)
+    {
+        return  User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
+        ->join('areas', 'areas.id', '=', 'users.area_id')
+        ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
+        ->join('courses', 'courses.id', '=', 'course_details.course_id')
+        ->join('groups', 'groups.id', '=', 'course_details.group_id')
+        ->join('periods', 'periods.id', '=', 'course_details.period_id')
+        ->where('inscriptions.estatus_participante', '=', 'Instructor')
+        ->where('course_details.period_id', '=', $periodo)
+        ->where('course_details.course_id', '=', $curso)
+        ->select('inscriptions.id',DB::raw("concat(users.name,' ',users.apellido_paterno,
+        ' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.rfc as rfc','users.curp as curp','users.sexo as sex','courses.clave as clave','courses.duracion as duracion','courses.nombre as curso','groups.nombre as grupo','course_details.modalidad as modalidad',
+        'areas.nombre as area', 'periods.fecha_inicio as fi', 'periods.fecha_fin as ff','course_details.hora_inicio as hi','course_details.hora_fin as hf')
+        ->when($this->filters['grupo'], fn ($query, $grupo) => $query->where('course_details.group_id', '=', $grupo))
+        ->orderBy('app', 'asc')->first();
+    }
 
     protected $listeners = [
         'per_send',

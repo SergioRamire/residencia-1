@@ -78,7 +78,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                 @endcan
 
                 @can('studying.show')
-                    <x-sidebar.link :href='route("participant.studying")' :active="request()->routeIs('participant.studying')">
+                    <x-sidebar.link :href='route("participante.studying")' :active="request()->routeIs('participante.studying')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                         </x-slot>
@@ -303,7 +303,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                 @endcan
 
                 @can('studying.show')
-                    <x-sidebar.link :href='route("participant.studying")' :active="request()->routeIs('participant.studying')">
+                    <x-sidebar.link :href='route("participante.studying")' :active="request()->routeIs('participante.studying')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                         </x-slot>

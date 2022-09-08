@@ -31,7 +31,7 @@ class UserExport implements FromView
         return view('livewire.admin.excel.viewexcel',[
             'data' => $this->data,
             'instructor' => $this->ins,
-            'cordinador' => User::whereRelation('roles', 'name', '=', 'Coordinador')->get(),
+            'coordinador' => User::whereRelation('roles', 'name', '=', 'Coordinador')->first(),
         ]);
     }
 
