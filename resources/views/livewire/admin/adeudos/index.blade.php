@@ -46,16 +46,19 @@
             <div class="flex flex-col space-y-2">
                 <x-table>
                     <x-slot name="head">
-                        <x-table.header wire:click="sortBy('rfc')" sortable :direction="$sortField === 'rfc' ? $sortDirection : null">
+                        <x-table.header wire:click="sortBy('id')" sortable :direction="$sortField === 'id' ? $sortDirection : null">
                             CÓDIGO DE LA MULTA
                         </x-table.header>
-                        <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">
+                        <x-table.header wire:click="sortBy('date')" sortable :direction="$sortField === 'date' ? $sortDirection : null">
+                            fecha
+                        </x-table.header>
+                        <x-table.header wire:click="sortBy('name')" sortable :direction="$sortField === 'name' ? $sortDirection : null">
                             nombre
                         </x-table.header>
-                        <x-table.header wire:click="sortBy('area')" sortable :direction="$sortField === 'area' ? $sortDirection : null">
+                        <x-table.header wire:click="sortBy('description')" sortable :direction="$sortField === 'description' ? $sortDirection : null">
                             Descripción
                         </x-table.header>
-                        <x-table.header wire:click="sortBy('curso')" sortable :direction="$sortField === 'curso' ? $sortDirection : null">
+                        <x-table.header wire:click="sortBy('cost')" sortable :direction="$sortField === 'cost' ? $sortDirection : null">
                             Costo
                         </x-table.header>
                         <x-table.header>
@@ -63,25 +66,18 @@
                         </x-table.header>
                     </x-slot>
 
-                    {{-- @forelse($lists as $l)
+                    @forelse($datos as $l)
                         <tr wire:key="list-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
-                            <x-table.cell>{{ $l->rfc}} </x-table.cell>
+                            <x-table.cell>{{ $l->id}} </x-table.cell>
+                            <x-table.cell>{{ $l->date}} </x-table.cell>
                             <x-table.cell>{{ $l->name }} {{ $l->apellido_paterno }} {{ $l->apellido_materno }}</x-table.cell>
-                            <x-table.cell>{{ $l->area }} </x-table.cell>
-                            <x-table.cell>{{ $l->curso }} </x-table.cell>
-                            <x-table.cell>{{ $l->grupo }} </x-table.cell>
-                            <x-table.cell width='200' class="whitespace-nowrap">
-                                <button  wire:click="edit('{{ $l->id_user }}','{{$l->id_periodo}}','{{$l->id_detallecurso}}')" type="button" title="Editar inscripción" class="mr-1 px-4 bg-white  hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                    Editar
-                                </button>
-                                <button wire:click="delete({{ $l->id }})" type="button" title="Eliminar inscripción" class="ml-1 px-4 bg-white  hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                    Eliminar
-                                </button>
+                            <x-table.cell>{{ $l->description }} </x-table.cell>
+                            <x-table.cell>{{ $l->cost }} </x-table.cell>
+                            <x-table.cell>{{ $l->paid }} </x-table.cell>
 
-                            </x-table.cell>
                         </tr>
-                    @empty --}}
-                        {{-- <tr>
+                        @empty
+                        <tr>
                             <x-table.cell colspan="7">
                                 <div class="flex justify-center items-center space-x-2">
                                     <!-- Icono -->
@@ -90,16 +86,16 @@
                                     </svg>
                                     <!-- Texto -->
                                     <span class="py-4 text-xl text-gray-400 font-medium">
-                                        No se encontraron registros ...
+                                        No se encontraron departamentos ...
                                     </span>
                                 </div>
                             </x-table.cell>
                         </tr>
-                    @endforelse --}}
+                    @endforelse
                 </x-table>
 
                 <div>
-                    {{-- {{ $lists->links() }} --}}
+                    {{ $datos->links() }}
                 </div>
                 {{-- <div class="text-right min-h-full">
                     @if($lists->count() > 0)

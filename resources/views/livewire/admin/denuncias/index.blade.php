@@ -5,8 +5,6 @@
         </h2>
     </x-slot>
 
-    {{ $flag }}
-
     <div class="bg-[#FFE8FA] p-8 ">
         <div class="w-full">
             <x-jet-label for="sexo" class="text-black">Tipo de denuncia <span class="text-red-600">*</span>
@@ -19,7 +17,6 @@
                 <option value="4">Irregularidades</option>
                 <option value="5">Otro</option>
             </x-input.select>
-            <x-jet-input-error for="flag" />
         </div>
 
         <div class="w-full">
