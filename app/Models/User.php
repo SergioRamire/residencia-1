@@ -31,22 +31,23 @@ class User extends Authenticatable
         'password',
         'apellido_materno',
         'apellido_paterno',
-        'rfc',
+        // 'rfc',
         'curp',
-        'tipo',
+        'telefono',
+        // 'tipo',
         'sexo',
-        'carrera',
-        'clave_presupuestal',
-        'organizacion_origen',
-        'estudio_maximo',
-        'cuenta_moodle',
-        'puesto_en_area',
-        'jefe_inmediato',
-        'hora_entrada',
-        'hora_salida',
-        'correo_tecnm',
+        // 'carrera',
+        // 'clave_presupuestal',
+        // 'organizacion_origen',
+        // 'estudio_maximo',
+        // 'cuenta_moodle',
+        // 'puesto_en_area',
+        // 'jefe_inmediato',
+        // 'hora_entrada',
+        // 'hora_salida',
+        // 'correo_tecnm',
         'estado',
-        'area_id',
+        // 'area_id',
     ];
 
     /**
@@ -96,6 +97,23 @@ class User extends Authenticatable
             ->as('inscription')
             ->withTimestamps();
     }
+
+    public function payments()
+    {
+        return $this->belongsToMany(User::class, 'payments')
+            ->withPivot('date', 'paid')
+            ->as('payment')
+            ->withTimestamps();
+    }
+
+    public function complaints()
+    {
+        return $this->belongsToMany(CourseDetail::class, 'citizen_reports')
+            ->withPivot('date', 'observations','latitude','longitude','employee_name','government_department','status')
+            ->as('citizen_report')
+            ->withTimestamps();
+    }
+
 
 
 }
