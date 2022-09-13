@@ -47,7 +47,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
         <!-- Logotipo -->
         <div class="flex-shrink-0 flex items-center px-4">
             {{-- SCI --}}
-            <img class="w-30" src="{{asset("img/logo.png")}}" alt="Workflow">
+            {{-- <img class="w-30" src="{{asset("img/logo.png")}}" alt="Workflow"> --}}
         </div>
 
         <!-- Enlaces de navegación -->
@@ -68,30 +68,30 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-sidebar.link>
                 @endcan
 
-                @can('activeinscription.show')
-                    <x-sidebar.link :href='route("admin.activeinscription")' :active="request()->routeIs('admin.activeinscription')">
+                @can('user.denuncias')
+                    <x-sidebar.link :href='route("participant.denuncias")' :active="request()->routeIs('participant.denuncias')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </x-slot>
-                        Activar Inscripciones
+                        Denuncias
                     </x-sidebar.link>
                 @endcan
 
-                @can('studying.show')
-                    <x-sidebar.link :href='route("participant.studying")' :active="request()->routeIs('participant.studying')">
+                @can('user.seguimiento')
+                    <x-sidebar.link :href='route("participant.seguimiento")' :active="request()->routeIs('participant.seguimiento')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                         </x-slot>
-                        En curso
+                       Seguimiento
                     </x-sidebar.link>
                 @endcan
 
-                @can('teaching.show')
-                <x-sidebar.link :href='route("instructor.teaching")' :active="request()->routeIs('instructor.teaching')">
+                @can('user.adeudos')
+                <x-sidebar.link :href='route("participant.adeudos")' :active="request()->routeIs('participant.adeudos')">
                     <x-slot name="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </x-slot>
-                    Cursos instruidos
+                    Adeudos
                 </x-sidebar.link>
                 @endcan
 
@@ -104,7 +104,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-sidebar.link>
                 @endcan --}}
 
-                @can('inscription.create')
+                {{-- @can('inscription.create')
                     <x-sidebar.link :href='route("part.inscription")' :active="request()->routeIs('part.inscription')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -126,11 +126,11 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-sidebar.link>
                         <x-sidebar.link class="pl-11" :href='route("admin.participante")' :active="request()->routeIs('admin.participante')">
                             Participantes
-                        </x-sidebar.link>
+                        </x-sidebar.link> --}}
                         {{-- <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active="request()->routeIs('admin.instructores')">
                             Instructores
                         </x-sidebar.link> --}}
-                    </x-sidebar.dropdown>
+                    {{-- </x-sidebar.dropdown>
                 @endcan
 
                 @can('area.show')
@@ -149,9 +149,9 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-slot>
                     Periodos
                 </x-sidebar.link>
-                @endcan
+                @endcan --}}
 
-                @can('course.show')
+                {{-- @can('course.show')
                     <x-sidebar.dropdown title="Cursos" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
@@ -169,16 +169,16 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                             Asignar Instructor
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
-                @endcan
+                @endcan --}}
 
-                @can('participantlists.show')
+                {{-- @can('participantlists.show')
                 <x-sidebar.link :href='route("admin.participantLists")' :active="request()->routeIs('admin.participantLists')">
                     <x-slot name="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                     </x-slot>
                     Listas
                 </x-sidebar.link>
-                @endcan
+                @endcan --}}
 
                 {{-- @can('qualification.edit')
                 <x-sidebar.link :href='route("instr.grades")' :active="request()->routeIs('instr.grades')">
@@ -188,7 +188,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     Asignar Calificaciones
                 </x-sidebar.link>
                 @endcan --}}
-                @can('limitAsignGrades.edit')
+                {{-- @can('limitAsignGrades.edit')
                 <x-sidebar.link :href='route("jefa.limit")' :active="request()->routeIs('jefa.limit')">
                     <x-slot name="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
@@ -204,7 +204,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-slot>
                     Asignar Calificaciones
                 </x-sidebar.link>
-                @endcan
+                @endcan --}}
 
 
                 {{-- @can('limitAsignGrades.edit')
@@ -221,7 +221,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-sidebar.dropdown>
                 @endcan --}}
 
-
+{{--
                 @can('constancias.show')
                 <x-sidebar.dropdown title="Generar constancias" dp-id="1">
                     <x-slot name="icon" stroke-width="2">
@@ -288,7 +288,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-slot>
                         Base de datos
                     </x-sidebar.link>
-                @endcan
+                @endcan --}}
             </nav>
         </div>
     </div>
@@ -307,7 +307,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
         <!-- Logotipo -->
         <div class="flex text-center justify-center flex-shrink-0 px-4">
             {{-- {-- SCI --} --}}
-            <img class="w-30" src="{{asset("img/logo.png")}}" alt="Workflow">
+            {{-- <img class="w-30" src="{{asset("img/logo.png")}}" alt="Workflow"> --}}
     </div>
 
         <!-- Enlaces de navegación -->
@@ -328,34 +328,34 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-sidebar.link>
                 @endcan
 
-                @can('activeinscription.show')
-                    <x-sidebar.link :href='route("admin.activeinscription")' :active="request()->routeIs('admin.activeinscription')">
+                @can('user.denuncias')
+                    <x-sidebar.link :href='route("participant.denuncias")' :active="request()->routeIs('participant.denuncias')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </x-slot>
-                        Activar Inscripciones
+                        Denuncias
                     </x-sidebar.link>
                 @endcan
 
-                @can('studying.show')
-                    <x-sidebar.link :href='route("participant.studying")' :active="request()->routeIs('participant.studying')">
+                @can('user.seguimiento')
+                    <x-sidebar.link :href='route("participant.seguimiento")' :active="request()->routeIs('participant.seguimiento')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 13v-1m4 1v-3m4 3V8M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                         </x-slot>
-                        En curso
+                       Seguimiento
                     </x-sidebar.link>
                 @endcan
 
-                @can('teaching.show')
-                <x-sidebar.link :href='route("instructor.teaching")' :active="request()->routeIs('instructor.teaching')">
+                @can('user.adeudos')
+                <x-sidebar.link :href='route("participant.adeudos")' :active="request()->routeIs('participant.adeudos')">
                     <x-slot name="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </x-slot>
-                    Cursos instruidos
+                    Adeudos
                 </x-sidebar.link>
                 @endcan
 
-                @can('inscription.create')
+                {{-- @can('inscription.create')
                     <x-sidebar.link :href='route("part.inscription")' :active="request()->routeIs('part.inscription')">
                         <x-slot name="icon">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -377,11 +377,11 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-sidebar.link>
                         <x-sidebar.link class="pl-11" :href='route("admin.participante")' :active="request()->routeIs('admin.participante')">
                             Participantes
-                        </x-sidebar.link>
+                        </x-sidebar.link> --}}
                         {{-- <x-sidebar.link class="pl-11" :href='route("admin.instructores")' :active="request()->routeIs('admin.instructores')">
                             Instructores
                         </x-sidebar.link> --}}
-                    </x-sidebar.dropdown>
+                    {{-- </x-sidebar.dropdown>
                 @endcan
 
                 @can('area.show')
@@ -400,7 +400,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-slot>
                     Periodos
                 </x-sidebar.link>
-                @endcan
+                @endcan --}}
 
                 {{-- @can('user_show')
                 <x-sidebar.dropdown title="Grupos" dp-id="1">
@@ -414,7 +414,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                 @endcan --}}
 
 
-
+{{--
                 @can('course.show')
                     <x-sidebar.dropdown title="Cursos" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
@@ -442,7 +442,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-slot>
                     Listas
                 </x-sidebar.link>
-                @endcan
+                @endcan --}}
 
                 {{-- @can('user_show')
                     <x-sidebar.dropdown title="Departamentos" dp-id="1">
@@ -454,7 +454,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan --}}
-                @can('limitAsignGrades.edit')
+                {{-- @can('limitAsignGrades.edit')
                 <x-sidebar.link :href='route("jefa.limit")' :active="request()->routeIs('jefa.limit')">
                     <x-slot name="icon">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -470,7 +470,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-slot>
                     Asignar Calificaciones
                 </x-sidebar.link>
-                @endcan
+                @endcan --}}
 
                 {{-- @can('limitAsignGrades.edit')
                     <x-sidebar.dropdown title="Calificaciones" dp-id="1">
@@ -486,7 +486,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     </x-sidebar.dropdown>
                 @endcan --}}
 
-                @can('constancias.show')
+                {{-- @can('constancias.show')
                     <x-sidebar.dropdown title="Generar constancias" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -540,7 +540,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                             Notificaciones en el sistema
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
-                @endcan
+                @endcan --}}
 
                 {{-- @can('user_show')
                     <x-sidebar.dropdown title="Constancias" dp-id="1">
@@ -557,7 +557,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                     Reports
                 </x-sidebar.link> --}}
 
-                <x-sidebar.link href="{{route('post.index')}}" :active="request()->routeIs('post.index')">
+                {{-- <x-sidebar.link href="{{route('post.index')}}" :active="request()->routeIs('post.index')">
                     <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" clip-rule="evenodd" /></x-slot>
                     Notificationes recibidas
                 </x-sidebar.link>
@@ -568,7 +568,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-slot>
                         Base de datos
                     </x-sidebar.link>
-                @endcan
+                @endcan --}}
             </nav>
         </div>
     </div>

@@ -36,7 +36,7 @@
 
         </div> --}}
         <div class="mt-4 md:mt-0 md:order-1">
-            <p class="text-center text-base text-gray-400">&copy; 2020 TecNM - Todos los Derechos Reservados.</p>
+            <p class="text-center text-base text-gray-400">&copy; EQUIPO MATRIX.</p>
         </div>
     </div>
 </footer>

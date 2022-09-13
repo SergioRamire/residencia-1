@@ -40,6 +40,10 @@ class PermissionSeeder extends Seeder
         | Creación de permisos
         |--------------------------------------------------------------------------
         */
+        Permission::create(['name' => 'user.denuncias', 'human_name' => 'denuncias'])->assignRole(['Participante']);
+        Permission::create(['name' => 'user.seguimiento', 'human_name' => 'seguimiento'])->assignRole(['Participante']);
+        Permission::create(['name' => 'user.adeudos', 'human_name' => 'adeudos'])->assignRole(['Participante']);
+
         Permission::create(['name' => 'role.show', 'human_name' => 'Visualizar roles'])->assignRole(['Administrador','Coordinador']);
         Permission::create(['name' => 'role.create', 'human_name' => 'Crear roles'])->assignRole(['Administrador','Coordinador']);
         Permission::create(['name' => 'role.edit', 'human_name' => 'Editar roles'])->assignRole(['Administrador','Coordinador']);
