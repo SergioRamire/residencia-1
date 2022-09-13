@@ -19,7 +19,7 @@ class ComplaintController extends Component
 
 
     public function render(){
-        $this->denuncia::all();
+        // $this->denuncia::all();
         return view('livewire.admin.denuncias.index');
     }
 }

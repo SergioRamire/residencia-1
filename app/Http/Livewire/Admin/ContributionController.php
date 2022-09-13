@@ -26,7 +26,9 @@ class ContributionController extends Component
 
     public function render(){
         return view('livewire.admin.adeudos.index',[
-                'datos' => Contribution::where('name', 'like', '%'.$this->search.'%')
+                'datos' => Contribution::join('payments','payments.id','=','contributions.id')
+                ->select('contributions.*','payments.date','payments.paid')
+                ->where('name', 'like', '%'.$this->search.'%')
             ->orWhere('description', 'like', '%'.$this->search.'%')
             ->orWhere('cost', 'like', '%'.$this->search.'%')
             ->orderBy($this->sortField, $this->sortDirection)

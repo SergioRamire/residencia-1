@@ -47,8 +47,11 @@ class TranslationController extends Component
         // dd($a);
         return view('livewire.admin.seguimientos.index',[
             // 'dat' => Complaint::
-                'dat' => Complaint::where('name', 'like', '%'.$this->search.'%')
+                'dat' => Complaint::join('citizen_reports','citizen_reports.complaint_id', '=', 'complaints.id')
+                ->where('name', 'like', '%'.$this->search.'%')
+
             ->orWhere('description', 'like', '%'.$this->search.'%')
+            ->select('complaints.*','citizen_reports.date','citizen_reports.status')
             // ->orWhere('cost', 'like', '%'.$this->search.'%')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage),
