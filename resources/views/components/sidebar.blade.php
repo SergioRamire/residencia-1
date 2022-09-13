@@ -307,7 +307,7 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
         <!-- Logotipo -->
         <div class="flex text-center justify-center flex-shrink-0 px-4">
             {{-- {-- SCI --} --}}
-            {{-- <img class="w-30" src="{{asset("img/logo.png")}}" alt="Workflow"> --}}
+            <img class="w-30" src="{{asset("img/ito2.jpg")}}" alt="Workflow">
     </div>
 
         <!-- Enlaces de navegación -->

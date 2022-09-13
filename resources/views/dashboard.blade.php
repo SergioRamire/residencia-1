@@ -9,13 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 {{-- <x-jet-welcome /> --}}
-                <div class="mt-4 bg-blue-100  overflow-hidden shadow sm:rounded-lg">
+                <div class="mt-4 bg-[#BB70A2]  overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-1">
                         <div>
                             {{-- <img class="mt-10" src="{{ asset('img/imagen.png') }}"> --}}
                         </div>
                         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
-                            <h2 class="text-justify text-xl font-extrabold tracking-tight text-gray-900">
+                            <h2 class="text-justify text-xl font-extrabold tracking-tight text-white">
                                 La misión de la seguridad vial es prevenir accidentes de tránsito, que como nos demuestran las estadísticas del mundo
                                 y de cualquier nación, en la actualidad, son un flagelo y una de las principales causas de muertes y discapacidades en
                                 las personas.

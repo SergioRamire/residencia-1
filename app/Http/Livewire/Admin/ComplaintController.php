@@ -19,6 +19,7 @@ class ComplaintController extends Component
     public Area $areas;
     public $edit = false;
     public $create = false;
+    public $flag;
 
     public $showEditCreateModal = false;
     public $confirmingAreaDeletion = false;

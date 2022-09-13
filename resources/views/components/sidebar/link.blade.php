@@ -2,8 +2,8 @@
 
 @php
     $linkClasses = ($active ?? false)
-                ? 'bg-orange-400 text-black group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                : 'text-[#1b396a] hover:bg-orange-100 hover:text-black group flex items-center px-2 py-2 text-base font-medium rounded-md';
+                ? 'bg-[#BB70A2] text-[#FBFBFB] group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                : 'text-[#1b396a] hover:bg-[#FFE8FA] hover:text-black group flex items-center px-2 py-2 text-base font-medium rounded-md';
 
     $iconClasses = ($active ?? false)
                 ? 'text-black mr-4 flex-shrink-0 h-6 w-6'
