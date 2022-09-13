@@ -14,6 +14,11 @@ class Complaint extends Model
         'name',
         'description',
     ];
+    protected $hidden = ['id'];
+
+    // public function users(){
+    //     return $this->hasMany(User::class);
+    // }
 
     // public function complaints()
     // {
