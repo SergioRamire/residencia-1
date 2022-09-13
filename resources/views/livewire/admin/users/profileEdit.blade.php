@@ -43,20 +43,20 @@
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
                 {{-- ito --}}
                 <div class="mt-4 flex-1">
-                    <x-jet-label for="email" value="Correo @itoaxaca.edu.mx" />
+                    <x-jet-label for="email" value="Correo" />
                     <x-input.error wire:model="user.email" class="block mt-1 w-full" type="email" id="email" name="email" for="user.email" required />
                 </div>
-                {{-- tecnm --}}
+                {{-- curp  --}}
                 <div class="mt-4 flex-1">
-                    <x-jet-label for="correo_tecnm" value="Correo @oaxaca.tecnm.mx" />
-                    <x-input.error wire:model="user.correo_tecnm" class="block mt-1 w-full" type="email" id="correo_tecnm" name="correo_tecnm" for="user.correo_tecnm" required />
+                    <x-jet-label for="curp" value="CURP" />
+                    <x-input.error wire:model="user.curp" class="block mt-1 w-full" type="text" id="curp" name="curp" for="user.curp" required />
                 </div>
             </div>
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                {{-- estudios maximos --}}
+
                 <div class="mt-4 flex-1">
-                    <x-jet-label for="estudio_maximo" value="Estudios Maximos" />
-                    <x-input.error wire:model="user.estudio_maximo" class="block mt-1 w-full" type="text" id="estudio_maximo" name="estudio_maximo" for="user.estudio_maximo" required />
+                    <x-jet-label for="telefono" value="Telefono" />
+                    <x-input.error wire:model="user.telefono" class="block mt-1 w-full" type="text" id="telefono" name="telefono" for="user.telefono" required />
                 </div>
                 {{-- sexo --}}
                 <div class="mt-4 flex-1">
@@ -68,13 +68,6 @@
                     </x-input.select>
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5">
-                {{-- carrera --}}
-                <div class="mt-4 flex-1">
-                    <x-jet-label for="carrera" value="Carrera" />
-                    <x-input.error wire:model="user.carrera" class="block mt-1 w-full" type="text" id="carrera" name="carrera" for="user.carrera" required />
-                </div>
-            </div>
 
     </x-slot>
 
@@ -83,7 +76,7 @@
             Cancelar
         </x-jet-secondary-button>
 
-        <x-jet-button class="ml-3 bg-[#1b396a]" wire:click.prevent="confirm_save()" wire:loading.attr="disabled">
+        <x-jet-button class="ml-3 bg-[#BB2574]" wire:click.prevent="confirm_save()" wire:loading.attr="disabled">
             Confirmar
         </x-jet-button>
     </x-slot>

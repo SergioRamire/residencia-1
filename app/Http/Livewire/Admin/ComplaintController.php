@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Area;
+use App\Models\Complaint;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Http\Traits\WithSorting;
@@ -17,6 +18,7 @@ class ComplaintController extends Component
     use AuthorizesRequests;
 
     public Area $areas;
+    public Complaint $denuncia;
     public $edit = false;
     public $create = false;
     public $flag;
@@ -63,11 +65,12 @@ class ComplaintController extends Component
     }
     public function blank_area(){
         $this->areas = Area::make();
+        $this->denuncia = Complaint::make();
     }
 
-    public function updated($propertyName){
-        $this->validateOnly($propertyName);
-    }
+    // public function updated($propertyName){
+    //     $this->validateOnly($propertyName);
+    // }
 
     public function updatingSearch(){
         $this->resetPage();
@@ -148,6 +151,12 @@ class ComplaintController extends Component
         ]);
     }
 
+
+
+
+
+
+    
     public function area_habilitar($id){
         $this->area =Area::find($id);
         $this->confirming_area_active=true;
@@ -177,6 +186,8 @@ class ComplaintController extends Component
     }
 
     public function render(){
+
+        $this->denuncia::all();
         return view('livewire.admin.denuncias.index');
     }
 }
