@@ -392,7 +392,7 @@ class InscriptionsController extends Component
     }
     public function redireccionamiento(){
         $this->show_mensaje = false;
-        return redirect()->route('participant.studying');
+        return redirect()->route('participante.studying');
     }
 
     public function alter(){

@@ -54,7 +54,7 @@ class SubirConstanciaController extends Component
             'message' => $existe_cedula ? 'Constancia editada exitosamente' : 'Constancia subida exitosamente',
         ]);
 
-        return redirect()->route('participant.studying');
+        return redirect()->route('participante.studying');
     }
 
     private function remover_cedula_pasada(string $cedula): bool
