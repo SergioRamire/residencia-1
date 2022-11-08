@@ -1,0 +1,58 @@
+on:
+  push:
+    branches:
+      - dev
+name: 🚀 Despliegue de sitio en modo desarrollo
+jobs:
+  web-deploy:
+    name: 🎉 Despliegue
+    runs-on: ubuntu-latest
+    steps:
+      # Configuración del ambiente
+      - name: 🚚 Obtención del código
+        uses: actions/checkout@v3
+
+      - name: ⚙ Configuración de Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: ⚙ Configuración de PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+
+      # Instalación de dependencias
+      - name: 🔥 Instalación de dependencias de Node
+        run: npm install
+
+      - name: 🔥 Compilación de assets públicos
+        run: npm run dev
+
+      - name: 🔥 Instalación de dependencias de composer
+        run: composer install --optimize-autoloader --no-dev
+
+      # Configuración del archivo .env
+      - name: 🔥 Generación de archivo .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: 🔥 Modificación de APP_URL
+        run: sed -i 's|APP_URL=|APP_URL=https://dev.dominio.com/|g' .env
+
+      # TODO: Configuración de credenciales de base de datos por medio de secretos
+      # TODO: Configuración de credenciales de servidor de correos por medio de secretos
+
+      - name: 🔥 Generación de llave
+        run: php artisan key:generate
+
+      # Últimos paso
+      - name: 🔥 Cambio de permisos
+        run: chmod -R 777 storage bootstrap/cache
+
+      - name: 📂 Sincronización de archivos
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ftp.tu-servidor.com
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          server-dir: /ruta/elegida/
