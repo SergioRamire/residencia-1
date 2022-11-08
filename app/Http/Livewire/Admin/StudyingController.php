@@ -67,16 +67,15 @@ class StudyingController extends Component
             ->join('users', 'users.id', '=', 'inscriptions.user_id')
             ->join('areas','areas.id', '=', 'users.area_id')
             ->select(
-                'courses.clave as curso_clave',
-                'courses.nombre as curso_nombre',
-                'periods.fecha_inicio as f1',
-                'periods.fecha_fin as f2',
-                'course_details.hora_inicio as h1',
-                'course_details.hora_fin as h2',
-                'course_details.modalidad as modalidad',
-                'courses.duracion as duracion',
-                'users.id as iduser', DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.sexo as sexo','users.rfc as rfc','users.curp as curp','users.email as correo','users.estudio_maximo as estudio_maximo','users.carrera as carrera','users.clave_presupuestal as clave_presupuestal','users.puesto_en_area as puesto','users.jefe_inmediato as jefe','users.hora_entrada as hora_entrada','users.hora_salida as hora_salida',
-                'areas.nombre as nombre_area','areas.telefono as telefono','areas.extension as extension'
+                'courses.clave as curso_clave','courses.nombre as curso_nombre','periods.fecha_inicio as f1','periods.fecha_fin as f2',
+                'course_details.hora_inicio as h1','course_details.hora_fin as h2','course_details.modalidad as modalidad',
+                'courses.duracion as duracion','users.id as iduser',
+                'users.name as name','users.apellido_paterno as app','users.apellido_materno as apm','users.sexo as sexo','users.rfc as rfc',
+                'users.curp as curp','users.email as correo','users.estudio_maximo as estudio_maximo','users.carrera as carrera',
+                'users.clave_presupuestal as clave_presupuestal','users.puesto_en_area as puesto','users.jefe_inmediato as jefe',
+                'users.hora_entrada as hora_entrada','users.hora_salida as hora_salida',
+                'areas.nombre as nombre_area','areas.telefono as telefono','areas.extension as extension',
+                DB::raw("concat(users.name,' ',users.apellido_paterno,' ', users.apellido_materno) as nombre"),
             )
             ->where("users.id", $iduser)
             ->where('course_details.id', $idcurso)
