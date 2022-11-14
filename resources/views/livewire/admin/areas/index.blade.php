@@ -70,15 +70,14 @@
                         <x-table.cell>{{ $a->telefono }}</x-table.cell>
                         <x-table.cell>{{ $a->extension}}</x-table.cell>
                         <x-table.cell>
-                            @if($a->estatus === 1)
+                            @if($a->estatus == 1)
                                 <button wire:click="area_inhabilitar({{$a->id}})" title="Inhabilitar área">
                                     <x-badge.basic value="Habilitado" color="green" large/>
                                 </button>
-                            @endif
-                            @if($a->estatus === 0)
+                            @else
                                 <button wire:click="area_habilitar({{$a->id}})" title="Habilitar área">
                                     <x-badge.basic value="Inhabilitado" color="red" large/>
-                               </button>
+                            </button>
                             @endif
                         </x-table.cell>
                         <x-table.cell width='200' class="whitespace-nowrap">

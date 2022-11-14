@@ -102,15 +102,15 @@
                             <x-table.cell>{{ $u->email }}</x-table.cell>
                             <x-table.cell>{{ $u->getRoleNames()->first() }}</x-table.cell>
                             <x-table.cell class="text-center">
-                                @if($u->estatus == 1)
+                            @if($u->estatus == 1)
                                 <button wire:click="user_inhabilitar({{$u->id}})" title="Inhabilitar usuario">
                                     <x-badge.basic value="Habilitado" color="green" large/>
+                                    </button>
+                                @else
+                                <button wire:click="user_habilitar({{$u->id}})" title="Habilitar usuario">
+                                 <x-badge.basic value="Inhabilitado" color="red" large/>
                                 </button>
-                                @elseif($u->estatus == 0)
-                               <button wire:click="user_habilitar({{$u->id}})" title="Habilitar usuario">
-                                <x-badge.basic value="Inhabilitado" color="red" large/>
-                               </button>
-                                @endif
+                                @endif  
                             </x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
                                 <button  wire:click="edit({{ $u->id }})" type="button" title="Editar usuario" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >

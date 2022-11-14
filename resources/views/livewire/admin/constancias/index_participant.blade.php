@@ -146,9 +146,9 @@
                             <x-table.cell class="text-center">{{ $g->grupo }}</x-table.cell>
                             <x-table.cell class="text-center">{{ $g->calificacion }}</x-table.cell>
                             <x-table.cell class="text-center"
-                            >@if($g->asistencias_minimas === 1)
+                            >@if($g->asistencias_minimas == 1)
                                 <x-badge.basic value="Tiene" color="green" large/>
-                            @elseif($g->asistencias_minimas === 0)
+                            @elseif($g->asistencias_minimas == 0)
                                 <x-badge.basic value="No tiene" color="red" large/>
                             @endif
                             </x-table.cell >

@@ -144,9 +144,9 @@
                             <x-table.cell>{{ $u->nombre_completo }}</x-table.cell>
                             <x-table.cell>{{ $u->area->nombre ?? '' }}</x-table.cell>
                             <x-table.cell>
-                                @if($u->cuenta_moodle === 1)
+                                @if($u->cuenta_moodle == 1)
                                     <x-badge.basic value="Tiene" color="green" large/>
-                                @elseif($u->cuenta_moodle === 0)
+                                @elseif($u->cuenta_moodle == 0)
                                     <x-badge.basic value="No tiene" color="red" large/>
                                 @endif
                             </x-table.cell>

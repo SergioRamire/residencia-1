@@ -120,12 +120,12 @@
                             <x-table.cell>{{ $c->nombre }}</x-table.cell>
                             <x-table.cell>{{ $c->perfil }}</x-table.cell>
                             <x-table.cell>
-                                @if($c->estatus === 1)
+                                @if($c->estatus == 1)
                                 <button wire:click="course_inhabilitar({{$c->id}})" title="Inhabilitar curso">
                                     <x-badge.basic value="Habilitado" color="green" large/>
                                 </button>
                                 @endif
-                                @if($c->estatus === 0)
+                                @if($c->estatus == 0)
                                     <button wire:click="course_habilitar({{$c->id}})" title="Habilitar curso">
                                         <x-badge.basic value="Inhabilitado" color="red" large/>
                                 </button>

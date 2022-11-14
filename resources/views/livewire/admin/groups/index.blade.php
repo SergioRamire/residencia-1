@@ -58,11 +58,11 @@
                     <tr wire:key="group-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $g->nombre }}</x-table.cell>
                         <x-table.cell>
-                            @if($g->estatus === 1)
+                            @if($g->estatus == 1)
                             <button wire:click="group_inhabilitar({{ $g->id }})" title="Inhabilitar grupo">
                                 <x-badge.basic value="Habilitado" color="green" large/>
                             </button>
-                            @elseif($g->estatus === 0)
+                            @elseif($g->estatus == 0)
                             <button wire:click="group_habilitar({{ $g->id }})" title="Habilitar grupo">
                                 <x-badge.basic value="Inhabilitado" color="red" large/>
                             </button>
