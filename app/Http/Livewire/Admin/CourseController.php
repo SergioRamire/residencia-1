@@ -145,6 +145,7 @@ class CourseController extends Component
 
     public function save()
     {
+        ddl($this->course->dirigido);
         $this->course->dirigido = implode(', ', $this->course->dirigido);
         // $this->periods->estatus = 1;
         $this->validate();

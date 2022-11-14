@@ -55,7 +55,7 @@
                                                     d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                                             </svg>
                                             <span class="py-4 text-xl text-gray-400 font-medium">
-                                                Selecciona los cursos que tomarás ...
+                                                Selecciona los cursos que cursarás ...
                                             </span>
                                         </div>
                                     </x-table.cell>
@@ -195,7 +195,7 @@
                                                 <x-table.header>Grupo</x-table.header>
                                                 <x-table.header>Inscritos</x-table.header>
                                                 <x-table.header>Instructores</x-table.header>
-                                                <x-table.header>acciones</x-table.header>
+                                                <x-table.header>Acciones</x-table.header>
                                             </x-slot>
                                             @forelse($semana2 as $c)
                                                 @if (App\Models\CourseDetail::join('inscriptions','inscriptions.course_detail_id','course_details.id')
@@ -265,7 +265,7 @@
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Aviso</h5>
         </div>
         <div class="p-8 w-full bg-white rounded-b-lg">
-            <p class="font-normal text-gray-700">No hay grupos registrados aún en este período.</p>
+            <p class="font-normal text-gray-700">No hay grupos disponibles actualmente en este período.</p>
         </div>
     </div>
 @endif

@@ -36,15 +36,15 @@
 
                 <div class="flex flex-col justify-center  px-6 mx-4 mb-">
                     <div class="mb-3">
-                        <p class="font-normal "><span class="font-bold">Instructor: </span> </p> 
-                        @forelse ($this->consulta_instructor($data->idcurso) as $insx) 
-                            <p class="font-normal ">{{$insx->nombre}} </p>     
+                        <p class="font-normal "><span class="font-bold">Instructor: </span> </p>
+                        @forelse ($this->consulta_instructor($data->idcurso) as $insx)
+                            <p class="font-normal ">{{$insx->nombre}} </p>
                         @empty
-                            <p class="font-normal ">Sin instructor </p>    
-                        @endforelse 
-                        
+                            <p class="font-normal ">Sin instructor </p>
+                        @endforelse
+
                     </div>
-                    <p class="mb-3 font-normal "><span class="font-bold">Califiacion Final: </span>@if ($data->califi == 0)Sin asignar @else{{ $data->califi }}@endif</p>
+                    <p class="mb-3 font-normal "><span class="font-bold">Calificación Final: </span>@if ($data->califi == 0)Sin asignar @else{{ $data->califi }}@endif</p>
                 </div>
 
                 <div class="flex flex-col justify-center py-2 px-6 mx-4 mb-2 text-black bg-white shadow-md rounded-lg border border-[#1b396a] ">
@@ -73,7 +73,7 @@
                     </div>
 
                 </div>
-                
+
             </div>
         @empty
             <div class="col-span-2 flex justify-center items-center my-16">
@@ -81,12 +81,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
                 <span class="py-4 text-xl text-gray-400 font-medium">
-                    No estas inscritos en cursos actualmente ...
+                    No se encuentra inscrito a un curso actualmente...
                 </span>
             </div>
         @endforelse
     </div>
-    
+
 </div>
 
 
