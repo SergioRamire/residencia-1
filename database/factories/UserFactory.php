@@ -89,6 +89,15 @@ class UserFactory extends Factory
             'Licenciatura', 'Maestria','Doctorado',
         ]);
 
+        $puestoarea=$this->faker->randomElement([
+            'Secretaria',
+            'Jefatura de vinculación',
+            'Jefatura de investigación',
+            'Jefatura de docencia',
+            'Jefatura de tutorías',
+            'Docente','Docente','Docente','Docente','Docente','Docente',
+        ]);
+
 
         return [
             'name' =>"$nombre1 $nombre2",
@@ -107,7 +116,7 @@ class UserFactory extends Factory
             'organizacion_origen' => $organizacion,
             'estudio_maximo' => $estudiosmax,
             'cuenta_moodle' => $this->faker->numberBetween(0, 1),
-            'puesto_en_area' => $this->faker->jobTitle(),
+            'puesto_en_area' => $puestoarea,
             'jefe_inmediato' => $jefein,
             'hora_entrada' => $hora_entrada,
             'hora_salida' => date('H:i', strtotime($hora_entrada.'+5 hour')),

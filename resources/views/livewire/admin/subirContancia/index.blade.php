@@ -1,14 +1,18 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            Subir constancia
+        <h2 class="font-black text-xl text-gray-800 leading-tight mb-4">
+            Subir constancia firmada
         </h2>
         <div>
-            <p>Curso: {{ $course_detail->course->nombre }}</p>
-            <p>Grupo: {{ $course_detail->group->nombre }}</p>
-            <p>Periodo: {{ $course_detail->period->clave }}</p>
-            <p>Fecha: {{ $course_detail->period->fecha_inicio }} a {{ $course_detail->period->fecha_fin }}</p>
-            <p>Hora: {{ $course_detail->hora_inicio }} a {{ $course_detail->hora_fin }}</p>
+            <p><span class="font-black">Curso:</span> {{ $course_detail->course->nombre }}</p>
+            <p><span class="font-black">Grupo:</span>  {{ $course_detail->group->nombre }}</p>
+            <p><span class="font-black">Periodo:</span>  {{ $course_detail->period->clave }}</p>
+            <p>
+                <span class="font-black">Fecha:</span>  {{ $course_detail->period->fecha_inicio }} a {{ $course_detail->period->fecha_fin }}
+            </p>
+            <p>
+                <span class="font-black">Hora:</span>  {{ $course_detail->hora_inicio }} a {{ $course_detail->hora_fin }}
+            </p>
 
         </div>
     </x-slot>
@@ -60,7 +64,7 @@
 
             <form wire:submit.prevent="store()" class="flex justify-center">
                 <input wire:model="constancia" id="dropzone-file" name="constancia" type="file" class="hidden"/>
-                <x-jet-button class="ml-3 bg-[#1b396a]">
+                <x-jet-button class="ml-3 bg-[#1b396a]" title="Subir solo archivo PDF">
                     Subir
                 </x-jet-button>
             </form>

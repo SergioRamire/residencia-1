@@ -27,18 +27,18 @@
                         <label><p class="text-xs font-bold">Buscar por: Asunto o cuerpo</p></label>
                     </div>
                 </div>
-                <div class="md:w-1/2 md:flex space-y-2 md:space-y-0 md:space-x-2">
-                    <div class="w-full">
+                <div class="mb-6">
+                    <div class="mb-6">
                         <x-jet-secondary-button wire:click="delete_noti()" title="Eliminar notificaciones enviadas" class="border-red-300 text-red-700 hover:text-red-500 active:text-red-800 active:bg-red-50">
                             <x-icon.trash d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" class="inline-block h-6 w-6"/>
-                            Eliminar notificaciones
+                            Eliminar Notificaciones
                         </x-jet-secondary-button>
                     </div>
                 </div>
 
-                <div class="md:flex md:items-center space-y-2 md:space-y-0 md:space-x-2">
+                <div class="mb-6">
                     <!-- Selección de paginación -->
-                    <div>
+                    <div class="mb-6">
                         <x-input.select wire:model="perPage" class="block w-full">
                             <option value=8>8 por página</option>
                             <option value=10>10 por página</option>

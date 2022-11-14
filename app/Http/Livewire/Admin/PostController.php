@@ -104,16 +104,6 @@ class PostController extends Component
         $this->reset('arr');
     }
 
-    // private function validateInputs()
-    // {
-    //     $this->validate([
-    //         'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
-    //     ]);
-    // }
-
-
-
-
     public function create()
     {
         $this->resetInputFields();
