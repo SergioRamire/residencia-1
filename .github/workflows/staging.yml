@@ -30,29 +30,39 @@ jobs:
         run: npm run dev
 
       - name: 🔥 Instalación de dependencias de composer
-        run: composer install --optimize-autoloader --no-dev
+        run: composer install
 
       # Configuración del archivo .env
       - name: 🔥 Generación de archivo .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: 🔥 Modificación de APP_URL
-        run: sed -i 's|APP_URL=|APP_URL=https://dev.dominio.com/|g' .env
+        run: sed -i 's|APP_URL=|APP_URL=https://residencia.santacruzxoxocotlan.gob.mx/|g' .env
 
-      # TODO: Configuración de credenciales de base de datos por medio de secretos
+      - name: 🔥 Configuración de credenciales de base de datos por medio de secretos
+        env:
+          DB_NAME: ${{ secrets.dev_db_name }}
+          DB_USERNAME: ${{ secrets.dev_db_username }}
+          DB_PASSWORD: ${{ secrets.dev_db_password }}
+        run: |
+          sed -i "s|DB_HOST=|DB_HOST=127.0.0.1|g" .env
+          sed -i "s|DB_DATABASE=|DB_DATABASE='$DEV_DB_NAME'|g" .env
+          sed -i "s|DB_USERNAME=|DB_USERNAME='$DEV_DB_USERNAME'|g" .env
+          sed -i "s|DB_PASSWORD=|DB_PASSWORD='$DEV_DB_PASSWORD'|g" .env
+
       # TODO: Configuración de credenciales de servidor de correos por medio de secretos
 
       - name: 🔥 Generación de llave
         run: php artisan key:generate
 
-      # Últimos paso
+      # Últimos pasos
       - name: 🔥 Cambio de permisos
         run: chmod -R 777 storage bootstrap/cache
 
       - name: 📂 Sincronización de archivos
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          server: ftp.tu-servidor.com
-          username: ${{ secrets.ftp_username }}
-          password: ${{ secrets.ftp_password }}
-          server-dir: /ruta/elegida/
+          server: ftp.santacruzxoxocotlan.gob.mx
+          username: ${{ secrets.dev_ftp_username }}
+          password: ${{ secrets.dev_ftp_password }}
+          server-dir: /
