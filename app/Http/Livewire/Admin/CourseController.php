@@ -141,7 +141,7 @@ class CourseController extends Component
 
     public function confirm_save()
     {
-        // $this->validate();
+        $this->validate();
         $this->showConfirmationModal = true;
     }
 
