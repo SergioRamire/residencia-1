@@ -4,7 +4,7 @@
     </span>
 
 
-        
+
     <div class="grid grid-flow-row xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1">
         @forelse ($datos as $data)
         <div class="flex flex-col  m-2 max-w-md bg-#white rounded-lg border shadow-md transition ease-in-out bg-white hover:-translate-y-1 hover:scale-105 hover:bg-blue-50 duration-300" >
@@ -33,7 +33,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
                 <span class="py-4 text-xl text-gray-400 font-medium">
-                    No tienes cursos asignados ...
+                    No tiene cursos asignados actualmente...
                 </span>
             </div>
         @endforelse
