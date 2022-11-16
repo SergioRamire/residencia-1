@@ -17,7 +17,8 @@
             <!-- Menú campana-->
             <div class="relative">
 
-                @if(count(auth()->user()->readNotifications) > 0 || count(auth()->user()->unreadNotifications) > 0)
+                {{-- @if(count(auth()->user()->readNotifications) > 0 || count(auth()->user()->unreadNotifications) > 0) --}}
+                @can('notify.show')
                     <!-- Botón del desplegable e icono -->
                     <div class="relative inline-flex">
                         <button type="button" @click="navbarBellOpen = !navbarBellOpen"
@@ -35,7 +36,8 @@
                         @endif
 
                     </div>
-                @endif
+                @endcan
+                {{-- @endif --}}
                 <!-- Dropdown menu y enlaces de navegación -->
                 <div class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"
                      x-cloak x-show="navbarBellOpen" @click.outside="navbarBellOpen = false"

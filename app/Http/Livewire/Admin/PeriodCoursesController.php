@@ -108,7 +108,7 @@ class PeriodCoursesController extends Component
         * @throws AuthorizationException
      */
     public function edit($id){
-        $this->authorize('periods.edit');
+        $this->authorize('period.edit');
         $this->periods = Period::findOrFail($id);
         $this->edit = true;
         $this->create = false;
@@ -150,7 +150,7 @@ class PeriodCoursesController extends Component
      */
     public function delete_period($id)
     {
-        $this->authorize('periods.delete');
+        $this->authorize('period.delete');
         $this->periods = Period::findOrFail($id);
         $this->confirming_period_deletion = true;
     }

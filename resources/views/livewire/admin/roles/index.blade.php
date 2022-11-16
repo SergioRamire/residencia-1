@@ -7,14 +7,15 @@
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
+            @can('role.create')
             <!-- Botón de nuevo -->
-            <div class="mb-6">
-                <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
-                    <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
-                    Nuevo rol
-                </x-jet-secondary-button>
-            </div>
-
+                <div class="mb-6">
+                    <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                        <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
+                        Nuevo rol
+                    </x-jet-secondary-button>
+                </div>
+            @endcan
             <!-- Opciones de tabla -->
             <div class="md:flex md:justify-between space-y-2 md:space-y-0">
                 <!-- Parte izquierda -->
@@ -57,18 +58,20 @@
                             <tr wire:key="role-{{ $r->id }}" wire:loading.class.delay="opacity-50">
                                 <x-table.cell>{{ $r->name }}</x-table.cell>
                                 <x-table.cell width='200' class="whitespace-nowrap">
-                                    @unless($r->name === 'Super admin')
-                                        <button  wire:click="edit({{ $r->id }})" type="button" title="Editar rol" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                            Editar
-                                        </button>
-                                    @endunless
-
-                                    @unless(in_array($r->name, ['Super admin', 'Administrador', 'Participante', 'Instructor']))
-                                        <button wire:click="delete({{ $r->id }})" type="button" title="Eliminar rol" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                            Eliminar
-                                        </button>
-                                    @endunless
-
+                                    @can('role.edit')
+                                        @unless($r->name === 'Super admin')
+                                            <button  wire:click="edit({{ $r->id }})" type="button" title="Editar rol" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                                Editar
+                                            </button>
+                                        @endunless
+                                    @endcan
+                                    @can('role.delete')
+                                        @unless(in_array($r->name, ['Super admin', 'Administrador', 'Participante', 'Instructor']))
+                                            <button wire:click="delete({{ $r->id }})" type="button" title="Eliminar rol" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                                Eliminar
+                                            </button>
+                                        @endunless
+                                    @endcan
                                 </x-table.cell>
                             </tr>
                         @endunless
