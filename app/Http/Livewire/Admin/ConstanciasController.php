@@ -7,6 +7,7 @@ use App\Http\Traits\WithSearching;
 use App\Http\Traits\WithSorting;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -18,6 +19,7 @@ class ConstanciasController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
+    use AuthorizesRequests; 
 
     public array $classification = [
         'curso' => '',
@@ -118,8 +120,8 @@ class ConstanciasController extends Component
 
     public function descargarConstancia($id, $iduser)
     {
+        $this->authorize('constancy.download');
         $numlista=$this->obtenernumlist($iduser);
-
         $datos = $this->consultaBase()
             ->where('inscriptions.id', '=', $id)
             ->get()->first();

@@ -14,8 +14,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 // use Barryvdh\DomPDF\Facades as PDF;
 use Barryvdh\DomPDF\Facade\Pdf;
-
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CourseDetailsController extends Component
 {
@@ -23,6 +22,7 @@ class CourseDetailsController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
+    use AuthorizesRequests; 
 
     public CourseDetail $coursedetail;
     public $perPage = '8';
@@ -94,6 +94,7 @@ class CourseDetailsController extends Component
     }
 
     public function create(){
+        $this->authorize('coursedetails.create');
         $this->resetErrorBag();
         $this->resetInputFields();
         $this->emit('valorCurso','');
@@ -133,6 +134,7 @@ class CourseDetailsController extends Component
     }
 
     public function view($id){
+        $this->authorize('coursedetails.show');
         $coursedetail = CourseDetail::find($id);
         $this->coursedetail_id = $id;
         $this->hora_inicio = $coursedetail->hora_inicio;
@@ -187,6 +189,7 @@ class CourseDetailsController extends Component
     }
 
     public function edit($id){
+        $this->authorize('coursedetails.edit');
         $this->resetErrorBag();
         $this->resetInputFields();
         $coursedetail = CourseDetail::find($id);
@@ -215,6 +218,7 @@ class CourseDetailsController extends Component
     }
 
     public function delete_details($id){
+        $this->authorize('coursedetails.delete');
         $this->coursedetail = CourseDetail::findOrFail($id);
         $course = CourseDetail::join('courses','courses.id','course_details.course_id')
             ->select('courses.nombre as curso')

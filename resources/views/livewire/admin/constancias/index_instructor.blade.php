@@ -117,7 +117,7 @@
                             <x-table.cell class="text-center">{{date('d-m-Y', strtotime($g->fi))}} a {{date('d-m-Y', strtotime($g->ff))}}</x-table.cell>
                             <x-table.cell class="text-center">
 
-                            @can('constancyInstructor.show')
+                            @can('constancyInstructor.download')
                                 <button wire:click="descargar_constancia({{ $g->iduser }})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                     Constancia
                                 </button>

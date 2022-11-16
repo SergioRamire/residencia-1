@@ -97,11 +97,14 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'participantlists.edit', 'human_name' => 'Editar listas'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'participantlists.delete', 'human_name' => 'Eliminar listas'])->assignRole(['Administrador', 'Jefa de departamento']);
 
+        Permission::create(['name' => 'qualification.show', 'human_name' => 'Ver calificaciones'])->assignRole(['Instructor']);
         Permission::create(['name' => 'qualification.edit', 'human_name' => 'Editar calificaciones'])->assignRole(['Instructor']);
 
         Permission::create(['name' => 'constancy.show', 'human_name' => 'Consultar constancias'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'constancy.download', 'human_name' => 'Descargar constancias'])->assignRole(['Administrador', 'Jefa de departamento']);
 
         Permission::create(['name' => 'constancyInstructor.show', 'human_name' => 'Consultar constancias instructor'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'constancyInstructor.download', 'human_name' => 'Descargar constancias instructor'])->assignRole(['Administrador', 'Jefa de departamento']);
 
         Permission::create(['name' => 'limitAsignGrades.edit', 'human_name' => 'Limitar calificaciones'])->assignRole(['Jefa de departamento','Coordinador']);
 

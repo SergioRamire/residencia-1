@@ -35,6 +35,7 @@ class PostPeriodController extends Component
     }
 
     public function abrir_confirmacion_publicar($id){
+        $this->authorize('activeinscription.edit');
         $this->flag = true;
         $this->periodos = Period::find($id);
         $periodos_publicados = Period::
@@ -46,6 +47,7 @@ class PostPeriodController extends Component
 
     }
     public function abrir_confirmacion_ocultar($id){
+        $this->authorize('activeinscription.edit');
         $this->flag = false;
         $this->periodos = Period::find($id);
         $this->aux_id = $id;

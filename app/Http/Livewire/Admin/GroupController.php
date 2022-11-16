@@ -67,6 +67,7 @@ class GroupController extends Component
      * @throws AuthorizationException
      */
     public function create(){
+        $this->authorize('group.create');
         $this->resetErrorBag();
         $this->blank_group();
         $this->open_modal();
@@ -109,7 +110,7 @@ class GroupController extends Component
         * @throws AuthorizationException
      */
     public function edit($id){
-        $this->authorize('groups.edit');
+        $this->authorize('group.edit');
         $this->resetErrorBag();
         $this->groups = Group::findOrFail($id);
         $this->edit = true;
@@ -122,7 +123,7 @@ class GroupController extends Component
      * @throws AuthorizationException
      */
     public function delete_group($id){
-        $this->authorize('groups.delete');
+        $this->authorize('group.delete');
         $this->groups = Group::findOrFail($id);
         $this->confirming_group_deletion = true;
     }

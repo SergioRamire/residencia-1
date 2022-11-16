@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
 
 class ConstanciaInstructorController extends Component
@@ -18,6 +19,7 @@ class ConstanciaInstructorController extends Component
     use WithFilters;
     use WithPagination;
     use WithSorting;
+    use AuthorizesRequests; 
 
     public $perPage = '8';
     public $search = '';
@@ -127,6 +129,7 @@ class ConstanciaInstructorController extends Component
 
     public function descargar_constancia($id)
     {
+        $this->authorize('constancyInstructor.download');
         $numlista=$this->obtenernumlist($id);
         $datos = $this->consulta_base()
             ->where('users.id', '=', $id)

@@ -54,24 +54,28 @@
                     <x-table.header wire:click="sortBy('nombre')" sortable :direction="$sortField === 'nombre' ? $sortDirection : null">
                         Nombre
                     </x-table.header>
-                    <x-table.header>estado</x-table.header>
+                    @can('group.edit')
+                        <x-table.header>estado</x-table.header>
+                    @endcan
                     <x-table.header>acciones</x-table.header>
                 </x-slot>
 
                 @forelse($datos as $g)
                     <tr wire:key="group-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                         <x-table.cell>{{ $g->nombre }}</x-table.cell>
-                        <x-table.cell>
-                            @if($g->estatus == 1)
-                            <button wire:click="group_inhabilitar({{ $g->id }})" title="Inhabilitar grupo">
-                                <x-badge.basic value="Habilitado" color="green" large/>
-                            </button>
-                            @elseif($g->estatus == 0)
-                            <button wire:click="group_habilitar({{ $g->id }})" title="Habilitar grupo">
-                                <x-badge.basic value="Inhabilitado" color="red" large/>
-                            </button>
-                            @endif
-                        </x-table.cell>
+                        @can('group.edit')
+                            <x-table.cell>
+                                @if($g->estatus == 1)
+                                <button wire:click="group_inhabilitar({{ $g->id }})" title="Inhabilitar grupo">
+                                    <x-badge.basic value="Habilitado" color="green" large/>
+                                </button>
+                                @elseif($g->estatus == 0)
+                                <button wire:click="group_habilitar({{ $g->id }})" title="Habilitar grupo">
+                                    <x-badge.basic value="Inhabilitado" color="red" large/>
+                                </button>
+                                @endif
+                            </x-table.cell>
+                        @endcan
                         <x-table.cell width='200' class="whitespace-nowrap">
 
                             @can('group.edit')

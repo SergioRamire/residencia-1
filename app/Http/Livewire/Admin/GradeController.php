@@ -11,12 +11,14 @@ use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Exports\ListExport;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Maatwebsite\Excel\Facades\Excel;
 
 class GradeController extends Component
 {
     use WithPagination;
     use WithSorting;
+    use AuthorizesRequests;
 
     // public Inscription $grade;
     public $perPage = '8';
@@ -90,6 +92,7 @@ class GradeController extends Component
     }
 
     public function edit($id){
+        $this->authorize('qualification.edit');
         $grade = User::join('inscriptions', 'inscriptions.user_id', '=', 'users.id')
                 ->join('course_details', 'course_details.id', 'inscriptions.course_detail_id')
                 ->join('courses', 'courses.id', '=', 'course_details.course_id')

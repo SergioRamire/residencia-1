@@ -22,6 +22,7 @@ class ParticipantController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
+    use AuthorizesRequests;
 
     public User $user;
     public $org;
@@ -85,8 +86,7 @@ class ParticipantController extends Component
     /**
      * @throws AuthorizationException
      */
-    public function edit(User $user)
-    {
+    public function edit(User $user){
         $this->authorize('participant.edit');
         if (empty($user->apellido_paterno)) {
             $this->no_ap1 = 1;
@@ -126,8 +126,8 @@ class ParticipantController extends Component
         $this->show_edit_modal = true;
     }
 
-    public function view(User $user)
-    {
+    public function view(User $user){
+        $this->authorize('participant.show');
         $this->user = $user;
         $this->show_view_modal = true;
     }

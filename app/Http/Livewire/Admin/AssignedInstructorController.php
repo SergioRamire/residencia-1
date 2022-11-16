@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\CourseDetail;
 use App\Models\User;
 use App\Models\Period;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,7 +14,8 @@ class AssignedInstructorController extends Component
 {
 
     use WithPagination;
-
+    use AuthorizesRequests; 
+    
     protected array $cleanStringsExcept = ['search'];
     public $datos = '';
     public $lugar = '';
@@ -206,6 +208,7 @@ class AssignedInstructorController extends Component
     }
 
     public function open_modal_create($id){
+        $this->authorize('assigninstructor.assign');
         $this->id_detalle_curso = $id;
         $this->modal_edit = true;
         $this->create = true;
@@ -213,6 +216,7 @@ class AssignedInstructorController extends Component
         $this->delet = false;
     }
     public function open_modal_show($id){
+        $this->authorize('assigninstructor.delete');
         $this->id_detalle_curso2 = $id;
         $this->modal_edit = true;
         $this->create = false;

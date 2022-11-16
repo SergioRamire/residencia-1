@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Http\Traits\WithSorting;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
@@ -19,56 +20,54 @@ class BackupController extends Component
 {
     use WithPagination;
     use WithSorting;
+    use AuthorizesRequests;
 
     /**
-     * Ruta del respaldo relativa al `disk` utilizado
-     *
-     * Ejemplo: `backup/2022-02-01.sql`
-     */
-    public string $file_path;
+         * Ruta del respaldo relativa al `disk` utilizado
+         *
+         * Ejemplo: `backup/2022-02-01.sql`
+         */
+        public string $file_path;
 
-    /**
-     * Determina el valor inicial de la paginación.
-     */
-    public int $perPage = 8;
+        /**
+         * Determina el valor inicial de la paginación.
+         */
+        public int $perPage = 8;
 
-    /**
-     * Controla visibilidad del modal de confirmación
-     */
-    public bool $showConfirmationModal = false;
+        /**
+         * Controla visibilidad del modal de confirmación
+         */
+        public bool $showConfirmationModal = false;
 
-    /**
-     * Refleja la acción que se ejecutará: Eliminar un respaldo
-     *
-     * Es utilizada en la vista del modal de confirmación para cambiar el texto y el botón
-     */
-    public bool $delete = false;
+        /**
+         * Refleja la acción que se ejecutará: Eliminar un respaldo
+         *
+         * Es utilizada en la vista del modal de confirmación para cambiar el texto y el botón
+         */
+        public bool $delete = false;
 
-    /**
-     * Refleja la acción que se ejecutará: Restaurar un respaldo
-     *
-     * Es utilizada en la vista del modal de confirmación para cambiar el texto y el botón
-     */
-    public bool $restore = false;
+        /**
+         * Refleja la acción que se ejecutará: Restaurar un respaldo
+         *
+         * Es utilizada en la vista del modal de confirmación para cambiar el texto y el botón
+         */
+        public bool $restore = false;
 
-    /**
-     * Permite personalizar el query string del navegador
-     *
-     * - La paginación por defecto (8) se omite
-     * - Se usa un alias para la paginación: `p`
-     *
-     * Ejemplo: `http://localhost/admin/backup?p=16`
-     *
-     * @var array[]
+        /**
+         * Permite personalizar el query string del navegador
+         *
+         * - La paginación por defecto (8) se omite
+         * - Se usa un alias para la paginación: `p`
+         *
+         * Ejemplo: `http://localhost/admin/backup?p=16`
+         *
+         * @var array[]
      */
     protected $queryString = [
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
     public bool $modal_ayuda = false;
-
-
-
     /**
      * Refleja la acción de crear respaldo y activa el modal de confirmación
      *
@@ -76,11 +75,11 @@ class BackupController extends Component
      */
     public function create()
     {
+        $this->authorize('backup.create');
         $this->delete = false;
         $this->restore = false;
         $this->showConfirmationModal = true;
     }
-
     /**
      * Ejecuta el comando de creación de respaldos, notifica en el sistema y en el registro de Laravel
      *
@@ -114,7 +113,6 @@ class BackupController extends Component
             'message' => 'Respaldo creado exitosamente',
         ]);
     }
-
     /**
      * Descarga el respaldo seleccionado
      *
@@ -123,6 +121,7 @@ class BackupController extends Component
      */
     public function download(string $file_path)
     {
+        $this->authorize('backup.download');
         $snapshotDir = config('db-snapshots.disk');
         $path = config("filesystems.disks.$snapshotDir.root")."/$file_path";
 
@@ -138,6 +137,7 @@ class BackupController extends Component
      */
     public function delete(string $file_path, string $file_name)
     {
+        $this->authorize('backup.delete');
         $this->file_path = $file_path;
 
         $this->delete = true;
@@ -171,6 +171,7 @@ class BackupController extends Component
      */
     public function restoreConfirm(string $file_path, string $file_name)
     {
+        $this->authorize('backup.restore');
         $this->file_path = $file_path;
 
         $this->delete = false;

@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Invoice;
 use App\Models\CourseDetail;
 use App\Models\Period;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ParticipantListsController extends Component
 {
@@ -23,6 +24,7 @@ class ParticipantListsController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
+    use AuthorizesRequests; 
 
     public $perPage = '8';
     // public $search = '';
@@ -115,6 +117,7 @@ class ParticipantListsController extends Component
     }
 
     public function create(){
+        $this->authorize('participantlists.create');
         $this->resetInputFields();
         $this->emit('valorParticipante','');
         $this->emit('valorPerio','');
@@ -127,6 +130,7 @@ class ParticipantListsController extends Component
     }
 
     public function edit($id,$id_per,$id_detallecurso){
+        $this->authorize('participantlists.edit');
         $this->id_usuario = $id;
         $this->id_curso_grupo = $id_detallecurso;
         $this->id_per_ = $id_per;
@@ -244,8 +248,8 @@ class ParticipantListsController extends Component
     }
     public $id_delete;
 
-    public function delete($id)
-    {
+    public function delete($id){
+        $this->authorize('participantlists.delete');
         $this->id_delete = $id;
         $this->confirming_participant_deletion = true;
     }

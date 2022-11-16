@@ -157,7 +157,7 @@
                                     $i++;
                                 @endphp
                                 <x-table.cell width='200' class="whitespace-nowrap text-center">
-                                    @can('constancy.show')
+                                    @can('constancy.download')
                                         <button wire:click="descargarConstancia({{$g->id}},{{$g->iduser}})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                             Constancia
                                         </button>
