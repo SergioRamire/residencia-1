@@ -71,7 +71,7 @@ class CourseFactory extends Factory
             'clave' => $this->faker->unique()->regexify('[A-Z]{3}[0-9]{2}'),
             'nombre' => $nombres,
             'objetivo' =>"$verbo $obj $pre",
-            'duracion' => $this->faker->numberBetween(1, 5),
+            'duracion' => $this->faker->numberBetween(30, 40),
             'observaciones' => '',
             'estatus'=>'1',
             'dirigido' => implode(', ', $dirigido),

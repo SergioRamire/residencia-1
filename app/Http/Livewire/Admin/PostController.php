@@ -12,9 +12,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 use App\Http\Traits\WithSearching;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class PostController extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
     use WithSearching;
 
@@ -104,18 +106,9 @@ class PostController extends Component
         $this->reset('arr');
     }
 
-    // private function validateInputs()
-    // {
-    //     $this->validate([
-    //         'arr.role' =>  ['required', 'regex:/^[Participante, Instructor, Todos]+$/', 'max:15'],
-    //     ]);
-    // }
-
-
-
-
     public function create()
     {
+        $this->authorize('sendnotify.create');
         $this->resetInputFields();
         $this->open_modal();
         $this->edit = false;
@@ -124,6 +117,7 @@ class PostController extends Component
 
     public function view(Post $post)
     {
+        $this->authorize('sendnotify.show');
         $this->title = $post->title;
         $this->description= $post->description;
         $this->role= $post->role;
@@ -149,6 +143,7 @@ class PostController extends Component
     //Eliminar un post
     public function delete_post($id, $title)
     {
+        $this->authorize('sendnotify.delete');
         $this->posts = Post::findOrFail($id);
         $this->title = $title;
         $this->confirming_part_deletion = true;
@@ -204,6 +199,7 @@ class PostController extends Component
     //eliminar todas las notificaciones enviadas
     public function delete_noti()
     {
+        $this->authorize('sendnotify.delete');
         $this->confirmin_notificacion= true;
     }
 

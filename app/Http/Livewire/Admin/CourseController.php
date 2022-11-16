@@ -115,6 +115,7 @@ class CourseController extends Component
 
     public function view(Course $course)
     {
+        $this->authorize('course.show');
         $this->course = $course;
 
         /* Convierte la cadena en una lista */

@@ -6,13 +6,14 @@
     </x-slot>
     <div class="space-y-2">
         <!-- Botón de nuevo -->
-        <div>
-            <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-[#1b396a] hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
-                <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
-                Nuevo Período
-            </x-jet-secondary-button>
-        </div>
-
+        @can('period.create')
+            <div>
+                <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-[#1b396a] hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                    <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
+                    Nuevo Período
+                </x-jet-secondary-button>
+            </div>
+        @endcan
         <!-- Opciones de tabla -->
         <div class="space-y-2">
             <div class="flex flex-wrap">
@@ -67,25 +68,34 @@
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_inicio)) }}</x-table.cell>
                         <x-table.cell>{{ date('d-m-Y', strtotime($p->fecha_fin)) }}</x-table.cell>
                         <x-table.cell>
-                            @if($p->estatus == 1)
-                            <button wire:click="periodo_inhabilitar({{ $p->id }})" title="Inhabilitar periodo">
-                                <x-badge.basic value="Habilitado" color="green" large/>
-                            </button>
-                            @elseif($p->estatus == 0)
-                            <button wire:click="periodo_habilitar({{ $p->id }})" title="Habilitar periodo">
-                                <x-badge.basic value="Inhabilitado" color="red" large/>
-                            </button>
-                            @endif
+                            @can('period.edit')
+                                @if($p->estatus === 1)
+                                <button wire:click="periodo_inhabilitar({{ $p->id }})" title="Inhabilitar periodo">
+                                    <x-badge.basic value="Habilitado" color="green" large/>
+                                </button>
+                                @elseif($p->estatus === 0)
+                                <button wire:click="periodo_habilitar({{ $p->id }})" title="Habilitar periodo">
+                                    <x-badge.basic value="Inhabilitado" color="red" large/>
+                                </button>
+                                @endif
+                            @endcan
                         </x-table.cell>
+
                         <x-table.cell width='200' class="whitespace-nowrap">
-                            <button  wire:click="edit({{ $p->id }})" type="button" title="Editar período" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                Editar
-                            </button>
-                            @if($p->ofertado === 0)
-                            <button wire:click="delete_period('{{ $p->id }}')" type="button" title="Eliminar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                Eliminar
-                            </button>
-                            @endif
+                            {{-- @endcan --}}
+                            @can('period.edit')
+                                <button  wire:click="edit({{ $p->id }})" type="button" title="Editar período" class="mr-1 px-4  bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                    Editar
+                                </button>
+                            @endcan
+
+                            @can('period.delete')
+                                @if($p->ofertado === 0)
+                                <button wire:click="delete_period('{{ $p->id }}')" type="button" title="Eliminar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                    Eliminar
+                                </button>
+                                @endif
+                            @endcan
                         </x-table.cell>
                     </tr>
                     {{-- @php $numero=$numero+1 @endphp --}}

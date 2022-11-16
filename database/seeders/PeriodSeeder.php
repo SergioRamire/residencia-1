@@ -16,21 +16,21 @@ class PeriodSeeder extends Seeder
     public function run()
     {
         $f1 = new Period();
-        $f1->clave  ='1-ENE/JUN2022';
-        $f1->fecha_inicio ='2022-08-22';
-        $f1->fecha_fin = '2022-08-26';
+        $f1->clave  ='1-ENE/JUN2023';
+        $f1->fecha_inicio ='2023-01-9';
+        $f1->fecha_fin = '2023-01-13';
         $f1->ofertado = 0;
         $f1->estatus = 1;
-        $f1->fecha_limite_para_calificar= '2022-08-28';
+        $f1->fecha_limite_para_calificar= '2023-01-16';
         $f1->save();
 
         $f2 = new Period();
-        $f2->clave  ='2-ENE/JUN2022';
-        $f2->fecha_inicio ='2022-08-29';
-        $f2->fecha_fin = '2022-09-02';
+        $f2->clave  ='2-ENE/JUN2023';
+        $f2->fecha_inicio ='2023-01-16';
+        $f2->fecha_fin = '2023-01-20';
         $f2->ofertado = 0;
         $f2->estatus = 1;
-        $f2->fecha_limite_para_calificar= '2022-09-04';
+        $f2->fecha_limite_para_calificar= '2023-01-23';
         $f2->save();
 
     }

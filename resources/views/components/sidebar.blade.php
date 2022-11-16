@@ -219,15 +219,19 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active="request()->routeIs('admin.historycourse')">
                             Cursos
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active="request()->routeIs('admin.historyparticipant')">
-                            Participantes
-                        </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active="request()->routeIs('admin.historyinstructor')">
-                            Instructores
-                        </x-sidebar.link>
+                        @can('historyparticipant.show')
+                            <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active="request()->routeIs('admin.historyparticipant')">
+                                Participantes
+                            </x-sidebar.link>
+                        @endcan
+                        @can('historyinstructor.show')
+                            <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active="request()->routeIs('admin.historyinstructor')">
+                                Instructores
+                            </x-sidebar.link>
+                        @endcan
                     </x-sidebar.dropdown>
                 @endcan
-                @can('sendemail.show')
+                @can('sendnotify.show')
                     <x-sidebar.dropdown title="Envio de Notificaciones" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
@@ -240,12 +244,12 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan
-
-                <x-sidebar.link href="{{route('post.index')}}" :active="request()->routeIs('post.index')">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></x-slot>
-                    Notificationes recibidas
-                </x-sidebar.link>
-
+                @can('notify.show')
+                    <x-sidebar.link href="{{route('post.index')}}" :active="request()->routeIs('post.index')">
+                        <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></x-slot>
+                        Notificationes recibidas
+                    </x-sidebar.link>
+                @endcan
                 @can('backup.edit')
                     <x-sidebar.link href="{{route('admin.backup')}}" :active="request()->routeIs('admin.backup')">
                         <x-slot name="icon">
@@ -444,16 +448,20 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         <x-sidebar.link class="pl-11" :href='route("admin.historycourse")' :active="request()->routeIs('admin.historycourse')">
                             Cursos
                         </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active="request()->routeIs('admin.historyparticipant')">
-                            Participantes
-                        </x-sidebar.link>
-                        <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active="request()->routeIs('admin.historyinstructor')">
-                            Instructores
-                        </x-sidebar.link>
+                        @can('historyparticipant.show')
+                            <x-sidebar.link class="pl-11" :href='route("admin.historyparticipant")' :active="request()->routeIs('admin.historyparticipant')">
+                                Participantes
+                            </x-sidebar.link>
+                        @endcan
+                        @can('historyinstructor.show')
+                            <x-sidebar.link class="pl-11" :href='route("admin.historyinstructor")' :active="request()->routeIs('admin.historyinstructor')">
+                                Instructores
+                            </x-sidebar.link>
+                        @endcan
                     </x-sidebar.dropdown>
                 @endcan
 
-                @can('sendemail.show')
+                @can('sendnotify.show')
                     <x-sidebar.dropdown title="Envio de Notificaciones" dp-id="1">
                         <x-slot name="icon" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
@@ -466,11 +474,12 @@ $route = $role === 'super-admin' ? '' : "{$role}." ;
                         </x-sidebar.link>
                     </x-sidebar.dropdown>
                 @endcan
-
-                <x-sidebar.link href="{{route('post.index')}}" :active="request()->routeIs('post.index')">
-                    <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" clip-rule="evenodd" /></x-slot>
-                    Notificationes recibidas
-                </x-sidebar.link>
+                @can('notify.show')
+                    <x-sidebar.link href="{{route('post.index')}}" :active="request()->routeIs('post.index')">
+                        <x-slot name="icon"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" clip-rule="evenodd" /></x-slot>
+                        Notificationes recibidas
+                    </x-sidebar.link>
+                @endcan
                 @can('backup.edit')
                     <x-sidebar.link href="{{route('admin.backup')}}" :active="request()->routeIs('admin.backup')">
                         <x-slot name="icon">

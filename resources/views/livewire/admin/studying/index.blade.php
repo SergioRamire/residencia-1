@@ -36,20 +36,20 @@
 
                 <div class="flex flex-col justify-center  px-6 mx-4 mb-">
                     <div class="mb-3">
-                        <p class="font-normal "><span class="font-bold">Instructor: </span> </p> 
-                        @forelse ($this->consulta_instructor($data->idcurso) as $insx) 
-                            <p class="font-normal ">{{$insx->nombre}} </p>     
+                        <p class="font-normal "><span class="font-bold">Instructor: </span> </p>
+                        @forelse ($this->consulta_instructor($data->idcurso) as $insx)
+                            <p class="font-normal ">{{$insx->nombre}} </p>
                         @empty
-                            <p class="font-normal ">Sin instructor </p>    
-                        @endforelse 
-                        
+                            <p class="font-normal ">Sin instructor </p>
+                        @endforelse
+
                     </div>
                     <p class="mb-3 font-normal "><span class="font-bold">Califiacion Final: </span>@if ($data->califi == 0)Sin asignar @else{{ $data->califi }}@endif</p>
                 </div>
 
                 <div class="flex flex-col justify-center py-2 px-6 mx-4 mb-2 text-black bg-white shadow-md rounded-lg border border-[#1b396a] ">
                     <p><span class="font-bold">Lugar: </span>{{$data->lugar}}</p>
-                    <p><span class="font-bold">Periodo: </span>{{ date('d-m-Y', strtotime($data->f1))}} - {{ date('d-m-Y', strtotime($data->f2))}}</p>
+                    <p><span class="font-bold">Periodo: </span>{{ date('d-m-Y', strtotime($data->f1))}} al {{ date('d-m-Y', strtotime($data->f2))}}</p>
                     <p><span class="font-bold">Horario: </span>{{ date("H:i", strtotime($data->h1))}} hrs. - {{ date("H:i", strtotime($data->h2))}} hrs.</p>
 
                     <div class="text-center">
@@ -62,7 +62,7 @@
                                 Ver cédula firmada
                             </button>
                         @else
-                            <a href="{{ route('participant.subir-cedula', [$data->iduser, $data->idcurso]) }}" title="Subir cédula firmada" class="mb-1 bg-white border border-amber-800 hover:bg-amber-400 text-amber-800 font-bold py-1 px-1 rounded inline-flex items-center">
+                            <a href="{{ route('participant.subir-cedula', [$data->iduser, $data->idcurso]) }}" title="Cargar cédula firmada" class="mb-1 bg-white border border-amber-800 hover:bg-amber-400 text-amber-800 font-bold py-1 px-1 rounded inline-flex items-center">
                                 Subir cédula firmada
                             </a>
                         @endif
@@ -73,7 +73,7 @@
                     </div>
 
                 </div>
-                
+
             </div>
         @empty
             <div class="col-span-2 flex justify-center items-center my-16">
@@ -86,7 +86,7 @@
             </div>
         @endforelse
     </div>
-    
+
 </div>
 
 

@@ -78,6 +78,7 @@ class AreaController extends Component
      * @throws AuthorizationException
      */
     public function create(){
+        $this->authorize('area.create');
         $this->resetErrorBag();
         $this->blank_area();
         $this->showEditCreateModal = true;
@@ -113,7 +114,7 @@ class AreaController extends Component
      */
     public function edit($id){
          /* Reinicia los errores */
-        $this->authorize('areas.edit');
+        $this->authorize('area.edit');
          $this->resetErrorBag();
          $this->resetValidation();
 
@@ -133,7 +134,7 @@ class AreaController extends Component
      * @throws AuthorizationException
      */
     public function delete_area($id){
-        $this->authorize('areas.delete');
+        $this->authorize('area.delete');
         $this->areas = Area::findOrFail($id);
         $this->confirmingAreaDeletion = true;
     }

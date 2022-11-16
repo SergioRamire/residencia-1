@@ -12,9 +12,11 @@ Use App\Models\CourseDetail;
 use App\Models\Email;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EmailController extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
     use WithSearching;
 
@@ -88,6 +90,7 @@ class EmailController extends Component
 
     public function create()
     {
+        $this->authorize('sendemail.show');
         $this->resetInputFields();
         $this->open_modal();
         $this->edit = false;
@@ -115,6 +118,7 @@ class EmailController extends Component
 
     public function view($id)
     {
+        $this->authorize('sendnotify.show');
         $email = Email::findOrFail($id);
         $this->title= $email->title;
         $this->description= $email->description;
@@ -175,6 +179,7 @@ class EmailController extends Component
     //Eliminar un email
     public function delete_post($id, $title)
     {
+        $this->authorize('sendnotify.delete');
         $this->posts = Email::findOrFail($id);
         $this->title = $title;
         $this->confirmin_part_deletion = true;
@@ -194,6 +199,7 @@ class EmailController extends Component
     //eliminar todas las notificaciones enviadas
     public function delete_noti()
     {
+        $this->authorize('sendnotify.delete');
         $this->confirmin_notificacion= true;
     }
 

@@ -6,13 +6,15 @@
     </x-slot>
 
     <div class="space-y-2">
-        <!-- Botón de nuevo -->
-        <div class="mb-6">
-            <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-[#1b396a] active:bg-sky-50">
-                <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
-                Nuevo Departamento
-            </x-jet-secondary-button>
-        </div>
+        @can('area.create')
+            <!-- Botón de nuevo -->
+            <div class="mb-6">
+                <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-[#1b396a] active:bg-sky-50">
+                    <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
+                    Nuevo Departamento
+                </x-jet-secondary-button>
+            </div>
+        @endcan
         <!-- Opciones de tabla -->
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
             <!-- Parte izquierda -->
@@ -70,26 +72,33 @@
                         <x-table.cell>{{ $a->telefono }}</x-table.cell>
                         <x-table.cell>{{ $a->extension}}</x-table.cell>
                         <x-table.cell>
-                            @if($a->estatus == 1)
-                                <button wire:click="area_inhabilitar({{$a->id}})" title="Inhabilitar área">
-                                    <x-badge.basic value="Habilitado" color="green" large/>
+                            @can('area.edit')
+                                @if($a->estatus === 1)
+                                    <button wire:click="area_inhabilitar({{$a->id}})" title="Inhabilitar área">
+                                        <x-badge.basic value="Habilitado" color="green" large/>
+                                    </button>
+                                @endif
+                                @if($a->estatus === 0)
+                                    <button wire:click="area_habilitar({{$a->id}})" title="Habilitar área">
+                                        <x-badge.basic value="Inhabilitado" color="red" large/>
                                 </button>
-                            @else
-                                <button wire:click="area_habilitar({{$a->id}})" title="Habilitar área">
-                                    <x-badge.basic value="Inhabilitado" color="red" large/>
-                            </button>
-                            @endif
+                                @endif
+                            @endcan
                         </x-table.cell>
                         <x-table.cell width='200' class="whitespace-nowrap">
-                            <button  wire:click="edit({{ $a->id }})" type="button" title="Editar información" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                Editar
-                            </button>
-                            {{$this->permiso_para_eliminar($a->id)}}
-                            @if($this->permiso_eliminacion)
-                            <button wire:click="delete_area('{{ $a->id }}')" type="button" title="Eliminar área" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                Eliminar
-                            </button>
-                            @endif
+                            @can('area.edit')
+                                <button  wire:click="edit({{ $a->id }})" type="button" title="Editar información" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                    Editar
+                                </button>
+                            @endcan
+                            @can('area.delete')
+                                {{$this->permiso_para_eliminar($a->id)}}
+                                @if($this->permiso_eliminacion)
+                                    <button wire:click="delete_area('{{ $a->id }}')" type="button" title="Eliminar área" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                        Eliminar
+                                    </button>
+                                @endif
+                            @endcan
                         </x-table.cell>
                     </tr>
                 @empty
