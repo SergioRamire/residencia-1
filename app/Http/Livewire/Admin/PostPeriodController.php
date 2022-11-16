@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Period;
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -11,6 +12,8 @@ use Livewire\Component;
 class PostPeriodController extends Component
 {
 
+    use AuthorizesRequests;
+    
     public $hoy;
     public $fecha;
 
