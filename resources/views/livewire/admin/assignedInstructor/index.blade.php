@@ -73,13 +73,17 @@
                                     ->where('inscriptions.estatus_participante', 'Instructor')
                                     ->where('inscriptions.course_detail_id', $g->idcurdet)
                                     ->count() < 2)
-                                        <button  wire:click="open_modal_create({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="mr-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
-                                            Añadir
-                                        </button>
+                                        @can('assigninstructor.assign')
+                                            <button  wire:click="open_modal_create({{ $g->idcurdet }})" type="button" title="Agregar instructor" class="mr-1 px-4 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow" >
+                                                Añadir
+                                            </button>
+                                        @endcan
                                     @endif
-                                    <button wire:click="open_modal_show({{ $g->idcurdet }})" type="button" title="Eliminar instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                        Eliminar Instructor
-                                    </button>
+                                    @can('assigninstructor.delete')
+                                        <button wire:click="open_modal_show({{ $g->idcurdet }})" type="button" title="Eliminar instructor" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                            Eliminar Instructor
+                                        </button>
+                                    @endcan
                             </x-table.cell>
                         </tr>
                     @empty

@@ -91,9 +91,11 @@
                                 @endif
                             </x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
-                                <button  wire:click="edit( {{$g->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                    Editar
-                                </button>
+                                @can('qualification.edit')
+                                    <button  wire:click="edit( {{$g->id }})" type="button" class="px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                        Editar
+                                    </button>
+                                @endcan
                             </x-table.cell>
                         </tr>
                     @empty

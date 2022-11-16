@@ -157,9 +157,11 @@
                                     $i++;
                                 @endphp
                                 <x-table.cell width='200' class="whitespace-nowrap text-center">
-                                    <button wire:click="descargarConstancia({{$g->id}},{{$g->iduser}})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                        Constancia
-                                    </button>
+                                    @can('constancy.show')
+                                        <button wire:click="descargarConstancia({{$g->id}},{{$g->iduser}})" title="Descargar constancia en formato pdf" class="bg-white border border-gray-800 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                            Constancia
+                                        </button>
+                                    @endif
                                 </x-table.cell>
                             @else
                                 <x-table.cell class="text-center  text-red-500">{{'No aprobó'}}</x-table.cell>

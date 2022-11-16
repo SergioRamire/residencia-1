@@ -15,13 +15,14 @@
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
             <!-- Botón de nuevo -->
-            <div class=" mb-6">
-                <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
-                    <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
-                    Nuevo respaldo
-                </x-jet-secondary-button>
-            </div>
-
+            @can('backup.create')
+                <div class=" mb-6">
+                    <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                        <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
+                        Nuevo respaldo
+                    </x-jet-secondary-button>
+                </div>
+            @endcan
             <!-- Opciones de tabla -->
             <div class="md:flex md:justify-between space-y-2 md:space-y-0">
                 <!-- Parte izquierda -->
@@ -69,15 +70,21 @@
                             <x-table.cell>{{ $backup['file_date'] }}</x-table.cell>
                             <x-table.cell>{{ $backup['file_relative_date'] }}</x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
-                                <button wire:click="download('{{ $backup['file_name'] }}')" type="button" title="Descargar respaldo (zip)" class="mr-1 px-2 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                    Descargar
-                                </button>
+                                @can('backup.download')
+                                    <button wire:click="download('{{ $backup['file_name'] }}')" type="button" title="Descargar respaldo (zip)" class="mr-1 px-2 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                        Descargar
+                                    </button>
+                                @endcan
+                                 @can('backup.delete')
                                 <button wire:click="delete('{{ $backup['file_name'] }}', '{{ $backup['file_name'] }}')" type="button" title="Eliminar respaldo" class="ml-1 px-2 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                     Eliminar
                                 </button>
+                                @endcan
+                                 @can('backup.restore')
                                 <button wire:click="restoreConfirm('{{ $backup['file_name'] }}', '{{ $backup['file_name'] }}')" type="button" title="Restaurar respaldo" class="ml-1 px-2 bg-white hover:text-white hover:bg-green-600 text-black font-bold border border-green-400 rounded shadow">
                                     Restaurar
                                 </button>
+                                @endcan
                             </x-table.cell>
                         </tr>
                     @empty

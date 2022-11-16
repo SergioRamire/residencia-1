@@ -151,12 +151,17 @@
                                 @endif
                             </x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
-                                <button  wire:click="view({{ $u->id }})" type="button" title="Ver más infomación" class="mr-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
-                                    Ver
-                                </button>
-                                <button  wire:click="edit({{ $u->id }})" type="button" title="Editar información" class="ml-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                    Editar
-                                </button>
+                                    
+                                    @can('participant.show')
+                                        <button  wire:click="view({{ $u->id }})" type="button" title="Ver más infomación" class="mr-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
+                                            Ver
+                                        </button>
+                                    @endif
+                                    @can('participant.edit')
+                                        <button  wire:click="edit({{ $u->id }})" type="button" title="Editar información" class="ml-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                            Editar
+                                        </button>
+                                    @endif
                                 {{-- <button wire:click="delete({{ $u->id }})" type="button" class="text-red-600 hover:text-red-900"> --}}
                                 {{--     <x-icon.trash class="h-6 w-6"/> --}}
                                 {{-- </button> --}}

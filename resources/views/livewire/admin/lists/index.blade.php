@@ -7,13 +7,14 @@
 
     <div class="max-w-7xl mx-auto pt-5 pb-10">
         <div class="space-y-2">
-
-            <div class="w-full">
-                <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
-                    <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
-                    Registrar participante
-                </x-jet-secondary-button>
-            </div>
+            @can('participantlists.create')
+                <div class="w-full">
+                    <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-sky-700 hover:text-sky-500 active:text-sky-800 active:bg-sky-50">
+                        <x-icon.plus solid alt="sm" class="inline-block h-5 w-5" />
+                        Registrar participante
+                    </x-jet-secondary-button>
+                </div>
+            @endcan
 
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:gap-x-1.5 pb-6">
                 <div class="mt-4 flex-1">
@@ -148,12 +149,17 @@
                             <x-table.cell>{{ $l->curso }} </x-table.cell>
                             <x-table.cell>{{ $l->grupo }} </x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
-                                <button  wire:click="edit('{{ $l->id_user }}','{{$l->id_periodo}}','{{$l->id_detallecurso}}')" type="button" title="Editar inscripción" class="mr-1 px-4 bg-white  hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                    Editar
-                                </button>
-                                <button wire:click="delete({{ $l->id }})" type="button" title="Eliminar inscripción" class="ml-1 px-4 bg-white  hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                    Eliminar
-                                </button>
+                                @can('participantlists.edit')
+                                    <button  wire:click="edit('{{ $l->id_user }}','{{$l->id_periodo}}','{{$l->id_detallecurso}}')" type="button" title="Editar inscripción" class="mr-1 px-4 bg-white  hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                        Editar
+                                    </button>
+                                @endcan
+
+                                @can('participantlists.delete')
+                                    <button wire:click="delete({{ $l->id }})" type="button" title="Eliminar inscripción" class="ml-1 px-4 bg-white  hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                        Eliminar
+                                    </button>
+                                @endcan
 
                             </x-table.cell>
                         </tr>

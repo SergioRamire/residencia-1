@@ -90,8 +90,12 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'assigninstructor.show', 'human_name' => 'Visualizar detalles a asignar'])->assignRole(['Administrador']);
         Permission::create(['name' => 'assigninstructor.assign', 'human_name' => 'Asignar instructor'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'assigninstructor.delete', 'human_name' => 'Eliminar instructor'])->assignRole(['Administrador']);
 
         Permission::create(['name' => 'participantlists.show', 'human_name' => 'Visualizar listas'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'participantlists.create', 'human_name' => 'Crear listas'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'participantlists.edit', 'human_name' => 'Editar listas'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'participantlists.delete', 'human_name' => 'Eliminar listas'])->assignRole(['Administrador', 'Jefa de departamento']);
 
         Permission::create(['name' => 'qualification.edit', 'human_name' => 'Editar calificaciones'])->assignRole(['Instructor']);
 
@@ -101,13 +105,19 @@ class PermissionSeeder extends Seeder
 
         Permission::create(['name' => 'limitAsignGrades.edit', 'human_name' => 'Limitar calificaciones'])->assignRole(['Jefa de departamento','Coordinador']);
 
-        Permission::create(['name' => 'backup.edit', 'human_name' => 'respaldo de bd'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'backup.show', 'human_name' => 'Visualizar respaldo de bd'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'backup.create', 'human_name' => 'Crear respaldo de bd'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'backup.download', 'human_name' => 'Descargar respaldo de bd'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'backup.delete', 'human_name' => 'Eliminar respaldo de bd'])->assignRole(['Administrador']);
+        Permission::create(['name' => 'backup.restore', 'human_name' => 'Restaurar respaldo de bd'])->assignRole(['Administrador']);
 
         Permission::create(['name' => 'historycourse.show', 'human_name' => 'Historial cursos'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'historyparticipant.show', 'human_name' => 'Historial Participantes'])->assignRole(['Administrador', 'Jefa de departamento']);
         Permission::create(['name' => 'historyinstructor.show', 'human_name' => 'Historial Instructores'])->assignRole(['Administrador', 'Jefa de departamento']);
 
-        Permission::create(['name' => 'activeinscription.show', 'human_name' => 'Activar Inscripcion'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'activeinscription.show', 'human_name' => 'Visualizar Activar Inscripcion'])->assignRole(['Administrador', 'Jefa de departamento']);
+        Permission::create(['name' => 'activeinscription.edit', 'human_name' => 'Activar Inscripcion'])->assignRole(['Administrador', 'Jefa de departamento']);
+
         Permission::create(['name' => 'sendemail.show', 'human_name' => 'Visualizar emails'])->assignRole(['Administrador']);
         Permission::create(['name' => 'sendnotify.show', 'human_name' => 'Visualizar notificaciones'])->assignRole(['Administrador', 'Jefa de departamento']);
 

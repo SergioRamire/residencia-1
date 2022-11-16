@@ -6,12 +6,16 @@
     </x-slot>
     <div class="space-y-2">
         <!-- Botón de nuevo -->
-        <div class="mb-6">
-            <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-[#1b396a] hover:text-sky-500 active:text-[#1b396a] active:bg-sky-50">
-                <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
-                Nuevo Grupo
-            </x-jet-secondary-button>
-        </div>
+
+        @can('group.create')
+            <div class="mb-6">
+                <x-jet-secondary-button wire:click="create()" class="border-[#1b396a] text-[#1b396a] hover:text-sky-500 active:text-[#1b396a] active:bg-sky-50">
+                    <x-icon.plus solid alt="sm" class="inline-block h-5 w-5"/>
+                    Nuevo Grupo
+                </x-jet-secondary-button>
+            </div>
+        @endcan
+        
         <!-- Opciones de tabla -->
         <div class="md:flex md:justify-between space-y-2 md:space-y-0">
             <!-- Parte izquierda -->
@@ -69,14 +73,19 @@
                             @endif
                         </x-table.cell>
                         <x-table.cell width='200' class="whitespace-nowrap">
-                            <button  wire:click="edit({{ $g->id }})" type="button" title="Editar grupo" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
-                                Editar
-                            </button>
+
+                            @can('group.edit')
+                                <button  wire:click="edit({{ $g->id }})" type="button" title="Editar grupo" class="mr-1 px-4 bg-white hover:text-white hover:bg-amber-500 text-black font-bold border border-amber-400 rounded shadow" >
+                                    Editar
+                                </button>
+                            @endcan
                             {{$this->permiso_para_eliminar($g->id)}}
                             @if($this->permiso_eliminacion)
-                            <button wire:click="delete_group({{ $g->id }})" type="button" title="Eliminar grupo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
-                                Eliminar
-                            </button>
+                                @can('group.delete')
+                                    <button wire:click="delete_group({{ $g->id }})" type="button" title="Eliminar grupo" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
+                                        Eliminar
+                                    </button>
+                                @endcan
                             @endif
                         </x-table.cell>
                     </tr>
