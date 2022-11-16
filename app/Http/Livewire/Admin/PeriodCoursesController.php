@@ -211,12 +211,10 @@ class PeriodCoursesController extends Component
     {
         return view('livewire.admin.periodCourses.index', [
             'datos' => Period::query()
-                ->when($this->filters_1, function ($query, $b) {
-                    $query->where('periods.fecha_inicio', '>=', "%$b%");
-                })
-                ->when($this->filters_2, function ($query, $b) {
-                    $query->where('periods.fecha_fin', '<=', "%$b%");
-                })
+                ->when($this->filters_1, fn ($query, $b) => $query
+                    ->where('periods.fecha_inicio', '>=', $b))
+                ->when($this->filters_2, fn ($query, $b) => $query
+                    ->where('periods.fecha_fin', '<=', $b))
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->paginate($this->per_page),
         ]);
