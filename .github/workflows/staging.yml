@@ -41,9 +41,9 @@ jobs:
 
       - name: 🔥 Configuración de credenciales de base de datos por medio de secretos
         env:
-          DB_NAME: ${{ secrets.dev_db_name }}
-          DB_USERNAME: ${{ secrets.dev_db_username }}
-          DB_PASSWORD: ${{ secrets.dev_db_password }}
+          $DEV_DB_NAME: ${{ secrets.dev_db_name }}
+          $DEV_DB_USERNAME: ${{ secrets.dev_db_username }}
+          $DEV_DB_PASSWORD: ${{ secrets.dev_db_password }}
         run: |
           sed -i "s|DB_HOST=|DB_HOST=127.0.0.1|g" .env
           sed -i "s|DB_DATABASE=|DB_DATABASE='$DEV_DB_NAME'|g" .env
