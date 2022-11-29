@@ -37,11 +37,31 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
       - name: 🔥 Modificación de APP_URL
-        run: sed -i 's|APP_URL=|APP_URL=https://dominio.com/|g' .env
+        # run: sed -i 's|APP_URL=|APP_URL=https://dominio.com/|g' .env
+        run: sed -i 's|APP_URL=|APP_URL=https://sci.marthati.com/|g' .env
 
       - name: 🔥 Modificación de APP_ENV
         run: sed -i 's|APP_ENV=local|APP_ENV=production|g' .env
 
+
+     - name: 🔥 Configuración de credenciales de base de datos por medio de secretos
+        env:
+          $DB_NAME: ${{ secrets.db_name }}
+          $DB_USERNAME: ${{ secrets.db_username }}
+          $DB_PASSWORD: ${{ secrets.db_password }}
+        run: |
+          sed -i "s|DB_HOST=|DB_HOST=127.0.0.1|g" .env
+          sed -i "s|DB_DATABASE=|DB_DATABASE='$DB_NAME'|g" .env
+          sed -i "s|DB_USERNAME=|DB_USERNAME='$DB_USERNAME'|g" .env
+          sed -i "s|DB_PASSWORD=|DB_PASSWORD='$DB_PASSWORD'|g" .env
+
+      - name: 🔥 Configuración del protocolo smtp para envío de correos
+        env:
+          $MAIL_USERNAME: ${{ secrets.mail_username }}
+          $MAIL_PASSWORD: ${{ secrets.mail_password }}
+        run: |
+          sed -i "s|MAIL_USERNAME=|MAIL_USERNAME='$MAIL_USERNAME'|g" .env
+          sed -i "s|MAIL_PASSWORD=|MAIL_PASSWORD='$MAIL_PASSWORD'|g" .env
       # TODO: Configuración de credenciales de base de datos por medio de secretos
       # TODO: Configuración de credenciales de servidor de correos por medio de secretos
 
@@ -68,7 +88,7 @@ jobs:
       - name: 📂 Sincronización de archivos
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          server: ftp.tu-servidor.com
+          server: ftp.marthati.com
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: /ruta/elegida/
+          server-dir: /home/marthati/public_html/sci
