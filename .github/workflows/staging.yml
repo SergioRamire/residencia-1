@@ -49,6 +49,14 @@ jobs:
           sed -i "s|DB_DATABASE=|DB_DATABASE='$DEV_DB_NAME'|g" .env
           sed -i "s|DB_USERNAME=|DB_USERNAME='$DEV_DB_USERNAME'|g" .env
           sed -i "s|DB_PASSWORD=|DB_PASSWORD='$DEV_DB_PASSWORD'|g" .env
+
+      - name: 🔥 Configuración del protocolo smtp para envío de correos
+        env:
+          $MAIL_USERNAME: ${{ secrets.mail_username }}
+          $MAIL_PASSWORD: ${{ secrets.mail_password }}
+        run: |
+          sed -i "s|MAIL_USERNAME=|MAIL_USERNAME='$MAIL_USERNAME'|g" .env
+          sed -i "s|MAIL_PASSWORD=|MAIL_PASSWORD='$MAIL_PASSWORD'|g" .env
       # TODO: Configuración de credenciales de servidor de correos por medio de secretos
 
       - name: 🔥 Generación de llave
