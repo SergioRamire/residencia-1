@@ -44,7 +44,7 @@ jobs:
         run: sed -i 's|APP_ENV=local|APP_ENV=production|g' .env
 
 
-     - name: 🔥 Configuración de credenciales de base de datos por medio de secretos
+      - name: 🔥 Configuración de credenciales de base de datos por medio de secretos
         env:
           $DB_NAME: ${{ secrets.db_name }}
           $DB_USERNAME: ${{ secrets.db_username }}
