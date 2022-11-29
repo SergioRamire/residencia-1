@@ -91,4 +91,4 @@ jobs:
           server: ftp.marthati.com
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: /home/marthati/public_html/sci
+          server-dir: /home/marthati/public_html/sci/
