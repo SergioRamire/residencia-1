@@ -49,15 +49,17 @@ class CourseController extends Component
         'perPage' => ['except' => 8, 'as' => 'p'],
     ];
 
-    protected $rules = [
-        'course.clave' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40'],
-        'course.nombre' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:255'],
-        'course.objetivo' =>['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:255'],
-        'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
-        'course.duracion' => ['required', 'integer', 'min:30', 'max:50'],
-        'course.dirigido' => ['required', 'max:255'],
-        'course.observaciones' => ['nullable', 'max:255'],
-];
+    public function rules(): array{
+        return [
+            'course.clave' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:40', Rule::unique('courses', 'clave')->ignore($this->course)],
+            'course.nombre' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:255'],
+            'course.objetivo' =>['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,ñ,Ñ,.,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:255'],
+            'course.perfil' => ['required', 'in:Formación docente,Actualización profesional'],
+            'course.duracion' => ['required', 'integer', 'min:30', 'max:50'],
+            'course.dirigido' => ['required', 'max:255'],
+            'course.observaciones' => ['nullable', 'max:255'],
+        ];
+    }
 
     public function updated($propertyName)
     {
@@ -140,13 +142,12 @@ class CourseController extends Component
 
     public function confirm_save()
     {
-        // $this->validate();
+        $this->validate();
         $this->showConfirmationModal = true;
     }
 
     public function save()
     {
-        ddl($this->course->dirigido);
         $this->course->dirigido = implode(', ', $this->course->dirigido);
         // $this->periods->estatus = 1;
         $this->validate();
