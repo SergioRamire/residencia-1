@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - dev
+      - main
 name: 🚀 Despliegue de sitio en modo producción
 jobs:
   web-deploy:
