@@ -90,7 +90,7 @@
                             @endcan
 
                             @can('period.delete')
-                                @if($p->ofertado === 0)
+                                @if($p->ofertado == 0)
                                 <button wire:click="delete_period('{{ $p->id }}')" type="button" title="Eliminar período" class="ml-1 px-4 bg-white hover:text-white hover:bg-red-600 text-black font-bold border border-red-400 rounded shadow">
                                     Eliminar
                                 </button>
