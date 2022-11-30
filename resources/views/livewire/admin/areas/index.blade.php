@@ -73,12 +73,12 @@
                         <x-table.cell>{{ $a->extension}}</x-table.cell>
                         <x-table.cell>
                             @can('area.edit')
-                                @if($a->estatus === 1)
+                                @if($a->estatus == 1)
                                     <button wire:click="area_inhabilitar({{$a->id}})" title="Inhabilitar área">
                                         <x-badge.basic value="Habilitado" color="green" large/>
                                     </button>
                                 @endif
-                                @if($a->estatus === 0)
+                                @if($a->estatus == 0)
                                     <button wire:click="area_habilitar({{$a->id}})" title="Habilitar área">
                                         <x-badge.basic value="Inhabilitado" color="red" large/>
                                 </button>
