@@ -66,7 +66,7 @@ class JetstreamServiceProvider extends ServiceProvider
                             ->get();
                 $instructor_actualmente=count($consultar_usuario_instructor);
                 if($estado_usuario==1){
-                    if($rol!=='Super admin' and $rol!=='Administrador'){ //a los usuarios que tienen estos roles no se les cambia el rol nunca, ni con los valores del rb
+                    if($rol!=='Super admin' and $rol!=='Administrador' and $rol!=='Coordinador' and $rol!=='Jefa de departamento'){ //a los usuarios que tienen estos roles no se les cambia el rol nunca, ni con los valores del rb
                         if($request->rol=='Instructor' and $instructor_actualmente==0){ //si seleccionó el rb instrcutor y no es intructor en el periodo activo
                             if($organizacion_origen=='Tecnológico de oaxaca' and $rol == 'Instructor'){ //Si es del Tec y su rol es intructor
                                 // $user->syncRoles('Participante'); //cambiale el rol a participante(por si se haya quedado con el rol Instructor)
