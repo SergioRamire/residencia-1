@@ -12,11 +12,11 @@
             </div>
         </div>
     </x-slot>
-    
+
     <div class="max-w-7xl mx-auto pt-5 pb-5">
         <div class="space-y-2">
             <div class="p-4 bg-blue-100 rounded-lg border border-[#1b396a] shadow-md sm:p-6 lg:p-8 ">
-                <h5 class="text-xl font-medium text-gray-800 ">Datos Personales</h5> 
+                <h5 class="text-xl font-medium text-gray-800 ">Datos Personales</h5>
 
                 <form id="courseForm">
                     <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
@@ -106,7 +106,7 @@
                                 <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->carrera}}</dd>
                             </div>
                         </div>
-                    </div>  
+                    </div>
 
                     <div class="my-4 flex justify-end">
                         @if ($vali)
@@ -122,44 +122,46 @@
     </div>
 
 
-    @if (!is_null($user->area))
+    {{-- @if (!is_null($user->area)) --}}
         <div class="max-w-7xl mx-auto pt-5 pb-5">
             <div class="space-y-2">
                 <div class="p-4 bg-blue-100 rounded-lg border border-[#1b396a] shadow-md sm:p-6 lg:p-8 ">
                     <h5 class="text-xl font-medium text-black-800 ">Datos Laborales</h5>
                     <form id="courseForm">
-                        <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
-                            {{-- Nombre de area --}}
-                            <div class="mt-4 flex-1">
-                            <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Nombre de Área: </dd>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->area->nombre ?? ''}}</dd>
+                        @if (!is_null($user->area))
+                            <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
+                                {{-- Nombre de area --}}
+                                <div class="mt-4 flex-1">
+                                <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
+                                        <dd class="text-base font-bold text-gray-900 lg:col-span-2">Nombre de Área: </dd>
+                                        <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->area->nombre}}</dd>
+                                    </div>
+                                </div>
+                                {{-- clave_presupuestal --}}
+                                <div class="mt-4 flex-1">
+                                <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
+                                        <dd class="text-base font-bold text-gray-900 lg:col-span-2">Clave Presupuestal: </dd>
+                                        <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->clave_presupuestal}}</dd>
+                                    </div>
                                 </div>
                             </div>
-                            {{-- clave_presupuestal --}}
-                            <div class="mt-4 flex-1">
-                            <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Clave Presupuestal: </dd>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->clave_presupuestal}}</dd>
+                            <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
+                                {{-- jefe --}}
+                                <div class="mt-4 flex-1">
+                                <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
+                                        <dd class="text-base font-bold text-gray-900 lg:col-span-2">Nombre del jefe inmediato: </dd>
+                                        <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->jefe_inmediato}}</dd>
+                                    </div>
+                                </div>
+                                {{-- telefono --}}
+                                <div class="mt-4 flex-1">
+                                <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
+                                        <dd class="text-base font-bold text-gray-900 lg:col-span-2">Teléfono: </dd>
+                                        <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$area->telefono}}</dd>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
-                            {{-- jefe --}}
-                            <div class="mt-4 flex-1">
-                            <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Nombre del jefe inmediato: </dd>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$user->jefe_inmediato}}</dd>
-                                </div>
-                            </div>
-                            {{-- telefono --}}
-                            <div class="mt-4 flex-1">
-                            <div class="bg-white px-2 py-3 grid grid-cols-2 gap-2">
-                                    <dd class="text-base font-bold text-gray-900 lg:col-span-2">Teléfono: </dd>
-                                    <dd class="text-lg font-medium text-gray-900 lg:col-span-2 overflow-auto">{{$area->telefono}}</dd>
-                                </div>
-                            </div>
-                        </div>
+                        @endif
                         <div class="flex flex-col lg:flex-row lg:items-baseline lg:gap-x-1.5">
                             <!-- puesto_en_area -->
                             <div class="mt-4 flex-1">
@@ -210,7 +212,7 @@
                 </div>
             </div>
         </div>
-    @endif
+    {{-- @endif --}}
     @include('livewire.admin.users.profileConfirmation')
     @include('livewire.admin.users.profileEdit')
 </div>

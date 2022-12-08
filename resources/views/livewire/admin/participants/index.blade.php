@@ -142,7 +142,7 @@
                         <tr wire:key="user-{{ $loop->index }}" wire:loading.class.delay="opacity-50">
                             <x-table.cell>{{ $u->rfc }}</x-table.cell>
                             <x-table.cell>{{ $u->nombre_completo }}</x-table.cell>
-                            <x-table.cell>{{ $u->area->nombre ?? '' }}</x-table.cell>
+                            <x-table.cell>{{ $u->area->nombre ?? 'No pertenece a una area de adscripción' }}</x-table.cell>
                             <x-table.cell>
                                 @if($u->cuenta_moodle == 1)
                                     <x-badge.basic value="Tiene" color="green" large/>
@@ -151,7 +151,7 @@
                                 @endif
                             </x-table.cell>
                             <x-table.cell width='200' class="whitespace-nowrap">
-                                    
+
                                     @can('participant.show')
                                         <button  wire:click="view({{ $u->id }})" type="button" title="Ver más infomación" class="mr-1 px-4 bg-white hover:text-white hover:bg-[#1b396a] text-black font-bold border border-sky-400 rounded shadow" >
                                             Ver

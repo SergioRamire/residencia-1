@@ -24,7 +24,7 @@ class ParticipantListsController extends Component
     use WithPagination;
     use WithSearching;
     use WithSorting;
-    use AuthorizesRequests; 
+    use AuthorizesRequests;
 
     public $perPage = '8';
     // public $search = '';
@@ -182,27 +182,27 @@ class ParticipantListsController extends Component
         }
     }
 
-    // public function inspeccionar_instructor(){
-    //     $id_curso = CourseDetail::join('courses','courses.id','course_details.course_id')
-    //                             ->select('courses.id')
-    //                             ->where('course_details.id','=',$this->id_curso_grupo)
-    //                             ->first();
-    //     $id=$id_curso->id;
-    //     $consultar_curso_instruido =  User::join('inscriptions','inscriptions.user_id','users.id')
-    //                             ->join('course_details','course_details.id','inscriptions.course_detail_id')
-    //                             ->join('courses','courses.id','course_details.course_id')
-    //                             ->select('courses.id')
-    //                             ->where('users.id','=',$this->id_usuario)
-    //                             ->where('inscriptions.estatus_participante','=','Instructor')
-    //                             ->get();
-    //     $cursos_instruidos = [];
-    //     foreach($consultar_curso_instruido as $curso){
-    //         array_push($cursos_instruidos, $curso->id);
-    //     }
-    //     if(in_array($id,$cursos_instruidos))
-    //         $this->instructor=true;
-    //     $this->instructor=false;
-    // }
+    public function inspeccionar_instructor(){
+        $id_curso = CourseDetail::join('courses','courses.id','course_details.course_id')
+                                ->select('courses.id')
+                                ->where('course_details.id','=',$this->id_curso_grupo)
+                                ->first();
+        $id=$id_curso->id;
+        $consultar_curso_instruido =  User::join('inscriptions','inscriptions.user_id','users.id')
+                                ->join('course_details','course_details.id','inscriptions.course_detail_id')
+                                ->join('courses','courses.id','course_details.course_id')
+                                ->select('courses.id')
+                                ->where('users.id','=',$this->id_usuario)
+                                ->where('inscriptions.estatus_participante','=','Instructor')
+                                ->get();
+        $cursos_instruidos = [];
+        foreach($consultar_curso_instruido as $curso){
+            array_push($cursos_instruidos, $curso->id);
+        }
+        if(in_array($id,$cursos_instruidos))
+            $this->instructor=true;
+        $this->instructor=false;
+    }
 
     public function store(){
         $aux_user = $this->id_usuario;
@@ -214,9 +214,6 @@ class ParticipantListsController extends Component
                 'estatus_participante' => 'Participante',
                 'asistencias_minimas' => 0,
                 'url_cedula' => '',
-                // 'calificacion' => 0,
-                // 'estatus_participante' => 'Participante',
-                // 'asistencias_minimas' => 0,
             ]
         );
         $this->noti('success','Participante creado');
@@ -281,7 +278,6 @@ class ParticipantListsController extends Component
         $data=$this->participants($this->classification['periodo'], $this->classification['curso'],'Participante',$this->filters['grupo']);
         $ins=$this->instructor($this->classification['periodo'], $this->classification['curso'],$this->filters['grupo']);
         return Excel::download(new UserExport($data, $ins), 'Lista_Asistencia.xlsx');
-        // dd($ins);
     }
 
     public function participants($periodo, $curso, $user, $grupo)

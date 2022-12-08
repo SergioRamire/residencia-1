@@ -121,9 +121,18 @@ class ParticipantController extends Component
             $this->org = true;
         } else {
             $this->org = false;
+            $this->updatedOrg();
         }
 
         $this->show_edit_modal = true;
+    }
+
+    public function updatedOrg()
+    {
+        if (!$this->org) {
+            // $this->user->organizacion_origen = '';
+            $this->user->area_id = null;
+        }
     }
 
     public function view(User $user){
@@ -199,13 +208,5 @@ class ParticipantController extends Component
     public function validar_area($organizacion)
     {
         return $organizacion ? ['required', 'exists:areas,id'] : ['nullable'];
-    }
-
-    public function updatedOrg()
-    {
-        if (!$this->org) {
-            $this->user->organizacion_origen = '';
-            $this->user->area_id = null;
-        }
     }
 }
