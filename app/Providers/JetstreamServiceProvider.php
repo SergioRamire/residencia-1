@@ -64,7 +64,17 @@ class JetstreamServiceProvider extends ServiceProvider
                             ->where('inscriptions.estatus_participante','=','Instructor')
                             ->whereIn('periods.id',$arreglo_ids_periodos)
                             ->get();
+
+                $consultar_usuario_participante=User::join('inscriptions','inscriptions.user_id','users.id')
+                            ->join('course_details','course_details.id','inscriptions.course_detail_id')
+                            ->join('periods','periods.id','course_details.period_id')
+                            ->select('users.id')
+                            ->where('inscriptions.user_id','=',$id_user)
+                            ->where('inscriptions.estatus_participante','=','Participante')
+                            ->whereIn('periods.id',$arreglo_ids_periodos)
+                            ->get();
                 $instructor_actualmente=count($consultar_usuario_instructor);
+                $particiánte_actualmente=count($consultar_usuario_participante);
                 if($estado_usuario==1){
                     if($rol!=='Super admin' and $rol!=='Administrador' and $rol!=='Coordinador' and $rol!=='Jefa de departamento'){ //a los usuarios que tienen estos roles no se les cambia el rol nunca, ni con los valores del rb
                         if($request->rol=='Instructor' and $instructor_actualmente==0){ //si seleccionó el rb instrcutor y no es intructor en el periodo activo
@@ -86,6 +96,10 @@ class JetstreamServiceProvider extends ServiceProvider
                         if($request->rol=='Participante' and $organizacion_origen!=='Tecnológico de oaxaca')
                             return false;
                         if($request->rol=='Instructor' and $instructor_actualmente!==0){
+                            $user->syncRoles($request->rol); //se le cambia el rol
+                            return $user; //entra
+                        }
+                        if($request->rol=='Participante' and $particiánte_actualmente!==0){
                             $user->syncRoles($request->rol); //se le cambia el rol
                             return $user; //entra
                         }
