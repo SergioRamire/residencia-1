@@ -180,10 +180,12 @@ class PeriodCoursesController extends Component
     }
 
     public function habilitar(){
+        $listDesabilitar = Period::all();
+        foreach ($listDesabilitar as $value){if($value->estatus == 1) {$value->update(['estatus' => 0]);}}
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
             ->update(['estatus' => 1]);
-            $this->showConfirmationModal = false;
+        $this->showConfirmationModal = false;
         $this->confirming_period_habil=false;
     }
 
