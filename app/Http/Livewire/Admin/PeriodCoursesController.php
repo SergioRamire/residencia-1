@@ -43,6 +43,7 @@ class PeriodCoursesController extends Component
     public bool $confirming_period_habil = false;
     public bool $confirming_period_inhabil = false;
     public bool $permiso_eliminacion = false;
+    public bool $advertencia_periodo = false;
 
     public $f_i;
     public $f_f;
@@ -165,12 +166,12 @@ class PeriodCoursesController extends Component
         ]);
     }
 
-    // public function periodo_inhabilitar($id){
-    //     $this->periodo_id = $id;
-    //     $this->periods = Period::findOrFail($id);
-    //     $this->showConfirmationModal = true;
-    //     $this->confirming_period_inhabil=true;
-    // }
+    public function periodo_inhabilitar($id){
+        $this->periodo_id = $id;
+        $this->periods = Period::findOrFail($id);
+        $this->showConfirmationModal = true;
+        $this->confirming_period_inhabil=true;
+    }
 
     public function habilitar(){
         $listDesabilitar = Period::all();
@@ -208,17 +209,20 @@ class PeriodCoursesController extends Component
         $fecha_hoy=date('Y-m-d');
         if ($this->periods->fecha_fin <= $fecha_hoy) {
             $this->advertencia_periodo = true;
+        }else{
+            $this->showConfirmationModal = true;
+            $this->confirming_period_habil=true;
         }
-        $this->showConfirmationModal = true;
-        $this->confirming_period_habil=true;
     }
 
     public function evaluar_periodos_activos(){
         $listDesabilitar = Period::all();
         $fecha_actual=date('Y-m-d');
         foreach ($listDesabilitar as $val){
-            if($val->fecha_fin<=$fecha_actual)
-                $val->update(['estatus' => 0]);
+            if($val->fecha_fin>=$fecha_actual && $val->fecha_inicio<=$fecha_actual)
+                $val->update(['estatus' => 1]);
+            // if($val->fecha_fin<=$fecha_actual)
+            //     $val->update(['estatus' => 0])
         }
     }
 

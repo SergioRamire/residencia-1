@@ -190,7 +190,9 @@ class BackupController extends Component
     public function restore()
     {
         $filename_without_ext = pathinfo($this->file_path, PATHINFO_FILENAME);
-        Artisan::call("snapshot:load $filename_without_ext");
+        Artisan::call("snapshot:load $filename_without_ext", [
+            '--force' => true
+        ]);
 
         $this->showConfirmationModal = false;
         $this->dispatchBrowserEvent('notify', [
