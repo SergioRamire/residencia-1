@@ -165,13 +165,6 @@ class PeriodCoursesController extends Component
         ]);
     }
 
-    public function periodo_habilitar($id){
-        $this->periodo_id = $id;
-        $this->periods = Period::findOrFail($id);
-        $this->showConfirmationModal = true;
-        $this->confirming_period_habil=true;
-    }
-
     // public function periodo_inhabilitar($id){
     //     $this->periodo_id = $id;
     //     $this->periods = Period::findOrFail($id);
@@ -187,15 +180,6 @@ class PeriodCoursesController extends Component
             ->update(['estatus' => 1]);
         $this->showConfirmationModal = false;
         $this->confirming_period_habil=false;
-    }
-
-    public function evaluar_periodos_activos(){
-        $listDesabilitar = Period::all();
-        $fecha_actual=date('Y/m/d');
-        foreach ($listDesabilitar as $value){
-            if($value->fecha_fin>=$fecha_actual)
-                $value->update(['estatus' => 0]);
-        }
     }
 
     public function inhabilitar(){
