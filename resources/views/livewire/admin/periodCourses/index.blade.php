@@ -127,6 +127,8 @@
             @endif
             @include('livewire.admin.periodCourses.destroy')
             @include('livewire.admin.periodCourses.confirmationStatus')
+            @include('livewire.admin.periodCourses.destroy')
+            @include('livewire.admin.periodCourses.notyOld')
         </div>
     </div>
 </div>

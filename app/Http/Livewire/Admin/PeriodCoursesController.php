@@ -172,12 +172,12 @@ class PeriodCoursesController extends Component
         $this->confirming_period_habil=true;
     }
 
-    public function periodo_inhabilitar($id){
-        $this->periodo_id = $id;
-        $this->periods = Period::findOrFail($id);
-        $this->showConfirmationModal = true;
-        $this->confirming_period_inhabil=true;
-    }
+    // public function periodo_inhabilitar($id){
+    //     $this->periodo_id = $id;
+    //     $this->periods = Period::findOrFail($id);
+    //     $this->showConfirmationModal = true;
+    //     $this->confirming_period_inhabil=true;
+    // }
 
     public function habilitar(){
         $listDesabilitar = Period::all();
@@ -187,6 +187,15 @@ class PeriodCoursesController extends Component
             ->update(['estatus' => 1]);
         $this->showConfirmationModal = false;
         $this->confirming_period_habil=false;
+    }
+
+    public function evaluar_periodos_activos(){
+        $listDesabilitar = Period::all();
+        $fecha_actual=date('Y/m/d');
+        foreach ($listDesabilitar as $value){
+            if($value->fecha_fin>=$fecha_actual)
+                $value->update(['estatus' => 0]);
+        }
     }
 
     public function inhabilitar(){
@@ -209,8 +218,30 @@ class PeriodCoursesController extends Component
         $this->f_f= $fecha_f_1->fecha_fin;
     }
 
+    public function periodo_habilitar($id){
+        $this->periodo_id = $id;
+        $this->periods = Period::findOrFail($id);
+        $fecha_hoy=date('Y-m-d');
+        if ($this->periods->fecha_fin <= $fecha_hoy) {
+            $this->advertencia_periodo = true;
+        }
+        $this->showConfirmationModal = true;
+        $this->confirming_period_habil=true;
+    }
+
+    public function evaluar_periodos_activos(){
+        $listDesabilitar = Period::all();
+        $fecha_actual=date('Y-m-d');
+        foreach ($listDesabilitar as $val){
+            if($val->fecha_fin<=$fecha_actual)
+                $val->update(['estatus' => 0]);
+        }
+    }
+
+
     public function render()
     {
+        $this->evaluar_periodos_activos();
         return view('livewire.admin.periodCourses.index', [
             'datos' => Period::query()
                 ->when($this->filters_1, fn ($query, $b) => $query
