@@ -6,7 +6,7 @@
                 Cursos Intersemestrales
             </h2>
             <div class="flex items-center justify-center">
-                <span class="justify-center">Siempre es un buen momento para aprender</span>
+                <span class="justify-center"></span>
             </div>
         </x-slot>
 
