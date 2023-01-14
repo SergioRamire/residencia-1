@@ -74,8 +74,8 @@ class CourseDetailsController extends Component
         return [
             'curso' => ['required',  'exists:courses,id'],
             'period' => ['required',  'exists:periods,id'],
-            'hora_inicio' => ['required', new Time('07:00:00', '17:00:00')],
-            'hora_fin' => ['required', new Time('08:00:00', '18:00:00')],
+            'hora_inicio' => ['required', new Time('07:00:00', '16:00:00')],
+            'hora_fin' => ['required', new Time('13:00:00', '22:00:00')],
             'lugar' => ['required', 'regex:/^[A-Z,Ñ,a-z,0-9][A-Z,a-z, ,,0-9,.,ñ,Ñ,á,é,í,ó,ú,Á,É,Í,Ó,Ú]+$/', 'max:255'],
             'modalidad' => ['required', 'in:En linea,Presencial,Semi-presencial'],
             'numero_curso'=>['required', 'numeric'],
@@ -276,7 +276,6 @@ class CourseDetailsController extends Component
 
     public function data_send($valor){
         $this->classification['curso'] = $valor;
-        $this->id_detalle_curso = $valor;
     }
 
     public function send_curso($valor){
