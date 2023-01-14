@@ -174,8 +174,6 @@ class PeriodCoursesController extends Component
     }
 
     public function habilitar(){
-        $listDesabilitar = Period::all();
-        foreach ($listDesabilitar as $value){if($value->estatus == 1) {$value->update(['estatus' => 0]);}}
         DB::table('periods')
             ->where('periods.id','=',$this->periodo_id)
             ->update(['estatus' => 1]);
@@ -215,21 +213,8 @@ class PeriodCoursesController extends Component
         }
     }
 
-    public function evaluar_periodos_activos(){
-        $listDesabilitar = Period::all();
-        $fecha_actual=date('Y-m-d');
-        foreach ($listDesabilitar as $val){
-            if($val->fecha_fin>=$fecha_actual && $val->fecha_inicio<=$fecha_actual)
-                $val->update(['estatus' => 1]);
-            // if($val->fecha_fin<=$fecha_actual)
-            //     $val->update(['estatus' => 0])
-        }
-    }
-
-
     public function render()
     {
-        $this->evaluar_periodos_activos();
         return view('livewire.admin.periodCourses.index', [
             'datos' => Period::query()
                 ->when($this->filters_1, fn ($query, $b) => $query

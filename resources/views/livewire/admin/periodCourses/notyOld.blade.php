@@ -3,7 +3,7 @@
         Advertencia
     </x-slot>
     <x-slot name="content">
-        <strong>No se puede acivar un periodo con fechas anteriores a la actual</strong>?
+        <strong>No se puede activar un periodo con fechas anteriores a la actual.</strong>?
     </x-slot>
     <x-slot name="footer">
         <x-jet-secondary-button wire:click="$toggle('advertencia_periodo')" wire:loading.attr="disabled">
