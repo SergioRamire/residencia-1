@@ -23,7 +23,7 @@
                                 <br>
                                 <span class="text-gray-400">Lugar: </span>{{ $c->lugar }}
                                 <br>
-                                <span class="text-gray-400">Duración: </span>{{ $c->duracion }} Hrs.
+                                <span class="text-gray-400">Duración: </span>{{ (int)date('H', strtotime($c->hora_fin)) - (int)date('H', strtotime($c->hora_inicio)) }} hrs.
                                 <br>
                                 <span class="text-gray-400">Perfil: </span>{{ $c->perfil }}
                                 <br>

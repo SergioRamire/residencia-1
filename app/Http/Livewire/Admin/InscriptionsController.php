@@ -210,7 +210,7 @@ class InscriptionsController extends Component
             ->join('groups','course_details.group_id','=','groups.id')
             ->select('periods.fecha_inicio','periods.fecha_fin',
             'course_details.id as curdet','course_details.*',
-            'courses.nombre','courses.perfil','courses.dirigido',
+            'courses.nombre','courses.perfil','courses.dirigido','courses.objetivo',
             'groups.nombre as grupo')
             ->whereIn('course_details.id', $i)
             ->get();
